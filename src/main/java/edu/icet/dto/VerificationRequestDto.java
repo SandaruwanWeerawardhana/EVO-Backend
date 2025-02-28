@@ -30,6 +30,5 @@ public class VerificationRequestDto {
     @Email(message = "Email must be valid format")
     private String email;
     @NotBlank(message = "Phone number cannot be null")
-    @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be valid format")
     private String phoneNumber;
 }
