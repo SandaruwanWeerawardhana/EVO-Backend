@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.URL;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,7 +36,6 @@ public class Supplier {
     @NotEmpty(message = "Description is required")
     private String description;
 
-    @URL(protocol = "https" , message = "Must be HTTPS")
     private String website;
 
 }
