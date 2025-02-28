@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -16,10 +17,9 @@ public class SearchHistory {
     @NotNull
     private Long searchId;
     @PastOrPresent
-    private String date;
+    private LocalDate date;
     @PastOrPresent
     private String time;
-    private String searchType;
     @Size(min = 3,max = 30)
     private String description;
 }
