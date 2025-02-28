@@ -22,7 +22,7 @@ public class ProfilePackages {
 
     @NotNull
     @Size(min =1,max = 30)
-    private String isActive;
+    private boolean isActive;
 
     @NotNull
     @Size(min = 1,max = 500)
