@@ -1,6 +1,6 @@
 package edu.icet.dto;
 
-import edu.icet.utill.ActionType;
+import edu.icet.utill.AuditActionType;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +24,7 @@ public class AuditHistory {
     private Timestamp timestamp;
 
     @NotNull(message = "actionType cannot be null")
-    private ActionType actionType;
+    private AuditActionType actionType;
 
     @NotNull(message = "affectedEntity cannot be null")
     private String affectedEntity;

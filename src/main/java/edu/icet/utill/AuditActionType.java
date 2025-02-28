@@ -1,5 +1,5 @@
 package edu.icet.utill;
 
-public enum ActionType {
+public enum AuditActionType {
     CREATE, UPDATE, DELETE
 }
