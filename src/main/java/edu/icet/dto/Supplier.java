@@ -36,7 +36,7 @@ public class Supplier {
     @NotEmpty(message = "Description is required")
     private String description;
 
-    @URL(protocol = "https")
+    @URL(protocol = "https" , message = "Must be HTTPS")
     private String website;
 
 }
