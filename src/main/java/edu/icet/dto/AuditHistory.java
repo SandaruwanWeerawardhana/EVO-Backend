@@ -1,6 +1,6 @@
 package edu.icet.dto;
 
-import edu.icet.utill.AuditActionType;
+import edu.icet.util.AuditActionType;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;

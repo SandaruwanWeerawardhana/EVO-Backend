@@ -1,5 +1,8 @@
 package edu.icet.util;
 
 public enum EventType {
-    WEEDDING,ANNIVERSARY,BIRTHDAYPARTY,GETTOGETHER
+    WEDDING,
+    BIRTHDAY_PARTIES,
+    GET_TOGETHER,
+    ANNIVERSARIES
 }

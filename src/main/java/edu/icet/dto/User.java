@@ -2,7 +2,7 @@ package edu.icet.dto;
 
 
 
-import edu.icet.utill.UserType;
+import edu.icet.util.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.PastOrPresent;

@@ -1,6 +1,6 @@
 package edu.icet.dto;
 
-import edu.icet.utill.PaymentType;
+import edu.icet.util.PaymentType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;

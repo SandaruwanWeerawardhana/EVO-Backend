@@ -1,5 +1,5 @@
 package edu.icet.dto;
-import edu.icet.utill.AdminType;
+import edu.icet.util.AdminType;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;

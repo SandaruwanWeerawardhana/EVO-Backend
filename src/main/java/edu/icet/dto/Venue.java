@@ -1,6 +1,4 @@
 package edu.icet.dto;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -28,7 +26,6 @@ public class Venue {
 
     @NotNull(message = "Status is required")
     private String status;
-
     @PrePersist
     protected void onCreate() {
         if(this.status == null) {
