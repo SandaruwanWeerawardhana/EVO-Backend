@@ -21,7 +21,7 @@ public class Terms {
     private Long profileId;
 
     @NotBlank
-    @Size(max = 1000)
+    @Size(min = 100)
     private String content;
 
     @NotNull
