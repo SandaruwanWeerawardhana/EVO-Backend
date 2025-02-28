@@ -18,7 +18,7 @@ import lombok.ToString;
 public class User {
 
     @NotEmpty(message = "User ID should not be blank")
-    private Integer userId;
+    private Long userId;
     @NotEmpty(message = "User name should not be blank")
     private String userName;
     private String password;
