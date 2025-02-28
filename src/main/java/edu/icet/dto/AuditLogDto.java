@@ -6,8 +6,7 @@ import jakarta.validation.constraints.NotNull;
 public class AuditLogDto {
 
     @NotNull(message = "Request ID is required")
-    private Integer logId;
+    private Long logId;
     @NotNull(message = "Timestamp is required")
     private String timestamp;
-
 }

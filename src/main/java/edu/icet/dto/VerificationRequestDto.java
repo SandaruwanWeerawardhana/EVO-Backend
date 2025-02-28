@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class VerificationRequestDto {
 
     @NotBlank(message = "Request ID is required")
-    private Integer requestID;
+    private Long requestID;
     @FutureOrPresent(message = "Respond date must be today or future")
     private LocalDate responseDate;
     @PastOrPresent(message = "Submission date must be Today")
