@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnniversariesDto {
+public class Anniversary {
     private Integer eventId;
     @NotNull(message = "anniversaryYear cannot be null")
     private String anniversaryYear;
