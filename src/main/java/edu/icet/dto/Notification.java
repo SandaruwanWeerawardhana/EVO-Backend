@@ -13,7 +13,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -32,9 +32,9 @@ public class Notification {
     @NotNull
     private String status;
     @PastOrPresent(message = "Sent date cannot be in the future")
-    private Date sentAt;
+    private LocalDate sentAt;
     @PastOrPresent(message = "Sent date cannot be in the future")
-    private Date readAt;
+    private LocalDate readAt;
     @NotBlank(message = "Please provide the delivery method")
     private String deliveryMethod;
 
