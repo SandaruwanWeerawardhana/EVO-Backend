@@ -1,11 +1,13 @@
 package edu.icet.dto;
 
+import edu.icet.util.WeddingType;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -13,10 +15,7 @@ import java.time.LocalDate;
 public class Wedding {
     @NotBlank(message = "Id can't be null")
     private String weddingID;
-    @NotBlank(message = "Traditional can't be null")
-    private String traditional;
-    @NotBlank(message = "PhotographerName can't be null")
-    private String photographerName;
+    private WeddingType weddingType;
     @NotBlank(message = "Date can't be null")
     private LocalDate date;
 }
