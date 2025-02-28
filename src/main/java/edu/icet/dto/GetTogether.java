@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class GetTogetherDto {
+public class GetTogether {
     @NotNull(message = "eventID cannot be null")
     private Integer eventID;
     private String description;
