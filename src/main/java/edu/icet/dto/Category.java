@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class Category {
     @NotNull(message = "ID cannot be null")
     @Min(value = 1,message = "ID must be greater than or equal to 1")
-    private long id;
+    private Long id;
     @NotBlank(message = "Name cannot be blank")
     private String name;
 }
