@@ -2,6 +2,7 @@ package edu.icet.dto;
 
 
 
+import edu.icet.utill.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.PastOrPresent;
@@ -25,6 +26,8 @@ public class User {
     private String email;
     @PastOrPresent(message = "Registered date should be in past or present")
     private String registeredDate;
+    @NotEmpty(message = "User type should not be blank")
+    private UserType userType;
 
 
 }
