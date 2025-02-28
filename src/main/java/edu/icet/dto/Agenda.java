@@ -11,7 +11,6 @@ import java.time.LocalTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Agenda {
     @NotNull(message = "Id can't be null")
     private Integer id;
