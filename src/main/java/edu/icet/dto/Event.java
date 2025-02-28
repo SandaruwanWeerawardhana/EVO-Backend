@@ -1,30 +1,30 @@
 package edu.icet.dto;
 
-import edu.icet.utill.EventType;
-import jakarta.validation.constraints.NotBlank;
+import edu.icet.util.BudgetType;
+import edu.icet.util.EventType;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
-import java.time.LocalDate;
+
+import java.sql.Time;
+import java.util.Date;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@AllArgsConstructor
 public class Event {
-    private Long eventId;
-
-    @NotNull(message = "event_name cannot be null")
-    private String eventName;
-
-    @NotNull(message = "event_type cannot be null")
+    private Integer eventId;
+    @NotNull
+    private Date eventDate;
+    @NotNull
+    private Time startTime;
+    @NotNull
+    private Time endTime;
+    private Location location;
+    @NotNull
     private EventType eventType;
-
-    @NotBlank(message = "Location cannot be empty")
-    private String location;
-
-    @PastOrPresent(message = "Event date must be in the Past")
-    @NotNull(message = "Date cannot be null")
-    private LocalDate date;
+    @NotNull
+    private Integer capacity;
+    @NotNull
+    private BudgetType budgetType;
 
 }
