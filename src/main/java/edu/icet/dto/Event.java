@@ -11,7 +11,6 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class Event {
     private Integer eventId;
     @NotNull
@@ -27,4 +26,5 @@ public class Event {
     private Integer capacity;
     @NotNull
     private BudgetType budgetType;
+
 }
