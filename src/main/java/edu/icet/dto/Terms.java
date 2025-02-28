@@ -6,26 +6,27 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+
+import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@ToString
-public class Reply {
-    @NotBlank
-    @Size(min = 1, max = 10)
-    private String replyId;
+@AllArgsConstructor
+public class Terms {
+
+    @NotNull
+    private Long termId;
+
+    @NotNull
+    private Long profileId;
 
     @NotBlank
-    @Size(min = 1, max = 10)
-    private String reviewId;
-
-    @NotBlank
-    @Size(min = 1, max = 10)
-    private String userId;
-
-    @NotBlank
+    @Size(min = 100)
     private String content;
 
+    @NotNull
+    private Boolean isActive;
+
+    @NotNull
+    private LocalDateTime lastUpdated;
 }
