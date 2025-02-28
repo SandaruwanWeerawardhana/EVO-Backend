@@ -15,7 +15,7 @@ import lombok.Setter;
 
 public class BeautySaloon {
     @NotNull
-    private long Id;
+    private Long Id;
 
     @NotBlank
     private String Name;
@@ -42,8 +42,3 @@ public class BeautySaloon {
         }
     }
 }
-
-
-
-
-
