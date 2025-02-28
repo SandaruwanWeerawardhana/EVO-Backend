@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -19,9 +20,9 @@ public class Report {
     private String title;
     private String description;
     @PastOrPresent
-    private String dateCreate;
+    private LocalDate dateCreate;
     @PastOrPresent
-    private String dateModify;
+    private LocalDate dateModify;
     private String category;
 
 }
