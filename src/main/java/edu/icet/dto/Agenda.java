@@ -1,7 +1,6 @@
 package edu.icet.dto;
 
-
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,12 +13,12 @@ import java.time.LocalTime;
 @NoArgsConstructor
 
 public class Agenda {
-    @NotBlank
+    @NotNull(message = "Id can't be null")
     private Integer id;
-    @NotBlank
+    @NotNull(message = "Date can't be null")
     private LocalDate date;
-    @NotBlank
+    @NotNull(message = "Time can't be null")
     private LocalTime time;
-    @NotBlank
+    @NotNull(message = "Agenda Detail can't be null")
     private String agendaDetail;
 }
