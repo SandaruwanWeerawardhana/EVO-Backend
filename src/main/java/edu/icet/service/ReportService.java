@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ReportService {
     boolean saveReport(Report report);
-    boolean updateReport(Report report);
+    boolean updateReport(Long reportId,Report report);
     boolean deleteReportById(Long reportId);
     Report searchReport(long reportId);
     List<Report> getAllReports();
