@@ -5,10 +5,10 @@ import edu.icet.dto.Agenda;
 import java.util.List;
 
 public interface AgendaService {
-    boolean create(Agenda agenda);
-    boolean update(Agenda agenda);
-    boolean delete(Integer id);
+    boolean createAgenda(Agenda agenda);
+    boolean updateAgenda(Agenda agenda);
+    boolean deleteAgenda(Integer id);
     List<Agenda> getAll();
-    Agenda getById(Integer id);
+    Agenda getAgendaById(Integer id);
 
 }
