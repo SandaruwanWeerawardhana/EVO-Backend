@@ -4,12 +4,12 @@ import edu.icet.dto.Supplier;
 import edu.icet.service.SupplierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
+
 @RestController
 @RequestMapping("/supplier")
 @RequiredArgsConstructor
+
 public class SupplierController {
 
     final SupplierService supplierService;
@@ -28,8 +28,8 @@ public class SupplierController {
         supplierService.searchSupplier(id);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Long id){
+    @DeleteMapping("/delete")
+    public void delete(@RequestParam Long id){
         supplierService.deleteSupplier(id);
     }
 
