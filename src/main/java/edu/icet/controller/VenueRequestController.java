@@ -39,5 +39,4 @@ public class VenueRequestController {
     Venue getVenueById(@PathVariable Long id) {
         return venueRequestService.getVenueById(id);
     }
-
 }
