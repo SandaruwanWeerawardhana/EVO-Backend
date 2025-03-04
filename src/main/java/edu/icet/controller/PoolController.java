@@ -18,18 +18,18 @@ public class PoolController {
     final PoolService poolService;
 
     @PostMapping("/add")
-    public void save(@RequestBody Pool pool){
-       poolService.save(pool);
+    public Pool save(@RequestBody Pool pool){
+       return poolService.save(pool);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Long id){
-        poolService.delete(id);
+    public boolean delete(@PathVariable Long id){
+       return poolService.delete(id);
     }
 
     @PutMapping("/update-pool")
-    public void update(@RequestBody Pool pool){
-        poolService.update(pool);
+    public boolean update(@RequestBody Pool pool){
+        return poolService.update(pool);
     }
 
     @GetMapping("/getAll")
