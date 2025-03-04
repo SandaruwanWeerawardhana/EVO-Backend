@@ -15,12 +15,12 @@ public class WeddingController {
     private final WeddingEventService weddingEventService;
 
     @GetMapping("/get/{id}")
-    public Wedding get(@PathVariable String id){
+    public Wedding get(@PathVariable("id") String id){
         return weddingEventService.get(id);
     }
 
     @GetMapping("/get-by-date/{date}")
-    public List<Wedding> get(@PathVariable LocalDate date){
+    public List<Wedding> get(@PathVariable("date") LocalDate date){
         return weddingEventService.getByDate(date);
     }
 
@@ -35,11 +35,11 @@ public class WeddingController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable String id){
+    public boolean delete(@PathVariable("id") String id){
         return weddingEventService.delete(id);
     }
 
-    @RequestMapping("/update")
+    @PutMapping("/update")
     public boolean update(@RequestBody Wedding wedding){
         return weddingEventService.update(wedding);
     }
