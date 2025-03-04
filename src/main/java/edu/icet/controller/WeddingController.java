@@ -42,6 +42,4 @@ public class WeddingController {
     public boolean update(@RequestBody Wedding wedding){
         return weddingEventService.update(wedding);
     }
-
-
 }
