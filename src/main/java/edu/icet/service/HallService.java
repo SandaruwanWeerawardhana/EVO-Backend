@@ -2,8 +2,6 @@ package edu.icet.service;
 
 import edu.icet.dto.Hall;
 import edu.icet.dto.Profile;
-import edu.icet.dto.ProfilePreviousWork;
-
 import java.util.List;
 
 public interface HallService {
