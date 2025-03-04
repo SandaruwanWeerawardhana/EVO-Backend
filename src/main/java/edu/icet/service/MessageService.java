@@ -1,12 +1,12 @@
 package edu.icet.service;
 
+import edu.icet.dto.Chat;
 import edu.icet.dto.Message;
-import edu.icet.dto.Supplier;
 
 import java.util.List;
 
 public interface MessageService {
-    List<Message> getAll();
+    List<Message> getAll(Chat chat);
 
     boolean addMessage(Message message);
 
