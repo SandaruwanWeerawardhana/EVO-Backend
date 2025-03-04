@@ -1,4 +1,5 @@
 package edu.icet.dto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -17,6 +18,6 @@ public class Message {
     private String content;
 
     @NotNull
-    @DateTimeFormat(pattern = "HH,mm,ss")
+    @JsonFormat(pattern = "HH,mm,ss")
     private LocalDateTime sendTime;
 }
