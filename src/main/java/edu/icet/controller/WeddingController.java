@@ -11,8 +11,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/wedding")
 @RequiredArgsConstructor
-public class WeddingEventServiceImpl {
-    final WeddingEventService weddingEventService;
+public class WeddingController {
+    private final WeddingEventService weddingEventService;
 
     @GetMapping("/get/{id}")
     public Wedding get(@PathVariable String id){
