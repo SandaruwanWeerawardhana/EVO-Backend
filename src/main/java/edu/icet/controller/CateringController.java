@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/catering")
+@RequestMapping("/supplier/catering")
 @RequiredArgsConstructor
 @CrossOrigin
 public class CateringController {
