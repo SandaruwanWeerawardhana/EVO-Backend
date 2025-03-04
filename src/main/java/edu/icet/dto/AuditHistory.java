@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuditHistory {
+
     private Long id;
 
     @NotNull(message = "adminId cannot be null")

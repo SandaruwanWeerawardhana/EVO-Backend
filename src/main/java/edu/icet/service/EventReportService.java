@@ -1,6 +1,8 @@
 package edu.icet.service;
 
 import edu.icet.dto.EventReport;
+import edu.icet.util.EventType;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -11,6 +13,6 @@ public interface EventReportService {
     List<EventReport> getAllEventReports();
     List<EventReport> getAllEventReportsByLocation(String location);
     List<EventReport> getAllEventReportsByDate(LocalDate date);
-    List<EventReport> getAllEventReportsByEventType(String eventType);
+    List<EventReport> getAllEventReportsByEventType(EventType eventType);
     boolean deleteEventReportById(Long id);
 }
