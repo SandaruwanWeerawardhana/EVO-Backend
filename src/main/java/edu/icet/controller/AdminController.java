@@ -3,19 +3,19 @@ package edu.icet.controller;
 import edu.icet.dto.Admin;
 import edu.icet.service.AdminService;
 import edu.icet.util.AdminType;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/admin")
+@RequiredArgsConstructor
+@CrossOrigin
 public class AdminController {
-    private final AdminService adminService;
 
-    public AdminController(AdminService adminService) {
-        this.adminService = adminService;
-    }
+    private final AdminService adminService;
 
     @PostMapping("/add")
     public ResponseEntity<Boolean> addAdmin(@RequestBody Admin admin){
@@ -32,12 +32,12 @@ public class AdminController {
         return ResponseEntity.ok(adminService.updateAdmin(adminId,admin));
     }
 
-    @PutMapping("/get/{adminId}")
+    @GetMapping("/get/{adminId}")
     public ResponseEntity<Admin>getAdminById(@PathVariable Integer adminId){
         return ResponseEntity.ok(adminService.getAdminById(adminId));
     }
 
-    @GetMapping("/exists/adminId")
+    @GetMapping("/exists/{adminId}")
     public ResponseEntity<Boolean>adminExits(@PathVariable Integer adminId){
         return ResponseEntity.ok(adminService.adminExists(adminId));
     }
@@ -47,7 +47,7 @@ public class AdminController {
         return ResponseEntity.ok(adminService.countAdmins());
     }
 
-    @PutMapping("/changeType")
+    @PatchMapping("/changeType")
     public ResponseEntity<Boolean>changeAdminType(@RequestParam AdminType type){
         return  ResponseEntity.ok(adminService.changeAdminType(type));
     }
