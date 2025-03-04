@@ -2,8 +2,6 @@ package edu.icet.service;
 
 import edu.icet.dto.Profile;
 import edu.icet.dto.ProfilePreviousWork;
-import edu.icet.dto.Property;
-
 import java.util.List;
 
 public interface ProfilePreviousWorkService {
