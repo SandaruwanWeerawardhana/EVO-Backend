@@ -6,7 +6,7 @@ import edu.icet.dto.Supplier;
 import java.util.List;
 
 public interface MusicService {
-    List<Music> getAll();
+    List<Music> getAll(Supplier supplier);
 
     boolean addMusic(Music music);
 
