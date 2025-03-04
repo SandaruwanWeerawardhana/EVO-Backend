@@ -14,7 +14,7 @@ import java.util.List;
 public class AgendaController {
     AgendaService agendaService;
 
-    @PostMapping("/create")
+    @PostMapping("/add")
     public boolean create(@RequestBody Agenda agenda){
         return agendaService.create(agenda);
     }
