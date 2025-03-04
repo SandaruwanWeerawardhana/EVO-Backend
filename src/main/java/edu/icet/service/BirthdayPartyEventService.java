@@ -6,8 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 public interface BirthdayPartyEventService {
-    BirthdayParty getBirthday (Integer id);
-    BirthdayParty getBirthday (String ownerName);
+    BirthdayParty get (Integer id);
+    BirthdayParty get (String ownerName);
     List<BirthdayParty> getAll ();
     List<BirthdayParty> getAll (Date date);
     //One user can create multiple birthday parties.Though their username get all
