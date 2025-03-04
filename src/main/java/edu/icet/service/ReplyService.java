@@ -14,9 +14,10 @@ public interface ReplyService {
 
     void deleteReplyById(Long replyId);
 
-    Reply searchById(Long replyId);
+    Reply searchReplyById(Long replyId);
 
-    Reply searchByUserId(Long userId);
+    Reply searchReplyByUserId(Long userId);
 
-    void deleteReply(Reply reply);
+    Boolean containsBadWords(String reply);
+
 }
