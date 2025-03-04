@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 @RequestMapping("/user-reports")
 public class UserReportController {
@@ -17,7 +18,6 @@ public class UserReportController {
     public UserReportController(UserReportService userReportService) {
         this.userReportService = userReportService;
     }
-
     @PostMapping("/{id}")
     public ResponseEntity<Boolean> saveUserReport(@PathVariable Long id, @RequestBody UserReport userReport) {
         boolean saved = userReportService.saveUserReport(id, userReport);
