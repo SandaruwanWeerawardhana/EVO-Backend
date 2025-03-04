@@ -1,9 +1,11 @@
 package edu.icet.service;
 
 import edu.icet.dto.Venue;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface VenueRequestService {
 
     Venue create(Venue venue);
@@ -12,7 +14,7 @@ public interface VenueRequestService {
 
     List<Venue> getAllVenues();
 
-    Venue update(Long id,Venue venue);
+    boolean update(Long id,Venue venue);
 
-    void delete(Long id);
+    boolean delete(Long id);
 }
