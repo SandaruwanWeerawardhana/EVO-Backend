@@ -12,7 +12,6 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class Venue {
     @NotEmpty(message = "supplier id can not be null")
     @Positive
