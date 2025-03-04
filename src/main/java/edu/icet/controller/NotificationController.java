@@ -1,6 +1,5 @@
 package edu.icet.controller;
 
-
 import edu.icet.dto.Notification;
 import edu.icet.service.NotificationService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -19,61 +18,95 @@ import java.util.List;
 @CrossOrigin
 
 public class NotificationController {
-    final NotificationService service;
-    @PostMapping("/add")
-    public ResponseEntity<String> addNotification(@Valid @RequestBody Notification notification) {
-        service.createNotification(notification);
-        return ResponseEntity.ok("Successful");
+    private NotificationService service;
+    @PostMapping("/create")
+    public ResponseEntity<Notification> createNotification(@Valid @RequestBody Notification notification) {
+        if(service.createNotification(notification) !=null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/get-all")
     public ResponseEntity<List<Notification>> getAllNotifications() {
         List<Notification> notifications = service.getAllNotification();
-        return ResponseEntity.ok(notifications);
+        if (!notifications.isEmpty()) {
+            return new ResponseEntity<>(notifications, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
     }
 
     @DeleteMapping("/delete/{notificationId}")
     public ResponseEntity<String> deleteNotification(@PathVariable Integer notificationId) {
-        service.deleteNotification(notificationId);
-        return ResponseEntity.ok("Successful");
+        if(service.deleteNotification(notificationId)) {
+            return new ResponseEntity<>("Successful", HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/update-notification")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Notification> updateNotification(@Valid @RequestBody Notification notification) {
-        service.updateNotification(notification.getNotificationId(), notification);
-        return ResponseEntity.ok(notification);
+        if (service.updateNotification(notification.getNotificationId(),notification) !=null) {
+            return new ResponseEntity<>(notification,HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/search-by-notificationId/{notificationId}")
     public ResponseEntity<Notification> getNotificationId(@PathVariable Integer notificationId) {
         Notification notification = service.getNotificationById(notificationId);
-        return ResponseEntity.ok(notification);
+        if (notification != null) {
+            return  new ResponseEntity<>(notification,HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/search-by-type/{type}")
     public ResponseEntity<List<Notification>> getNotificationByType(@PathVariable String type) {
         List<Notification> notifications = service.getNotificationByType(type);
-        return ResponseEntity.ok(notifications);
+        if (!notifications.isEmpty()) {
+            return new ResponseEntity<>(notifications, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/search-by-status/{status}")
     public ResponseEntity<List<Notification>> getNotificationByStatus(@PathVariable String status) {
         List<Notification> notifications = service.getNotificationByStatus(status);
-        return ResponseEntity.ok(notifications);
+        if (!notifications.isEmpty()) {
+            return new ResponseEntity<>(notifications, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @GetMapping("/search-by-delivery/{deliveryMethod}")
     public ResponseEntity<List<Notification>> getNotificationByDeliveryMethod(@PathVariable String deliveryMethod) {
         List<Notification> notifications = service.getNotificationByDeliveryMethod(deliveryMethod);
-        return ResponseEntity.ok(notifications);
+        if (!notifications.isEmpty()) {
+            return new ResponseEntity<>(notifications, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/get-unread")
     public ResponseEntity<List<Notification>> getUnreadNotifications() {
         List<Notification> notifications = service.getUnreadNotifications();
-        return ResponseEntity.ok(notifications);
+        if (!notifications.isEmpty()) {
+            return new ResponseEntity<>(notifications, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 
