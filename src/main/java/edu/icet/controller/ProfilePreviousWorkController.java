@@ -40,4 +40,9 @@ public class ProfilePreviousWorkController {
     public boolean deleteProfile(@RequestBody ProfilePreviousWork previousWork){
         return service.delete(previousWork);
     }
+
+    @GetMapping("/getPreviousWorkById")
+    public ProfilePreviousWork searchPreviousWork(String id){
+        return service.search(id);
+    }
 }
