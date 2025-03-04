@@ -15,5 +15,5 @@ public interface BirthdayPartyEventService {
     Boolean save (BirthdayParty birthdayParty);
     Boolean delete (BirthdayParty birthdayParty);
     Boolean delete (Integer id);
-    Boolean update (BirthdayParty birthdayParty);
+    Boolean update (BirthdayParty bdParty);
 }
