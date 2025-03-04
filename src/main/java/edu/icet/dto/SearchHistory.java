@@ -22,4 +22,5 @@ public class SearchHistory {
     private String time;
     @Size(min = 3,max = 30)
     private String description;
+    private String title;
 }
