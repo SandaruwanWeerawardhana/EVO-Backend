@@ -22,12 +22,10 @@ public class ReviewController {
     @PostMapping("/addReview")
     public ResponseEntity<Review> addByReview(@Valid @RequestBody Review review){
 
-        Review review1 = reviewService.addReview(review);
-        if (review1!=null){
-        return     new ResponseEntity<>(review1,HttpStatus.OK);
-        }else {
-         return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        Review savedReview = reviewService.addReview(review);
+        return (savedReview != null)
+                ? ResponseEntity.status(HttpStatus.CREATED).body(savedReview)
+                : ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
     }
     @GetMapping("/searchByReviewId/{id}")
