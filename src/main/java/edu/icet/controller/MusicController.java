@@ -1,18 +1,14 @@
 package edu.icet.controller;
 
-import edu.icet.dto.Chat;
-import edu.icet.dto.Message;
 import edu.icet.dto.Music;
 import edu.icet.dto.Supplier;
-import edu.icet.service.MessageService;
 import edu.icet.service.MusicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
-@RequestMapping("supplier/music")
+@RequestMapping("/supplier/music")
 @RequiredArgsConstructor
 public class MusicController {
 
@@ -27,13 +23,13 @@ public class MusicController {
         return musicService.getAll(new Supplier());
     }
 
-    @GetMapping("/search/{id}")
-    public Music search(@PathVariable String id){
+    @GetMapping("/search")
+    public Music search(@RequestParam String id){
         return musicService.searchMusic(id);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Long id){
+    @DeleteMapping("/delete")
+    public void delete(@RequestParam Long id){
         musicService.deleteMusic(id);
     }
 

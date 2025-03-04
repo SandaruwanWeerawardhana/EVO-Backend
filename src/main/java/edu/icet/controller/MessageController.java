@@ -5,7 +5,6 @@ import edu.icet.dto.Message;
 import edu.icet.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -24,13 +23,13 @@ public class MessageController {
         return messageService.getAll(new Chat());
     }
 
-    @GetMapping("/search/{id}")
-    public List<Message> search(@PathVariable String id){
+    @GetMapping("/search")
+    public List<Message> search(@RequestParam String id){
         return messageService.searchMessage(id);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Long id){
+    @DeleteMapping("/delete")
+    public void delete(@RequestParam Long id){
         messageService.deleteMessage(id);
     }
 
