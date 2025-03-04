@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/agenda")
+@RequestMapping("/api/agenda")
 @RequiredArgsConstructor
 @CrossOrigin
 public class AgendaController {
