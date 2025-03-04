@@ -9,5 +9,5 @@ public interface AnniversaryEventService {
     List<Anniversary> getAll();
     void delete(Integer eventId);
     void update(Anniversary anniversary);
-    Anniversary searchById(Integer eventId);
+    Anniversary get(Integer eventId);
 }
