@@ -36,7 +36,7 @@ public class AnniversaryEventController {
     }
 
     @DeleteMapping("/delete/{eventId}")
-    public boolean deleteAnniversary(@PathVariable Integer eventId) {
+    public boolean deleteAnniversary(@PathVariable("eventId") Integer eventId) {
        return anniversaryEventService.delete(eventId);
     }
 }
