@@ -1,35 +1,24 @@
 package edu.icet.dto;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+
+import edu.icet.util.VenueType;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import lombok.ToString;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Venue {
-
-    private Long id;
-
-    @NotBlank(message = "Event type is required")
-    private String eventType;
-
-    @NotNull(message = "Date is required")
-    private LocalDate date;
-
-    @NotNull(message = "Time is required")
-    private LocalTime time;
-
-    @NotNull(message = "Status is required")
-    private String status;
-    @PrePersist
-    protected void onCreate() {
-        if(this.status == null) {
-            this.status = "Pending";
-        }
-    }
+    @NotEmpty(message = "supplier id can not be null")
+    @Positive
+    private Long supplierId;
+    @NotEmpty(message = "location can not be null")
+    private String location;
+    @NotEmpty(message = "venue type can not be null")
+    private VenueType type;
 }
