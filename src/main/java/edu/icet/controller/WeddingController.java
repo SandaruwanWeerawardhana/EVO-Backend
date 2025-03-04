@@ -4,7 +4,6 @@ import edu.icet.dto.Wedding;
 import edu.icet.service.WeddingEventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.util.List;
 
