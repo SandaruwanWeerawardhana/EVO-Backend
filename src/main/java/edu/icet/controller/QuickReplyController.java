@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("supplier/QuickReply")
+@RequestMapping("/supplier/QuickReply")
 @CrossOrigin
 public class QuickReplyController {
     final QuickReplyService service;
