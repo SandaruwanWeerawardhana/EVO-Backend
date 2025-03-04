@@ -17,32 +17,32 @@ public class HallController {
     final HallService service;
 
     @PostMapping("/save")
-    public void saveData(Hall hall){
+    public void saveData(@RequestBody Hall hall){
         service.save(hall);
     }
 
-    @GetMapping("/getAll")
-    public List<Hall> getData(Profile profile){
+    @GetMapping("/get-all")
+    public List<Hall> getData(@RequestBody Profile profile){
         return service.getAll(profile);
     }
 
     @PutMapping("/update")
-    public Hall updateHallData(Hall hall){
+    public Hall updateHallData(@RequestBody Hall hall){
         return service.update(hall);
     }
 
-    @GetMapping("/searchHallById")
-    public Hall searchHall(String query){
+    @GetMapping("/search-hall-by-id")
+    public Hall searchHall(@RequestParam String query){
         return service.search(query);
     }
 
-    @DeleteMapping("/deleteById")
-    public boolean deleteHallById(Long id){
+    @DeleteMapping("/delete-by-id")
+    public boolean deleteHallById(@RequestParam Long id){
         return service.delete(id);
     }
 
     @DeleteMapping("/delete")
-    public boolean deleteHall(Hall hall){
+    public boolean deleteHall(@RequestBody Hall hall){
         return service.delete(hall);
     }
 }
