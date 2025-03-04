@@ -1,5 +1,6 @@
 package edu.icet.dto;
 
+import edu.icet.util.AuditActionType;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,10 +11,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class AuditLog {
+public class AuditLogDto {
     @NotNull(message = "Request ID is required")
     private Long logId;
     @NotNull(message = "Timestamp is required")
     private String timestamp;
 
+    private AuditActionType type;
 }
