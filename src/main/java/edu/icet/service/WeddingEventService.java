@@ -1,7 +1,6 @@
 package edu.icet.service;
 
 import edu.icet.dto.Wedding;
-
 import java.time.LocalDate;
 import java.util.List;
 
