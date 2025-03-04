@@ -2,6 +2,7 @@ package edu.icet.dto;
 
 import edu.icet.util.VenueType;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Venue {
+    @NotNull(message ="Id Can't be null" )
     private Long id;
     @NotEmpty(message = "supplier id can not be null")
     @Positive

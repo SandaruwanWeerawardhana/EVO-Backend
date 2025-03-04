@@ -14,7 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VenueRequestController {
 
-
     private final VenueRequestService venueRequestService;
 
     @PostMapping("/add")
