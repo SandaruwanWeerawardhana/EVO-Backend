@@ -10,6 +10,6 @@ public interface VerificationRequestService {
  VerificationRequest findVerificationrequestById(Long id);
  List<VerificationRequest> getAllVerificationRequest();
  boolean deleteVerificationRequest(Long id);
- boolean updateVerificationRequest(VerificationRequest request);
+ boolean updateVerificationRequest(Long requestID,VerificationRequest request);
 
 }
