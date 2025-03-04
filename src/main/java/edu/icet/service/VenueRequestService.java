@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface VenueRequestService {
 
-    Venue createVenueRequest(Venue venue);
+    Venue create(Venue venue);
 
     Venue getVenueById(Long id);
 
     List<Venue> getAllVenues();
 
-    Venue updateVenueRequest(Long id,Venue venue);
+    Venue update(Long id,Venue venue);
 
-    void deleteVenueRequest(Long id);
+    void delete(Long id);
 }
