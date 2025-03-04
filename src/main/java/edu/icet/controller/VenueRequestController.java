@@ -36,7 +36,6 @@ public class VenueRequestController {
         return venueRequestService.update(venue.getId(), venue);
     }
 
-
     @GetMapping("/search/{id}")
     Venue getVenueById(@PathVariable Long id) {
         return venueRequestService.getVenueById(id);
