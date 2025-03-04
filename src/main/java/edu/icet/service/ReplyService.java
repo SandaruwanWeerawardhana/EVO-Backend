@@ -12,9 +12,11 @@ public interface ReplyService {
 
     void updateReply(Reply reply);
 
-    void deleteReplyById(String replyId);
+    void deleteReplyById(Long replyId);
 
-    Reply searchById(String replyId);
+    Reply searchById(Long replyId);
 
     Reply searchByUserId(Long userId);
+
+    void deleteReply(Reply reply);
 }
