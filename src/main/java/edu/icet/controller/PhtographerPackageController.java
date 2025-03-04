@@ -17,8 +17,8 @@ public class PhtographerPackageController {
 
 
     @PostMapping("/add")
-    public void addPhotographerPackage(@RequestBody PhotographerPackage photographerPackage){
-        photographerPackageService.save(photographerPackage);
+    public PhotographerPackage addPhotographerPackage(@RequestBody PhotographerPackage photographerPackage){
+       return photographerPackageService.save(photographerPackage);
     }
 
     @GetMapping("/getAll")
@@ -27,14 +27,14 @@ public class PhtographerPackageController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deletePhotographerPackage(@PathVariable("id") Long id){
-        photographerPackageService.delete(id);
+    public boolean deletePhotographerPackage(@PathVariable("id") Long id){
+        return  photographerPackageService.delete(id);
     }
 
     @PutMapping("/update")
-    public void updatePhotographerPackage(@RequestBody PhotographerPackage photographerPackage){
+    public PhotographerPackage updatePhotographerPackage(@RequestBody PhotographerPackage photographerPackage){
 
-        photographerPackageService.update(photographerPackage);
+        return photographerPackageService.update(photographerPackage);
     }
 
 
