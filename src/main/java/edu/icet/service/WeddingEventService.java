@@ -10,6 +10,5 @@ public interface WeddingEventService {
     boolean delete(String id);
     boolean update(Wedding wedding);
     Wedding get(String id);
-    List<Wedding> getByVenue(String venue);
     List<Wedding> getByDate(LocalDate date);
 }
