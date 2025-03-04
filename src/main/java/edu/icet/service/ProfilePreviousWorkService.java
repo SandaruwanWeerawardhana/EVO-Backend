@@ -1,11 +1,13 @@
 package edu.icet.service;
 
+import edu.icet.dto.Profile;
 import edu.icet.dto.ProfilePreviousWork;
+import edu.icet.dto.Property;
 
 import java.util.List;
 
 public interface ProfilePreviousWorkService {
-    List<ProfilePreviousWork> getAll();
+    List<ProfilePreviousWork> getAll(Profile profile);
     ProfilePreviousWork save(ProfilePreviousWork profilePreviousWork);
     Boolean delete(Long id);
     ProfilePreviousWork search(String query);
