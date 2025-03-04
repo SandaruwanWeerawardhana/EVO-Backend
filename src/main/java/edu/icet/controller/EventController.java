@@ -17,42 +17,42 @@ public class EventController {
     private final EventService eventService;
     @PostMapping("/add")
     public boolean addEvent(@RequestBody Event event) {
-        return service.addEvent(event);
+        return eventService.addEvent(event);
     }
 
     @GetMapping("/get-all")
     public List<Event> getAll() {
-        return service.getAll();
+        return eventService.getAll();
     }
 
     @DeleteMapping("/delete/{id}")
     public boolean deleteEvent(@PathVariable("id") Integer id) {
-        return service.deleteEvent(id);
+        return eventService.deleteEvent(id);
     }
 
     @PutMapping("/update")
     public boolean updateEvent(@RequestBody Integer id) {
-        return service.updateEvent(id);
+        return eventService.updateEvent(id);
     }
 
     @GetMapping("/search/{id}")
     public void searchEvent(@PathVariable("id") Integer id) {
-        service.searchEvent(id);
+        eventService.searchEvent(id);
     }
 
     @PutMapping("/update")
     public boolean updateEvent(@RequestBody Event event) {
-        return service.updateEvent(event, event.getEventId());
+        return eventService.updateEvent(event, event.getEventId());
     }
 
     @GetMapping("/get-by-location")
     public List<Event> getEventByLocation(@RequestBody Location location) {
-        return service.getEventsByLocation(location);
+        return eventService.getEventsByLocation(location);
     }
 
     @GetMapping("/get-event-type/{eventType}")
     public List<Event> getEventsByEventType(@PathVariable("eventType") EventType eventType) {
-        return service.getEventsByEventType(eventType);
+        return eventService.getEventsByEventType(eventType);
     }
 }
 
