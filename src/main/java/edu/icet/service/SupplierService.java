@@ -9,7 +9,7 @@ public interface SupplierService {
 
     boolean addSupplier(Supplier supplier);
 
-    Supplier searchSupplier(Supplier supplier);
+    Supplier searchSupplier(String qurey);
 
     boolean updateSupplier(Supplier supplier);
 
