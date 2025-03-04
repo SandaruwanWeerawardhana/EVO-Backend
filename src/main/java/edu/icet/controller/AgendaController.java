@@ -25,7 +25,7 @@ public class AgendaController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable Integer id){
+    public boolean delete(@PathVariable("id") Integer id){
         return agendaService.delete(id);
     }
 
@@ -35,7 +35,7 @@ public class AgendaController {
     }
 
     @GetMapping("/get/{id}")
-    public Agenda getById(@PathVariable("id")Integer id){
+    public Agenda getById(@PathVariable("id") Integer id){
         return agendaService.getById(id);
     }
 }
