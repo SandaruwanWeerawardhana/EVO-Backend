@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/get-together")
+@RequestMapping("/api/get-together")
 public class GetTogetherEventController {
 
     final GetTogetherEventService service;
