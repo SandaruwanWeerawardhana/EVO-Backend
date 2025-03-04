@@ -19,8 +19,8 @@ public class BeautyPackageController {
     final BeautyPackageService beautyPackageService;
 
     @PostMapping("/add")
-    public void addBeautyPackage(@RequestBody BeautyPackage beautyPackage){
-        beautyPackageService.save(beautyPackage);
+    public BeautyPackage addBeautyPackage(@RequestBody BeautyPackage beautyPackage){
+        return beautyPackageService.save(beautyPackage);
     }
 
     @GetMapping("/getAll")
@@ -29,12 +29,12 @@ public class BeautyPackageController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteBeautyPackage(@PathVariable("id") Long id){
-        beautyPackageService.delete(id);
+    public boolean deleteBeautyPackage(@PathVariable("id") Long id){
+        return beautyPackageService.delete(id);
     }
 
     @PutMapping("/update")
-    public void updateBeautyPackage(@RequestBody BeautyPackage beautyPackage){
-        beautyPackageService.update(beautyPackage);
+    public BeautyPackage updateBeautyPackage(@RequestBody BeautyPackage beautyPackage){
+        return beautyPackageService.update(beautyPackage);
     }
 }

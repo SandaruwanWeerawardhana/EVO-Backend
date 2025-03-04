@@ -20,8 +20,8 @@ public class PhotographerImageController {
     final PhotographerImageService photographerImageService;
 
     @PostMapping("/add")
-    public void addPhotographerImage(@RequestBody PhotographerImage photographerImage){
-        photographerImageService.save(photographerImage);
+    public PhotographerImage addPhotographerImage(@RequestBody PhotographerImage photographerImage){
+       return photographerImageService.save(photographerImage);
     }
 
     @GetMapping("/getAll")
@@ -30,13 +30,13 @@ public class PhotographerImageController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deletePhotographerImage(@PathVariable("id") Long id){
-        photographerImageService.delete(id);
+    public boolean deletePhotographerImage(@PathVariable("id") Long id){
+        return  photographerImageService.delete(id);
     }
 
     @PutMapping("/update")
-    public void updatePhotographerImage(@RequestBody PhotographerImage photographerImage){
-        photographerImageService.update(photographerImage);
+    public PhotographerImage updatePhotographerImage(@RequestBody PhotographerImage photographerImage){
+       return photographerImageService.update(photographerImage);
     }
 
 }

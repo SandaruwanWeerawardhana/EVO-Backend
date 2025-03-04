@@ -19,8 +19,8 @@ public class SalonImageController {
 
 
     @PostMapping("/add")
-    public void addSalonImage(@RequestBody SalonImage salonImage){
-        salonImageService.save(salonImage);
+    public SalonImage addSalonImage(@RequestBody SalonImage salonImage){
+       return salonImageService.save(salonImage);
     }
 
     @GetMapping("/getAll")
@@ -29,13 +29,13 @@ public class SalonImageController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteSalonImage(@PathVariable("id") Long id){
-        salonImageService.delete(id);
+    public boolean deleteSalonImage(@PathVariable("id") Long id){
+        return  salonImageService.delete(id);
     }
 
     @PutMapping("/update")
-    public void updateSalonImage(@RequestBody SalonImage salonImage){
-        salonImageService.update(salonImage);
+    public SalonImage updateSalonImage(@RequestBody SalonImage salonImage){
+        return  salonImageService.update(salonImage);
     }
 
 }
