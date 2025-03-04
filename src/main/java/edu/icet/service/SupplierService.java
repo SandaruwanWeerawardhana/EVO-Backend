@@ -5,7 +5,7 @@ import edu.icet.dto.Supplier;
 import java.util.List;
 
 public interface SupplierService {
-    List<Supplier> getAll(Supplier supplier);
+    List<Supplier> getAll();
 
     boolean addSupplier(Supplier supplier);
 
