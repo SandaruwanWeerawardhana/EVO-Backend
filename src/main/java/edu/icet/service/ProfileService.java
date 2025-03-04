@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProfileService {
-    Profile addProfile(Profile profileDTO);
-    Profile updateProfile(Long profileId, Profile profileDTO);
-    Optional<Profile> getProfileById(Long profileId);
+    Profile addProfile(Profile profile);
+    Profile updateProfile(Profile profile);
+    Optional<Profile> getProfileById(Integer profileId);
     List<Profile> getAllProfiles();
-    void deleteProfile(Long profileId);
+    void deleteProfile(Integer profileId);
     List<Profile> getProfilesByGender(String gender);
     List<Profile> getProfilesByAgeRange(Integer minAge, Integer maxAge);
 }
