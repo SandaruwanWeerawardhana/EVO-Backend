@@ -9,5 +9,5 @@ public interface MessageService {
     Message getMessageById(Long mid);
     boolean isMessageDelivered(Long mid);
     boolean isMessageRead(Long mid);
-    List<Message> searchMessage(Long mid);
+    Message searchMessage(Long mid);
 }
