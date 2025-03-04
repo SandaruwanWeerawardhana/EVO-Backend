@@ -15,8 +15,8 @@ public class BookingSlotController {
     final BookingSlotService bookingSlotService;
 
     @PostMapping("/add")
-    public void add(@RequestBody BookingSlot bookingSlot) {
-        bookingSlotService.save(bookingSlot);
+    public BookingSlot add(@RequestBody BookingSlot bookingSlot) {
+        return bookingSlotService.save(bookingSlot);
     }
 
     @GetMapping("/getAll")
@@ -25,12 +25,12 @@ public class BookingSlotController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void Delete(@PathVariable Long id) {
-        bookingSlotService.delete(id);
+    public boolean Delete(@PathVariable Long id) {
+        return bookingSlotService.delete(id);
     }
 
     @PutMapping("/update-bookingSlot")
-    public void update(@RequestBody BookingSlot bookingSlot){
-        bookingSlotService.update(bookingSlot);
+    public BookingSlot update(@RequestBody BookingSlot bookingSlot){
+       return bookingSlotService.update(bookingSlot);
     }
 }

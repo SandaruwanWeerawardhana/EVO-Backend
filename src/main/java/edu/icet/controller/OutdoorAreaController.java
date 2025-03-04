@@ -15,18 +15,18 @@ public class OutdoorAreaController {
     final OutdoorAreaService outdoorAreaService;
 
     @PostMapping("/add")
-    public void save(@RequestBody OutdoorArea outdoorArea){
-        outdoorAreaService.save(outdoorArea);
+    public OutdoorArea save(@RequestBody OutdoorArea outdoorArea){
+        return outdoorAreaService.save(outdoorArea);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Long id){
-        outdoorAreaService.delete(id);
+    public boolean delete(@PathVariable Long id){
+        return outdoorAreaService.delete(id);
     }
 
     @PutMapping("/update-outdoorArea")
-    public void update(@RequestBody OutdoorArea outdoorArea){
-        outdoorAreaService.update(outdoorArea);
+    public boolean update(@RequestBody OutdoorArea outdoorArea){
+       return outdoorAreaService.update(outdoorArea);
     }
 
     @GetMapping("/getAll")

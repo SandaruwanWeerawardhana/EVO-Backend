@@ -17,8 +17,8 @@ public class PropertyImageController {
     final PropertyImageService propertyImageService;
 
     @PostMapping("/add")
-    public void add(@RequestBody PropertyImage propertyImage) {
-        propertyImageService.save(propertyImage);
+    public PropertyImage add(@RequestBody PropertyImage propertyImage) {
+        return propertyImageService.save(propertyImage);
 
     }
     @GetMapping("/getAll")
@@ -27,14 +27,14 @@ public class PropertyImageController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void Delete(@PathVariable Long id) {
-        propertyImageService.delete(id);
+    public boolean Delete(@PathVariable Long id) {
+        return propertyImageService.delete(id);
 
     }
 
     @PutMapping("/update-propertyImage")
-    public void updateCustomer(@RequestBody PropertyImage propertyImage){
-        propertyImageService.update(propertyImage);
+    public boolean updateCustomer(@RequestBody PropertyImage propertyImage){
+       return propertyImageService.update(propertyImage);
 
     }
 
