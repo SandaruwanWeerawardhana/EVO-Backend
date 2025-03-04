@@ -9,5 +9,4 @@ public interface OutdoorAreaService {
     OutdoorArea save(OutdoorArea outdoorArea);
     Boolean delete(Long id);
     Boolean update(OutdoorArea outdoorArea);
-
 }

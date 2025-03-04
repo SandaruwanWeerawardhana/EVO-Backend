@@ -9,10 +9,4 @@ public interface PoolService {
     Pool save (Pool pool);
     Boolean delete (Long id);
     Boolean update (Pool pool);
-
-
-
-
-
-
 }
