@@ -2,6 +2,7 @@ package edu.icet.controller;
 
 import edu.icet.dto.TransactionHistory;
 import edu.icet.service.TransactionHistoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class TransactionHistoryController {
     final TransactionHistoryService service;
 
     @PostMapping("/save")
-    public ResponseEntity<Boolean> saveTransactionHistory(@RequestBody TransactionHistory history){
+    public ResponseEntity<Boolean> saveTransactionHistory(@Valid @RequestBody TransactionHistory history){
         TransactionHistory transactionHistory = service.save(history);
         return ResponseEntity.ok(transactionHistory==null);
     }
