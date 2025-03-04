@@ -4,7 +4,6 @@ import edu.icet.dto.GetTogether;
 import edu.icet.service.GetTogetherEventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @CrossOrigin
