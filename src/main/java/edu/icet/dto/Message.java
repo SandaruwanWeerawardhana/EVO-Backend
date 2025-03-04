@@ -18,6 +18,6 @@ public class Message {
     private String content;
 
     @NotNull
-    @JsonFormat(pattern = "HH,mm,ss")
+    @JsonFormat(pattern = "HH:mm:ss")
     private LocalDateTime sendTime;
 }
