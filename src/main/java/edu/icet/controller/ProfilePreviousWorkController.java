@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/supplier/PreviousWork")
+@RequestMapping("/supplier/previous-work")
 @CrossOrigin
 @RequiredArgsConstructor
 
@@ -21,7 +21,7 @@ public class ProfilePreviousWorkController {
         service.save(previousWork);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/get-all")
     public List<ProfilePreviousWork> getAll(@RequestBody Profile profile){
         return service.getAll(profile);
     }
@@ -31,8 +31,8 @@ public class ProfilePreviousWorkController {
         return service.update(previousWork);
     }
 
-    @DeleteMapping("/deleteById")
-    public boolean deleteProfileById(@PathVariable Long id){
+    @DeleteMapping("/delete-by-id")
+    public boolean deleteProfileById(@RequestParam Long id){
         return service.delete(id);
     }
 
@@ -41,8 +41,8 @@ public class ProfilePreviousWorkController {
         return service.delete(previousWork);
     }
 
-    @GetMapping("/getPreviousWorkById")
-    public ProfilePreviousWork searchPreviousWork(String id){
+    @GetMapping("/get-previous-work-by-id")
+    public ProfilePreviousWork searchPreviousWork(@RequestParam String id){
         return service.search(id);
     }
 }
