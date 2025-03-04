@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface UserSerivce {
      Boolean saveUser(User user);
-     User getUser(String username);
      Boolean updateUser(User user);
      Boolean deleteUser(String username);
      List<User> getAllUsers();
