@@ -20,6 +20,10 @@ public class QuickReplies {
     private Long replyID;
 
     @NotNull
+    @Positive
+    private Long supplierID;
+
+    @NotNull
     @Size(min = 5 , max = 225)
     private String content;
 
