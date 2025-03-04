@@ -10,7 +10,7 @@ public interface MusicService {
 
     boolean addMusic(Music music);
 
-    Music searchMusic(Music music);
+    Music searchMusic(String qurey);
 
     boolean updateMusic(Music music);
 
