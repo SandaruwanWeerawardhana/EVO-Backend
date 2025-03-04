@@ -7,7 +7,7 @@ import java.util.List;
 public interface VerificationRequestService {
 
  boolean saveVerificationRequest(VerificationRequest request);
- VerificationRequest findVerificationrequestbyId(Long id);
+ VerificationRequest findVerificationrequestById(Long id);
  List<VerificationRequest> getAllVerificationRequest();
  boolean deleteVerificationRequest(Long id);
  boolean updateVerificationRequest(VerificationRequest request);
