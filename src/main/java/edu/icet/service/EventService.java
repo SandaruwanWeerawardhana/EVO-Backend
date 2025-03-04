@@ -1,9 +1,7 @@
 package edu.icet.service;
-
 import edu.icet.dto.Event;
 import edu.icet.dto.Location;
 import edu.icet.util.EventType;
-
 import java.util.List;
 
 public interface EventService {
