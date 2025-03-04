@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/anniversary")
 @RequiredArgsConstructor
+@CrossOrigin
 public class AnniversaryEventController {
 
    private final AnniversaryEventService anniversaryEventService;
