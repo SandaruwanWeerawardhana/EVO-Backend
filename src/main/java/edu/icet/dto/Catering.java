@@ -45,6 +45,5 @@ public class Catering {
     private String address;
 
     @NotBlank(message = "Service availability is required")
-    @Pattern(regexp = "^(Available|Not Available)$", message = "Service availability must be 'Available' or 'Not Available'")
     private String availabilityStatus;
 }
