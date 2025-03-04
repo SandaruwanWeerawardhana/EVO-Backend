@@ -9,21 +9,12 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Setter
+@Getter
 
-
-public class OutdoorArea {
-    private Long id;
+public class PropertyImage {
+    private long id;
     @NotNull
     @NotBlank
-    private String name;
-    @NotNull
-    @NotBlank
-    private double size;
-    private Boolean seatingCapacity;
-    private Boolean lighting;
-    private Boolean weatherProtection;
-
-
+    private String imageUrl;
 }
