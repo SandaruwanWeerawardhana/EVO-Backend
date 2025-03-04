@@ -8,6 +8,7 @@ public interface ProfilePreviousWorkService {
     List<ProfilePreviousWork> getAll();
     ProfilePreviousWork save(ProfilePreviousWork profilePreviousWork);
     Boolean delete(Long id);
+    ProfilePreviousWork search(String query);
     Boolean delete(ProfilePreviousWork profilePreviousWork);
     ProfilePreviousWork update(ProfilePreviousWork profilePreviousWork);
 }
