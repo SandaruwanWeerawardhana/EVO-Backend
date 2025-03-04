@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/verificationRequest")
+@RequestMapping("/supplierverificationRequest")
 @RequiredArgsConstructor
 @CrossOrigin
 public class VerificationRequestController {
