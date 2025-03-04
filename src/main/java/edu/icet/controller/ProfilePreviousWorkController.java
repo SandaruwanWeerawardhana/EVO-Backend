@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/supplier")
+@RequestMapping("/supplier/PreviousWork")
 @CrossOrigin
 @RequiredArgsConstructor
 
@@ -16,7 +16,7 @@ public class ProfilePreviousWorkController {
 
     final ProfilePreviousWorkService service;
 
-    @PostMapping("/save-previousWork")
+    @PostMapping("/save")
     public void saveWork(@RequestBody ProfilePreviousWork previousWork){
         service.save(previousWork);
     }
