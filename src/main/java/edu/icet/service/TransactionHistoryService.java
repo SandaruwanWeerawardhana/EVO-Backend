@@ -12,5 +12,4 @@ public interface TransactionHistoryService {
     boolean deleteTransactionHistoryById(Long id);
     List<TransactionHistory> getTransactionByDate(LocalDate date);
     List<TransactionHistory> getTransactionByUserId(Long id);
-
 }

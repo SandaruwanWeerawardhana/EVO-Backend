@@ -10,5 +10,5 @@ public interface ReplyService {
     List<Reply> getAllReply();
     boolean deleteReplyById(Long id);
     Reply getReplyByReviewId(Long id);
-    Reply getReplyByUserId();
+    Reply getReplyByUserId(Long id);
 }
