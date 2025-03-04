@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @CrossOrigin
 public class AgendaController {
-    AgendaService agendaService;
+    private final AgendaService agendaService;
 
     @PostMapping("/add")
     public boolean create(@RequestBody Agenda agenda){
