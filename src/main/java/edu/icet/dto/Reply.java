@@ -15,15 +15,15 @@ import lombok.ToString;
 public class Reply {
     @NotBlank
     @Size(min = 1, max = 10)
-    private String replyId;
+    private Long replyId;
 
     @NotBlank
     @Size(min = 1, max = 10)
-    private String reviewId;
+    private Long reviewId;
 
     @NotBlank
     @Size(min = 1, max = 10)
-    private String userId;
+    private Long userId;
 
     @NotBlank
     private String content;
