@@ -22,7 +22,6 @@ public class Profile {
     private String email;
 
     @NotBlank(message = "Phone number is required")
-    @Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "Invalid phone number format")
     private String phoneNumber;
 
     @NotBlank(message = "Address is required")
@@ -35,6 +34,5 @@ public class Profile {
     private Integer age;
 
     @NotBlank(message = "Gender is required")
-    @Pattern(regexp = "^(Male|Female|Other)$", message = "Gender must be Male, Female, or Other")
     private String gender;
 }

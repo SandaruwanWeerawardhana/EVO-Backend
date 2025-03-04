@@ -34,7 +34,6 @@ public class Catering {
     private Integer minOrderQuantity;
 
     @NotBlank(message = "Phone number is required")
-    @Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "Invalid phone number format")
     private String phoneNumber;
 
     @NotBlank(message = "Email is required")
