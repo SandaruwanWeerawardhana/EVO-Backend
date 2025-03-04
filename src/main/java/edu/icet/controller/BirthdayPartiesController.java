@@ -12,7 +12,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @CrossOrigin
 public class BirthdayPartiesController {
+
     final BirthdayPartyEventService service;
+
     @PostMapping("/add")
     private void addBirthdayParties (@RequestBody BirthdayParty birthdayParty){
         service.save(birthdayParty);
@@ -39,22 +41,22 @@ public class BirthdayPartiesController {
     }
 
     @DeleteMapping("/delete")
-    public void deleteBirthdayParties(@RequestBody BirthdayParty birthdayParty){
-        service.delete(birthdayParty);
+    public boolean deleteBirthdayParties(@RequestBody BirthdayParty birthdayParty){
+        return service.delete(birthdayParty);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteBirthdayParties(@PathVariable Integer id){
-        service.delete(id);
+    public boolean deleteBirthdayParties(@PathVariable("id") Integer id){
+        return service.delete(id);
     }
 
-    @GetMapping("/get-id")
-    public BirthdayParty getBirthdayPartiesById (@PathVariable Integer id){
+    @GetMapping("/get-id/{id}")
+    public BirthdayParty get (@PathVariable("id") Integer id){
         return service.get(id);
     }
 
-    @GetMapping("/get-name")
-    public BirthdayParty getBirthdayPartiesByName(@PathVariable String ownerName){
+    @GetMapping("/get-name/{ownerName}")
+    public BirthdayParty getByName(@PathVariable("ownerName") String ownerName){
         return service.get(ownerName);
     }
 
