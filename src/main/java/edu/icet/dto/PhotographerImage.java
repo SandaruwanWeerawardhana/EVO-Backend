@@ -7,19 +7,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
+
 @AllArgsConstructor
-@Getter
+@NoArgsConstructor
 @Setter
-
-public class PhotographerPackage {
-
+@Getter
+public class PhotographerImage {
     private Long id;
     @NotNull
     @NotBlank
-    private String name;
-    @NotNull
-    @NotBlank
-    private Double price;
-
+    private String imageUrl;
 }
