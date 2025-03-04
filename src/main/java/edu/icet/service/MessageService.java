@@ -3,8 +3,8 @@ import edu.icet.dto.Message;
 import java.util.List;
 
 public interface MessageService {
-    void sendMessage(Message message);
-    void deleteMessage(Long mid );
+    boolean sendMessage(Message message);
+    boolean deleteMessage(Long mid );
     List<Message> getAllMessages();
     Message getMessageById(Long mid);
     boolean isMessageDelivered(Long mid);
