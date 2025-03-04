@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VerificationRequestDto {
+public class VerificationRequest {
 
     @NotBlank(message = "Request ID is required")
     private Long requestID;
