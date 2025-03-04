@@ -28,11 +28,6 @@ public class ReplyController {
     }
 
 
-//    @PostMapping("/add-reply")
-//    public void addReply(@RequestBody Reply reply){
-//        service.addReply(reply);
-//    }
-
     @GetMapping("/get-all-replies")
        public List<Reply>getAllReplies(){
         return service.getAllReplies();
