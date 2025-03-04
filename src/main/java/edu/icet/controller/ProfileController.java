@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/profiles")
+@RequestMapping("/supplier/profiles")
 @RequiredArgsConstructor
 @CrossOrigin
 public class ProfileController {

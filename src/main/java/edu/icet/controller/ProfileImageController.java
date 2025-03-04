@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/profile-images")
+@RequestMapping("/supplier/profile-images")
 @RequiredArgsConstructor
 @CrossOrigin
 public class ProfileImageController {
