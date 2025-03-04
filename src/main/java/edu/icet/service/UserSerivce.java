@@ -12,6 +12,10 @@ public interface UserSerivce {
      List<User> getAllUsers();
      boolean isUserExist(String username);
      boolean isUserExist(User user);
+     List<String> getUserAddress(String username);
+     List<String> getAllUserAddress();
+     List<User> getLimitUserAddress(Integer limit);
+
 
 
 
