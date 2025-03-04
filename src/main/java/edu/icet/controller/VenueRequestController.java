@@ -4,36 +4,39 @@ import edu.icet.dto.Venue;
 import edu.icet.service.VenueRequestService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/venue")
+@RequiredArgsConstructor
 public class VenueRequestController {
 
-    private VenueRequestService venueRequestService;
+
+    private final VenueRequestService venueRequestService;
 
     @PostMapping("/add")
     Venue create(@RequestBody Venue venue) {
         return venueRequestService.create(venue);
     }
 
-    @GetMapping("/get all")
+    @GetMapping("/get-all")
     public List<Venue> getAllVenues() {
         return venueRequestService.getAllVenues();
     }
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable("id") Long id) {
-        venueRequestService.delete(id);
+    boolean delete(@PathVariable("id") Long id) {
+        return venueRequestService.delete(id);
     }
 
     @PutMapping("/update/{id}")
-    Venue update(@PathVariable Long id,@RequestBody Venue venue) {
-        return venueRequestService.update(id,venue);
+    boolean update(@RequestBody Venue venue) {
+        return venueRequestService.update(venue.getId(), venue);
     }
+
 
     @GetMapping("/search/{id}")
     Venue getVenueById(@PathVariable Long id) {

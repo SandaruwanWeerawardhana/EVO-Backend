@@ -14,6 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Venue {
+    private Long id;
     @NotEmpty(message = "supplier id can not be null")
     @Positive
     private Long supplierId;
