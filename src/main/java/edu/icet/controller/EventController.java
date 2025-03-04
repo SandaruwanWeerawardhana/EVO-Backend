@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/event")
+@RequestMapping("/api/event")
 @RequiredArgsConstructor
+@CrossOrigin
 public class EventController {
-    final EventService service;
-
+    private final EventService eventService;
     @PostMapping("/add")
     public boolean addEvent(@RequestBody Event event) {
         return service.addEvent(event);
@@ -36,7 +36,7 @@ public class EventController {
     }
 
     @GetMapping("/search/{id}")
-    public void searchEvent(@PathVariable Integer id) {
+    public void searchEvent(@PathVariable("id") Integer id) {
         service.searchEvent(id);
     }
 
@@ -51,7 +51,7 @@ public class EventController {
     }
 
     @GetMapping("/get-event-type/{eventType}")
-    public List<Event> getEventsByEventType(@PathVariable EventType eventType) {
+    public List<Event> getEventsByEventType(@PathVariable("eventType") EventType eventType) {
         return service.getEventsByEventType(eventType);
     }
 }
