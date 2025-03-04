@@ -35,7 +35,7 @@ public class AgendaController {
     }
 
     @GetMapping("/get/{id}")
-    public Agenda getById(@PathVariable Integer id){
+    public Agenda getById(@PathVariable("id")Integer id){
         return agendaService.getById(id);
     }
 }
