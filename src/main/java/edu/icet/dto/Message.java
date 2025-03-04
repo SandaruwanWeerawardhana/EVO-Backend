@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class Message {
     private Long mid;
 
+    @NotNull
     @NotBlank(message = "Content may not be empty")
     private String content;
 
