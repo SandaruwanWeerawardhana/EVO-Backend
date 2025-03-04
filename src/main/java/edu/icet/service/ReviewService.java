@@ -11,6 +11,5 @@ public interface ReviewService {
     Review searchByIdReview(long id);
     void updateByReview(long id,Review review);
     void deleteByReview(long id);
-    Review addAnonymousReview(long id, String comment, Rating rating);
-    Map<String,Long>getBySummaryForReview(long id);
+    Map<String,Long>getBySummaryFilterReview(long id);
 }

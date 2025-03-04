@@ -1,14 +1,13 @@
+
 package edu.icet.dto;
 
 import edu.icet.util.Category;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
+        import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import static edu.icet.util.Category.CATERING;
 
 @Data
 @AllArgsConstructor
