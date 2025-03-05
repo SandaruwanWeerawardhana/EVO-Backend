@@ -28,7 +28,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/delete/{adminId}")
-    public ResponseEntity<String>deleteAdmin(@PathVariable Integer adminId){
+    public ResponseEntity<String> deleteAdmin(@PathVariable Integer adminId){
        boolean deleteAdmin = adminService.deleteAdmin(adminId);
        if (deleteAdmin) {
            return new ResponseEntity<>(HttpStatus.OK);
@@ -38,8 +38,8 @@ public class AdminController {
            
     }
     
-       @PutMapping("/update/{adminId}")
-    public ResponseEntity<String>updateAdmin(@PathVariable Integer adminId,@RequestBody Admin admin){
+    @PutMapping("/update/{adminId}")
+    public ResponseEntity<String> updateAdmin(@PathVariable Integer adminId,@RequestBody Admin admin){
         boolean updateAdmin = adminService.updateAdmin(adminId, admin);
         if (updateAdmin){
             return new ResponseEntity<>(HttpStatus.OK);
@@ -49,17 +49,17 @@ public class AdminController {
     }
 
     @GetMapping("/get/{adminId}")
-    public ResponseEntity<String>getAdminById(@PathVariable Integer adminId){
-       boolean getAdmin = adminService.getAdminById(adminId);
+    public ResponseEntity<Admin> getAdminById(@PathVariable Integer adminId){
+       Admin admin = adminService.getAdminById(adminId);
        if (getAdmin){
-           return new ResponseEntity<>(HttpStatus.OK);
+           return new ResponseEntity<>(admin,HttpStatus.OK);
        }else{
            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
        }
     }
 
     @GetMapping("/exists/{adminId}")
-    public ResponseEntity<String>adminExits(@PathVariable Integer adminId){
+    public ResponseEntity<String> adminExits(@PathVariable Integer adminId){
         boolean existsAdmin = adminService.adminExists(adminId);
         if (existsAdmin) {
             return new ResponseEntity<>(HttpStatus.OK);
@@ -69,10 +69,10 @@ public class AdminController {
     }
 
     @GetMapping("/count")
-    public ResponseEntity<List<Admin>> countAdmins() {
-        boolean adminCount = adminService.countAdmins();
+    public ResponseEntity<Integer> countAdmins() {
+        Integer adminCount = adminService.countAdmins();
         if (adminCount) {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(adminCount,HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -90,9 +90,9 @@ public class AdminController {
 
     @GetMapping("/type/{type}")
     public  ResponseEntity<List<Admin>>getAdminByType(){
-       List<Admin> AdminByType = adminService.getAdminByType();
+       List<Admin> AdminsByType = adminService.getAdminByType();
        if (AdminByType != null){
-           return new ResponseEntity<>(AdminByType,HttpStatus.OK);
+           return new ResponseEntity<>(AdminsByType,HttpStatus.OK);
        }else{
            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
