@@ -1,5 +1,6 @@
 package edu.icet.dto;
 
+import edu.icet.util.ReportType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
@@ -24,5 +25,6 @@ public class Report {
     @PastOrPresent
     private LocalDate dateModify;
     private String category;
+    private ReportType reportType;
 
 }
