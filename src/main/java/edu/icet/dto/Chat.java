@@ -1,6 +1,7 @@
 package edu.icet.dto;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,12 @@ public class Chat {
     @NotEmpty
     private Integer id;
     @NotEmpty
-    private String customer;
+    @Positive
+    private Integer customerId;
     @NotEmpty
-    private String supplier;
+    @Positive
+    private Integer supplierId;
 }
+
+
+

@@ -1,0 +1,46 @@
+package edu.icet.controller;
+
+import edu.icet.dto.Property;
+import edu.icet.service.PropertyService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+@CrossOrigin
+@RequiredArgsConstructor
+@RequestMapping("/supplier/property")
+@RestController
+
+public class PropertyController {
+    final PropertyService service;
+
+    @PostMapping("/save")
+    public void saveProperty(@RequestBody Property property){
+        service.save(property);
+    }
+
+    @GetMapping("/get-all")
+    public List<Property> getAll(){
+        return service.getAll();
+    }
+
+    @GetMapping("/search")
+    public Property searchProperty(@RequestParam String query){
+        return service.search(query);
+    }
+
+    @PutMapping("/update")
+    public Property updateProperty(@RequestBody Property property){
+        return service.update(property);
+    }
+
+    @DeleteMapping("/delete-by-id")
+    public boolean deleteById(@RequestParam Long id){
+        return service.delete(id);
+    }
+
+    @DeleteMapping("/delete")
+    public boolean delete(@RequestBody Property property){
+        return service.delete(property);
+    }
+}
