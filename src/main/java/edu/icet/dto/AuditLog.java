@@ -11,7 +11,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class AuditLogDto {
+public class AuditLog {
     @NotNull(message = "Request ID is required")
     private Long logId;
     @NotNull(message = "Timestamp is required")
