@@ -10,5 +10,5 @@ public interface AdminService {
      boolean adminExists(Integer adminID);
      boolean countAdmins();
      List<Admin>getAllAdmins();
-     List<Admin>getAdminByType();
+     List<Admin>getAdminByType(AdminType);
 }
