@@ -90,8 +90,8 @@ public class AdminController {
     }
 
     @GetMapping("/get-type/{type}")
-    public  ResponseEntity<List<Admin>>getAdminByType(){
-       List<Admin> AdminsByType = adminService.getAdminByType(@PathVariable String type );
+    public  ResponseEntity<List<Admin>>getAdminByType(@PathVariable("type") String type ){
+       List<Admin> AdminsByType = adminService.getAdminByType(AdminType.valueOf(type));
        if (AdminsByType != null){
            return new ResponseEntity<>(AdminsByType,HttpStatus.OK);
        }else{

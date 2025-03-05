@@ -1,7 +1,6 @@
 package edu.icet.service;
 
 import edu.icet.dto.VerificationRequest;
-
 import java.util.List;
 
 public interface VerificationRequestService {
@@ -11,5 +10,4 @@ public interface VerificationRequestService {
  List<VerificationRequest> getAllVerificationRequest();
  boolean deleteVerificationRequest(Long id);
  boolean updateVerificationRequest(Long requestID,VerificationRequest request);
-
 }
