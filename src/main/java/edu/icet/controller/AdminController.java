@@ -2,6 +2,7 @@ package edu.icet.controller;
 
 import edu.icet.dto.Admin;
 import edu.icet.service.AdminService;
+import edu.icet.util.AdminType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,7 +52,7 @@ public class AdminController {
     @GetMapping("/get/{adminId}")
     public ResponseEntity<Admin> getAdminById(@PathVariable Integer adminId){
        Admin admin = adminService.getAdminById(adminId);
-       if (getAdmin){
+       if (admin!=null){
            return new ResponseEntity<>(admin,HttpStatus.OK);
        }else{
            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -71,7 +72,7 @@ public class AdminController {
     @GetMapping("/count")
     public ResponseEntity<Integer> countAdmins() {
         Integer adminCount = adminService.countAdmins();
-        if (adminCount) {
+        if (adminCount>0) {
             return new ResponseEntity<>(adminCount,HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -88,10 +89,10 @@ public class AdminController {
 
     }
 
-    @GetMapping("/type/{type}")
+    @GetMapping("/get-type/{type}")
     public  ResponseEntity<List<Admin>>getAdminByType(){
-       List<Admin> AdminsByType = adminService.getAdminByType();
-       if (AdminByType != null){
+       List<Admin> AdminsByType = adminService.getAdminByType(@PathVariable String type );
+       if (AdminsByType != null){
            return new ResponseEntity<>(AdminsByType,HttpStatus.OK);
        }else{
            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
