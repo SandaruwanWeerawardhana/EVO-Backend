@@ -16,7 +16,7 @@ import java.util.List;
 @CrossOrigin
 public class MessageController{
 
-    private MessageService messageService;
+    private final MessageService messageService;
 
     @PostMapping("/send")
     public ResponseEntity<String> sendMessage(@Valid @RequestBody Message message){
