@@ -6,9 +6,9 @@ public interface AdminService {
      boolean addAdmin (Admin admin);
      boolean deleteAdmin (Integer adminID);
      boolean updateAdmin(Integer adminID,Admin admin);
-     boolean getAdminById(Integer adminID);
+     Admin getAdminById(Integer adminID);
      boolean adminExists(Integer adminID);
-     boolean countAdmins();
+     Integer countAdmins();
      List<Admin>getAllAdmins();
-     List<Admin>getAdminByType(AdminType);
+     List<Admin>getAdminByType(AdminType type);
 }
