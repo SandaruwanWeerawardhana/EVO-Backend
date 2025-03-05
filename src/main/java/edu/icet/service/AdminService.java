@@ -12,5 +12,5 @@ public interface AdminService {
      int countAdmins();
      boolean changeAdminType(Integer adminID, AdminType type);
      List<Admin>getAllAdmins();
-     List<Admin>getAdminByType(String type);
+     List<Admin>getAdminByType(AdminType type);
 }
