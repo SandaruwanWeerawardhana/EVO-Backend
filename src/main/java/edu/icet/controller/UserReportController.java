@@ -1,62 +1,68 @@
 package edu.icet.controller;
 
 import edu.icet.dto.UserReport;
-import edu.icet.repository.UserReportService;
-import edu.icet.util.UserType;
-import org.springframework.beans.factory.annotation.Autowired;
+import edu.icet.service.UserReportService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
-@RequestMapping("/user-reports")
+@RequestMapping("/user-report")
+@RequiredArgsConstructor
 public class UserReportController {
 
     private final UserReportService userReportService;
 
-    public UserReportController(UserReportService userReportService) {
-        this.userReportService = userReportService;
-    }
-    @PostMapping("/{id}")
-    public ResponseEntity<Boolean> saveUserReport(@PathVariable Long id, @RequestBody UserReport userReport) {
-        boolean saved = userReportService.saveUserReport(id, userReport);
-        return ResponseEntity.ok(saved);
+    @PostMapping("/save")
+    public ResponseEntity<String> saveUserReport(@Valid @RequestBody UserReport userReport, HttpServletRequest request) {
+        if (userReportService.saveUserReport(userReport)) {
+            String ip = request.getRemoteAddr();
+            log.info("Request Received IP: {} | Added UserReport: {}", ip, userReport);
+            return ResponseEntity.ok("User report saved successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Try again! Cannot add user report.");
+        }
     }
 
-    @GetMapping("/{id}")
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> updateUserReport(@PathVariable Long id, @Valid @RequestBody UserReport userReport, HttpServletRequest request) {
+        if (userReportService.updateUserReport(id, userReport)) {
+            String ip = request.getRemoteAddr();
+            log.info("Request Received IP: {} | Updated UserReport: {}", ip, userReport);
+            return ResponseEntity.ok("User report updated successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Try again! Cannot update user report.");
+        }
+    }
+
+    @GetMapping("/get/{id}")
     public ResponseEntity<UserReport> getUserReportById(@PathVariable Long id) {
-        UserReport report = userReportService.getUserReportById(id);
-        return ResponseEntity.ok(report);
+        UserReport userReport = userReportService.getUserReportById(id);
+        return (userReport != null) ? ResponseEntity.ok(userReport) : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<UserReport>> getAllUserReports() {
-        List<UserReport> reports = userReportService.getAllUserReports();
-        return ResponseEntity.ok(reports);
+        List<UserReport> userReports = userReportService.getAllUserReports();
+        return (!userReports.isEmpty()) ? ResponseEntity.ok(userReports) : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UserReport> updateUserReport(@PathVariable Long id, @RequestBody UserReport userReport) {
-        UserReport updatedReport = userReportService.updateUserReport(id, userReport);
-        return ResponseEntity.ok(updatedReport);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteUserReport(@PathVariable Long id) {
-        boolean deleted = userReportService.deleteUserReport(id);
-        return ResponseEntity.ok(deleted);
-    }
-
-    @GetMapping("/search/by-name")
-    public ResponseEntity<List<UserReport>> findByName(@RequestParam String name) {
-        List<UserReport> reports = userReportService.findByName(name);
-        return ResponseEntity.ok(reports);
-    }
-
-    @GetMapping("/search/by-user-type")
-    public ResponseEntity<List<UserReport>> findByUserType(@RequestParam UserType userType) {
-        List<UserReport> reports = userReportService.findByUserType(userType);
-        return ResponseEntity.ok(reports);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteUserReportById(@PathVariable Long id, HttpServletRequest request) {
+        if (userReportService.deleteUserReportById(id)) {
+            String ip = request.getRemoteAddr();
+            log.info("Request Received IP: {} | Deleted UserReport ID: {}", ip, id);
+            return ResponseEntity.ok("User report deleted successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).
+                    body("Try again! Cannot delete user report.");
+        }
     }
 }
