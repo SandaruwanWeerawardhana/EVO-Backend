@@ -9,12 +9,12 @@ public interface NotificationService {
     Notification createNotification(Notification notification);
     Notification getNotificationById(Integer notificationId);
     Notification updateNotification(Integer notificationId, Notification notification);
-    void deleteNotification(Integer notificationId);
+    boolean deleteNotification(Integer notificationId);
     List<Notification> getAllNotification();
     List<Notification> getNotificationByType(String type);
     List<Notification> getNotificationByStatus(String status);
     List<Notification> getNotificationByDeliveryMethod(String deliveryMethod);
-    void markAsRead(Integer notificationId);
+    boolean markAsRead(Integer notificationId);
     List<Notification> getUnreadNotifications();
 }
 

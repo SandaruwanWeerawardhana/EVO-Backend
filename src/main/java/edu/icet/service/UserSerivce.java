@@ -8,9 +8,9 @@ import java.util.List;
 public interface UserSerivce {
      Boolean saveUser(User user);
      Boolean updateUser(Long userId,User user);
-     Boolean deleteUser(String username);
+     Boolean deleteUser(Long userId);
      List<User> getAllUsers();
-     boolean isUserExist(String username);
+     boolean isUserExist(Long userId);
      boolean isUserExist(User user);
      List<String> getUserAddress(String username);
      List<String> getAllUserAddress();
