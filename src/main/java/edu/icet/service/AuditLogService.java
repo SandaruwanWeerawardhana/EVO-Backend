@@ -1,12 +1,12 @@
 package edu.icet.service;
 
-import edu.icet.dto.AuditLogDto;
+import edu.icet.dto.AuditLog;
 
 import java.util.List;
 
 public interface AuditLogService {
-   void saveAuditLog(AuditLogDto auditLogDto);
-   AuditLogDto getAuditLogById(Long logId);
-   List<AuditLogDto> getAllAuditLogs();
-   void deleteAuditLog(Long logId);
+   boolean saveAuditLog(AuditLog auditLog);
+   AuditLog getAuditLogById(Long logId);
+   List<AuditLog> getAllAuditLogs();
+   boolean deleteAuditLog(Long logId);
 }

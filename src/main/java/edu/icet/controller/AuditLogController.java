@@ -1,10 +1,10 @@
 package edu.icet.controller;
 
-import edu.icet.dto.AuditLogDto;
+import edu.icet.dto.AuditLog;
 import edu.icet.service.AuditLogService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,31 +22,34 @@ public class AuditLogController {
     }
 
     @PostMapping
-    public ResponseEntity<String> saveAuditLog(@RequestBody AuditLogDto auditLogDto){
-        auditLogService.saveAuditLog(auditLogDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Audit log saved successfully.");
+    public ResponseEntity<String> saveAuditLog(@RequestBody AuditLog auditLog){
+        boolean isSaved = auditLogService.saveAuditLog(auditLog);
+        if (isSaved) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("Audit log saved successfully.");
+        }else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save the audit log.");
+        }
     }
 
     @GetMapping("/{logId}")
-    public ResponseEntity<AuditLogDto> getAuditLogById(@PathVariable Long logId){
-        AuditLogDto auditLogDto=auditLogService.getAuditLogById(logId);
-        return auditLogDto!=null?ResponseEntity.ok(auditLogDto):ResponseEntity.notFound().build();
+    public ResponseEntity<AuditLog> getAuditLogById(@PathVariable Long logId){
+        AuditLog auditLog =auditLogService.getAuditLogById(logId);
+        return auditLog !=null?ResponseEntity.ok(auditLog):ResponseEntity.notFound().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<AuditLogDto>> getAllAuditLogs(){
-        List<AuditLogDto> auditLogDtoList=auditLogService.getAllAuditLogs();
-        return auditLogDtoList.isEmpty()?ResponseEntity.noContent().build():ResponseEntity.ok(auditLogDtoList);
+    public ResponseEntity<List<AuditLog>> getAllAuditLogs(){
+        List<AuditLog> auditLogList =auditLogService.getAllAuditLogs();
+        return auditLogList.isEmpty()?ResponseEntity.noContent().build():ResponseEntity.ok(auditLogList);
     }
 
     @DeleteMapping("/{logId}")
    public ResponseEntity<String> deleteAuditLog(@PathVariable Long logId){
-  AuditLogDto auditLogDto= auditLogService.getAuditLogById(logId);
-  if(auditLogDto==null){
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Audit log not found");
-  }else{
-      auditLogService.deleteAuditLog(logId);
-      return ResponseEntity.ok("Audit log deleted successfully");
-  }
+        boolean isDeleted = auditLogService.deleteAuditLog(logId);
+        if(isDeleted){
+        return ResponseEntity.status(HttpStatus.OK).body("Audit log deleted successfully.");
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Audit log not found.");
+        }
     }
-}
+    }
