@@ -2,10 +2,12 @@ package edu.icet.service.impl;
 
 import edu.icet.dto.MusicPackage;
 import edu.icet.service.MusicPackageService;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class MusicPackageServiceImpl implements MusicPackageService {
    private List<MusicPackage> musicPackageList = new ArrayList<>();
     @Override
