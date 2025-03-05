@@ -6,3 +6,4 @@ public enum EventType {
     GET_TOGETHER,
     ANNIVERSARIES
 }
+
