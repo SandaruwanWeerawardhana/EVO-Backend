@@ -23,4 +23,6 @@ public class SearchHistory {
     @Size(min = 3,max = 30)
     private String description;
     private String title;
+    //private Customer customerId;
+
 }

@@ -43,33 +43,24 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public void updateByReview(long id, Review review) {
-
+    public boolean updateByReview(long id, Review review) {
         validateReview(review);
-
-        boolean updated = false;
-        for (Review review1 : reviewList) {
-            if (review1.getReviewId() == id) {
-                review1.setDate(review.getDate());
-                review1.setRating(review.getRating());
-                review1.setComment(review.getComment());
-                updated = true;
-
+        for (int i = 0; i < reviewList.size(); i++) {
+            if (reviewList.get(i).getReviewId() == id) {
+                reviewList.set(i, review);
+                return true;
             }
         }
-
-        if (!updated) {
-            throw new NoSuchElementException( id + " not found  !!");
-        }
-
+        throw new NoSuchElementException("Review with ID " + id + " not found!");
     }
 
     @Override
-    public void deleteByReview(long id) {
+    public boolean deleteByReview(long id) {
         boolean removed =  reviewList.remove(id);
             if (!removed) {
                 throw new NoSuchElementException( id + " not found !!");
             }
+        return removed;
     }
 
     @Override

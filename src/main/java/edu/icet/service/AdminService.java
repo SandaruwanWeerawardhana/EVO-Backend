@@ -9,8 +9,7 @@ public interface AdminService {
      boolean updateAdmin(Integer adminID,Admin admin);
      Admin getAdminById(Integer adminID);
      boolean adminExists(Integer adminID);
-     int countAdmins();
-     boolean changeAdminType(AdminType type);
+     Integer countAdmins();
      List<Admin>getAllAdmins();
-     List<Admin>getAdminByType(String type);
+     List<Admin>getAdminByType(AdminType type);
 }
