@@ -1,17 +1,19 @@
 package edu.icet.dto;
-import edu.icet.util.AdminType;
+
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@ToString
-public class Admin {
+
+public class Property {
+    private Long propertyId;
+
     @NotNull
-    private Integer adminId;
-    @NotNull
-    private AdminType type;
+    @NotBlank(message = "Name may not be empty!")
+    private String name;
 }
