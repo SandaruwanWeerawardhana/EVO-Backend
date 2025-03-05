@@ -3,7 +3,6 @@ package edu.icet.service.impl;
 import edu.icet.dto.Admin;
 import edu.icet.service.AdminService;
 import edu.icet.util.AdminType;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Primary;
@@ -66,7 +65,7 @@ public class AdminServiceImpl implements AdminService {
         return false;
     }
     @Override
-    public int countAdmins() {
+    public Integer countAdmins() {
       return adminRepository.size();
     }
 

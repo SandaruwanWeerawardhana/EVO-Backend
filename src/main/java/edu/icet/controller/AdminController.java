@@ -90,12 +90,12 @@ public class AdminController {
     }
 
     @GetMapping("/get-type/{type}")
-    public  ResponseEntity<List<Admin>>getAdminByType(){
-       List<Admin> AdminsByType = adminService.getAdminByType(@PathVariable String type );
-       if (AdminsByType != null){
-           return new ResponseEntity<>(AdminsByType,HttpStatus.OK);
-       }else{
-           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<List<Admin>> getAdminByType(@PathVariable("type") String type) {
+        List<Admin> adminsByType = adminService.getAdminByType(AdminType.valueOf(type));
+        if (adminsByType != null && !adminsByType.isEmpty()) {
+            return new ResponseEntity<>(adminsByType, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }
