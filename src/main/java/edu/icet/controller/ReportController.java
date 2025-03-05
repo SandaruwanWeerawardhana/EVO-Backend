@@ -37,7 +37,7 @@ public class ReportController {
 
 
     @PutMapping("/update/{reportId}")
-    public ResponseEntity<String> updateReport(@PathVariable Long reportId,@Valid @RequestBody Report report) {
+    public ResponseEntity<String> updateReport(@PathVariable Long reportId, @Valid @RequestBody Report report) {
         if (service.updateReport(reportId, report)) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
@@ -53,6 +53,7 @@ public class ReportController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @GetMapping("/search/{reportId}")
     public ResponseEntity<Report> searchReport(@PathVariable Long reportId) {
         Report report = service.searchReport(reportId);
@@ -62,6 +63,7 @@ public class ReportController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @GetMapping("/getAll")
     public ResponseEntity<List<Report>> getAll() {
         List<Report> allReports = service.getAllReports();
@@ -73,11 +75,11 @@ public class ReportController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<List<Report>>getFilterReports(ReportType reportType){
+    public ResponseEntity<List<Report>> getFilterReports(ReportType reportType) {
         List<Report> filterReports = service.getFillterReports(reportType);
-        if(filterReports != null){
-            return new ResponseEntity<>(filterReports,HttpStatus.OK);
-        }else {
+        if (filterReports != null) {
+            return new ResponseEntity<>(filterReports, HttpStatus.OK);
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
