@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 public class Admin {
     @NotNull
-    private Integer AdminID;
+    private Integer adminId;
     @NotNull
-    private AdminType Type;
+    private AdminType type;
 }
