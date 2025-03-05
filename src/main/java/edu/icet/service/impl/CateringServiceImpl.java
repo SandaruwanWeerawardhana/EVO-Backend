@@ -2,50 +2,59 @@ package edu.icet.service.impl;
 
 import edu.icet.dto.Catering;
 import edu.icet.service.CateringService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class CateringServiceImpl implements CateringService {
-    final CateringDao cateringDao;
+    final List<Catering> cateringList = new ArrayList<>();
 
     @Override
-    public Catering addCatering(Catering cateringDTO) {
-        return CateringDao.save(catering);
+    public Catering addCatering(Catering catering) {
+        cateringList.add(catering);
+        return catering;
     }
 
     @Override
-    public Catering updateCatering(Catering cateringDTO) {
-        if (catering.getCateringId() == null || !CateringDao.existsById(catering.getCateringId())) {
-            throw new EntityNotFoundException("Catering service not found");
+    public Catering updateCatering(Catering catering) {
+        for (int i = 0; i < cateringList.size(); i++) {
+            if (cateringList.get(i).getCateringId().equals(catering.getCateringId())) {
+                cateringList.set(i, catering);
+                return catering;
+            }
         }
-        return CateringDao.save(catering);
+        throw new RuntimeException("Catering service not found");
     }
 
     @Override
     public Optional<Catering> getCateringById(Integer cateringId) {
-        return CateringDao.findById(cateringId);
+        return cateringList.stream()
+                .filter(catering -> catering.getCateringId().equals(cateringId))
+                .findFirst();
     }
 
     @Override
     public List<Catering> getAllCatering() {
-        return CateringDao.findAll();
+        return new ArrayList<>(cateringList);
     }
 
     @Override
     public void deleteCatering(Integer cateringId) {
-        if (!CateringDao.existsById(cateringId)) {
-            throw new EntityNotFoundException("Catering service not found");
-        }
-        CateringDao.deleteById(cateringId);
+        cateringList.removeIf(catering -> catering.getCateringId().equals(cateringId));
     }
 
     @Override
     public List<Catering> getCateringBySupplierId(Integer supplierId) {
-        return CateringDao.findBySupplierId(supplierId);
+        List<Catering> result = new ArrayList<>();
+        for (Catering catering : cateringList) {
+            if (catering.getSupplierId().equals(supplierId)) {
+                result.add(catering);
+            }
+        }
+        return result;
     }
 }
