@@ -14,7 +14,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class VerificationRequestServiceImpl implements VerificationRequestService {
 
-    final List<VerificationRequest> verificationRequests = new ArrayList<>();
+    List<VerificationRequest> verificationRequests = new ArrayList<>();
 
     @Override
     public boolean saveVerificationRequest(VerificationRequest request) {
@@ -27,7 +27,7 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
     }
 
     @Override
-    public VerificationRequest findVerificationRequestById(Long id) {
+    public VerificationRequest findVerificationrequestById(Long id) {
         for (VerificationRequest request : verificationRequests) {
             if (request.getRequestID().equals(id)) {
                 return request;
@@ -38,8 +38,10 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
 
     @Override
     public List<VerificationRequest> getAllVerificationRequest() {
-        return new ArrayList<>(verificationRequests);
-
+        if(verificationRequests!=null){
+            return new ArrayList<>(verificationRequests);
+        }
+        return null;        
     }
 
     @Override
