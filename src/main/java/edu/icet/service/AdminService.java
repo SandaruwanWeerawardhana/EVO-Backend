@@ -1,5 +1,6 @@
 package edu.icet.service;
 import edu.icet.dto.Admin;
+import edu.icet.util.AdminType;
 
 import java.util.List;
 public interface AdminService {
