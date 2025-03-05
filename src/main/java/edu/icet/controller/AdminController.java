@@ -2,8 +2,8 @@ package edu.icet.controller;
 
 import edu.icet.dto.Admin;
 import edu.icet.service.AdminService;
-import edu.icet.util.AdminType;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,47 +18,83 @@ public class AdminController {
     private final AdminService adminService;
 
     @PostMapping("/add")
-    public ResponseEntity<Boolean> addAdmin(@RequestBody Admin admin){
-        return ResponseEntity.ok(adminService.addAdmin(admin));
+    public ResponseEntity<String> addAdmin(@RequestBody Admin admin){
+        boolean addAdmin = adminService.addAdmin(admin);
+        if (addAdmin){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping("/delete/{adminId}")
-    public ResponseEntity<Boolean>deleteAdmin(@PathVariable Integer adminId){
-        return  ResponseEntity.ok(adminService.deleteAdmin(adminId));
+    public ResponseEntity<String>deleteAdmin(@PathVariable Integer adminId){
+       boolean deleteAdmin = adminService.deleteAdmin(adminId);
+       if (deleteAdmin) {
+           return new ResponseEntity<>(HttpStatus.OK);
+       }else{
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+       }
+           
     }
-
-    @PutMapping("/update/{adminId}")
-    public ResponseEntity<Boolean>updateAdmin(@PathVariable Integer adminId,@RequestBody Admin admin){
-        return ResponseEntity.ok(adminService.updateAdmin(adminId,admin));
+    
+       @PutMapping("/update/{adminId}")
+    public ResponseEntity<String>updateAdmin(@PathVariable Integer adminId,@RequestBody Admin admin){
+        boolean updateAdmin = adminService.updateAdmin(adminId, admin);
+        if (updateAdmin){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/get/{adminId}")
-    public ResponseEntity<Admin>getAdminById(@PathVariable Integer adminId){
-        return ResponseEntity.ok(adminService.getAdminById(adminId));
+    public ResponseEntity<String>getAdminById(@PathVariable Integer adminId){
+       boolean getAdmin = adminService.getAdminById(adminId);
+       if (getAdmin){
+           return new ResponseEntity<>(HttpStatus.OK);
+       }else{
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+       }
     }
 
     @GetMapping("/exists/{adminId}")
-    public ResponseEntity<Boolean>adminExits(@PathVariable Integer adminId){
-        return ResponseEntity.ok(adminService.adminExists(adminId));
+    public ResponseEntity<String>adminExits(@PathVariable Integer adminId){
+        boolean existsAdmin = adminService.adminExists(adminId);
+        if (existsAdmin) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/count")
-    public ResponseEntity<Integer> countAdmins() {
-        return ResponseEntity.ok(adminService.countAdmins());
+    public ResponseEntity<List<Admin>> countAdmins() {
+        boolean adminCount = adminService.countAdmins();
+        if (adminCount) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
+     @GetMapping("/all")
+        public  ResponseEntity<List<Admin>> getAllAdmins(){
+        List<Admin> allAdmins = adminService.getAllAdmins();
+        if (allAdmins !=null){
+            return new ResponseEntity<>(allAdmins, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
-    @PatchMapping("/changeType")
-    public ResponseEntity<Boolean>changeAdminType(@RequestParam AdminType type){
-        return  ResponseEntity.ok(adminService.changeAdminType(type));
-    }
-
-    @GetMapping("/all")
-    public  ResponseEntity<List<Admin>>getAllAdmins(){
-        return ResponseEntity.ok(adminService.getAllAdmins());
     }
 
     @GetMapping("/type/{type}")
-    public  ResponseEntity<List<Admin>>getAdminByType(@PathVariable String type){
-        return  ResponseEntity.ok(adminService.getAdminByType(type));
+    public  ResponseEntity<List<Admin>>getAdminByType(){
+       List<Admin> AdminByType = adminService.getAdminByType();
+       if (AdminByType != null){
+           return new ResponseEntity<>(AdminByType,HttpStatus.OK);
+       }else{
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
