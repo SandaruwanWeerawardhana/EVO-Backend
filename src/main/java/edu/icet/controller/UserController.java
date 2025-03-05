@@ -17,14 +17,13 @@ public class UserController {
 
     final UserSerivce userSerivce;
 
-    @PostMapping("/users")
+    @PostMapping("/user")
     public ResponseEntity<String> saveUser(@RequestBody User user) {
         return userSerivce.saveUser(user)
                 ? ResponseEntity.ok("user saved")
                 : ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
-
-
+    
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> allUsersList = userSerivce.getAllUsers();
@@ -62,34 +61,5 @@ public class UserController {
                 ? ResponseEntity.ok(user+" is Exist")
                 : ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
-    @GetMapping("/userAddress")
-    public ResponseEntity<List<String>> getUserAddress(String userName){
-        List<String> userAddress=userSerivce.getUserAddress(userName);
-        return !userAddress.isEmpty()
-                ? ResponseEntity.ok(userAddress)
-                : ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
-
-    @GetMapping("/userAddress")
-    public ResponseEntity<List<String>> getAllAddress(){
-        List<String> userAddress=userSerivce.getAllUserAddress();
-        return !userAddress.isEmpty()
-                ? ResponseEntity.ok(userAddress)
-                : ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
-
-    @GetMapping("/user/{limit}")
-    public ResponseEntity<List<User>> getLimitUserAddress(@PathVariable("limit") Integer limit){
-        List<User> getLimitUserAddress =userSerivce.getLimitUserAddress(limit);
-        return !getLimitUserAddress.isEmpty()
-                ? ResponseEntity.ok(getLimitUserAddress)
-                : ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
-
-
-
-
-
 
 }
