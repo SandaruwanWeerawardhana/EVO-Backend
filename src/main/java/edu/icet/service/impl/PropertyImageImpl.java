@@ -20,6 +20,7 @@ public class PropertyImageImpl implements PropertyImageService {
 
     @Override
     public PropertyImage save(PropertyImage propertyImage) {
+        System.out.println("asdad");
         return null;
     }
 
