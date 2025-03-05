@@ -6,7 +6,7 @@ import edu.icet.util.UserType;
 import java.util.List;
 
 public interface UserReportService {
-    boolean saveUserReport(UserReport userReport);
+    boolean saveUserReport(Long id,UserReport userReport);
     UserReport getUserReportById(Long id);
     List<UserReport> getAllUserReports();
     UserReport updateUserReport(Long id, UserReport userReport);
