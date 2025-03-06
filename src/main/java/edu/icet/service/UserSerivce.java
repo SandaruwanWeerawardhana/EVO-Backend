@@ -16,11 +16,4 @@ public interface UserSerivce {
      List<String> getAllUserAddress();
      List<User> getLimitUserAddress(Integer limit);
 
-
-
-
-
-
-
-
 }
