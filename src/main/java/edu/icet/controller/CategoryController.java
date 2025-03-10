@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.Category;
-import edu.icet.service.CategoryService;
+import edu.icet.service.system.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

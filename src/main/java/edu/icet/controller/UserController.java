@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.User;
-import edu.icet.service.UserSerivce;
+import edu.icet.service.system.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    final UserSerivce userSerivce;
+    final UserService userSerivce;
 
     @PostMapping("/user")
     public ResponseEntity<String> saveUser(@RequestBody User user) {

@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.PhotographerPackage;
-import edu.icet.service.PhotographerPackageService;
+import edu.icet.service.supplier.PhotographerPackageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

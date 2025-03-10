@@ -2,7 +2,7 @@ package edu.icet.controller;
 
 import edu.icet.dto.Hall;
 import edu.icet.dto.Profile;
-import edu.icet.service.HallService;
+import edu.icet.service.supplier.HallService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

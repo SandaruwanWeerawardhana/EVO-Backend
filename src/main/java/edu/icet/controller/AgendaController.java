@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.Agenda;
-import edu.icet.service.AgendaService;
+import edu.icet.service.customer.AgendaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

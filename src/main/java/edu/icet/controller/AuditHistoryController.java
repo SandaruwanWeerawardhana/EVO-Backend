@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.AuditHistory;
-import edu.icet.service.AuditHistorySerivce;
+import edu.icet.service.admin.AuditHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.List;
 @CrossOrigin
 public class AuditHistoryController {
 
-    final AuditHistorySerivce serivce;
+    final AuditHistoryService serivce;
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)

@@ -2,9 +2,7 @@ package edu.icet.controller;
 
 
 import edu.icet.dto.BeautyPackage;
-import edu.icet.dto.PhotographerPackage;
-import edu.icet.service.BeautyPackageService;
-import edu.icet.service.PhotographerPackageService;
+import edu.icet.service.supplier.BeautyPackageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

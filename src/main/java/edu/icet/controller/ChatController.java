@@ -2,7 +2,7 @@ package edu.icet.controller;
 
 
 import edu.icet.dto.Chat;
-import edu.icet.service.ChatService;
+import edu.icet.service.system.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

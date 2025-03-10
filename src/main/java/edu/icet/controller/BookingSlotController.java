@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.BookingSlot;
-import edu.icet.service.BookingSlotService;
+import edu.icet.service.supplier.BookingSlotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

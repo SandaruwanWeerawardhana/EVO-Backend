@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.Terms;
-import edu.icet.service.TermsService;
+import edu.icet.service.system.TermsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

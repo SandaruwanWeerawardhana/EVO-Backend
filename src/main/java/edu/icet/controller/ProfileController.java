@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.Profile;
-import edu.icet.service.ProfileService;
+import edu.icet.service.system.ProfileService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

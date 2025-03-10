@@ -1,8 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.AuditLog;
-import edu.icet.service.AuditLogService;
-import jakarta.validation.Valid;
+import edu.icet.service.admin.AuditLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

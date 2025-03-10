@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.ProfileImage;
-import edu.icet.service.ProfileImageService;
+import edu.icet.service.system.ProfileImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

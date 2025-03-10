@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.TransactionHistory;
-import edu.icet.service.TransactionHistoryService;
+import edu.icet.service.admin.TransactionHistoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.Catering;
-import edu.icet.service.CateringService;
+import edu.icet.service.supplier.CateringService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

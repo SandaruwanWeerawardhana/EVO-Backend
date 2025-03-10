@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.VerificationRequest;
-import edu.icet.service.VerificationRequestService;
+import edu.icet.service.admin.VerificationRequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

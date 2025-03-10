@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.EventReport;
-import edu.icet.service.EventReportService;
+import edu.icet.service.event.EventReportService;
 import edu.icet.util.EventType;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;

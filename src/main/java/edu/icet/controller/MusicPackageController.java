@@ -2,7 +2,7 @@ package edu.icet.controller;
 
 
 import edu.icet.dto.MusicPackage;
-import edu.icet.service.MusicPackageService;
+import edu.icet.service.supplier.MusicPackageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.Property;
-import edu.icet.service.PropertyService;
+import edu.icet.service.supplier.PropertyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

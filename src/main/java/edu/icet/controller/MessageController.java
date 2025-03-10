@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.Message;
-import edu.icet.service.MessageService;
+import edu.icet.service.system.MessageService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

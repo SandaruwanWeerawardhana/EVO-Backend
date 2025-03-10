@@ -2,7 +2,7 @@ package edu.icet.controller;
 
 import edu.icet.dto.QuickReplies;
 import edu.icet.dto.Supplier;
-import edu.icet.service.QuickReplyService;
+import edu.icet.service.system.QuickReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.PropertyImage;
-import edu.icet.service.PropertyImageService;
+import edu.icet.service.supplier.PropertyImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

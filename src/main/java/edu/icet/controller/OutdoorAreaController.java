@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.OutdoorArea;
-import edu.icet.service.OutdoorAreaService;
+import edu.icet.service.supplier.OutdoorAreaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

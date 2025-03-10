@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.SearchHistory;
-import edu.icet.service.SearchHistoryService;
+import edu.icet.service.system.SearchHistoryService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

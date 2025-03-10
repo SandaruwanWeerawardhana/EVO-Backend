@@ -2,7 +2,7 @@ package edu.icet.controller;
 
 import edu.icet.dto.Profile;
 import edu.icet.dto.ProfilePreviousWork;
-import edu.icet.service.ProfilePreviousWorkService;
+import edu.icet.service.supplier.ProfilePreviousWorkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

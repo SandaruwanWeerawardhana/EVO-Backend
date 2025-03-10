@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.Wedding;
-import edu.icet.service.WeddingEventService;
+import edu.icet.service.event.WeddingEventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;

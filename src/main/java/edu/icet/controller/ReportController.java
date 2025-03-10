@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.Report;
-import edu.icet.service.ReportService;
+import edu.icet.service.admin.ReportService;
 import edu.icet.util.ReportType;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;

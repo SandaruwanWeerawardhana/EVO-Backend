@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.BirthdayParty;
-import edu.icet.service.BirthdayPartyEventService;
+import edu.icet.service.event.BirthdayPartyEventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

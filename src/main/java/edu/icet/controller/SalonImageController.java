@@ -1,9 +1,8 @@
 package edu.icet.controller;
 
 
-import edu.icet.dto.BeautyPackage;
 import edu.icet.dto.SalonImage;
-import edu.icet.service.SalonImageService;
+import edu.icet.service.supplier.SalonImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

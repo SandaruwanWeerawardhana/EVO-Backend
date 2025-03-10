@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.Reply;
-import edu.icet.service.ReplyService;
+import edu.icet.service.system.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

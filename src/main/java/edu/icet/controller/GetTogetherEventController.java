@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.GetTogether;
-import edu.icet.service.GetTogetherEventService;
+import edu.icet.service.event.GetTogetherEventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

@@ -2,7 +2,7 @@ package edu.icet.controller;
 
 import edu.icet.dto.Event;
 import edu.icet.dto.Location;
-import edu.icet.service.EventService;
+import edu.icet.service.event.EventService;
 import edu.icet.util.EventType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +30,7 @@ public class EventController {
         return eventService.deleteEvent(id);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update-by-id")
     public boolean updateEvent(@RequestBody Integer id) {
         return eventService.updateEvent(id);
     }

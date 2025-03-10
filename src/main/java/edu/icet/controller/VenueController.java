@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.Venue;
-import edu.icet.service.VenueService;
+import edu.icet.service.supplier.VenueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
