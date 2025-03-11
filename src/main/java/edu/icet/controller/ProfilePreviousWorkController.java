@@ -27,7 +27,7 @@ public class ProfilePreviousWorkController {
     }
 
     @PutMapping("/update")
-    public ProfilePreviousWork updateProfile(@RequestBody ProfilePreviousWork previousWork){
+    public boolean updateProfile(@RequestBody ProfilePreviousWork previousWork){
         return service.update(previousWork);
     }
 
@@ -36,13 +36,8 @@ public class ProfilePreviousWorkController {
         return service.delete(id);
     }
 
-    @DeleteMapping("/delete")
-    public boolean deleteProfile(@RequestBody ProfilePreviousWork previousWork){
-        return service.delete(previousWork);
-    }
-
     @GetMapping("/get-previous-work-by-id")
-    public ProfilePreviousWork searchPreviousWork(@RequestParam String id){
-        return service.search(id);
+    public ProfilePreviousWork searchPreviousWork(@RequestParam ProfilePreviousWork profilePreviousWork){
+        return service.search(profilePreviousWork);
     }
 }
