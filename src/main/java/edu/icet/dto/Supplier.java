@@ -14,11 +14,11 @@ public class Supplier {
 
     @NotNull(message = "User ID required")
     @PositiveOrZero(message = "ID must be possitive")
-    private long userId;
+    private Long userId;
 
     @NotNull(message = "Profile ID is required")
     @PositiveOrZero(message = "ID must be possitive")
-    private long profileId;
+    private Long profileId;
 
     @NotEmpty(message = "Business Name is required")
     private String businessName;
