@@ -38,6 +38,7 @@ public class ReplyServiceImpl implements edu.icet.service.system.ReplyService {
 
     @Override
     public void deleteReplyById(Long replyId) {
+
         replyList.removeIf(reply -> reply.getReplyId().equals(replyId));
     }
 
