@@ -33,7 +33,6 @@ public class HallServiceImpl implements HallService {
 
     @Override
     public Boolean delete(Hall hall) {
-
         return hallServiceList.removeIf(hallCheck -> hallCheck.getHallId().equals(hall.getHallId()));
     }
 
@@ -48,7 +47,6 @@ public class HallServiceImpl implements HallService {
 
         for (int a=0;a<hallServiceList.size();a++){
             if (hallServiceList.get(a).getHallId().equals(hall.getHallId())){
-                hall.setHallId(hall.getHallId());
                 hallServiceList.set(a,hall);
                 return hall;
             }

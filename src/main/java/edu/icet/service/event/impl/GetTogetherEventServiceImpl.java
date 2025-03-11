@@ -22,14 +22,13 @@ public class GetTogetherEventServiceImpl implements GetTogetherEventService {
 
     @Override
     public List<GetTogether> getAll() {
-        return new ArrayList<>(getTogetherList);
+        return getTogetherList;
     }
 
     @Override
     public boolean update(GetTogether getTogether) {
         for (int a=0;a<getTogetherList.size();a++) {
             if (getTogetherList.get(a).getEventID().equals(getTogether.getEventID())) {
-                getTogether.setEventID(getTogether.getEventID());
                 getTogetherList.set(a, getTogether);
                 return true;
             }
