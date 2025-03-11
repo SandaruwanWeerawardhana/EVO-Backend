@@ -4,31 +4,50 @@ import edu.icet.dto.GetTogether;
 import edu.icet.service.event.GetTogetherEventService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class GetTogetherEventServiceImpl implements GetTogetherEventService {
-    @Override
-    public void addGetTogether(GetTogether getTogether) {
+    private final List<GetTogether> getTogetherList = new ArrayList<>();
 
+    @Override
+    public boolean add(GetTogether getTogether) {
+        return getTogetherList.add(getTogether);
     }
 
     @Override
-    public void deleteGetTogether(Integer id) {
-
+    public boolean delete(Integer id) {
+        return getTogetherList.removeIf(getTogether -> getTogether.getEventID().equals(id));
     }
 
     @Override
     public List<GetTogether> getAll() {
-        return List.of();
+        return new ArrayList<>(getTogetherList);
     }
 
     @Override
-    public void updateGetTogether(GetTogether getTogether) {
-
+    public boolean update(GetTogether getTogether) {
+        for (int a=0;a<getTogetherList.size();a++) {
+            if (getTogetherList.get(a).getEventID().equals(getTogether.getEventID())) {
+                getTogether.setEventID(getTogether.getEventID());
+                getTogetherList.set(a, getTogether);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
-    public GetTogether searchById(Integer id) {
-        return null;
+    public GetTogether get(Integer id) {
+        for (GetTogether getTogether : getTogetherList) {
+                if (getTogether.getEventID().equals(id)) {
+                    return getTogether;
+                }
+            }
+            return null;
+        }
     }
-}
+
+
+
+
