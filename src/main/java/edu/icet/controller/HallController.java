@@ -32,7 +32,7 @@ public class HallController {
     }
 
     @GetMapping("/search-hall-by-id")
-    public Hall searchHall(@RequestParam Hall hall){
+    public Hall searchHall(@RequestBody Hall hall){
         return service.search(hall);
     }
 
