@@ -30,7 +30,7 @@ public class VenueRequestServiceImpl implements VenueRequestService {
 
     @Override
     public List<Venue> getAllVenues() {
-        return new ArrayList<>(venueList);
+        return venueList;
     }
 
     @Override
