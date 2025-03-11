@@ -11,5 +11,5 @@ public interface VenueService {
     Boolean delete(Venue venue);
     Boolean delete(Long id);
     Venue update(Venue venue);
-    Venue search(String quarey);
+    Venue search(Venue venue);
 }

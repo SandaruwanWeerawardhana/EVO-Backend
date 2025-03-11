@@ -14,30 +14,26 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HallServiceImpl implements HallService {
 
-    private final List<Hall> hallList=new ArrayList<>();
     private ModelMapper modelMapper;
-
+    private final List<Hall> hallServiceList = new ArrayList<>();
+  
     @Override
     public List<Hall> getAll(Profile profile) {
-        List<Hall> result=new ArrayList<>();
-        for(Hall h:hallList){
-            if(h.getPropertyId().equals(profile.getId())){
-                result.add(h);
-            }
-        }
-        return result;
+        return hallServiceList;
+
     }
 
     @Override
     public Hall save(Hall hall) {
-        hallList.add(hall);
+
+        hallServiceList.add(hall);
         return hall;
     }
 
     @Override
     public Hall search(String query) {
         Long id=Long.parseLong(query);
-        return hallList.stream()
+        return hallServiceList.stream()
                 .filter(h -> h.getHallId().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Hall not found"));
@@ -45,24 +41,27 @@ public class HallServiceImpl implements HallService {
 
     @Override
     public Boolean delete(Hall hall) {
-        return hallList.remove(hall);
+        return hallServiceList.removeIf(hallCheck -> hallCheck.getHallId().equals(hall.getHallId()));
+
     }
 
     @Override
     public Boolean delete(Long id) {
-        return hallList.removeIf(h -> h.getHallId().equals(id));
+
+        return hallServiceList.removeIf(hall -> hall.getHallId().equals(id));
     }
 
     @Override
     public Hall update(Hall hall) {
-        if(hall==null||hall.getHallId()==null) return null;
 
-        for(int i=0;i<hallList.size();i++){
-            if(hallList.get(i).getHallId().equals(hall.getHallId())){
-                hallList.set(i,hall);
+        for (int a=0;a<hallServiceList.size();a++){
+            if (hallServiceList.get(a).getHallId().equals(hall.getHallId())){
+                hall.setHallId(hall.getHallId());
+                hallServiceList.set(a,hall);
                 return hall;
             }
         }
         return null;
     }
 }
+
