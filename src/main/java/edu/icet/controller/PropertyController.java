@@ -25,7 +25,7 @@ public class PropertyController {
     }
 
     @GetMapping("/search")
-    public Property searchProperty(@RequestParam Property property){
+    public Property searchProperty(@RequestBody Property property){
         return service.search(property);
     }
 
