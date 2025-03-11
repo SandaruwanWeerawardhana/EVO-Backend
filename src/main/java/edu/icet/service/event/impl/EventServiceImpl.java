@@ -26,7 +26,6 @@ public class EventServiceImpl implements EventService {
     public boolean updateEvent(Event event, Integer id) {
         for (int a=0; a < events.size(); a++) {
             if (events.get(a).getEventId().equals(id)) {
-                event.setEventId(id);
                 events.set(a, event);
                 return true;
             }
