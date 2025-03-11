@@ -35,7 +35,6 @@ public class HallServiceImpl implements HallService {
         return null;
     }
 
-    @Override
     public Hall search(String query) {
         Long id=Long.parseLong(query);
         return hallServiceList.stream()
