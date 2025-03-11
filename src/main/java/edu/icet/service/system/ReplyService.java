@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface ReplyService {
 
-    void addReply(Reply reply);
+    List<Reply> addReply(Reply reply);
 
     List<Reply>getAllReplies();
 
-    void updateReply(Reply reply);
+    Reply updateReply(Reply reply);
 
     void deleteReplyById(Long replyId);
 
