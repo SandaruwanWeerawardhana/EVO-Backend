@@ -26,6 +26,6 @@ public class Reply {
     private Long userId;
 
     @NotBlank
-    private String content;
+    private String text;
 
 }
