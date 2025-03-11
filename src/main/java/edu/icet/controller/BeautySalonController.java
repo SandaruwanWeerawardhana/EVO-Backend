@@ -3,7 +3,7 @@ package edu.icet.controller;
 
 import edu.icet.dto.BeautySaloon;
 import edu.icet.dto.BirthdayParty;
-import edu.icet.service.BeautySaloonService;
+import edu.icet.service.supplier.BeautySaloonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,34 +16,31 @@ import java.util.List;
 public class BeautySalonController {
 
     final BeautySaloonService service;
-
     @PostMapping("/add")
     public void add(@RequestBody BeautySaloon beautySaloon){
-        service.add(beautySalonController);
+        service.add(beautySaloon);
     }
-
     @GetMapping("/get-all")
-    public List<BeautySalonController> getAll(){
+    public List<BeautySaloon> getAll(){
         return service.getAll();
     }
-
     @DeleteMapping("/delete/{id}")
     public boolean delete(@PathVariable String id){
-        service.delete(id);
+       return service.delete(id);
     }
 
     @PutMapping("/update")
     public void update(@RequestBody BeautySaloon beautySaloon){
-        service.update(beautySalonController);
+        service.update(beautySaloon);
     }
 
     @GetMapping("/get-id/{id}")
     public BeautySaloon getId(@PathVariable String id){
-        service.get(id);
+       return service.get(id);
     }
 
     @GetMapping("/get-all-by-name/{name}")
-    public BeautySaloon getAllByName(@PathVariable String name){
-        service.getByName(name);
+    public List<BeautySaloon> getAllByName(@PathVariable String name){
+       return service.getByName(name);
     }
 }

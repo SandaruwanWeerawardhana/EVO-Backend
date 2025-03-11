@@ -47,22 +47,6 @@ public class VenueServiceImpl implements VenueService {
     }
 
     @Override
-    public Venue search(Venue venue) {
-        if (venue == null) {
-            return null;
-        }
-        if (venue.getId() != null) {
-            return search(venue.getId());
-        }
-        if (venue.getSupplierId() != null) {
-            return search(venue.getSupplierId());
-        }
-        if (venue.getLocation() != null) {
-            return search(venue.getLocation());
-        }
-        return null;
-    }
-
     public Venue search(Long id){
         for (Venue venue : venueList) {
             if (venue.getId().equals(id) || venue.getSupplierId().equals(id)) {

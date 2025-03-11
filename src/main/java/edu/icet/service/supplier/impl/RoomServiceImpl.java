@@ -43,14 +43,16 @@ public class RoomServiceImpl implements RoomService {
         return roomList.removeIf(room1 -> room1.getRoomId().equals(id));
     }
 
+
+
     @Override
-    public Room update(Long id,Room room) {
+    public Room update(Room room) {
         for (Room roomEntity : roomList) {
             if (roomEntity.getRoomId().equals(room.getRoomId())) {
                 roomEntity.getPropertyId().equals(room.getPropertyId());
                 roomEntity.getBeds().equals(room.getBeds());
             }
         }
-        return roomList.stream().filter(ro -> ro.getRoomId().equals(id)).findFirst().orElse(null);
+        return null;
     }
 }

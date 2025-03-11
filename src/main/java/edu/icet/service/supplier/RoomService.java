@@ -12,5 +12,5 @@ public interface RoomService {
     Room search(Long id);
     Boolean delete(Room room);
     Boolean delete(Long id);
-    Room update(Long id,Room room);
+    Room update(Room room);
 }

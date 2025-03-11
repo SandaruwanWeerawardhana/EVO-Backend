@@ -50,7 +50,7 @@ public class QuickReplyServiceImpl implements QuickReplyService {
 
     @Override
     public List<QuickReplies> getAll(Supplier supplier) {
-        return Collections.singletonList(repliesList.get((int) supplier.getUserId()));
+        return Collections.singletonList(repliesList.get(Math.toIntExact(supplier.getUserId())));
     }
 
     public Boolean filterProfanity(String content) {
@@ -78,7 +78,7 @@ public class QuickReplyServiceImpl implements QuickReplyService {
             Thread.currentThread().interrupt();
             throw new IllegalArgumentException("Thread was interrupted", e);
         } finally {
-            httpClient.close();
+
         }
 
     }
