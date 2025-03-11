@@ -32,8 +32,8 @@ public class HallController {
     }
 
     @GetMapping("/search-hall-by-id")
-    public Hall searchHall(@RequestParam String query){
-        return service.search(query);
+    public Hall searchHall(@RequestParam Hall hall){
+        return service.search(hall);
     }
 
     @DeleteMapping("/delete-by-id")
