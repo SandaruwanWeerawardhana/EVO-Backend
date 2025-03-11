@@ -2,6 +2,7 @@ package edu.icet.controller;
 
 import edu.icet.dto.Meal;
 import edu.icet.service.supplier.MealService;
+import edu.icet.util.MealType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,21 @@ public class MealController {
     @GetMapping("/get-all")
     public List<Meal> getAll(){
         return mealService.getAll();
+    }
+
+    @GetMapping("/search/{name}")
+    public List<Meal> search(@PathVariable("name") String name){
+        return mealService.search(name);
+    }
+
+    @GetMapping("/search/{id}")
+    public Meal search(@PathVariable("id") Long id){
+        return mealService.search(id);
+    }
+
+    @GetMapping("/search/{type}")
+    public List<Meal> search(@PathVariable("type") MealType type){
+        return mealService.search(type);
     }
 
     @PostMapping("/save")
