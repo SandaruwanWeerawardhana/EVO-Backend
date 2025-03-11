@@ -43,13 +43,15 @@ public class ReplyController {
 }
 
 @GetMapping("/search-reply/{replyId}")
-    public Reply searchReplyById(@PathVariable Long replyId){
+    public Reply searchReplyById(@PathVariable Long replyId)
+{
        return service.searchReplyById(replyId);
 }
 
 @GetMapping("/search-reply-by-user-id/{userId}")
     public Reply searchReplyByUserId(@PathVariable Long userId){
-     return service.searchReplyByUserId(userId);
+
+        return service.searchReplyByUserId(userId);
 }
 
 
