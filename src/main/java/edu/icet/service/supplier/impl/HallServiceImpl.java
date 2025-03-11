@@ -20,18 +20,21 @@ public class HallServiceImpl implements HallService {
     @Override
     public List<Hall> getAll(Profile profile) {
         return hallServiceList;
-
     }
 
     @Override
     public Hall save(Hall hall) {
-
         hallServiceList.add(hall);
         return hall;
     }
 
     @Override
     public Hall search(Hall hall) {
+        for (Hall hallTest : hallServiceList){
+            if (hallTest.getHallId().equals(hall.getHallId())){
+                return hallTest;
+            }
+        }
         return null;
     }
 
@@ -46,7 +49,6 @@ public class HallServiceImpl implements HallService {
     @Override
     public Boolean delete(Hall hall) {
         return hallServiceList.removeIf(hallCheck -> hallCheck.getHallId().equals(hall.getHallId()));
-
     }
 
     @Override
