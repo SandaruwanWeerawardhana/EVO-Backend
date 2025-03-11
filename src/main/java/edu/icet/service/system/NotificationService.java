@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface NotificationService {
-     boolean deleteNotification(Long notificationId);
-     Notification getNotificationById(Long notificationId);
     Notification createNotification(Notification notification);
     Notification getNotificationById(Integer notificationId);
     Notification updateNotification(Integer notificationId, Notification notification);
