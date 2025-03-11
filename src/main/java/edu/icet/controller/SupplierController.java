@@ -1,7 +1,8 @@
 package edu.icet.controller;
 
 import edu.icet.dto.Supplier;
-import edu.icet.service.supplier.SupplierService;
+
+import edu.icet.service.SupplierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -15,7 +16,7 @@ public class SupplierController {
     final SupplierService supplierService;
     @PostMapping("/add")
     public void add(@RequestBody Supplier supplier){
-        supplierService.addSupplier(supplier);
+        supplierService.add(supplier);
     }
 
     @GetMapping("/all")
@@ -25,16 +26,16 @@ public class SupplierController {
 
     @GetMapping("/search")
     public void search(@RequestBody Supplier query){
-        supplierService.searchSupplier(query);
+        supplierService.search(query);
     }
 
     @DeleteMapping("/delete")
     public void delete(@RequestParam Long id){
-        supplierService.deleteSupplier(id);
+        supplierService.delete(id);
     }
 
     @PutMapping("/update")
     public void update(@RequestBody Supplier supplier){
-        supplierService.updateSupplier(supplier);
+        supplierService.update(supplier);
     }
 }

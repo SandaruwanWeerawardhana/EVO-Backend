@@ -1,12 +1,7 @@
-package edu.icet.service.supplier;
+package edu.icet.service;
 
 import edu.icet.dto.Supplier;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
-
-
-
 
 public interface SupplierService {
     List<Supplier> getAll();
@@ -18,5 +13,4 @@ public interface SupplierService {
     void update(Supplier supplier);
 
     void delete(Long id);
-
 }
