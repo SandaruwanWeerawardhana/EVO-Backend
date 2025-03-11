@@ -9,7 +9,5 @@ public interface MessageService {
     boolean deleteMessage(Long mid );
     List<Message> getAllMessages();
     Message getMessageById(Long mid);
-    boolean isMessageDelivered(Long mid);
-    boolean isMessageRead(Long mid);
     Message searchMessage(Long mid);
 }
