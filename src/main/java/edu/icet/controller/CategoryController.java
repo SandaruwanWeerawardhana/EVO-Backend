@@ -15,7 +15,7 @@ public class CategoryController {
     final CategoryService service;
 
     @PostMapping("/add")
-    public Category addCategory(@RequestBody Category category){
+    public Boolean addCategory(@RequestBody Category category){
         return service.save(category);
     }
 
@@ -30,7 +30,7 @@ public class CategoryController {
     }
 
     @PutMapping("/update")
-    public Category updateCategory(@RequestBody Category category){
+    public Boolean updateCategory(@RequestBody Category category){
         return service.update(category);
     }
 
