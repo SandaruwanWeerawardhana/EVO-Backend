@@ -9,6 +9,6 @@ public interface MealService {
     List<Meal> getAll();
     Meal save(Meal meal);
     Boolean delete(Meal meal);
-    Boolean delete(Integer id);
+    Boolean delete(Long id);
     Meal update (Meal meal);
 }
