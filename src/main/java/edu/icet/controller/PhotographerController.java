@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.Photographer;
-import edu.icet.service.PhotographerService;
+import edu.icet.service.supplier.PhotographerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +19,9 @@ public class PhotographerController {
     public List<Photographer> getAll(){return service.getAll();}
 
     @PostMapping("/add")
-    public void add(@RequestBody Photographer photographer){service.save(photographer);}
+    public void add(@RequestBody Photographer photographer){service.add(photographer);}
 
-    @GetMapping("/search/{query}")
+    @GetMapping("/search")
     public Photographer search(@RequestBody Photographer query){return service.search(query);}
 
     @PutMapping("/update")
