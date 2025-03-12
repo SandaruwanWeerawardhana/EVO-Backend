@@ -22,6 +22,7 @@ import java.util.Date;
 public class EventEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer eventId;
 
     @NotNull
