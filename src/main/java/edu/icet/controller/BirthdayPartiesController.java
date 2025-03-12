@@ -16,37 +16,39 @@ public class BirthdayPartiesController {
 
     private final BirthdayPartyEventService service;
     @PostMapping("/add")
-    private void addBirthdayParties(@RequestBody BirthdayParty birthdayParty) {
-        service.save(birthdayParty);
+    private boolean add(@RequestBody BirthdayParty birthdayParty) {
+
+        return service.add(birthdayParty);
     }
 
     @GetMapping("/get-all")
-    public List<BirthdayParty> getAllBirthdayParties() {
+    public List<BirthdayParty> getAll() {
         return service.getAll();
     }
 
     @PutMapping("/update")
-    public void updateBirthdayParties(@RequestBody BirthdayParty birthdayParty) {
-        service.update(birthdayParty);
+    public boolean update(@RequestBody BirthdayParty birthdayParty) {
+
+        return service.update(birthdayParty);
     }
 
     @GetMapping("/get-all-by-date")
-    public List<BirthdayParty> getAllByDate(Date date) {
+    public List<BirthdayParty> getAll(Date date) {
         return service.getAll(date);
     }
 
     @GetMapping("/get-all-by-username")
-    public List<BirthdayParty> getAllByUserName(String username) {
+    public List<BirthdayParty> getAll(String username) {
         return service.getAll(username);
     }
 
     @DeleteMapping("/delete")
-    public boolean deleteBirthdayParties(@RequestBody BirthdayParty birthdayParty) {
+    public boolean delete(@RequestBody BirthdayParty birthdayParty) {
         return service.delete(birthdayParty);
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean deleteBirthdayParties(@PathVariable("id") Integer id) {
+    public boolean delete(@PathVariable("id") Integer id) {
         return service.delete(id);
     }
 
@@ -56,7 +58,7 @@ public class BirthdayPartiesController {
     }
 
     @GetMapping("/get-name/{ownerName}")
-    public BirthdayParty getByName(@PathVariable("ownerName") String ownerName) {
+    public BirthdayParty get(@PathVariable("ownerName") String ownerName) {
         return service.get(ownerName);
     }
 

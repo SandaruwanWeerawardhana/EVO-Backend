@@ -15,32 +15,9 @@ import lombok.Setter;
 @Setter
 @Getter
 public class Photographer {
-    @NotNull
     private Long id;
 
-    @NotBlank
-    private String name;
+    @NotNull
+    private Long supplierID;
 
-    @NotBlank
-    private String contactNumber;
-
-    @NotBlank
-    private String email;
-
-    public void setContactNumber(String contactNumber) {
-        if(contactNumber!=null && contactNumber.length()==10 & contactNumber.chars().allMatch(Character::isDigit)){
-            this.contactNumber=contactNumber;
-        }else{
-            throw new IllegalArgumentException("Contact number must be exactly 10 digits.");
-        }
-
-    }
-
-    public void setEmail(String email) {
-        if(email!=null && email.endsWith(".com") && email.contains("@") && email.indexOf("@")>0 && email.indexOf("@")<email.lastIndexOf(".")){
-            this.email=email;
-        }else{
-            throw new IllegalArgumentException("Email Must be valid .com address .");
-        }
-    }
 }

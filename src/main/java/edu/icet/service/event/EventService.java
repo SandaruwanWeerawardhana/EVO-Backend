@@ -9,7 +9,6 @@ import java.util.List;
 public interface EventService {
     boolean addEvent(Event event);
     boolean updateEvent(Event event, Integer id);
-    boolean updateEvent(Integer id);
     Event searchEvent(Integer id);
     boolean deleteEvent(Integer id);
     List<Event> getAll();

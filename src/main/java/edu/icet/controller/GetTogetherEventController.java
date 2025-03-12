@@ -12,11 +12,12 @@ import java.util.List;
 @RequestMapping("/api/get-together")
 public class GetTogetherEventController {
 
-    final GetTogetherEventService service;
+    private final GetTogetherEventService service;
 
     @PostMapping("/add")
-    public void addGetTogether(@RequestBody GetTogether getTogether){
-        service.addGetTogether(getTogether);
+    public boolean add(@RequestBody GetTogether getTogether){
+
+        return service.add(getTogether);
     }
 
     @GetMapping("/get-all")
@@ -25,17 +26,19 @@ public class GetTogetherEventController {
     }
 
     @GetMapping("/search/{id}")
-    public GetTogether searchById(@PathVariable Integer id){
-        return service.searchById(id);
+    public GetTogether get(@PathVariable("id") Integer id){
+        return service.get(id);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteGetTogether(@PathVariable Integer id){
-        service.deleteGetTogether(id);
+    public boolean delete(@PathVariable("id") Integer id){
+
+        return service.delete(id);
     }
 
     @PutMapping("/update")
-    public void updateGetTogether(@RequestBody GetTogether  getTogether){
-        service.updateGetTogether(getTogether);
+    public boolean update(@RequestBody GetTogether  getTogether){
+
+        return service.update(getTogether);
     }
 }

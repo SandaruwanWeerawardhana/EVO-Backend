@@ -26,8 +26,8 @@ public class VenueController {
     }
 
     @GetMapping("/search")
-    public Venue searchVenue(@RequestParam String query){
-        return service.search(query);
+    public Venue searchVenue(@PathVariable Long id){
+        return service.search(id);
     }
 
     @PutMapping("/update")

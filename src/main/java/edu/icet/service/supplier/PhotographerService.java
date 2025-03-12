@@ -10,5 +10,5 @@ public interface PhotographerService {
     List<Photographer> getAll();
     void delete(Long id);
     void update(Photographer photographer);
-    Photographer searchById(Long id);
+    Photographer search(Photographer query);
 }

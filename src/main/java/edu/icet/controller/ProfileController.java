@@ -2,6 +2,7 @@ package edu.icet.controller;
 
 import edu.icet.dto.Profile;
 import edu.icet.service.system.ProfileService;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+@Hidden
 @RestController
 @RequestMapping("/supplier/profiles")
 @RequiredArgsConstructor
