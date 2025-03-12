@@ -21,15 +21,17 @@ public class ProfilePackages {
     private Long profileId;
 
     @NotNull
-    @Size(min =1,max = 30)
-    private boolean isActive;
+    private String description;
 
     @NotNull
-    @Size(min = 1,max = 500)
+    @Size(min = 1,max = 150)
     private String packageName;
 
     @NotNull
    @DecimalMax("10.0")@DecimalMin("0.0")
     private Double price;
+
+    @NotNull
+    private String status;
 
 }
