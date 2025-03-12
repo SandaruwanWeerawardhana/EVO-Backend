@@ -1,7 +1,9 @@
 package edu.icet.dto;
 
 import edu.icet.util.BudgetType;
+import edu.icet.util.EventStatusType;
 import edu.icet.util.EventType;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -13,6 +15,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class Event {
     private Integer eventId;
+    @NotNull
+    private Long userId;
     @NotNull
     private Date eventDate;
     @NotNull
@@ -26,5 +30,7 @@ public class Event {
     private Integer capacity;
     @NotNull
     private BudgetType budgetType;
+    @NotEmpty
+    private EventStatusType eventStatus;
 
 }

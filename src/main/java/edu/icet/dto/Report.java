@@ -24,7 +24,6 @@ public class Report {
     private LocalDate dateCreate;
     @PastOrPresent
     private LocalDate dateModify;
-    private String category;
     private ReportType reportType;
 
 }

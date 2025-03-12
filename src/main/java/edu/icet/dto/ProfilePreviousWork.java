@@ -14,18 +14,14 @@ import java.time.LocalDate;
 
 public class ProfilePreviousWork {
 
-    private Long workId;
-    private Long  profileId;
-
+    private Long previousWorkID;
+    private Long  profileID;
+    private Long  customerID;
     @NotBlank(message = "Title not be empty")
     private String title;
-
+    @NotBlank(message = "Description not be empty")
     private String description;
-
     @PastOrPresent(message = "Completion date cannot be in the future")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate completionDate;
-
-    private String imageUrls;
-    private String clientName;
 }

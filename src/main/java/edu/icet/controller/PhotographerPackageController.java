@@ -2,16 +2,18 @@ package edu.icet.controller;
 
 import edu.icet.dto.PhotographerPackage;
 import edu.icet.service.supplier.PhotographerPackageService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Hidden
 @RestController
 @RequestMapping("/supplier/photographer/package")
 @RequiredArgsConstructor
 @CrossOrigin
-public class PhtographerPackageController {
+public class PhotographerPackageController {
 
     final PhotographerPackageService photographerPackageService;
 

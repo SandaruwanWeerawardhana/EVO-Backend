@@ -11,10 +11,8 @@ import java.util.List;
 @RequestMapping("/supplier/Room")
 @CrossOrigin
 @RestController
-
 public class RoomController {
     final RoomService service;
-
     @PostMapping("/save")
     public void saveRoom(@RequestBody Room room){
         service.save(room);
@@ -30,9 +28,9 @@ public class RoomController {
         return service.update(room);
     }
 
-    @GetMapping("/search")
-    public Room searchRoom(@RequestParam String query){
-        return service.search(query);
+    @GetMapping("/search/{id}")
+    public Room searchRoom(@PathVariable Long id){
+        return service.search(id);
     }
 
     @DeleteMapping("/delete-by-id")

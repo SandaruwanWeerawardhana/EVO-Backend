@@ -2,7 +2,6 @@ package edu.icet.controller;
 
 import edu.icet.dto.EventReport;
 import edu.icet.service.event.EventReportService;
-import edu.icet.util.EventType;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -10,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -60,36 +58,6 @@ public class EventReportController {
         List<EventReport> allEventReports = eventReportService.getAllEventReports();
         if(allEventReports != null){
             return new ResponseEntity<>(allEventReports, HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @GetMapping("/get_event_reports_by_location/{location}")
-    public ResponseEntity<List<EventReport>> getEventReportsByLocation(@PathVariable String location){
-        List<EventReport> eventReportsByLocation = eventReportService.getEventReportsByLocation(location);
-        if (eventReportsByLocation != null){
-            return new ResponseEntity<>(eventReportsByLocation,HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @GetMapping("/get_event_reports_by_date/{date}")
-    public ResponseEntity<List<EventReport>> getEventReportsByDate(@PathVariable LocalDate date){
-        List<EventReport> eventReportsByDate = eventReportService.getEventReportsByDate(date);
-        if (eventReportsByDate != null){
-            return new ResponseEntity<>(eventReportsByDate,HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @GetMapping("/get_event_reports_by_eventType/{eventType}")
-    public ResponseEntity<List<EventReport>> getEventReportsByEventType(@PathVariable EventType eventType){
-        List<EventReport> eventReportsByEventType = eventReportService.getEventReportsByEventType(eventType);
-        if (eventReportsByEventType != null){
-            return new ResponseEntity<>(eventReportsByEventType,HttpStatus.OK);
         }else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
