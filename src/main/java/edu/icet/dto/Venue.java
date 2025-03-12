@@ -16,12 +16,13 @@ import lombok.ToString;
 @ToString
 public class Venue {
     @NotNull(message ="Id Can't be null" )
-    private Long id;
+    private Long venueId;
     @NotEmpty(message = "supplier id can not be null")
     @Positive
     private Long supplierId;
     @NotEmpty(message = "location can not be null")
     private String location;
     @NotEmpty(message = "venue type can not be null")
-    private VenueType type;
+    private String eventType;
+    private Long capacity;
 }
