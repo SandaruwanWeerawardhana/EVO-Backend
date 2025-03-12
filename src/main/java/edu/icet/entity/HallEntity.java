@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class HallEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long hallId;
 
     @NotNull
