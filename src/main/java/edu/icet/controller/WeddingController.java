@@ -25,6 +25,7 @@ public class WeddingController {
     public List<Wedding> getAll(){
         return weddingEventService.getAll();
     }
+
     @PostMapping("/save")
     public boolean save(@RequestBody Wedding wedding){
         return weddingEventService.add(wedding);
