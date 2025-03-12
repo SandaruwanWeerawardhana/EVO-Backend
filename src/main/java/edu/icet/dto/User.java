@@ -5,6 +5,7 @@ package edu.icet.dto;
 import edu.icet.util.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,10 +18,14 @@ import lombok.ToString;
 @ToString
 public class User {
 
+    @NotNull
     @NotEmpty(message = "User ID should not be blank")
     private Long userId;
-    @NotEmpty(message = "User name should not be blank")
-    private String userName;
+    @NotEmpty(message = "First Name should not be blank")
+    private String firstName;
+    @NotEmpty(message = "Last Name should not be blank")
+    private String lastName;
+    @NotNull
     private String password;
     @Email(message = "Email should be valid")
     private String email;
@@ -28,6 +33,11 @@ public class User {
     private String registeredDate;
     @NotEmpty(message = "User type should not be blank")
     private UserType userType;
-
+    @NotEmpty(message = "Contact Number should not be blank")
+    private String contactNumber;
+    @NotEmpty(message = "Address should not be blank")
+    private String address;
+    @NotEmpty(message = "Address should not be blank")
+    private String city;
 
 }
