@@ -2,7 +2,6 @@ package edu.icet.service.event.impl;
 
 import edu.icet.dto.Event;
 import edu.icet.dto.Location;
-import edu.icet.dto.Venue;
 import edu.icet.service.event.EventService;
 import edu.icet.util.EventType;
 import lombok.RequiredArgsConstructor;

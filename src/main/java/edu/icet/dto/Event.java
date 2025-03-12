@@ -14,6 +14,8 @@ import java.util.Date;
 public class Event {
     private Integer eventId;
     @NotNull
+    private Long userId;
+    @NotNull
     private Date eventDate;
     @NotNull
     private Time startTime;
