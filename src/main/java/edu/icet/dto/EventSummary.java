@@ -16,7 +16,7 @@ public class EventSummary {
     @NotNull
     private Long venueId;
     @NotNull
-    private Integer customerId;
+    private Long customerId;
     @NotNull
     private List<Supplier> supplierList;
     @NotNull

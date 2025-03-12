@@ -19,17 +19,12 @@ public class EventSummaryServiceImpl implements EventSummaryService {
 
     @Override
     public boolean update(EventSummary eventSummary) {
-        for (EventSummary event : eventSummaryList) {
-            if (event.getId().equals(eventSummary.getId())) {
-                event.setEventId(eventSummary.getEventId());
-                event.setVenueId(eventSummary.getVenueId());
-                event.setCustomerId(eventSummary.getCustomerId());
-                event.setSupplierList(eventSummary.getSupplierList());
-                event.setTotalPrice(eventSummary.getTotalPrice());
-                return true;
+        for (int i = 0; i < eventSummaryList.size(); i++) {
+            if (eventSummaryList.get(i).getId().equals(eventSummary.getId())) {
+                eventSummaryList.set(i, eventSummary);
             }
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -44,7 +39,7 @@ public class EventSummaryServiceImpl implements EventSummaryService {
     }
 
     @Override
-    public List<EventSummary> getall() {
+    public List<EventSummary> getAll() {
         return eventSummaryList;
     }
 

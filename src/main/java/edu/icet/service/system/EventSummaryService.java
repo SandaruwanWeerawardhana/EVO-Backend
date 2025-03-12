@@ -12,7 +12,7 @@ public interface EventSummaryService {
 
     boolean delete(Integer id);
 
-    List<EventSummary> getall();
+    List<EventSummary> getAll();
 
     EventSummary getById(Integer id);
 }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/eventsummary")
+@RequestMapping("/api/event-summary")
 @RequiredArgsConstructor
 @CrossOrigin
 public class EventSummaryController {
@@ -21,8 +21,8 @@ public class EventSummaryController {
     }
 
     @GetMapping("/get-all")
-    public List<EventSummary> getall(){
-        return eventSummaryService.getall();
+    public List<EventSummary> getAll(){
+        return eventSummaryService.getAll();
     }
 
     @DeleteMapping("/delete/{id}")
