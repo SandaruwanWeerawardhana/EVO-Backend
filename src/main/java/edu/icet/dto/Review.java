@@ -1,6 +1,7 @@
 package edu.icet.dto;
 
 import edu.icet.util.Rating;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
@@ -12,14 +13,16 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Review {
-
+    @NotBlank(message = "Not be empty")
     private long reviewId;
-    @NotNull(message = "Rating cannot be Null")
-    private Rating rating;
+    @NotBlank(message = "Not be empty")
+    private long suplierId;
     @PastOrPresent
     @NotNull(message = "Date cannot be Null")
     private LocalDate date;
     @NotNull(message = "comment can not be null")
     private String comment;
+    @NotNull(message = "Rating cannot be Null")
+    private Rating rating;
 
 }
