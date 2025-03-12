@@ -5,6 +5,7 @@ import edu.icet.util.BudgetType;
 import edu.icet.util.EventStatusType;
 import edu.icet.util.EventType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class EventEntity {
     private Long userId;
 
     @Column(nullable = false)
+    @Future
     private Date eventDate;
 
     @Column(nullable = false)
