@@ -26,7 +26,4 @@ public class Customer {
     @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be exactly 10 digits")
     private String contactNumber;
 
-    @NotBlank(message = "Address cannot be empty")
-    private String addresss;
-
 }
