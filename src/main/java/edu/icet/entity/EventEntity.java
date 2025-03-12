@@ -35,21 +35,23 @@ public class EventEntity {
     @Column(name = "start_time",nullable = false)
     private Time startTime;
 
-    @Column(nullable = false)
+    @Column(name = "end_time",nullable = false)
     private Time endTime;
 
+
+    @Column(name = "location")
     private Location location;
 
-    @Column(nullable = false)
+    @Column(name = "event_type",nullable = false)
     private EventType eventType;
 
-    @Column(nullable = false)
+    @Column(name = "capacity",nullable = false)
     @Min(1)
     private Integer capacity;
 
-    @Column(nullable = false)
+    @Column(name = "budget_type",nullable = false)
     private BudgetType budgetType;
 
-    @Column(nullable = false)
+    @Column(name = "event_status",nullable = false)
     private EventStatusType eventStatus;
 }
