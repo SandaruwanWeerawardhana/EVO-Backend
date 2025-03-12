@@ -1,7 +1,5 @@
 package edu.icet.dto;
 
-
-
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -13,14 +11,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class EventReport {
+public class AuditReport {
+
     @NotNull
     @NotEmpty(message = "ID should not be blank")
-    private Long eventId;
+    private Integer adminId;
     @NotNull
     @NotEmpty(message = "ID should not be blank")
     private Long reportId;
-
-
 
 }

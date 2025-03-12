@@ -2,100 +2,63 @@ package edu.icet.service.event.impl;
 
 import edu.icet.dto.EventReport;
 import edu.icet.service.event.EventReportService;
-import edu.icet.util.EventType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Slf4j
 public class EventReportServiceImpl implements EventReportService {
     List<EventReport> eventReportsList = new ArrayList<>();
 
+
     @Override
     public boolean saveEventReport(EventReport eventReport) {
         if (eventReport == null) {
-            log.info("event report is null");
             return false;
+        } else {
+            return eventReportsList.add(eventReport);
+
         }
-        return eventReportsList.add(eventReport);
     }
 
     @Override
     public boolean updateEventReport(Long id, EventReport eventReport) {
-        if (eventReport == null) {
-            log.info("event report is null");
-            return false;
-        }
         for (int i = 0; i < eventReportsList.size(); i++) {
-            EventReport existingEventReport = eventReportsList.get(i);
-            if (existingEventReport.getEventId().equals(id)) {
+            if (eventReportsList.get(i).getReportId().equals(id)) {
                 eventReportsList.set(i, eventReport);
                 return true;
             }
         }
-        log.info("event report with ID {} not found", id);
         return false;
     }
 
     @Override
     public EventReport getEventReportById(Long id) {
-        if (id == null || eventReportsList.isEmpty()) {
-            log.info("event report list is empty or id is null");
-            return null;
-        }
-        for (EventReport existingEventReport : eventReportsList) {
-            if (existingEventReport.getEventId().equals(id)) {
-                return existingEventReport;
+        for (EventReport report : eventReportsList) {
+            if (report.getReportId().equals(id)) {
+                return report;
             }
         }
-        log.info("event report with ID {} not found", id);
         return null;
     }
 
     @Override
     public List<EventReport> getAllEventReports() {
-        if (eventReportsList != null) {
-            return eventReportsList;
-        } else {
-            log.info("event reports not found");
-            return null;
+        if(eventReportsList!=null){
+            return new ArrayList<>(eventReportsList);
         }
-    }
-
-    @Override
-    public List<EventReport> getEventReportsByEventType(EventType eventType) {
-        ArrayList<EventReport> eventReports = new ArrayList<>();
-        if (eventReportsList.isEmpty() || eventType == null) {
-            log.info("event report list is empty or event type is null");
-            return Collections.emptyList();
-        }
-        for (EventReport existingEventReport : eventReportsList) {
-            if (existingEventReport.getEventType().equals(eventType)) {
-                eventReports.add(existingEventReport);
-            }
-        }
-        return eventReports;
+        return null;
     }
 
     @Override
     public boolean deleteEventReportById(Long id) {
-        if (eventReportsList == null || id == null) {
-            log.info("event report list is empty or eventId is null");
+        if (id == null) {
             return false;
+        } else {
+            return eventReportsList.removeIf(eventReport -> Objects.equals(eventReport.getReportId(), id));
         }
-        for (EventReport existingEventReport : eventReportsList) {
-            if (existingEventReport.getEventId().equals(id)) {
-                eventReportsList.remove(id.intValue());
-                return true;
-            }
-        }
-        log.info("event report with ID {} not found", id);
-        return false;
-
     }
 }
