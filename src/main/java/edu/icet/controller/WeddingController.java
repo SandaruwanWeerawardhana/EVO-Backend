@@ -29,7 +29,7 @@ public class WeddingController {
         return weddingEventService.getAll();
     }
 
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public boolean save(@RequestBody Wedding wedding){
         return weddingEventService.add(wedding);
     }
