@@ -16,10 +16,9 @@ import java.util.Date;
 @Entity
 @Table(name = "birthdayparty")
 public class BirthdayPartyEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "birthdaypartyid", nullable = false)
+    @Column(name = "id", nullable = false)
     private Integer birthdayPartyId;
 
     @Column(name = "ownername", nullable = false)

@@ -16,10 +16,9 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "wedding")
 public class WeddingEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "weddingid", nullable = false)
+    @Column(name = "id", nullable = false)
     private String weddingId;
 
     @Column(name = "weddingtype", nullable = false)
