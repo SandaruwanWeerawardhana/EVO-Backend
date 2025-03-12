@@ -48,15 +48,25 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public List<Profile> getProfilesByGender(String gender) {
-        return profileList.stream()
-                .filter(profile -> profile.getGender().equalsIgnoreCase(gender))
-                .collect(Collectors.toList());
+        return null;
     }
 
     @Override
     public List<Profile> getProfilesByAgeRange(Integer minAge, Integer maxAge) {
-        return profileList.stream()
-                .filter(profile -> profile.getAge() >= minAge && profile.getAge() <= maxAge)
-                .collect(Collectors.toList());
+        return null;
     }
+
+//    @Override
+//    public List<Profile> getProfilesByGender(String gender) {
+//        return profileList.stream()
+//                .filter(profile -> profile.getGender().equalsIgnoreCase(gender))
+//                .collect(Collectors.toList());
+//    }
+
+//    @Override
+//    public List<Profile> getProfilesByAgeRange(Integer minAge, Integer maxAge) {
+//        return profileList.stream()
+//                .filter(profile -> profile.getAge() >= minAge && profile.getAge() <= maxAge)
+//                .collect(Collectors.toList());
+//    }
 }

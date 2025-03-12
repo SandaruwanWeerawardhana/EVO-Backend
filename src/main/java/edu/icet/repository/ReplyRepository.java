@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ReplyRepository extends JpaRepository<ReplyEntity, Long> {
-
     List<Reply> findByUserId(Long userId);
 }

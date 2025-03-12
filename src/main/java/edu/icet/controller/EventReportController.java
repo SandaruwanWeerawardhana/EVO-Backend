@@ -63,8 +63,6 @@ public class EventReportController {
         }
     }
 
-
-
     @DeleteMapping("delete/{id}")
     public ResponseEntity<String> deleteEventReportById(@PathVariable Long id,HttpServletRequest request){
         if(eventReportService.deleteEventReportById(id)){
