@@ -2,6 +2,8 @@ package edu.icet.service.system.impl;
 
 import edu.icet.dto.ProfilePreviousWorkImage;
 import edu.icet.service.system.ProfilePreviousWorkImageService;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,8 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ProfilePreviousWorkImageServiceImpl implements ProfilePreviousWorkImageService {
 
+    private final ModelMapper mapper;
     private final List<ProfilePreviousWorkImage> profilePreviousWorkImageList = new ArrayList<>();
 
     @Override

@@ -20,6 +20,7 @@ public class BeautySaloonServiceImpl implements BeautySaloonService {
 
     @Override
     public List<BeautySaloon> getAll() {
+
         return new ArrayList<>(beautySaloons);
     }
 
@@ -46,13 +47,6 @@ public class BeautySaloonServiceImpl implements BeautySaloonService {
         });
 
         return existingSaloon.isPresent();
-    }
-
-    @Override
-    public List<BeautySaloon> getByName(String name) {
-        return beautySaloons.stream()
-                .filter(saloon -> saloon.getName().equalsIgnoreCase(name))
-                .collect(Collectors.toList());
     }
 
     @Override
