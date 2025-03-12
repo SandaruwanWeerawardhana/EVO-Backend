@@ -20,7 +20,6 @@ public class BeautySaloonServiceImpl implements BeautySaloonService {
 
     @Override
     public List<BeautySaloon> getAll() {
-
         return new ArrayList<>(beautySaloons);
     }
 
