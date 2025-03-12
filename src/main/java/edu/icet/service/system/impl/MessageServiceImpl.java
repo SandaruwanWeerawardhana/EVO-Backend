@@ -5,40 +5,40 @@ import edu.icet.service.system.MessageService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Objects;
+
 @Service
 public class MessageServiceImpl implements MessageService {
+    List<Message>messageArrayList=new ArrayList<>();
+
     @Override
     public boolean sendMessage(Message message) {
-        return false;
+        return messageArrayList.add(message);
     }
 
     @Override
     public boolean deleteMessage(Long mid) {
-        return false;
+        return messageArrayList.removeIf(message -> Objects.equals(message.getMid(),mid));
     }
 
     @Override
     public List<Message> getAllMessages() {
-        return List.of();
+        return messageArrayList;
     }
 
     @Override
     public Message getMessageById(Long mid) {
-        return null;
-    }
-
-    @Override
-    public boolean isMessageDelivered(Long mid) {
-        return false;
-    }
-
-    @Override
-    public boolean isMessageRead(Long mid) {
-        return false;
+        for (Message message :messageArrayList){
+            if (message.getMid().equals(mid)){
+                return message;
+            }
+        }
+        return  null;
     }
 
     @Override
     public Message searchMessage(Long mid) {
-        return null;
+        return messageArrayList.stream().filter(message ->message.getMid().equals(mid)).findFirst().orElse(null);
     }
 }

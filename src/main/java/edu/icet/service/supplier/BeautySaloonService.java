@@ -10,6 +10,7 @@ public interface BeautySaloonService {
     List<BeautySaloon> add(BeautySaloon beautySaloon);
     boolean delete(String id);
     boolean update(BeautySaloon beautySaloon);
-    List<BeautySaloon> getByName(String name);
     BeautySaloon get(String id);
+
+    List<BeautySaloon> getByName(String name);
 }

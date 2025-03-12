@@ -1,5 +1,5 @@
 package edu.icet.util;
 
 public enum UserType {
-    ADMIN,CUSTOMER
+    ADMIN,CUSTOMER,SUPPLIER
 }

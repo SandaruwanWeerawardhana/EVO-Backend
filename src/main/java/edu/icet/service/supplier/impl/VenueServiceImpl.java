@@ -30,17 +30,17 @@ public class VenueServiceImpl implements VenueService {
 
     @Override
     public Boolean delete(Long id) {
-        return venueList.removeIf(venue -> venue.getId().equals(id));
+        return venueList.removeIf(venue -> venue.getVenueId().equals(id));
     }
 
     @Override
     public Venue update(Venue venue) {
         for (Venue venue1 : venueList) {
             if(venue!=null) {
-                venue1.setId(venue.getId());
+                venue1.setVenueId(venue.getVenueId());
                 venue1.setSupplierId(venue.getSupplierId());
                 venue1.setLocation(venue.getLocation());
-                venue1.setType(venue.getType());
+                venue1.setEventType(venue.getEventType());
             }
         }
         return null;
@@ -49,7 +49,7 @@ public class VenueServiceImpl implements VenueService {
     @Override
     public Venue search(Long id){
         for (Venue venue : venueList) {
-            if (venue.getId().equals(id) || venue.getSupplierId().equals(id)) {
+            if (venue.getVenueId().equals(id) || venue.getSupplierId().equals(id)) {
                 return venue;
             }
         }
