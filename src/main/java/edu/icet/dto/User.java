@@ -37,7 +37,7 @@ public class User {
     private String contactNumber;
     @NotEmpty(message = "Address should not be blank")
     private String address;
-    @NotEmpty(message = "Address should not be blank")
+    @NotEmpty(message = "City should not be blank")
     private String city;
 
 }
