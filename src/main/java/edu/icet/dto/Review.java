@@ -16,8 +16,9 @@ public class Review {
     @NotBlank(message = "Not be empty")
     private long reviewId;
     @NotBlank(message = "Not be empty")
-    private long suplierId;
-    @PastOrPresent
+    private long supplierId;
+    @NotBlank(message = "Not be empty")
+    private Long customerId;
     @NotNull(message = "Date cannot be Null")
     private LocalDate date;
     @NotNull(message = "comment can not be null")
