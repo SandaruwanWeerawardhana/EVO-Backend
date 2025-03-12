@@ -7,3 +7,24 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 0000000000000000000000000000000
+            client-secret: 000000000000000000000000000000000000
+            scope:
+              - email
+              - profile
+            redirect-uri: "http://localhost:8080/login/oauth2/code/google"
+
+          facebook:
+            client-id: 00000000000000000
+            client-secret: 000000000000000000000000000000
+            scope:
+              - email
+              - public_profile
+            redirect-uri: http://localhost:8080/login/oauth2/code/facebook
+
