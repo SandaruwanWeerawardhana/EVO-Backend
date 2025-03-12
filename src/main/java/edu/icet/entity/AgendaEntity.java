@@ -27,6 +27,6 @@ public class AgendaEntity {
     @Column(name = "time", nullable = false)
     private LocalTime time;
 
-    @Column(name = "agendadetails", nullable = false)
+    @Column(name = "agenda_details", nullable = false)
     private String agendaDetail;
 }

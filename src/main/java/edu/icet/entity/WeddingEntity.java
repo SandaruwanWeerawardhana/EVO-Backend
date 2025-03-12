@@ -21,7 +21,7 @@ public class WeddingEntity {
     @Column(name = "id", nullable = false)
     private String weddingId;
 
-    @Column(name = "weddingtype", nullable = false)
+    @Column(name = "wedding_type", nullable = false)
     private WeddingType weddingType;
 
     @Column(name = "date", nullable = false)

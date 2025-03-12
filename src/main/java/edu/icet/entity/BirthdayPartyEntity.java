@@ -14,19 +14,19 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "birthdayparty")
+@Table(name = "birthday_party")
 public class BirthdayPartyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer birthdayPartyId;
 
-    @Column(name = "ownername", nullable = false)
+    @Column(name = "owner_name", nullable = false)
     private String ownerName;
 
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "birthdaydate", nullable = false)
+    @Column(name = "birthday_date", nullable = false)
     private Date birthday;
 }
