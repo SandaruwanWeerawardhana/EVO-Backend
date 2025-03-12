@@ -49,13 +49,6 @@ public class BeautySaloonServiceImpl implements BeautySaloonService {
     }
 
     @Override
-    public List<BeautySaloon> getByName(String name) {
-        return beautySaloons.stream()
-                .filter(saloon -> saloon.getName().equalsIgnoreCase(name))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public BeautySaloon get(String id) {
         beautySaloons.stream()
                 .filter(saloon -> saloon.getId().equals(id))
