@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Message {
     @NotBlank(message = "Not be empty")
     private Long mid;
@@ -26,6 +25,4 @@ public class Message {
     private LocalDateTime sendTime;
     @Enumerated(EnumType.STRING)
     private UserType userType;
-
-
 }
