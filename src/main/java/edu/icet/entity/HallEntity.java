@@ -3,7 +3,6 @@ package edu.icet.entity;
 import edu.icet.util.HallAvailability;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,13 +17,13 @@ public class HallEntity {
     @Column(name = "id")
     private Long hallId;
 
-    @NotNull
+    @Column(nullable = false)
     private Long propertyId;
 
-    @NotNull
+    @Column(nullable = false)
     @Min(1)
     private Integer count;
 
-    @NotNull
+    @Column(nullable = false)
     private HallAvailability availability;
 }

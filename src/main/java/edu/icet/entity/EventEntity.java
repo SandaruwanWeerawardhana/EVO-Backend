@@ -5,9 +5,7 @@ import edu.icet.util.BudgetType;
 import edu.icet.util.EventStatusType;
 import edu.icet.util.EventType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,29 +23,30 @@ public class EventEntity {
     @Column(name = "id")
     private Integer eventId;
 
-    @NotNull
+    @Column(nullable = false)
     private Long userId;
 
-    @NotNull @Future
+    @Column(nullable = false)
     private Date eventDate;
 
-    @NotNull
+    @Column(nullable = false)
     private Time startTime;
 
-    @NotNull
+    @Column(nullable = false)
     private Time endTime;
 
     private Location location;
 
-    @NotNull
+    @Column(nullable = false)
     private EventType eventType;
 
-    @NotNull @Min(1)
+    @Column(nullable = false)
+    @Min(1)
     private Integer capacity;
 
-    @NotNull
+    @Column(nullable = false)
     private BudgetType budgetType;
 
-    @NotNull
+    @Column(nullable = false)
     private EventStatusType eventStatus;
 }
