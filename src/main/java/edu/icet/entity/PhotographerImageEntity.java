@@ -1,4 +1,3 @@
-
 package edu.icet.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -7,22 +6,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Setter
+@Getter
 @Entity
-@Table(name ="BeautyPackages")
-
-public class BeautyPackageEntity {
+@Table(name = "PhotographerImages" )
+public class PhotographerImageEntity {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    @NotBlank (message = "Name is required")
-    private String name;
-
-    @Column(nullable = false)
-    private Double price;
+    @NotBlank(message = "image url can't be blank")
+    private String imageUrl;
 }
