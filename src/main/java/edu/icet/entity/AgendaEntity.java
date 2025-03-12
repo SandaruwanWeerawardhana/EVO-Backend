@@ -16,7 +16,6 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "agenda")
 public class AgendaEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
