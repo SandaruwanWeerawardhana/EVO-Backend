@@ -14,6 +14,7 @@ import lombok.*;
 public class CateringEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
     private Integer cateringId;
     @Column(nullable = false)
     private Integer supplierId;
