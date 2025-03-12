@@ -12,8 +12,6 @@ public interface EventReportService {
     boolean updateEventReport(Long id,EventReport eventReport);
     EventReport getEventReportById(Long id);
     List<EventReport> getAllEventReports();
-    List<EventReport> getEventReportsByLocation(String location);
-    List<EventReport> getEventReportsByDate(LocalDate date);
     List<EventReport> getEventReportsByEventType(EventType eventType);
     boolean deleteEventReportById(Long id);
 }
