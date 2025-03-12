@@ -38,7 +38,4 @@ public class ProfileExtraFeatureController {
     public ProfileExtraFeature searchById(@PathVariable Long id) {
         return profileExtraFeatureService.searchById(id);
     }
-
-
-
 }

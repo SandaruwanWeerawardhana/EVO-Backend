@@ -16,7 +16,7 @@ public class ProfilePreviousWorkServiceImpl implements ProfilePreviousWorkServic
     @Override
     public List<ProfilePreviousWork> getAll(Profile profile) {
         for (ProfilePreviousWork Work : profilePreviousWorkList) {
-            if (Work.getProfileId().equals(profile.getId())) {
+            if (Work.getProfileID().equals(profile.getId())) {
                 profilePreviousWorkList.add(Work);
             }
         }
@@ -31,7 +31,7 @@ public class ProfilePreviousWorkServiceImpl implements ProfilePreviousWorkServic
     @Override
     public Boolean delete(Long id) {
         for (ProfilePreviousWork Work : profilePreviousWorkList) {
-            if (Work.getProfileId().equals(id)) {
+            if (Work.getProfileID().equals(id)) {
                 profilePreviousWorkList.remove(Work);
                 return true;
             }
@@ -41,42 +41,39 @@ public class ProfilePreviousWorkServiceImpl implements ProfilePreviousWorkServic
 
     @Override
     public ProfilePreviousWork search(ProfilePreviousWork profilePreviousWork) {
-        if (profilePreviousWork!=null) {
-            if (profilePreviousWork.getWorkId()!=null) {
-                search(profilePreviousWork.getWorkId());
-            }else if (profilePreviousWork.getProfileId()!=null) {
-                search(profilePreviousWork.getProfileId());
-            } else if (profilePreviousWork.getTitle()!=null) {
-                search(profilePreviousWork.getTitle());
-            } else if (profilePreviousWork.getClientName()!=null) {
-                search(profilePreviousWork.getClientName());
+        if (profilePreviousWork != null) {
+            if (profilePreviousWork.getPreviousWorkID() != null) {
+                return searchByPreviousWorkID(profilePreviousWork.getPreviousWorkID());
+            } else if (profilePreviousWork.getProfileID() != null) {
+                return searchByProfileID(profilePreviousWork.getProfileID());
             }
         }
         return null;
     }
 
-    private ProfilePreviousWork search(String s) {
-        for (ProfilePreviousWork Work : profilePreviousWorkList) {
-            if (Work.getTitle().equals(s)) {
-                return Work;
-            } else if (Work.getClientName().equals(s)) return Work;
+    private ProfilePreviousWork searchByPreviousWorkID(Long previousWorkID) {
+        for (ProfilePreviousWork work : profilePreviousWorkList) {
+            if (work.getPreviousWorkID().equals(previousWorkID)) {
+                return work;
+            }
         }
         return null;
     }
 
-    private ProfilePreviousWork search(Long id) {
+    private ProfilePreviousWork searchByProfileID(Long profileID) {
         for (ProfilePreviousWork work : profilePreviousWorkList) {
-            if (work.getWorkId().equals(id)) {
+            if (work.getProfileID().equals(profileID)) {
                 return work;
-            } else if (work.getProfileId().equals(id)) return work;
+            }
         }
         return null;
     }
+
 
     @Override
     public boolean update(ProfilePreviousWork profilePreviousWork) {
         for (ProfilePreviousWork Work : profilePreviousWorkList) {
-            if (Work.getWorkId().equals(profilePreviousWork.getWorkId())) {
+            if (Work.getPreviousWorkID().equals(profilePreviousWork.getPreviousWorkID())) {
                 profilePreviousWorkList.set(profilePreviousWorkList.indexOf(Work), profilePreviousWork);
                 return true;
             }
