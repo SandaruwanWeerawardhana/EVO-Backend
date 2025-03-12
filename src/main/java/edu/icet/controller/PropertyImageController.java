@@ -2,11 +2,13 @@ package edu.icet.controller;
 
 import edu.icet.dto.PropertyImage;
 import edu.icet.service.supplier.PropertyImageService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Hidden
 @RestController
 @RequestMapping("/supplier/venue/property/image")
 @RequiredArgsConstructor

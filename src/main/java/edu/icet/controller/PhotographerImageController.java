@@ -2,11 +2,13 @@ package edu.icet.controller;
 
 import edu.icet.dto.PhotographerImage;
 import edu.icet.service.supplier.PhotographerImageService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Hidden
 @RestController
 @RequestMapping("/supplier/photographer/image")
 @RequiredArgsConstructor
