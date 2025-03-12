@@ -13,14 +13,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/customer")
 @CrossOrigin
+@RequiredArgsConstructor
 public class CustomerController {
 
     private final CustomerService customerService;
-
-    @Autowired
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
 
     @PostMapping("/add")
     public ResponseEntity<String> addCustomer(@RequestBody Customer customer) {
