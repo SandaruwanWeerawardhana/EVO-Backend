@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface GetTogetherEventService {
-    void addGetTogether(GetTogether getTogether);
-    void deleteGetTogether(Integer id);
+    boolean add(GetTogether getTogether);
+    boolean delete(Integer id);
     List<GetTogether> getAll();
-    void updateGetTogether(GetTogether getTogether);
-    GetTogether searchById(Integer id);
+    boolean update(GetTogether getTogether);
+    GetTogether get(Integer id);
 }
