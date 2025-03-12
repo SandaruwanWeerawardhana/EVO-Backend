@@ -13,8 +13,4 @@ public interface UserService {
      List<User> getAllUsers();
      boolean isUserExist(Long userId);
      boolean isUserExist(User user);
-     List<String> getUserAddress(String username);
-     List<String> getAllUserAddress();
-     List<User> getLimitUserAddress(Integer limit);
-
 }

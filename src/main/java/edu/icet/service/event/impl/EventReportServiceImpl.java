@@ -2,50 +2,63 @@ package edu.icet.service.event.impl;
 
 import edu.icet.dto.EventReport;
 import edu.icet.service.event.EventReportService;
-import edu.icet.util.EventType;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 @Service
+@Slf4j
 public class EventReportServiceImpl implements EventReportService {
+    List<EventReport> eventReportsList = new ArrayList<>();
+
+
     @Override
     public boolean saveEventReport(EventReport eventReport) {
-        return false;
+        if (eventReport == null) {
+            return false;
+        } else {
+            return eventReportsList.add(eventReport);
+
+        }
     }
 
     @Override
     public boolean updateEventReport(Long id, EventReport eventReport) {
+        for (int i = 0; i < eventReportsList.size(); i++) {
+            if (eventReportsList.get(i).getReportId().equals(id)) {
+                eventReportsList.set(i, eventReport);
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public EventReport getEventReportById(Long id) {
+        for (EventReport report : eventReportsList) {
+            if (report.getReportId().equals(id)) {
+                return report;
+            }
+        }
         return null;
     }
 
     @Override
     public List<EventReport> getAllEventReports() {
-        return List.of();
-    }
-
-    @Override
-    public List<EventReport> getEventReportsByLocation(String location) {
-        return List.of();
-    }
-
-    @Override
-    public List<EventReport> getEventReportsByDate(LocalDate date) {
-        return List.of();
-    }
-
-    @Override
-    public List<EventReport> getEventReportsByEventType(EventType eventType) {
-        return List.of();
+        if(eventReportsList!=null){
+            return new ArrayList<>(eventReportsList);
+        }
+        return null;
     }
 
     @Override
     public boolean deleteEventReportById(Long id) {
-        return false;
+        if (id == null) {
+            return false;
+        } else {
+            return eventReportsList.removeIf(eventReport -> Objects.equals(eventReport.getReportId(), id));
+        }
     }
 }

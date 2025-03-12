@@ -17,17 +17,9 @@ public class ReplyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long replyId;
-
-
     private Long reviewId;
-
     private Long userId;
-
-//    private String content;
-
+    //    private String content;
     @Column(nullable = false, length = 1000)
-
     private String text;
-
-
 }

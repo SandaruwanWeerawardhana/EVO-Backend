@@ -11,4 +11,6 @@ public interface BeautySaloonService {
     boolean delete(String id);
     boolean update(BeautySaloon beautySaloon);
     BeautySaloon get(String id);
+
+    List<BeautySaloon> getByName(String name);
 }

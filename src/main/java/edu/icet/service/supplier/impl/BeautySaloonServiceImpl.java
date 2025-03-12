@@ -55,4 +55,9 @@ public class BeautySaloonServiceImpl implements BeautySaloonService {
                 .findFirst();
         return null;
     }
+
+    @Override
+    public List<BeautySaloon> getByName(String name) {
+        return null;
+    }
 }
