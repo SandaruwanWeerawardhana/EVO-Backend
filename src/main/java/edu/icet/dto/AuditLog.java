@@ -16,5 +16,5 @@ public class AuditLog {
     private Long logId;
     @NotNull(message = "Timestamp is required")
     private String timestamp;
-        private AuditActionType type;
+    private AuditActionType type;
 }
