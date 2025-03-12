@@ -14,4 +14,5 @@ public class Music {
 
     @NotBlank(message = "Team Size may not be empty")
     private Integer teamSize;
+
 }

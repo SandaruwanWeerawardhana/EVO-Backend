@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("/supplier/photographer/package")
 @RequiredArgsConstructor
 @CrossOrigin
-public class PhtographerPackageController {
+public class PhotographerPackageController {
 
     final PhotographerPackageService photographerPackageService;
 

@@ -30,11 +30,6 @@ public class EventController {
         return eventService.deleteEvent(id);
     }
 
-    @PutMapping("/update-by-id")
-    public boolean updateEvent(@RequestBody Integer id) {
-        return eventService.updateEvent(id);
-    }
-
     @GetMapping("/search/{id}")
     public void searchEvent(@PathVariable("id") Integer id) {
         eventService.searchEvent(id);

@@ -2,28 +2,42 @@ package edu.icet.service.supplier.impl;
 
 import edu.icet.dto.PropertyImage;
 import edu.icet.service.supplier.PropertyImageService;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
+@RequiredArgsConstructor
 public class PropertyImageServiceImpl implements PropertyImageService {
+    final ModelMapper mapper;
+    private ArrayList<PropertyImage> propertyImages = new ArrayList<> ();
     @Override
     public List<PropertyImage> getAll() {
-        return List.of();
+        return propertyImages;
     }
-
     @Override
     public PropertyImage save(PropertyImage propertyImage) {
-        return null;
+        propertyImages.add(propertyImage);
+        return propertyImage;
     }
 
     @Override
     public Boolean delete(Long id) {
-        return null;
+        return propertyImages.removeIf(image -> image.getId().equals(id));
     }
 
     @Override
     public Boolean update(PropertyImage propertyImage) {
-        return null;
+        for (PropertyImage image : propertyImages) {
+            if (image.getId().equals(propertyImage.getId())) {
+                int index = propertyImages.indexOf(image);
+                propertyImages.set(index, propertyImage);
+                return true;
+            }
+        }
+
+        return false;
     }
 }

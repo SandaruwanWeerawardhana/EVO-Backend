@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 
 public class Pool {
-    private long id;
+    private Long id;
     @NotNull
     @NotBlank
     private String size;

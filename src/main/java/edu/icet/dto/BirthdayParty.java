@@ -2,9 +2,16 @@ package edu.icet.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Date;
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class BirthdayParty {
     @NotNull(message = "birthdayPartyID cannot be null")
     private Integer birthdayPartyId;
