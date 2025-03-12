@@ -27,8 +27,7 @@ public class EventEntity {
     @NotNull
     private Long userId;
 
-    @NotNull
-    @Future
+    @NotNull @Future
     private Date eventDate;
 
     @NotNull
@@ -42,8 +41,7 @@ public class EventEntity {
     @NotNull
     private EventType eventType;
 
-    @NotNull
-    @Min(1)
+    @NotNull @Min(1)
     private Integer capacity;
 
     @NotNull
