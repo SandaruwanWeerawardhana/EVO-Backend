@@ -1,5 +1,6 @@
 package edu.icet.service.oauth.impl;
 
+import edu.icet.dto.Supplier;
 import edu.icet.dto.User;
 import edu.icet.service.oauth.SignUpService;
 import edu.icet.util.UserType;
@@ -16,7 +17,8 @@ public class SignUpServiceImpl implements SignUpService {
         Map<String, Object> attributes = token.getPrincipal().getAttributes();
 
         User user = new User();
-        user.setUserName(attributes.get("name").toString());
+        user.setFirstName(attributes.get("name").toString());
+        user.setLastName(null);
         String encodedPassword = new BCryptPasswordEncoder().encode(attributes.get("sub").toString());
         user.setPassword(encodedPassword);
         user.setEmail(attributes.get("email").toString());
@@ -25,6 +27,8 @@ public class SignUpServiceImpl implements SignUpService {
             user.setUserType(UserType.ADMIN);
         }else if(userType.equals("CUSTOMER")){
             user.setUserType(UserType.CUSTOMER);
+        }else if(userType.equals("SUPPLIER")){
+            user.setUserType(UserType.SUPPLIER);
         }else{
             return false;
         }
