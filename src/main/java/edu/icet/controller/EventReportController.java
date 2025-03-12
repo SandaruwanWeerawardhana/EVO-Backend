@@ -65,25 +65,25 @@ public class EventReportController {
         }
     }
 
-    @GetMapping("/get_event_reports_by_location/{location}")
-    public ResponseEntity<List<EventReport>> getEventReportsByLocation(@PathVariable String location){
-        List<EventReport> eventReportsByLocation = eventReportService.getEventReportsByLocation(location);
-        if (eventReportsByLocation != null){
-            return new ResponseEntity<>(eventReportsByLocation,HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+//    @GetMapping("/get_event_reports_by_location/{location}")
+//    public ResponseEntity<List<EventReport>> getEventReportsByLocation(@PathVariable String location){
+//        List<EventReport> eventReportsByLocation = eventReportService.getEventReportsByLocation(location);
+//        if (eventReportsByLocation != null){
+//            return new ResponseEntity<>(eventReportsByLocation,HttpStatus.OK);
+//        }else {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//    }
 
-    @GetMapping("/get_event_reports_by_date/{date}")
-    public ResponseEntity<List<EventReport>> getEventReportsByDate(@PathVariable LocalDate date){
-        List<EventReport> eventReportsByDate = eventReportService.getEventReportsByDate(date);
-        if (eventReportsByDate != null){
-            return new ResponseEntity<>(eventReportsByDate,HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+//    @GetMapping("/get_event_reports_by_date/{date}")
+//    public ResponseEntity<List<EventReport>> getEventReportsByDate(@PathVariable LocalDate date){
+//        List<EventReport> eventReportsByDate = eventReportService.getEventReportsByDate(date);
+//        if (eventReportsByDate != null){
+//            return new ResponseEntity<>(eventReportsByDate,HttpStatus.OK);
+//        }else {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//    }
 
     @GetMapping("/get_event_reports_by_eventType/{eventType}")
     public ResponseEntity<List<EventReport>> getEventReportsByEventType(@PathVariable EventType eventType){
