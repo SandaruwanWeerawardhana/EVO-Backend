@@ -13,14 +13,17 @@ import java.util.List;
 @CrossOrigin
 public class WeddingController {
     private final WeddingEventService weddingEventService;
+
     @GetMapping("/get/{id}")
     public Wedding get(@PathVariable("id") String id){
         return weddingEventService.get(id);
     }
+
     @GetMapping("/get-by-date/{date}")
     public List<Wedding> get(@PathVariable("date") LocalDate date){
         return weddingEventService.getByDate(date);
     }
+
     @GetMapping("/get-all")
     public List<Wedding> getAll(){
         return weddingEventService.getAll();
@@ -30,10 +33,12 @@ public class WeddingController {
     public boolean save(@RequestBody Wedding wedding){
         return weddingEventService.add(wedding);
     }
+
     @DeleteMapping("/delete/{id}")
     public boolean delete(@PathVariable("id") String id){
         return weddingEventService.delete(id);
     }
+
     @PutMapping("/update")
     public boolean update(@RequestBody Wedding wedding){
         return weddingEventService.update(wedding);
