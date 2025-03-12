@@ -25,14 +25,14 @@ public class EventEntity {
     @Column(name = "id")
     private Integer eventId;
 
-    @Column(nullable = false)
+    @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @Column(nullable = false)
+    @Column(name = "event_date",nullable = false)
     @Future
     private Date eventDate;
 
-    @Column(nullable = false)
+    @Column(name = "start_time",nullable = false)
     private Time startTime;
 
     @Column(nullable = false)

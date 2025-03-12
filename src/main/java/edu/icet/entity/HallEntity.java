@@ -18,13 +18,13 @@ public class HallEntity {
     @Column(name = "id")
     private Long hallId;
 
-    @Column(nullable = false)
+    @Column(name = "property_id",nullable = false)
     private Long propertyId;
 
-    @Column(nullable = false)
+    @Column(name = "count",nullable = false)
     @Min(1)
     private Integer count;
 
-    @Column(nullable = false)
+    @Column(name = "availability",nullable = false)
     private HallAvailability availability;
 }
