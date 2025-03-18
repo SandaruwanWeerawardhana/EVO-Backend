@@ -5,13 +5,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Data
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "AuditLog")
-
 public class AuditLogEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
