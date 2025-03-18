@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 public class LocationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer locationId;
     @Column(name = "city", nullable = false)
     private String city;

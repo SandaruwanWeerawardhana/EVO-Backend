@@ -47,7 +47,7 @@ public class SupplierEntity {
 
     @NotNull(message = "Location is required")
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "location",referencedColumnName = "locationId")
+    @JoinColumn(name = "locationId",referencedColumnName = "locationId")
     private LocationEntity location;
 
     private String profilePictureImageUrl;
