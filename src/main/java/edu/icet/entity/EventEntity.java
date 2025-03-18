@@ -39,8 +39,8 @@ public class EventEntity {
     @Column(name = "end_time", nullable = false)
     private Time endTime;
 
-    @JoinColumn(name = "location_id", nullable = false)
     @ManyToOne
+    @JoinColumn(name = "location_id", nullable = false)
     private LocationEntity location;
 
     @Column(name = "event_type",nullable = false)
@@ -58,9 +58,8 @@ public class EventEntity {
     @Enumerated(EnumType.STRING)
     private EventStatusType eventStatus;
 
-    @OneToMany(mappedBy = "supplierId")
-    @Column(name = "event_id",nullable = false)
-    private List<EventSupplierEntity> suppliers;
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    private List<EventSupplierEntity> eventSuppliers;
 
 
 }
