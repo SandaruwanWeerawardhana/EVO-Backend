@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Wedding {
     @NotBlank(message = "Id can't be null")
-    private String weddingID;
+    private Long weddingID;
     private WeddingType weddingType;
     @NotBlank(message = "Date can't be null")
     private LocalDate date;
