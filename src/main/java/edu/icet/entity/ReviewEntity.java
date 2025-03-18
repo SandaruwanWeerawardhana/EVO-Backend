@@ -1,6 +1,6 @@
 package edu.icet.entity;
 
-import edu.icet.util.Rating;
+import edu.icet.util.RatingType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -23,7 +23,7 @@ public class ReviewEntity {
     private Long reviewId;
 
     @Column(nullable = false)
-    private Rating rating;
+    private RatingType rating;
 
     @NotNull
     @PastOrPresent

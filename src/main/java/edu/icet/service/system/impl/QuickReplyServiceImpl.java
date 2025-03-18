@@ -77,9 +77,6 @@ public class QuickReplyServiceImpl implements QuickReplyService {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new IllegalArgumentException("Thread was interrupted", e);
-        } finally {
-            httpClient.close();
         }
-
     }
 }

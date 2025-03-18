@@ -1,6 +1,7 @@
 package edu.icet.entity;
 
 
+import edu.icet.util.MealType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,6 +19,7 @@ public class MealEntity {
     private String name;
     @Column(nullable = false)
     private Double pricePerPerson;
-    private String mealType;
+    @Enumerated(EnumType.STRING)
+    private MealType mealType;
 
 }

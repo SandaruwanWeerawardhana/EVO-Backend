@@ -1,6 +1,5 @@
 package edu.icet.entity;
 
-import edu.icet.dto.Location;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -37,7 +36,7 @@ public class SupplierEntity {
     @NotEmpty(message = "Email is required")
     private String email;
 
-    @Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "Invalid phone number")
+    @Pattern(regexp = "^\\+?'[^0-9]'{10,15}$", message = "Invalid phone number")
     @NotBlank(message = "Phone Number is required")
     private String phoneNumber;
 
@@ -45,7 +44,9 @@ public class SupplierEntity {
     private String description;
 
     @NotNull(message = "Location is required")
-    private Location location;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "location",referencedColumnName = "locationId")
+    private LocationEntity location;
 
     private String profilePictureImageUrl;
 

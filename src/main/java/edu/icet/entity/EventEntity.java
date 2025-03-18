@@ -1,6 +1,6 @@
 package edu.icet.entity;
 
-import edu.icet.dto.Location;
+
 import edu.icet.util.BudgetType;
 import edu.icet.util.EventStatusType;
 import edu.icet.util.EventType;
@@ -38,9 +38,10 @@ public class EventEntity {
     @Column(name = "end_time",nullable = false)
     private Time endTime;
 
-
-    @Column(name = "location")
-    private Location location;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "locationId",referencedColumnName = "locationId")
+    private LocationEntity location;
 
     @Column(name = "event_type",nullable = false)
     private EventType eventType;

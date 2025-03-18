@@ -1,6 +1,6 @@
 package edu.icet.entity;
 
-import edu.icet.util.HallAvailability;
+import edu.icet.util.HallAvailabilityType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -26,5 +26,6 @@ public class HallEntity {
     private Integer count;
 
     @Column(name = "availability",nullable = false)
-    private HallAvailability availability;
+    @Enumerated(EnumType.STRING)
+    private HallAvailabilityType availability;
 }

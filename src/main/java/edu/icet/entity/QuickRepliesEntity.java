@@ -1,11 +1,8 @@
 
 package edu.icet.entity;
 
-import edu.icet.util.Category;
+import edu.icet.util.CategoryType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,7 +27,8 @@ public class QuickRepliesEntity {
     private String content;
 
     @Column(nullable = false)
-    private Category category;
+    @Enumerated(EnumType.STRING)
+    private CategoryType category;
 
 
 }

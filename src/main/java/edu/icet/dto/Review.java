@@ -1,9 +1,8 @@
 package edu.icet.dto;
 
-import edu.icet.util.Rating;
+import edu.icet.util.RatingType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
 import java.time.LocalDate;
 
@@ -24,6 +23,6 @@ public class Review {
     @NotNull(message = "comment can not be null")
     private String comment;
     @NotNull(message = "Rating cannot be Null")
-    private Rating rating;
+    private RatingType rating;
 
 }

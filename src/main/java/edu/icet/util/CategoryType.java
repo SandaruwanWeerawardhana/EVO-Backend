@@ -1,5 +1,5 @@
 package edu.icet.util;
 
-public enum Category {
+public enum CategoryType {
     CATERING, VENUE, BEAUTY, PHOTOGRAPHY, ENTERTAINMENT
 }

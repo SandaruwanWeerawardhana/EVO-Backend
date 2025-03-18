@@ -1,7 +1,5 @@
 package edu.icet.entity;
-import edu.icet.dto.Supplier;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,7 +26,8 @@ public class EventSummaryEntity {
     private Long customerId;
 
     @Column(nullable = false)
-    private List<Supplier> supplierList;
+    @OneToMany
+    private List<SupplierEntity> supplierList;
 
     @Column(nullable = false)
     private Double totalPrice;
