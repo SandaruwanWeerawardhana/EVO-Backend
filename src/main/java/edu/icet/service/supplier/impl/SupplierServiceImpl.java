@@ -2,6 +2,7 @@ package edu.icet.service.supplier.impl;
 
 import edu.icet.dto.Category;
 import edu.icet.dto.Supplier;
+import edu.icet.repository.SupplierRepository;
 import edu.icet.service.supplier.SupplierService;
 import edu.icet.service.system.CategoryService;
 import jakarta.validation.constraints.NotEmpty;
@@ -21,6 +22,7 @@ public class SupplierServiceImpl implements SupplierService {
 
     final ModelMapper mapper;
     final CategoryService categoryService;
+    final SupplierRepository repository;
     private final List<Supplier> supplierList = new ArrayList<>();
 
     @Override
