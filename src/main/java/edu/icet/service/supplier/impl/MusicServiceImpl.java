@@ -39,7 +39,7 @@ public class MusicServiceImpl implements MusicService {
         return musicList.stream()
                 .filter(m -> m.getSupplierId().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Music not found"));
+                .orElseThrow(() -> new IllegalArgumentException("MusicRepository not found"));
     }
 
     @Override
