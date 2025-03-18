@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class Anniversary {
     private Integer eventId;
     @NotNull(message = "anniversaryYear cannot be null")
-    private String anniversaryYear;
+    private Integer anniversaryYear;
     @NotNull(message = "wifeName cannot be null")
     private String wifeName;
     @NotNull(message = "husbandName cannot be null")
