@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -45,10 +47,13 @@ public class SupplierEntity {
 
     @NotNull(message = "Location is required")
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "location",referencedColumnName = "locationId")
+    @JoinColumn(name = "locationId",referencedColumnName = "locationId")
     private LocationEntity location;
 
     private String profilePictureImageUrl;
 
     private Boolean availability;
+
+	@OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
+	private List<EventSupplierEntity> eventSuppliers;
 }

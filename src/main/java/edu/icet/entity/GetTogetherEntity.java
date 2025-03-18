@@ -8,15 +8,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "GetTogether")
-
+@Table(name = "get_together")
 public class GetTogetherEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer eventID;
 
-    @Column(nullable = false )
+    @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)

@@ -9,6 +9,7 @@ import lombok.*;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -32,5 +33,8 @@ public class Event {
     private BudgetType budgetType;
     @NotEmpty
     private EventStatusType eventStatus;
+    @NotNull
+    private List<EventSupplier> suppliers;
+
 
 }

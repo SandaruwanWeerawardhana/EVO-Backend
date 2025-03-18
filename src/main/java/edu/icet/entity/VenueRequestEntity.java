@@ -14,19 +14,18 @@ import java.time.LocalDateTime;
 @ToString
 @Entity
 @Table(name = "venue_request")
-
 public class VenueRequestEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "supplier_id",nullable = false)
     private Long supplierId;
 
-    @Column(nullable = false)
-    private Long venueId;
+    @Column(name = "venue_id",nullable = false)
+    private Long venueID;
 
-    @Column(nullable = false)
+    @Column(name = "created_datetime",nullable = false)
     private LocalDateTime createdDateTime;
 
     @Column(nullable = false)

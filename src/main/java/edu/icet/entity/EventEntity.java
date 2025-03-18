@@ -1,6 +1,5 @@
 package edu.icet.entity;
 
-
 import edu.icet.util.BudgetType;
 import edu.icet.util.EventStatusType;
 import edu.icet.util.EventType;
@@ -13,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "event")
@@ -38,21 +38,27 @@ public class EventEntity {
     @Column(name = "end_time",nullable = false)
     private Time endTime;
 
-    
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "locationId",referencedColumnName = "locationId")
     private LocationEntity location;
 
     @Column(name = "event_type",nullable = false)
+    @Enumerated(EnumType.STRING)
     private EventType eventType;
 
     @Column(name = "capacity",nullable = false)
     @Min(1)
     private Integer capacity;
 
-    @Column(name = "budget_type",nullable = false)
+    @Column(name = "budget_type", nullable = false)
+    @Enumerated(EnumType.STRING)
     private BudgetType budgetType;
 
-    @Column(name = "event_status",nullable = false)
+    @Column(name = "event_status", nullable = false)
+    @Enumerated(EnumType.STRING)
     private EventStatusType eventStatus;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    private List<EventSupplierEntity> eventSuppliers;
 }
