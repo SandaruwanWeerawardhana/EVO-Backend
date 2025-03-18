@@ -54,7 +54,7 @@ public class QuickReplyServiceImpl implements QuickReplyService {
     }
 
     public Boolean filterProfanity(String content) {
-        HttpClient httpClient = HttpClient.newHttpClient();;
+        HttpClient httpClient = HttpClient.newHttpClient();
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://api.apiverve.com/v1/profanityfilter"))
@@ -78,7 +78,7 @@ public class QuickReplyServiceImpl implements QuickReplyService {
             Thread.currentThread().interrupt();
             throw new IllegalArgumentException("Thread was interrupted", e);
         } finally {
-
+            httpClient.close();
         }
 
     }
