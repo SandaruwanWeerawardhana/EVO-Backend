@@ -18,7 +18,6 @@ public class SearchHistoryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
     private Long searchId;
     private LocalDate date;
     private String time;

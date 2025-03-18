@@ -40,5 +40,6 @@ public class ReportEntity {
 
     @NotNull
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private ReportType reportType;
 }

@@ -18,7 +18,6 @@ import java.time.LocalDate;
 public class VerificationRequestEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull(message = "Request ID is required")
     private Long requestID;
     @FutureOrPresent(message = "Respond date must be today or future")
     private LocalDate responseDate;

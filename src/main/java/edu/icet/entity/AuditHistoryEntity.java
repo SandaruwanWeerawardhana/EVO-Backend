@@ -25,6 +25,7 @@ public class AuditHistoryEntity {
     @Column(nullable = false)
     private Timestamp timestamp;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private AuditActionType actionType;
     @Column(nullable = false)
     private String affectedEntity;

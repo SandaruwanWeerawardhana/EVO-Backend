@@ -17,8 +17,8 @@ import lombok.ToString;
 public class AdminEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private Integer adminId;
     @NotNull
+    @Enumerated(EnumType.STRING)
     private AdminType type;
 }

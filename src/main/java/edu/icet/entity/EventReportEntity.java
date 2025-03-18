@@ -17,8 +17,6 @@ import lombok.ToString;
 public class EventReportEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
-    @NotEmpty(message = "Report ID should not be blank")
     private Long reportId;
     @NotNull
     @NotEmpty(message = "Event ID should not be blank")

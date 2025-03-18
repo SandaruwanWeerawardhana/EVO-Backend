@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 public class CustomerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull(message = "ID cannot be null")
     private Long id;
 
     @NotBlank(message = "Name cannot be empty")

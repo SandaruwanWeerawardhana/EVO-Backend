@@ -2,10 +2,7 @@ package edu.icet.entity;
 
 import edu.icet.util.PaymentType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -18,11 +15,10 @@ import java.time.LocalDate;
 public class TransactionHistoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
-    private Long id;
+    private Integer id;
     private LocalDate date;
-    @Column(length = 150)
     private String description;
+    @Enumerated(EnumType.STRING)
     private PaymentType type;
     private Double amount;
     private Boolean confirmation;

@@ -1,5 +1,6 @@
 package edu.icet.entity;
 
+import edu.icet.util.UserType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -9,7 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.usertype.UserType;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,7 +22,6 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull(message = "User ID should not be blank")
     private Long userId;
     @NotEmpty(message = "First Name should not be blank")
     private String firstName;
@@ -34,6 +34,7 @@ public class UserEntity {
     @PastOrPresent(message = "Registered date should be in past or present")
     private String registeredDate;
     @NotEmpty(message = "User type should not be blank")
+    @Enumerated(EnumType.STRING)
     private UserType userType;
     @NotEmpty(message = "Contact Number should not be blank")
     private String contactNumber;

@@ -13,7 +13,6 @@ import lombok.*;
 public class RoomEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long roomId;
     @Column(nullable = false)
     private Long propertyId;
