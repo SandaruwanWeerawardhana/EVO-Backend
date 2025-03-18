@@ -44,8 +44,4 @@ public class NotificationEntity {
 
     @PastOrPresent(message = "Sent date cannot be in the future")
     private LocalDate readAt;
-
-    @Column(nullable = false)
-    @NotBlank(message = "Please provide the delivery method")
-    private String deliveryMethod;
 }
