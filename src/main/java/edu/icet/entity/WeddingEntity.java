@@ -19,9 +19,10 @@ public class WeddingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private String weddingId;
+    private Long weddingId;
 
     @Column(name = "wedding_type", nullable = false)
+    @Enumerated(EnumType.STRING)
     private WeddingType weddingType;
 
     @Column(name = "date", nullable = false)
