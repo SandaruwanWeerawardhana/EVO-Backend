@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Table(name = "ProfilePreviousWork")
-public class ProfilePreviousWork {
+public class ProfilePreviousWorkEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
