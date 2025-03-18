@@ -1,6 +1,7 @@
 package edu.icet.service.admin;
 
 import edu.icet.dto.Review;
+import edu.icet.dto.Supplier;
 
 import java.util.List;
 import java.util.Map;
@@ -12,4 +13,5 @@ public interface ReviewService {
     boolean updateByReview(long id,Review review);
     boolean deleteByReview(long id);
     Map<String,Long>getBySummaryFilterReview(long id);
+    Review searchByIDSuplier(long id);
 }

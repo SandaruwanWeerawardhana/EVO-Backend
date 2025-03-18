@@ -1,5 +1,6 @@
 package edu.icet.util;
 
-public enum HallAvailability {
+public enum
+HallAvailabilityType {
     AVAILABLE, OCCUPIED
 }
