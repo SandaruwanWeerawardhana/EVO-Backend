@@ -1,7 +1,11 @@
 package edu.icet.service.supplier.impl;
 
+import edu.icet.dto.Category;
 import edu.icet.dto.Supplier;
-import edu.icet.service.SupplierService;
+import edu.icet.service.supplier.SupplierService;
+import edu.icet.service.system.CategoryService;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -14,12 +18,34 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class SupplierServiceImpl implements SupplierService {
+
     final ModelMapper mapper;
+    final CategoryService categoryService;
     private final List<Supplier> supplierList = new ArrayList<>();
 
     @Override
     public List<Supplier> getAll() {
         return new ArrayList<>(supplierList);
+    }
+
+    @Override
+    public List<Supplier> getByCategory(String category) {
+        if (category == null || category.isBlank()) {
+            throw new IllegalArgumentException("Category name cannot be null or blank");
+        }
+
+        String categoryLower = category.toLowerCase();
+
+        return supplierList.stream()
+                .filter(supplier -> {
+                    Category categoryObj = findCategoryById(supplier.getCategoryId());
+                    return categoryObj != null && categoryObj.getName().toLowerCase().equals(categoryLower);
+                })
+                .toList();
+    }
+
+    private Category findCategoryById(@NotEmpty(message = "Category ID required") @PositiveOrZero(message = "ID must be positive") Long categoryId) {
+        return categoryService.search(String.valueOf(categoryId));
     }
 
     @Override

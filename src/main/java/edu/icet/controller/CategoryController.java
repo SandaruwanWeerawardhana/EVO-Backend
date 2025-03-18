@@ -34,8 +34,8 @@ public class CategoryController {
         return service.update(category);
     }
 
-    @GetMapping("/search/{query}")
-    public Category searchCategory(@PathVariable String query){
+    @GetMapping("/search")
+    public Category searchCategory(@RequestBody String query){
         return service.search(query);
     }
 
