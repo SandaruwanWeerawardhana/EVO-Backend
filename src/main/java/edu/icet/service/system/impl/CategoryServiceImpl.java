@@ -1,62 +1,75 @@
 package edu.icet.service.system.impl;
 
 import edu.icet.dto.Category;
+import edu.icet.entity.CategoryEntity;
+import edu.icet.repository.CategoryRepository;
 import edu.icet.service.system.CategoryService;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
-
-    List<Category> categoryList = new ArrayList<>();
+    final ModelMapper modelMapper;
+    final CategoryRepository categoryRepository;
 
     @Override
     public List<Category> getAll() {
-        return categoryList;
+        return categoryRepository.findAll()
+                .stream()
+                .map(entity -> modelMapper.map(entity, Category.class))
+                .collect(Collectors.toList());
     }
 
     @Override
     public Boolean save(Category category) {
-        return categoryList.add(category);
+        if (category == null) return false;
+        CategoryEntity entity = modelMapper.map(category, CategoryEntity.class);
+        categoryRepository.save(entity);
+        return true;
     }
 
     @Override
     public Category search(String query) {
-        if (query == null || query.isEmpty()) {
-            return null;
-        }
+        Optional<CategoryEntity> categoryEntity = categoryRepository.findAll()
+                .stream()
+                .filter(entity -> entity.getName().equalsIgnoreCase(query))
+                .findFirst();
 
-        for (Category category : categoryList) {
-            if (category.getName().equalsIgnoreCase(query)) {
-                return category;
-            }
-        }
-        return null;
+        return categoryEntity.map(entity -> modelMapper.map(entity, Category.class)).orElse(null);
     }
 
     @Override
     public Boolean delete(Long id) {
-        return categoryList.removeIf(p -> p.getId().equals(id));
+        if (id == null || !categoryRepository.existsById(id)) {
+            return false;
+        }
+        categoryRepository.deleteById(id);
+        return true;
     }
 
     @Override
     public Boolean delete(Category category) {
-        return categoryList.remove(category);
+        if (category == null || category.getId() == null) {
+            return false;
+        }
+        return delete(category.getId());
     }
 
     @Override
     public Boolean update(Category category) {
-        if (category == null) return false;
-
-        for (Category temp : categoryList) {
-            if (temp.getId().equals(category.getId())) {
-                int index = categoryList.indexOf(temp);
-                categoryList.set(index, category);
-                return true;
-            }
+        if (category == null || category.getId() == null) {
+            return false;
         }
-        return false;
+        if (!categoryRepository.existsById(category.getId())) {
+            return false;
+        }
+        CategoryEntity entity = modelMapper.map(category, CategoryEntity.class);
+        categoryRepository.save(entity);
+        return true;
     }
 }
