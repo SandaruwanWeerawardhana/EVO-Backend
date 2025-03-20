@@ -1,12 +1,12 @@
 package edu.icet.service.system;
 
 import edu.icet.dto.Category;
-import org.springframework.stereotype.Service;
+import edu.icet.entity.CategoryEntity;
 
 import java.util.List;
 
 public interface CategoryService {
-    List<Category> getAll();
+    List<CategoryEntity> getAll();
     Boolean save(Category category);
     Category search(String query);
     Boolean delete(Long id);
