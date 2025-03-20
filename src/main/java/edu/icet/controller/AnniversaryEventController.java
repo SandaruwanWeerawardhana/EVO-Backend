@@ -26,7 +26,7 @@ public class AnniversaryEventController {
     }
 
     @GetMapping("/get/{eventId}")
-    public Anniversary getAnniversary(@PathVariable("eventId") Integer eventId) {
+    public Anniversary getAnniversary(@PathVariable("eventId") Long eventId) {
         return anniversaryEventService.get(eventId);
     }
 
@@ -36,7 +36,7 @@ public class AnniversaryEventController {
     }
 
     @DeleteMapping("/delete/{eventId}")
-    public boolean deleteAnniversary(@PathVariable("eventId") Integer eventId) {
+    public boolean deleteAnniversary(@PathVariable("eventId") Long eventId) {
        return anniversaryEventService.delete(eventId);
     }
 }

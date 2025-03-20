@@ -18,7 +18,7 @@ public class AnniversaryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Integer eventId;
+    private Long eventId;
 
     @Column(name = "anniversary_year", nullable = false)
     private Integer anniversaryYear;
