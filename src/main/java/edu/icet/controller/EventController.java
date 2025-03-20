@@ -5,6 +5,7 @@ import edu.icet.dto.Location;
 import edu.icet.service.event.EventService;
 import edu.icet.util.EventType;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +17,8 @@ import java.util.List;
 public class EventController {
     private final EventService eventService;
     @PostMapping("/add")
-    public boolean addEvent(@RequestBody Event event) {
-        return eventService.addEvent(event);
+    public ResponseEntity<Event> addEvent(@RequestBody Event event) {
+        return ResponseEntity.ok(eventService.addEvent(event));
     }
 
     @GetMapping("/get-all")
@@ -36,8 +37,8 @@ public class EventController {
     }
 
     @PutMapping("/update")
-    public boolean updateEvent(@RequestBody Event event) {
-        return eventService.updateEvent(event, event.getEventId());
+    public ResponseEntity<Event> updateEvent(@RequestBody Event event) {
+        return  ResponseEntity.ok(eventService.updateEvent(event,event.getEventId()));
     }
 
     @GetMapping("/get-by-location")

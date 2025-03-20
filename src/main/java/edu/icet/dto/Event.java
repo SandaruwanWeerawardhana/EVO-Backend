@@ -26,13 +26,14 @@ public class Event {
     private Time startTime;
     @NotNull
     private Time endTime;
-    private Location location;
+    private Integer locationId;
     @NotNull
     @Enumerated(EnumType.STRING)
     private EventType eventType;
     @NotNull
     private Integer capacity;
     @NotNull
+    @Enumerated(EnumType.STRING)
     private BudgetType budgetType;
     @NotEmpty
     @Enumerated(EnumType.STRING)
