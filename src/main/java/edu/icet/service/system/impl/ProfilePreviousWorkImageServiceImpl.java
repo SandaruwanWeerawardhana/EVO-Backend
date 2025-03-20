@@ -1,6 +1,8 @@
 package edu.icet.service.system.impl;
 
 import edu.icet.dto.ProfilePreviousWorkImage;
+import edu.icet.entity.ProfilePreviousWorkImageEntity;
+import edu.icet.repository.ProfilePreviousWorkImageRepository;
 import edu.icet.service.system.ProfilePreviousWorkImageService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -15,40 +17,56 @@ import java.util.Optional;
 public class ProfilePreviousWorkImageServiceImpl implements ProfilePreviousWorkImageService {
 
     private final ModelMapper mapper;
-    private final List<ProfilePreviousWorkImage> profilePreviousWorkImageList = new ArrayList<>();
+    private final ProfilePreviousWorkImageRepository repository;
 
     @Override
     public ProfilePreviousWorkImage addPreviousWorkImage(ProfilePreviousWorkImage profilePreviousWorkImage) {
-        profilePreviousWorkImageList.add(profilePreviousWorkImage);
-        return profilePreviousWorkImage;
+        return mapper.map(
+                repository.save(
+                        mapper.map(
+                                profilePreviousWorkImage,
+                                ProfilePreviousWorkImageEntity.class
+                        )
+                ), ProfilePreviousWorkImage.class);
     }
 
     @Override
     public ProfilePreviousWorkImage updatePreviousWorkImage(ProfilePreviousWorkImage profilePreviousWorkImage) {
-        for (int i = 0; i < profilePreviousWorkImageList.size(); i++) {
-            if (profilePreviousWorkImageList.get(i).getProfilePreviousWorkImageId().equals(profilePreviousWorkImage.getProfilePreviousWorkImageId())) {
-                profilePreviousWorkImageList.set(i, profilePreviousWorkImage);
-                return profilePreviousWorkImage;
-            }
+        if (repository.existsById(profilePreviousWorkImage.getProfilePreviousWorkImageId())) {
+            return mapper.map(
+                    repository.save(mapper.map(
+                            profilePreviousWorkImage,
+                            ProfilePreviousWorkImageEntity.class
+                    )), ProfilePreviousWorkImage.class
+            );
         }
-        return null;
+
+        throw new IllegalArgumentException("ProflePreviousWorkImage does not exist!");
     }
 
     @Override
     public List<ProfilePreviousWorkImage> getAllPreviousWorkImage() {
-        return profilePreviousWorkImageList;
+        return repository.findAll()
+                .stream()
+                .map(profilePreviousWorkImageEntity ->
+                        mapper.map(profilePreviousWorkImageEntity, ProfilePreviousWorkImage.class)
+                ).toList();
     }
 
     @Override
     public void deleteByProfilePreviousWorkImageId(Long profilePreviousWorkImageId) {
-        profilePreviousWorkImageList.removeIf(image -> image.getProfilePreviousWorkImageId().equals(profilePreviousWorkImageId));
+        if (repository.existsById(profilePreviousWorkImageId)) {
+            repository.deleteById(profilePreviousWorkImageId);
+            return;
+        }
+
+        throw new RuntimeException("ProfilePreviousWorkImage does not exist!");
     }
 
     @Override
     public ProfilePreviousWorkImage searchByProfilePreviousWorkImageId(Long profilePreviousWorkImageId) {
-        return profilePreviousWorkImageList.stream()
-                .filter(img -> img.getProfilePreviousWorkImageId().equals(profilePreviousWorkImageId))
-                .findFirst()
-                .orElse(null);
+        ProfilePreviousWorkImageEntity entity = repository.findById(profilePreviousWorkImageId).orElse(null);
+
+        return entity != null ? mapper.map(entity, ProfilePreviousWorkImage.class) : null;
     }
 }
