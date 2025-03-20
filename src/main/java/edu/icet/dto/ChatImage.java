@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ChatImage {
     @NotEmpty
-   private Integer id;
+   private Long id;
     @NotEmpty
    private String imagePath;
 }

@@ -9,7 +9,7 @@ public interface ReportService {
     boolean saveReport(Report report);
     boolean updateReport(Long reportId,Report report);
     boolean deleteReportById(Long reportId);
-    Report searchReport(long reportId);
+    Report searchReport(Long reportId);
     List<Report> getAllReports();
     List<Report> getFillterReports(ReportType reportType);
 }

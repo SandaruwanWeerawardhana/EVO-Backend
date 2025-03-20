@@ -25,7 +25,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public Notification getNotificationById(Integer notificationId) {
+    public Notification getNotificationById(Long notificationId) {
         if (notificationId != null) {
             return notificationList.stream()
                     .filter(notification -> notification.getNotificationId().equals(notificationId))
@@ -35,7 +35,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public Notification updateNotification(Integer notificationId, Notification notification) {
+    public Notification updateNotification(Long notificationId, Notification notification) {
         if (notificationId != null && notification != null) {
             for (int i = 0; i < notificationList.size(); i++){
                 if (notificationList.get(i).getNotificationId().equals(notificationId)){
@@ -47,7 +47,7 @@ public class NotificationServiceImpl implements NotificationService {
         return null;
     }
     @Override
-    public boolean deleteNotification(Integer notificationId) {
+    public boolean deleteNotification(Long notificationId) {
         if (notificationId != null) {
             return notificationList
                     .removeIf(notification -> notification.getNotificationId()
@@ -88,7 +88,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public boolean markAsRead(Integer notificationId) {
+    public boolean markAsRead(Long notificationId) {
         if (notificationId != null){
             for (Notification notification : notificationList){
                 if (notification.getNotificationId().equals(notificationId)){

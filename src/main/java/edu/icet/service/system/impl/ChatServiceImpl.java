@@ -17,7 +17,7 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public Chat getChat(Integer id) {
+    public Chat getChat(Long id) {
         for (Chat chat:chatList){
             if (chat.getId().equals(id)){
                 return chat;
@@ -27,7 +27,7 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(Long id) {
         return chatList.removeIf(chat -> chat.getId().equals(id));
     }
 }

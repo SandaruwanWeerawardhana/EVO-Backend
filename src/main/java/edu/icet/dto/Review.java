@@ -13,9 +13,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Review {
     @NotBlank(message = "Not be empty")
-    private long reviewId;
+    private Long reviewId;
     @NotBlank(message = "Not be empty")
-    private long supplierId;
+    private Long supplierId;
     @NotBlank(message = "Not be empty")
     private Long customerId;
     @NotNull(message = "Date cannot be Null")

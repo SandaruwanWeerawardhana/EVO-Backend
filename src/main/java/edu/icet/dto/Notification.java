@@ -22,7 +22,7 @@ import java.time.LocalDate;
 
 public class Notification {
     @NotBlank
-    private Integer notificationId;
+    private Long notificationId;
     @Size(max = 150, message = "Title must be less than 150 characters")
     private String title;
     @NotBlank

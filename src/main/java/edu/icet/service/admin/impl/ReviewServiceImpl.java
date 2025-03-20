@@ -32,7 +32,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Review searchByIdReview(long id) {
+    public Review searchByIdReview(Long id) {
 
         for (Review review : reviewList) {
             if (review.getReviewId() == id) {
@@ -44,7 +44,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public boolean updateByReview(long id, Review review) {
+    public boolean updateByReview(Long id, Review review) {
         validateReview(review);
         for (int i = 0; i < reviewList.size(); i++) {
             if (reviewList.get(i).getReviewId() == id) {
@@ -56,7 +56,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public boolean deleteByReview(long id) {
+    public boolean deleteByReview(Long id) {
         boolean removed =  reviewList.remove(id);
             if (!removed) {
                 throw new NoSuchElementException( id + " not found !!");
@@ -65,7 +65,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Map<String, Long> getBySummaryFilterReview(long id) {
+    public Map<String, Long> getBySummaryFilterReview(Long id) {
 
         List<Review> reviewList = getAll();
 
@@ -88,7 +88,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Review searchByIDSuplier(long id) {
+    public Review searchByIDSuplier(Long id) {
 
         List<Review> all = getAll();
         Optional<Review> first = all.stream().filter(review -> review.getSupplierId() == id).findFirst();

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 
 public interface ChatImageService {
-    ChatImage getChatImage(Integer id);
+    ChatImage getChatImage(Long id);
     boolean addChatImage(ChatImage chatImage);
-    boolean deleteChatImage(Integer id);
+    boolean deleteChatImage(Long id);
 }
