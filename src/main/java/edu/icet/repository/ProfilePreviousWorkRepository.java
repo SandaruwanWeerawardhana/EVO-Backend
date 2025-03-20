@@ -8,8 +8,9 @@ import java.util.List;
 
 public interface ProfilePreviousWorkRepository extends JpaRepository<ProfilePreviousWorkEntity,Long> {
 
-    List<ProfilePreviousWorkEntity> findByProfileID(Long profileID);
-    List<ProfilePreviousWorkEntity> findByCustomerID(Long customerID);
-    List<ProfilePreviousWorkEntity> findByCompletionDateAfter(LocalDate date);
-    List<ProfilePreviousWorkEntity> findByCompletionDateBefore(LocalDate date);
+    ProfilePreviousWorkEntity findByProfileID(Long profileID);
+    ProfilePreviousWorkEntity findByPreviousWorkID(Long id);
+    ProfilePreviousWorkEntity findByCustomerID(Long customerID);
+    ProfilePreviousWorkEntity findByCompletionDateAfter(LocalDate date);
+    ProfilePreviousWorkEntity findByCompletionDateBefore(LocalDate date);
 }

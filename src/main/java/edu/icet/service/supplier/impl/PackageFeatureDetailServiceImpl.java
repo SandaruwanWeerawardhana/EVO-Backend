@@ -16,8 +16,11 @@ public class PackageFeatureDetailServiceImpl implements PackageFeatureDetailServ
     final PackageFeatureDetailRepository packageFeatureDetailRepository;
 
     @Override
-    public List<PackageFeatureDetailEntity> getAll() {
-        return packageFeatureDetailRepository.findAll();
+    public List<PackageFeatureDetail> getAll() {
+        return packageFeatureDetailRepository.findAll()
+                .stream()
+                .map(packageFeatureDetailEntity -> mapper.map(packageFeatureDetailEntity, PackageFeatureDetail.class))
+                .toList();
     }
 
     @Override

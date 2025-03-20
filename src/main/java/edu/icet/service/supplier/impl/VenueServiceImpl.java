@@ -3,6 +3,7 @@ package edu.icet.service.supplier.impl;
 import edu.icet.dto.Venue;
 import edu.icet.entity.VenueEntity;
 import edu.icet.repository.VenueRepository;
+import edu.icet.service.supplier.SupplierService;
 import edu.icet.service.supplier.VenueService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -62,7 +63,5 @@ public class VenueServiceImpl implements VenueService {
         return mapper.map(repository.findById(id),Venue.class);
     }
 
-    public Venue search(String name){
-        return mapper.map(repository.findByName(name),Venue.class);
-    }
+
 }

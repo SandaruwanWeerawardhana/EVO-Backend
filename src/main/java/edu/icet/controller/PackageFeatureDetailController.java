@@ -15,7 +15,9 @@ public class PackageFeatureDetailController {
     final PackageFeatureDetailService service;
 
     @GetMapping("/all")
-    public List<PackageFeatureDetail> getAll(){return service.getAll();}
+    public List<PackageFeatureDetail> getAll(){
+        return service.getAll();
+    }
 
     @PostMapping("/add")
     public void add(@RequestBody PackageFeatureDetail detail){service.add(detail);}

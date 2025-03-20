@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface HallService {
-    List<HallEntity> getAll(Profile profile);
+    List<Hall> getAll(Profile profile);
     Hall save(Hall hall);
-    Optional<HallEntity> search(Hall hall);
+    Hall search(Hall hall);
     Boolean delete(Hall hall);
     Boolean delete(Long id);
     Hall update(Hall hall);

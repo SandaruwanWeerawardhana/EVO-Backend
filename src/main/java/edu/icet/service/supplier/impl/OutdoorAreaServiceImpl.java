@@ -16,8 +16,11 @@ public class OutdoorAreaServiceImpl implements OutdoorAreaService {
     final OutdoorAreaRepository outdoorAreaRepository;
 
     @Override
-    public List<OutdoorAreaEntity> getAll() {
-        return outdoorAreaRepository.findAll();
+    public List<OutdoorArea> getAll() {
+        return outdoorAreaRepository.findAll()
+                .stream()
+                .map(outdoorAreaEntity -> mapper.map(outdoorAreaEntity, OutdoorArea.class))
+                .toList();
     }
 
     @Override

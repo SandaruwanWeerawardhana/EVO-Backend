@@ -6,7 +6,7 @@ import edu.icet.entity.OutdoorAreaEntity;
 import java.util.List;
 
 public interface OutdoorAreaService {
-    List<OutdoorAreaEntity> getAll();
+    List<OutdoorArea> getAll();
     OutdoorArea save(OutdoorArea outdoorArea);
     Boolean delete(Long id);
     Boolean update(OutdoorArea outdoorArea);
