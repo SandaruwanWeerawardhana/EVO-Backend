@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ProfilePackageRepository extends JpaRepository<ProfilePackagesEntity,Long> {
-    List<ProfilePackagesEntity> getAllById(Long id);
+    List<ProfilePackagesEntity> getAllByPackageId(Long id);
     ProfilePackagesEntity findByPackageName(String name);
 }

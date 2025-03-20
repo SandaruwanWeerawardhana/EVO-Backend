@@ -8,8 +8,9 @@ import edu.icet.service.supplier.HallService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,8 +19,11 @@ public class HallServiceImpl implements HallService {
     final HallReopsitory hallReopsitory;
   
     @Override
-    public List<HallEntity> getAll(Profile profile) {
-        return hallReopsitory.findAll();
+    public List<Hall> getAll(Profile profile) {
+        return hallReopsitory.findAll()
+                .stream()
+                .map(hallEntity -> modelMapper.map(hallEntity, Hall.class))
+                .toList();
     }
 
     @Override
@@ -30,8 +34,9 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    public Optional<HallEntity> search(Hall hall) {
-        return hallReopsitory.findById(hall.getHallId());
+    public Hall search(Hall hall) {
+        HallEntity entity = hallReopsitory.findById(hall.getHallId()).orElse(null);
+        return entity != null ? modelMapper.map(entity, Hall.class) : null;
     }
 
     @Override

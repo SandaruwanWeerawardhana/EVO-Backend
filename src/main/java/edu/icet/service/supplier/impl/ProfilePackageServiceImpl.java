@@ -36,7 +36,7 @@ public class ProfilePackageServiceImpl implements ProfilePackageService {
 
     @Override
     public List<ProfilePackages> getAllProfileById(Long profileId) {
-        List<ProfilePackagesEntity> all = repository.getAllById(profileId);
+        List<ProfilePackagesEntity> all = repository.getAllByPackageId(profileId);
 
         List<ProfilePackages> profilePackages = new ArrayList<>();
 
