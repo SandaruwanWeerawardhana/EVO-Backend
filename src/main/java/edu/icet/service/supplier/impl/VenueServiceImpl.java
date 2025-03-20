@@ -1,67 +1,68 @@
 package edu.icet.service.supplier.impl;
 
 import edu.icet.dto.Venue;
+import edu.icet.entity.VenueEntity;
+import edu.icet.repository.VenueRepository;
 import edu.icet.service.supplier.VenueService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
+
 @RequiredArgsConstructor
 @Service
+
 public class VenueServiceImpl implements VenueService {
-    private final List<Venue> venueList = new ArrayList<>();
+    private final VenueRepository repository;
+    private final ModelMapper mapper;
 
     @Override
     public List<Venue> getAll() {
-        return new ArrayList<>(venueList);
+        List<VenueEntity> all = repository.findAll();
+
+        List<Venue> venues = new ArrayList<>();
+
+        all.forEach(venueEntity -> {
+            venues.add(mapper.map(venueEntity,Venue.class));
+        });
+        return venues;
     }
 
     @Override
     public Venue save(Venue venue) {
-        venueList.add(venue);
-        return venue;
+        return mapper.map(repository.save(mapper.map(venue,VenueEntity.class)),Venue.class);
     }
 
     @Override
     public Boolean delete(Venue venue) {
-        return venueList.removeIf(venue1 -> venue1.equals(venue));
+        if (repository.existsById(venue.getVenueId())){
+            repository.delete(mapper.map(venue,VenueEntity.class));
+            return true;
+        }
+        return false;
     }
 
     @Override
     public Boolean delete(Long id) {
-        return venueList.removeIf(venue -> venue.getVenueId().equals(id));
+        if (repository.existsById(id)){
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public Venue update(Venue venue) {
-        for (Venue venue1 : venueList) {
-            if(venue!=null) {
-                venue1.setVenueId(venue.getVenueId());
-                venue1.setSupplierId(venue.getSupplierId());
-                venue1.setLocation(venue.getLocation());
-                venue1.setEventType(venue.getEventType());
-            }
-        }
-        return null;
+        return mapper.map(repository.save(mapper.map(venue,VenueEntity.class)),Venue.class);
     }
 
     @Override
     public Venue search(Long id){
-        for (Venue venue : venueList) {
-            if (venue.getVenueId().equals(id) || venue.getSupplierId().equals(id)) {
-                return venue;
-            }
-        }
-        return null;
+        return mapper.map(repository.findById(id),Venue.class);
     }
 
-    public Venue search(String sr){
-        for (Venue venue : venueList) {
-            if (venue.getLocation().equals(sr)) {
-                return venue;
-            }
-        }
-        return null;
+    public Venue search(String name){
+        return mapper.map(repository.findByName(name),Venue.class);
     }
 }

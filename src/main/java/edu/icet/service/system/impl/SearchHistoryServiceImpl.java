@@ -1,7 +1,12 @@
 package edu.icet.service.system.impl;
 
 import edu.icet.dto.SearchHistory;
+import edu.icet.entity.SearchHistoryEntity;
+import edu.icet.repository.CustomerRepository;
+import edu.icet.repository.SearchHistoryRepository;
 import edu.icet.service.system.SearchHistoryService;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -11,10 +16,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class SearchHistoryServiceImpl implements SearchHistoryService {
 
-    private final List<SearchHistory> searchHistoryList=new ArrayList<>();
-    private final List<Long> customerIdList=new ArrayList<>();
+    private final SearchHistoryRepository searchHistoryRepository;
+    private final CustomerRepository customerRepository;
+    private final ModelMapper mapper;
+
+   /* private final List<SearchHistory> searchHistoryList=new ArrayList<>();
+    private final List<Long> customerIdList=new ArrayList<>();*/
 
     @Override
     public boolean saveSearchHistory(SearchHistory searchHistory) {
@@ -24,7 +34,8 @@ public class SearchHistoryServiceImpl implements SearchHistoryService {
         if(searchHistory.getDate().isAfter(LocalDate.now())){
             throw new IllegalArgumentException("Search history date cannot be in the future.");
         }
-        return searchHistoryList.add(searchHistory);
+        searchHistoryRepository.save(mapper.map(searchHistory, SearchHistoryEntity.class));
+        return searchHistoryRepository.existsById(searchHistory.getSearchId());
     }
 
     @Override
@@ -32,7 +43,8 @@ public class SearchHistoryServiceImpl implements SearchHistoryService {
         if (id==null){
             throw new IllegalArgumentException("ID cannot be null.");
         }
-        return searchHistoryList.removeIf(history->history.getSearchId().equals(id));
+        searchHistoryRepository.deleteById(id);
+        return !searchHistoryRepository.existsById(id);
     }
 
     @Override
@@ -40,13 +52,14 @@ public class SearchHistoryServiceImpl implements SearchHistoryService {
         if (id==null){
             throw new IllegalArgumentException("ID cannot be null");
         }
-        return searchHistoryList.stream().filter(history->history.getSearchId().equals(id)).findFirst().orElse(null);
-
+       return mapper.map(searchHistoryRepository.findById(id), SearchHistory.class);
     }
 
     @Override
     public List<SearchHistory> getAllSearchHistory() {
-        return new ArrayList<>(searchHistoryList);
+        return searchHistoryRepository.findAll().stream()
+                .map(searchHistoryEntity -> mapper.map(searchHistoryEntity, SearchHistory.class))
+                .toList();
     }
 
     @Override
@@ -54,28 +67,9 @@ public class SearchHistoryServiceImpl implements SearchHistoryService {
         if (title==null||title.isBlank()){
             throw new IllegalArgumentException("Title cannot be null or blank.");
         }
-        return searchHistoryList.stream().filter(history->history.getTitle().equalsIgnoreCase(title)).collect(Collectors.toList());
-
-    }
-
-    @Override
-    public boolean deleteAllSearchHistoryByCustomerId(Long customerId) {
-        if (customerId==null){
-            throw new IllegalArgumentException("Customer ID cannot be null.");
-        }
-        if(!customerIdList.contains(customerId)){
-            throw new IllegalArgumentException("Customer Id doest not exist.");
-        }
-
-        boolean isDeleted=false;
-        Iterator<SearchHistory> iterator=searchHistoryList.iterator();
-        while (iterator.hasNext()){
-            SearchHistory history=iterator.next();
-            if (history.getSearchId().equals(customerId)){
-                iterator.remove();
-                isDeleted=true;
-            }
-        }
-        return isDeleted;
+        return searchHistoryRepository.findByTitle(title)
+                .stream()
+                .map(searchHistoryEntity -> mapper.map(searchHistoryEntity, SearchHistory.class))
+                .toList();
     }
 }

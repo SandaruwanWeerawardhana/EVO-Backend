@@ -11,5 +11,4 @@ public interface SearchHistoryService {
     SearchHistory searchSearchHistory(Long id);
     List<SearchHistory> getAllSearchHistory();
     List<SearchHistory> getFilterSearchHistory(String title);
-    boolean deleteAllSearchHistoryByCustomerId(Long id);
 }
