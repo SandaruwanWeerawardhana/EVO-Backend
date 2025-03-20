@@ -32,9 +32,7 @@ public class ProfileController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<Profile> getProfileById(@PathVariable Long id) {
-        return profileService.getProfileById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(profileService.getProfileById(id));
     }
 
     @GetMapping("/all")
