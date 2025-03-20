@@ -32,7 +32,7 @@ public class Event {
     private EventType eventType;
     @NotNull
     private Integer capacity;
-    @NotNull
+    @Enumerated(EnumType.STRING)
     private BudgetType budgetType;
     @NotEmpty
     @Enumerated(EnumType.STRING)
