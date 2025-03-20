@@ -2,8 +2,6 @@ package edu.icet.service.supplier;
 
 import edu.icet.dto.Profile;
 import edu.icet.dto.Room;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 public interface RoomService {
