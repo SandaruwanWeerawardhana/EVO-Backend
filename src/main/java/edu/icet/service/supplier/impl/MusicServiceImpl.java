@@ -2,6 +2,8 @@ package edu.icet.service.supplier.impl;
 
 import edu.icet.dto.Music;
 import edu.icet.dto.Supplier;
+import edu.icet.entity.MusicEntity;
+import edu.icet.repository.MusicRepository;
 import edu.icet.service.supplier.MusicService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -9,55 +11,53 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 
 public class MusicServiceImpl implements MusicService {
-    private final List<Music> musicList=new ArrayList<>();
-    private ModelMapper modelMapper;
+    private ModelMapper mapper;
+    private MusicRepository repository;
 
     @Override
     public List<Music> getAll(Supplier supplier) {
 
-        List<Music> result=new ArrayList<>();
-        for(Music m:musicList){
-            if(m.getSupplierId().equals(supplier.getProfileId())){
-                result.add(m);
-            }
-        }
-        return result;
+        return repository.findAll()
+                .stream()
+                .map(musicEntity -> mapper.map(musicEntity, Music.class))
+                .toList();
     }
 
     @Override
     public boolean addMusic(Music music) {
-        return music!=null&&musicList.add(music);
+        return !repository.existsById(music.getSupplierId()) &&
+                repository.save(mapper.map(music, MusicEntity.class)) != null;
     }
 
     @Override
-    public Music searchMusic(String qurey) {
-        Long id=Long.parseLong(qurey);
-        return musicList.stream()
-                .filter(m -> m.getSupplierId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("MusicRepository not found"));
+    public Music searchMusic(Long id) {
+
+            return mapper.map(
+                    repository.findById(id)
+                    .orElseThrow(() -> new NoSuchElementException("Music not found with ID: " + id)), Music.class
+            );
     }
 
     @Override
     public boolean updateMusic(Music music) {
-        if(music==null||music.getSupplierId()==null) return false;
-
-        for(Music m:musicList){
-            if(m.getSupplierId().equals(music.getSupplierId())){
-                int index=musicList.indexOf(m);
-                musicList.set(index,music);
-                return true;
-            }
-        }
-        return false;
+        return repository.existsById(music.getSupplierId()) &&
+                repository.save(mapper.map(music, MusicEntity.class)) != null;
     }
 
     @Override
     public boolean deleteMusic(Long id) {
-        return musicList.removeIf(m->m.getSupplierId().equals(id));
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+
+        return false;
     }
 }
