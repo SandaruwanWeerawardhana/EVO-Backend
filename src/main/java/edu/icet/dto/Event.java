@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Event {
-    private Integer eventId;
+    private Long eventId;
     @NotNull
     private Long userId;
     @NotNull

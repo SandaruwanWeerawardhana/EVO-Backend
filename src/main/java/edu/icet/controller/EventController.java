@@ -27,12 +27,12 @@ public class EventController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean deleteEvent(@PathVariable("id") Integer id) {
+    public boolean deleteEvent(@PathVariable("id") Long id) {
         return eventService.deleteEvent(id);
     }
 
     @GetMapping("/search/{id}")
-    public void searchEvent(@PathVariable("id") Integer id) {
+    public void searchEvent(@PathVariable("id") Long id) {
         eventService.searchEvent(id);
     }
 
