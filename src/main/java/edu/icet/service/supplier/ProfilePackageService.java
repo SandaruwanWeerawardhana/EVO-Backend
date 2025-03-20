@@ -1,8 +1,6 @@
 package edu.icet.service.supplier;
 
 import edu.icet.dto.ProfilePackages;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 public interface ProfilePackageService {
