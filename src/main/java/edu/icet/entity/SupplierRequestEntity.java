@@ -1,6 +1,7 @@
 package edu.icet.entity;
 
 import edu.icet.dto.Location;
+import edu.icet.util.SupplerRequestStatusType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,8 +28,9 @@ public class SupplierRequestEntity {
     @Column(nullable = false)
     private LocalDateTime requestDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Boolean isApproved;
+    private SupplerRequestStatusType requestStatus;
 
     @Column(nullable = false)
     private Location location;

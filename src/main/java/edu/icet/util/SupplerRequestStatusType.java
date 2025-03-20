@@ -1,5 +1,5 @@
 package edu.icet.util;
 
-public enum AddStatus {
+public enum SupplerRequestStatusType {
     APPROVED,REJECT,PENDING
 }

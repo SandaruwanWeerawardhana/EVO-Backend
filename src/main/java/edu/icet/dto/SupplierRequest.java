@@ -1,5 +1,6 @@
 package edu.icet.dto;
 
+import edu.icet.util.SupplerRequestStatusType;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +24,7 @@ public class SupplierRequest {
     private LocalDateTime requestDate;
 
     @NotNull(message = "Approve not be empty")
-    private Boolean isApproved;
+    private SupplerRequestStatusType requestStatus;
 
     @NotNull(message = "Location not be empty")
     private Location location;
