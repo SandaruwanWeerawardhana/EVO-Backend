@@ -11,7 +11,7 @@ public interface MusicService {
 
     boolean addMusic(Music music);
 
-    Music searchMusic(String qurey);
+    Music searchMusic(Long id);
 
     boolean updateMusic(Music music);
 

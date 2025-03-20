@@ -33,7 +33,7 @@ public class SupplierRequestEntity {
     private SupplerRequestStatusType requestStatus;
 
     @Column(nullable = false)
-    private Long location;
+    private Long locationID;
 
     @Column(nullable = false)
     private LocalDateTime dueDateTime;

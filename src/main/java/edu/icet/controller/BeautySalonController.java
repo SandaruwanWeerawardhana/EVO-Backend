@@ -25,7 +25,7 @@ public class BeautySalonController {
         return service.getAll();
     }
     @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable String id){
+    public boolean delete(@PathVariable Long id){
        return service.delete(id);
     }
 
@@ -35,12 +35,8 @@ public class BeautySalonController {
     }
 
     @GetMapping("/get-id/{id}")
-    public BeautySaloon getId(@PathVariable String id){
+    public BeautySaloon getId(@PathVariable Long id){
        return service.get(id);
     }
 
-    @GetMapping("/get-all-by-name/{name}")
-    public List<BeautySaloon> getAllByName(@PathVariable String name){
-       return service.getByName(name);
-    }
 }
