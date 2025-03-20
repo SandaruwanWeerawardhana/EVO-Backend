@@ -1,57 +1,69 @@
 package edu.icet.service.supplier.impl;
 
 import edu.icet.dto.Property;
+import edu.icet.entity.PropertyEntity;
+import edu.icet.repository.PropertyRepository;
 import edu.icet.service.supplier.PropertyService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
+
 public class PropertyServiceImpl implements PropertyService {
-    private final List<Property> propertyList = new ArrayList<>();
+    private final PropertyRepository repository;
+    private final ModelMapper mapper;
 
     @Override
     public List<Property> getAll() {
+        List<Property> propertyList = new ArrayList<>();
+        List<PropertyEntity> all = repository.findAll();
+
+        all.forEach(propertyEntity -> {
+            propertyList.add(mapper.map(propertyEntity,Property.class));
+        });
         return propertyList;
     }
 
     @Override
     public Property save(Property property) {
-        propertyList.add(property);
-        return property;
+       if(property==null){
+           return null;
+       }
+       PropertyEntity save = repository.save(mapper.map(property,PropertyEntity.class));
+        return mapper.map(save,Property.class);
     }
 
     @Override
     public Property search(Property property) {
-        for (Property propertyTest : propertyList){
-            if (propertyTest.getPropertyId().equals(property.getPropertyId())){
-                return propertyTest;
-            }
+        if (property==null){
+            return null;
         }
-        return null;
-    }
+        PropertyEntity search = repository.findById(property.getPropertyId()).orElse(null);
+        if (search == null) return  null;
 
-    @Override
-    public Boolean delete(Property property) {
-        return propertyList.removeIf(propertyCheck -> propertyCheck.getPropertyId().equals(property.getPropertyId()));
-    }
+        return mapper.map(search, Property.class);    }
+
 
     @Override
     public Boolean delete(Long id) {
-        return propertyList.removeIf(property -> property.getPropertyId().equals(id));
+       if (repository.existsById(id)){
+           repository.deleteById(id);
+           return true;
+       }
+       return false;
     }
 
     @Override
     public Property update(Property property) {
-        for (int a=0; a<propertyList.size(); a++){
-            if (propertyList.get(a).getPropertyId().equals(property.getPropertyId())){
-                property.setPropertyId(property.getPropertyId());
-                propertyList.set(a,property);
-                return property;
-            }
+        if(property==null){
+            return null;
         }
-        return null;
+        PropertyEntity save = repository.save(mapper.map(property,PropertyEntity.class));
+        return mapper.map(save,Property.class);
     }
 }

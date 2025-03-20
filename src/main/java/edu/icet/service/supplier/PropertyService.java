@@ -9,7 +9,6 @@ public interface PropertyService {
     List<Property> getAll();
     Property save(Property property);
     Property search(Property property);
-    Boolean delete(Property property);
     Boolean delete(Long id);
     Property update(Property property);
 }

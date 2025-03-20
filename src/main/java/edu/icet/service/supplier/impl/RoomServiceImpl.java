@@ -43,14 +43,7 @@ public class RoomServiceImpl implements RoomService {
         return mapper.map(repository.findById(id),Room.class);
     }
 
-    @Override
-    public Boolean delete(Room room) {
-    if(repository.existsById(room.getRoomId())){
-        repository.delete(mapper.map(room, RoomEntity.class));
-        return true;
-    }
-    return false;
-    }
+
 
     @Override
     public Boolean delete(Long id) {

@@ -8,7 +8,6 @@ public interface RoomService {
     List<Room> getAll(Profile profile);
     boolean save(Room room);
     Room search(Long id);
-    Boolean delete(Room room);
     Boolean delete(Long id);
     Room update(Room room);
 }

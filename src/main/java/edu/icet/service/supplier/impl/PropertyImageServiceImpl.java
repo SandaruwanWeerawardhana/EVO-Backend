@@ -1,6 +1,7 @@
 package edu.icet.service.supplier.impl;
 
 import edu.icet.dto.PropertyImage;
+import edu.icet.repository.PropertyImageRepository;
 import edu.icet.service.supplier.PropertyImageService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -11,8 +12,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PropertyImageServiceImpl implements PropertyImageService {
+    final PropertyImageRepository repository;
     final ModelMapper mapper;
-    private ArrayList<PropertyImage> propertyImages = new ArrayList<> ();
+
     @Override
     public List<PropertyImage> getAll() {
         return propertyImages;
