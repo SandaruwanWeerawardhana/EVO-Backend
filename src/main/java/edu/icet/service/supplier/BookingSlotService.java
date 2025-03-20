@@ -1,8 +1,7 @@
 package edu.icet.service.supplier;
 
 import edu.icet.dto.BookingSlot;
-import org.springframework.stereotype.Service;
-
+import edu.icet.repository.BookingSlotRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 
