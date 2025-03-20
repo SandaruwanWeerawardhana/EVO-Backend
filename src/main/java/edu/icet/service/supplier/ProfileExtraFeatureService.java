@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface ProfileExtraFeatureService {
     List<ProfileExtraFeature> getAll();
-    ProfileExtraFeature save(ProfileExtraFeature profileExtraFeature);
+    Boolean save(ProfileExtraFeature profileExtraFeature);
     Boolean delete(Long id);
-    Boolean update(ProfileExtraFeature profileExtraFeature);
+    Boolean update(Long id, ProfileExtraFeature profileExtraFeature);
     ProfileExtraFeature searchById(Long id);
 }
