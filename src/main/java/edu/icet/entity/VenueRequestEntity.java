@@ -15,11 +15,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "venue_request")
 public class VenueRequestEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "venue_request_id")
-    private Long venueRequestID;
+    private Long id;
 
     @Column(name = "supplier_id",nullable = false)
     private Long supplierId;
@@ -30,6 +28,6 @@ public class VenueRequestEntity {
     @Column(name = "created_datetime",nullable = false)
     private LocalDateTime createdDateTime;
 
-    @Column(name = "status",nullable = false)
+    @Column(nullable = false)
     private String status;
 }

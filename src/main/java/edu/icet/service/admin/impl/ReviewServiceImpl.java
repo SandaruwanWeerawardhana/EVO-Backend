@@ -1,6 +1,7 @@
 package edu.icet.service.admin.impl;
 
 import edu.icet.dto.Review;
+import edu.icet.dto.Supplier;
 import edu.icet.service.admin.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -85,6 +86,16 @@ public class ReviewServiceImpl implements ReviewService {
                 "commentLength", (long) review.getComment().length()
         );
     }
+
+    @Override
+    public Review searchByIDSuplier(long id) {
+
+        List<Review> all = getAll();
+        Optional<Review> first = all.stream().filter(review -> review.getSupplierId() == id).findFirst();
+        return first.orElse(null);
+
+    }
+
 
     private void validateReview(Review review) {
         if (review == null) {

@@ -1,6 +1,6 @@
 package edu.icet.util;
 
-public enum Rating {
+public enum RatingType {
     ONE,TWO,THREE,FOUR,FIVE
 
 }
