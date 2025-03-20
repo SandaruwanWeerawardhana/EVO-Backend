@@ -1,6 +1,8 @@
 package edu.icet.service.admin.impl;
 
 import edu.icet.dto.Report;
+import edu.icet.entity.ReportEntity;
+import edu.icet.repository.ReportRepository;
 import edu.icet.service.admin.ReportService;
 import edu.icet.util.ReportType;
 import lombok.RequiredArgsConstructor;
@@ -9,59 +11,63 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ReportServiceImpl implements ReportService {
 
-    final ModelMapper mapper;
+    private final ModelMapper mapper;
 
-    List<Report> dataBase = new ArrayList<>();
+    private final ReportRepository repo;
 
     @Override
     public boolean saveReport(Report report) {
-
-        return dataBase.add(report);
-    }
-
-    @Override
-    public boolean updateReport(Long reportId, Report report) {
-
-        for (int i = 0; i < dataBase.size(); i++) {
-            if (dataBase.get(i).getReportId().equals(reportId)) {
-                dataBase.set(i, report);
-                return true;
-            }
+        ReportEntity save = repo.save(mapper.map(report, ReportEntity.class));
+        if (save!=null){
+            return true;
         }
         return false;
     }
 
     @Override
+    public boolean updateReport(Long reportId, Report report) {
+       if (repo.existsById(reportId)){
+              repo.save(mapper.map(report, ReportEntity.class));
+              return true;
+        }
+       return false;
+    }
+
+    @Override
     public boolean deleteReportById(Long reportId) {
-        return dataBase.removeIf(report -> report.getReportId().equals(reportId));
+      if (repo.existsById(reportId)){
+          repo.deleteById(reportId);
+          return true;
+      }
+      return  false;
     }
 
     @Override
     public Report searchReport(long reportId) {
-        return dataBase.stream()
-                .filter(report -> report.getReportId().equals(reportId))
-                .findFirst()
-                .orElse(null);
+     return  mapper.map(repo.findById(reportId), Report.class);
     }
 
     @Override
     public List<Report> getAllReports() {
-        return dataBase;
+        List<Report> reportList = new ArrayList<>();
+        repo.findAll().forEach(report -> {
+            reportList.add(mapper.map(report, Report.class));
+        });
+        return reportList;
     }
 
     @Override
     public List<Report> getFillterReports(ReportType reportType) {
         List<Report> filteredReports = new ArrayList<>();
-        for (Report report : dataBase) {
-            if (report.getReportType().equals(reportType)) {
-                filteredReports.add(report);
-            }
-        }
+        repo.findAllByReportType(reportType).forEach(report -> {
+            filteredReports.add(mapper.map(report, Report.class));
+        });
         return filteredReports;
     }
 }

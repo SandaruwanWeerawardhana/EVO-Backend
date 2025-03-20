@@ -16,7 +16,7 @@ public class ProfileExtraFeatureController {
     final ProfileExtraFeatureService profileExtraFeatureService;
 
     @PostMapping("/add")
-    public ProfileExtraFeature save(@RequestBody ProfileExtraFeature profileExtraFeature) {
+    public Boolean save(@RequestBody ProfileExtraFeature profileExtraFeature) {
         return profileExtraFeatureService.save(profileExtraFeature);
     }
     @DeleteMapping("/delete/{id}")
@@ -25,8 +25,8 @@ public class ProfileExtraFeatureController {
     }
 
     @PutMapping("/update")
-    public boolean update(@RequestBody ProfileExtraFeature profileExtraFeature) {
-        return profileExtraFeatureService.update(profileExtraFeature);
+    public boolean update(@RequestBody Long id, ProfileExtraFeature profileExtraFeature) {
+        return profileExtraFeatureService.update(id, profileExtraFeature);
     }
 
     @GetMapping("/getAll")
