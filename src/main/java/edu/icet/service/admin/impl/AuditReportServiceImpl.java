@@ -56,6 +56,7 @@ public class AuditReportServiceImpl implements AuditReportService {
     @Override
     public boolean updateAuditReport(Long id, AuditReport auditReport) {
         if (id==null || auditReport==null){
+            return false;
 
         }
         if (!auditReportRepository.existsById(id)){
