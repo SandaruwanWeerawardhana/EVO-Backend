@@ -19,7 +19,7 @@ public class BirthdayPartyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Integer birthdayPartyId;
+    private Long birthdayPartyId;
 
     @Column(name = "owner_name", nullable = false)
     private String ownerName;
