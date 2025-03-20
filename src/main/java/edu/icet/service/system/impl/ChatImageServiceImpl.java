@@ -11,7 +11,7 @@ import java.util.List;
 public class ChatImageServiceImpl implements ChatImageService {
     private List<ChatImage> chatImageList = new ArrayList<>();
     @Override
-    public ChatImage getChatImage(Integer id) {
+    public ChatImage getChatImage(Long id) {
         for (ChatImage ci:chatImageList){
             if (ci.getId().equals(id)){
                 return ci;
@@ -26,7 +26,7 @@ public class ChatImageServiceImpl implements ChatImageService {
     }
 
     @Override
-    public boolean deleteChatImage(Integer id) {
+    public boolean deleteChatImage(Long id) {
         return chatImageList.removeIf(chatImage -> chatImage.getId().equals(id));
     }
 }

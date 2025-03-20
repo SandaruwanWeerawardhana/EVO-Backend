@@ -18,13 +18,13 @@ public class ChatImageController {
     }
 
     @DeleteMapping("/delete")
-    public boolean delete(@RequestParam(value = "id") Integer id){
+    public boolean delete(@RequestParam(value = "id") Long id){
         return chatImageService.deleteChatImage(id);
     }
 
 
     @GetMapping("/search")
-    public ChatImage getById(@RequestParam(value = "id") Integer id){
+    public ChatImage getById(@RequestParam(value = "id") Long id){
         return chatImageService.getChatImage(id);
     }
 }

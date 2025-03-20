@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class TransactionHistoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private LocalDate date;
     private String description;
     @Enumerated(EnumType.STRING)

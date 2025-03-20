@@ -39,7 +39,7 @@ public class NotificationController {
     }
 
     @DeleteMapping("/delete/{notificationId}")
-    public ResponseEntity<String> deleteNotification(@PathVariable Integer notificationId) {
+    public ResponseEntity<String> deleteNotification(@PathVariable Long notificationId) {
         if(service.deleteNotification(notificationId)) {
             return new ResponseEntity<>("Successful", HttpStatus.OK);
         }else {
@@ -58,7 +58,7 @@ public class NotificationController {
     }
 
     @GetMapping("/search-by-notificationId/{notificationId}")
-    public ResponseEntity<Notification> getNotificationId(@PathVariable Integer notificationId) {
+    public ResponseEntity<Notification> getNotificationId(@PathVariable Long notificationId) {
         Notification notification = service.getNotificationById(notificationId);
         if (notification != null) {
             return  new ResponseEntity<>(notification,HttpStatus.OK);

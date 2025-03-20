@@ -7,14 +7,14 @@ import java.util.List;
 
 public interface NotificationService {
     Notification createNotification(Notification notification);
-    Notification getNotificationById(Integer notificationId);
-    Notification updateNotification(Integer notificationId, Notification notification);
-    boolean deleteNotification(Integer notificationId);
+    Notification getNotificationById(Long notificationId);
+    Notification updateNotification(Long notificationId, Notification notification);
+    boolean deleteNotification(Long notificationId);
     List<Notification> getAllNotification();
     List<Notification> getNotificationByType(String type);
     List<Notification> getNotificationByStatus(String status);
     List<Notification> getNotificationByDeliveryMethod(String deliveryMethod);
-    boolean markAsRead(Integer notificationId);
+    boolean markAsRead(Long notificationId);
     List<Notification> getUnreadNotifications();
 }
 

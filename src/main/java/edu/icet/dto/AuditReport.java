@@ -15,7 +15,7 @@ public class AuditReport {
 
     @NotNull
     @NotEmpty(message = "ID should not be blank")
-    private Integer adminId;
+    private Long adminId;
     @NotNull
     @NotEmpty(message = "ID should not be blank")
     private Long reportId;

@@ -42,7 +42,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Report searchReport(long reportId) {
+    public Report searchReport(Long reportId) {
         return dataBase.stream()
                 .filter(report -> report.getReportId().equals(reportId))
                 .findFirst()

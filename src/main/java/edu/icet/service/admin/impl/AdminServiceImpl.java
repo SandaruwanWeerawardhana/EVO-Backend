@@ -27,14 +27,14 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean deleteAdmin(Integer adminID) {
+    public boolean deleteAdmin(Long adminID) {
         return adminRepository.removeIf(admin -> Objects.equals(admin.getAdminId(), adminID));
 
 
     }
 
     @Override
-    public boolean updateAdmin(Integer adminID, Admin admin) {
+    public boolean updateAdmin(Long adminID, Admin admin) {
 
         for (int i = 0; i < adminRepository.size(); i++) {
             if (adminRepository.get(i).getAdminId().equals(adminID)) {
@@ -47,7 +47,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Admin getAdminById(Integer adminID) {
+    public Admin getAdminById(Long adminID) {
         for (Admin admin : adminRepository) {
             if (admin.getAdminId().equals(adminID)) {
                 return admin;
@@ -58,7 +58,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean adminExists(Integer adminID) {
+    public boolean adminExists(Long adminID) {
         for (Admin admin : adminRepository) {
             if (admin.getAdminId().equals(adminID)) return true;
         }
@@ -70,7 +70,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
 
-    public boolean changeAdminType(Integer adminID, AdminType type) {
+    public boolean changeAdminType(Long adminID, AdminType type) {
         for (Admin admin : adminRepository) {
             if (admin.getAdminId().equals(adminID)) {
                 admin.setType(type);

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 
 public interface ChatService {
     boolean create(Chat chat);
-    Chat getChat(Integer id);
-    boolean delete(Integer id);
+    Chat getChat(Long id);
+    boolean delete(Long id);
 }

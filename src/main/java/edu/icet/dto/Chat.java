@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Chat {
     @NotEmpty
-    private Integer id;
+    private Long id;
     @NotEmpty
     @Positive
-    private Integer customerId;
+    private Long customerId;
     @NotEmpty
     @Positive
-    private Integer supplierId;
+    private Long supplierId;
 }
 
 

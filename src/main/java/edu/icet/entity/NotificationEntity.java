@@ -20,7 +20,7 @@ import java.time.LocalDate;
 public class NotificationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer notificationId;
+    private Long notificationId;
 
     @NotBlank(message = "Title is required.")
     @Column(nullable = false)
