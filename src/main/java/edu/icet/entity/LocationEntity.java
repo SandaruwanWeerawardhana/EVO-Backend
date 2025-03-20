@@ -18,8 +18,11 @@ public class LocationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer locationId;
+
     @Column(name = "city", nullable = false)
     private String city;
+
     @Column(name = "village", nullable = false)
     private String village;
+
 }
