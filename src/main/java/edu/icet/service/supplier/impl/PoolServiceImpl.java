@@ -41,7 +41,7 @@ public class PoolServiceImpl implements PoolService {
 
     @Override
     public Boolean update(Pool pool) {
-        if (repository.existsById(id)) {
+        if (repository.existsById(pool.getId())) {
 
             repository.save(mapper.map(pool, PoolEntity.class));
 
