@@ -44,4 +44,12 @@ public class NotificationEntity {
 
     @PastOrPresent(message = "Sent date cannot be in the future")
     private LocalDate readAt;
+
+    @NotNull(message = "User Id is required")
+    @Column(nullable = false)
+    private Long userId;
+
+    @NotNull(message = "User Type is required")
+    @Column(nullable = false)
+    private String userType;
 }

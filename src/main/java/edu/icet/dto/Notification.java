@@ -37,6 +37,10 @@ public class Notification {
     private LocalDate readAt;
     @NotBlank(message = "Please provide the delivery method")
     private String deliveryMethod;
+    @NotNull
+    private Long userId;
+    @NotNull
+    private String userType;
 
 
 }

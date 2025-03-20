@@ -14,6 +14,7 @@ public interface NotificationService {
     List<Notification> getNotificationByType(String type);
     List<Notification> getNotificationByStatus(String status);
     List<Notification> getNotificationByDeliveryMethod(String deliveryMethod);
+    List<Notification>getNotificationByUser(String userType,Long userId);
     boolean markAsRead(Long notificationId);
     List<Notification> getUnreadNotifications();
 }
