@@ -1,51 +1,71 @@
 package edu.icet.service.customer.impl;
 
 import edu.icet.dto.Customer;
+import edu.icet.entity.CustomerEntity;
+import edu.icet.repository.CustomerRepository;
 import edu.icet.service.customer.CustomerService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
 
-    private final List<Customer> customerRepository = new ArrayList<>();
+    final CustomerRepository customerRepository;
+    final ModelMapper modelMapper;
 
     @Override
     public boolean addCustomer(Customer customer) {
-        return customerRepository.add(customer);
+        if (customer == null) {
+            return false;
+        }
+        CustomerEntity savedEntity = customerRepository.save(modelMapper.map(customer, CustomerEntity.class));
+        return savedEntity.getContactNumber().equals(customer.getContactNumber()) && savedEntity.getName().equals(customer.getName());
     }
 
     @Override
     public boolean deleteCustomer(Long id) {
-        return customerRepository.removeIf(customer -> Objects.equals(customer.getId(), id));
+        if (id == null) {
+            return false;
+        }
+        customerRepository.deleteById(id);
+        return true;
     }
 
     @Override
     public boolean updateCustomer(Long id, Customer customer) {
-        for (int i = 0; i < customerRepository.size(); i++) {
-            if (Objects.equals(customerRepository.get(i).getId(), id)) {
-                customerRepository.set(i, customer);
-                return true;
-            }
+        if (id == null || customer == null) {
+            return false;
         }
-        return false;
+        if (!customerRepository.existsById(id)) {
+            return false;
+        }
+        if (!id.equals(customer.getId())) {
+            return false;
+        }
+        CustomerEntity updatedEntity = customerRepository.save(modelMapper.map(customer, CustomerEntity.class));
+        return updatedEntity.getId().equals(id);
     }
 
     @Override
     public Customer getCustomerById(Long id) {
-        return customerRepository.stream()
-                .filter(customer -> Objects.equals(customer.getId(), id))
-                .findFirst()
-                .orElse(null);
+        if (id == null) {
+            return null;
+        }
+        if (!customerRepository.existsById(id)) {
+            return null;
+        }
+        return modelMapper.map(customerRepository.findById(id), Customer.class);
     }
 
     @Override
     public List<Customer> getAllCustomers() {
-        return new ArrayList<>(customerRepository);
+        List<Customer> customers = new ArrayList<>();
+        customerRepository.findAll().forEach(entity -> customers.add(modelMapper.map(entity, Customer.class)));
+        return customers;
     }
 }

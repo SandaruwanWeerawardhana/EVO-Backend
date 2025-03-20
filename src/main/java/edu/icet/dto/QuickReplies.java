@@ -1,7 +1,7 @@
 
 package edu.icet.dto;
 
-import edu.icet.util.Category;
+import edu.icet.util.CategoryType;
 import jakarta.validation.constraints.*;
         import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,7 +28,7 @@ public class QuickReplies {
     private String content;
 
     @NotNull
-    private Category category;
+    private CategoryType category;
 
 
 }

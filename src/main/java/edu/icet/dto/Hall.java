@@ -1,6 +1,6 @@
 package edu.icet.dto;
 
-import edu.icet.util.HallAvailability;
+import edu.icet.util.HallAvailabilityType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -24,5 +24,5 @@ public class Hall {
 
     @NotNull
     @NotBlank
-    private HallAvailability availability;
+    private HallAvailabilityType availability;
 }

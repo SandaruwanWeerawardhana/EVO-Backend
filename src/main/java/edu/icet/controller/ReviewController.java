@@ -20,7 +20,7 @@ public class ReviewController {
     final ReviewService reviewService;
 
     @PostMapping("/addReview")
-    public ResponseEntity<Review> addByReview(@Valid @RequestBody Review review){
+    public ResponseEntity<Review> addByReview(@Valid @RequestBody Review review) {
 
         Review savedReview = reviewService.addReview(review);
         return (savedReview != null)
@@ -28,26 +28,29 @@ public class ReviewController {
                 : ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
     }
+
     @GetMapping("/searchByReviewId/{id}")
-    public ResponseEntity<Review> searchByReview(@PathVariable long id){
-        Review review=reviewService.searchByIdReview(id);
-        if (review!=null){
-            return  new ResponseEntity<>(review,HttpStatus.OK);
-        }else{
-            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Review> searchByReview(@PathVariable long id) {
+        Review review = reviewService.searchByIdReview(id);
+        if (review != null) {
+            return new ResponseEntity<>(review, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
     }
+
     @PutMapping("/updateByReviewId/{id}")
-    public ResponseEntity<String> updateByReview(@PathVariable long id,@RequestBody Review review) {
+    public ResponseEntity<String> updateByReview(@PathVariable long id, @RequestBody Review review) {
 
         if (reviewService.updateByReview(id, review)) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
-            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
     }
+
     @GetMapping("/getAll")
     public ResponseEntity<List<Review>> getAllByReview() {
         List<Review> reviews = reviewService.getAll();
@@ -68,8 +71,6 @@ public class ReviewController {
     }
 
 
-
-
     @GetMapping("/getSummaryById/{id}")
     public ResponseEntity<Map<String, Long>> getSummaryFilterReview(@PathVariable long id) {
         Map<String, Long> summary = reviewService.getBySummaryFilterReview(id);
@@ -80,4 +81,9 @@ public class ReviewController {
     }
 
 
+    @GetMapping("/SearchSupplier/{id}")
+    public Review searchBySupliierID( @PathVariable long id) {
+      return   reviewService.searchByIDSuplier(id);
+
+    }
 }
