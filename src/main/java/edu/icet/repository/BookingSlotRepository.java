@@ -7,5 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface BookingSlotRepository extends JpaRepository<BookingSlotEntity,Long> {
+
     List<BookingSlotEntity> findByPropertyIdAndStartTimeAndEndTime(Long propertyId, LocalDateTime startTime, LocalDateTime endTime);
+
 }
