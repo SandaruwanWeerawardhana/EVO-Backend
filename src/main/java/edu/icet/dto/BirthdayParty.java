@@ -14,7 +14,7 @@ import java.util.Date;
 @ToString
 public class BirthdayParty {
     @NotNull(message = "birthdayPartyID cannot be null")
-    private Integer birthdayPartyId;
+    private Long birthdayPartyId;
     @NotNull(message = "OwnerName cannot be null")
     private String ownerName;
     @Email
