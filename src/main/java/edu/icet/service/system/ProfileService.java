@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface ProfileService {
     Profile addProfile(Profile profile);
     Profile updateProfile(Profile profile);
-    Optional<Profile> getProfileById(Long profileId);
+    Profile getProfileById(Long profileId);
     List<Profile> getAllProfiles();
     void deleteProfile(Long profileId);
 }

@@ -32,9 +32,9 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public Optional<Profile> getProfileById(Long profileId) {
-        Optional<ProfileEntity> entity = repository.findById(profileId);
-        return entity.isPresent() ? Optional.of(mapper.map(entity, Profile.class)) : Optional.empty();
+    public Profile getProfileById(Long profileId) {
+        ProfileEntity entity = repository.findById(profileId).orElse(null);
+        return entity != null ? mapper.map(entity, Profile.class) : null;
     }
 
     @Override
