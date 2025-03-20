@@ -1,56 +1,64 @@
 package edu.icet.service.admin.impl;
 
 import edu.icet.dto.AuditLog;
+import edu.icet.dto.VerificationRequest;
+import edu.icet.entity.AuditLogEntity;
+import edu.icet.entity.VerificationRequestEntity;
+import edu.icet.repository.AuditLogRepository;
+import edu.icet.repository.VerificationRequestRepository;
 import edu.icet.service.admin.AuditLogService;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 @Service
+@RequiredArgsConstructor
 public class AuditLogServiceImpl implements AuditLogService {
-    private final List<AuditLog> auditLogs = new ArrayList<>();
+    private final AuditLogRepository repository;
+    final ModelMapper mapper;
+
     @Override
     public boolean saveAuditLog(AuditLog auditLog) {
-        if(auditLog != null && auditLog.getLogId() != null) {
-            for (int i = 0; i < auditLogs.size(); i++) {
-                if (auditLogs.get(i).getLogId().equals(auditLog.getLogId())) {
-                    return false;
-                }
-            }
-            auditLogs.add(auditLog);
-            return true;
+        if(auditLog == null) {
+            return false;
         }
-        return false;
+        repository.save(mapper.map(auditLog, AuditLogEntity.class));
+        return true;
     }
 
     @Override
-    public AuditLog getAuditLogById(Long logId) {
-        if (logId == null) {
+    public AuditLog getAuditLogById(Long id) {
+        if (id == null){
             return null;
         }
-        for (int i=0; i<auditLogs.size(); i++) {
-            if(auditLogs.get(i).getLogId().equals(logId)) {
-                return auditLogs.get(i);
-            }
+        if (!repository.existsById(id)){
+            return null;
         }
-        return null;
+        return mapper.map(repository.findById(id), AuditLog.class);
     }
 
     @Override
     public List<AuditLog> getAllAuditLogs() {
-        return new ArrayList<>(auditLogs);
+        List<AuditLog> auditLogList = new ArrayList<>();
+        List<AuditLogEntity> all = repository.findAll();
+
+        all.forEach(auditLogEntity -> {
+            auditLogList.add(mapper.map(auditLogEntity, AuditLog.class));
+        });
+
+        return auditLogList;
     }
 
     @Override
-    public boolean deleteAuditLog(Long logId) {
-        if(logId == null) {
+    public boolean deleteAuditLog(Long id) {
+        if (id == null){
             return false;
         }
-        for (int i=0; i <auditLogs.size(); i++) {
-            if (auditLogs.get(i).getLogId().equals(logId)) {
-                auditLogs.remove(i);
-                return true;
-            }
+        if (!repository.existsById(id)){
+            return false;
         }
-        return false;
+        repository.deleteById(id);
+        return true;
     }
 }

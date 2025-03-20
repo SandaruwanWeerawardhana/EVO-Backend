@@ -1,4 +1,7 @@
 package edu.icet.repository;
 
-public interface VerificationRequestRepository {
+import edu.icet.entity.VerificationRequestEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface VerificationRequestRepository extends JpaRepository<VerificationRequestEntity, Long> {
 }

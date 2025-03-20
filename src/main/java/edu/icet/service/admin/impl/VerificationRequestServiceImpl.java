@@ -1,8 +1,11 @@
 package edu.icet.service.admin.impl;
 
 import edu.icet.dto.VerificationRequest;
+import edu.icet.entity.VerificationRequestEntity;
+import edu.icet.repository.VerificationRequestRepository;
 import edu.icet.service.admin.VerificationRequestService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -14,64 +17,63 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class VerificationRequestServiceImpl implements VerificationRequestService {
 
-    List<VerificationRequest> verificationRequests = new ArrayList<>();
+    private final VerificationRequestRepository repository;
+    final ModelMapper mapper;
 
     @Override
     public boolean saveVerificationRequest(VerificationRequest request) {
         if (request == null) {
             return false;
-        } else {
-            return verificationRequests.add(request);
-
         }
+        repository.save(mapper.map(request, VerificationRequestEntity.class));
+        return true;
     }
 
     @Override
     public VerificationRequest findVerificationrequestById(Long id) {
-        for (VerificationRequest request : verificationRequests) {
-            if (request.getRequestID().equals(id)) {
-                return request;
-            }
+        if (id == null){
+            return null;
         }
-        return null;
+        if (!repository.existsById(id)){
+            return null;
+        }
+        return mapper.map(repository.findById(id), VerificationRequest.class);
     }
 
     @Override
     public List<VerificationRequest> getAllVerificationRequest() {
-        if(verificationRequests!=null){
-            return new ArrayList<>(verificationRequests);
-        }
-        return null;        
+        List<VerificationRequest> verificationRequestList = new ArrayList<>();
+        List<VerificationRequestEntity> all = repository.findAll();
+
+        all.forEach(verificationRequestEntity -> {
+            verificationRequestList.add(mapper.map(verificationRequestEntity, VerificationRequest.class));
+        });
+
+        return verificationRequestList;
     }
 
     @Override
     public boolean deleteVerificationRequest(Long id) {
-        if (id == null) {
+        if (id == null){
             return false;
-        } else {
-            return verificationRequests.removeIf(verificationRequest1 -> Objects.equals(verificationRequest1.getRequestID(), id));
         }
+        if (!repository.existsById(id)){
+            return false;
+        }
+        repository.deleteById(id);
+        return true;
     }
 
     @Override
-    public boolean updateVerificationRequest(Long requestID, VerificationRequest request) {
-        if (requestID == null || request == null) {
-            return false;
-        } else {
-            for (VerificationRequest request1 : verificationRequests) {
-                if (request1.getRequestID().equals(requestID)) {
-                    request1.setResponseDate(request.getResponseDate());
-                    request1.setSubmissionDate(request.getSubmissionDate());
-                    request1.setStatus(request.getStatus());
-                    request1.setVerificationDocument(request.getVerificationDocument());
-                    request1.setName(request.getName());
-                    request1.setEmail(request.getEmail());
-                    request1.setPhoneNumber(request.getPhoneNumber());
-                    return true;
-                }
-            }
+    public boolean updateVerificationRequest(Long id, VerificationRequest request) {
+        if (id == null) {
             return false;
         }
+        if (!repository.existsById(id)) {
+            return false;
+        }
+        repository.save(mapper.map(request, VerificationRequestEntity.class));
+        return true;
     }
 }
 
