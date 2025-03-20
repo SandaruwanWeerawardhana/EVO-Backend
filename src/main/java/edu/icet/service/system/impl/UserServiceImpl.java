@@ -1,98 +1,79 @@
 package edu.icet.service.system.impl;
 
 import edu.icet.dto.User;
+import edu.icet.entity.UserEntity;
+import edu.icet.repository.UserRepository;
 import edu.icet.service.system.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import java.util.List;
 @Service
 @Slf4j
-
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+
+    private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
+
     List<User> userList = new ArrayList<>();
 
     @Override
     public Boolean saveUser(User user) {
         if (user == null) {
-            log.info("user is null");
             return false;
         }
-        return userList.add(user);
+        UserEntity savedUserEntity = userRepository.save(modelMapper.map(user, UserEntity.class));
+        return userRepository.existsById(savedUserEntity.getUserId());
     }
 
     @Override
     public Boolean updateUser(Long userId, User user) {
         if (user == null) {
-            log.info("user is null");
             return false;
         }
-        for (int i = 0; i < userList.size(); i++) {
-            User existingUser = userList.get(i);
-            if (existingUser.getUserId().equals(userId)) {
-                userList.set(i, user);
-                return true;
-            }
+        if (!user.getUserId().equals(userId)) {
+            return false;
         }
-        log.info("User with ID {} not found", userId);
-        return false;
+        UserEntity updatedUserEntity = userRepository.save(modelMapper.map(user, UserEntity.class));
+        return userRepository.existsById(updatedUserEntity.getUserId());
     }
 
     @Override
     public Boolean deleteUser(Long userId) {
-        if (userList == null || userId == null) {
-            log.info("User list is empty or userId is null");
+        if (userId == null) {
             return false;
         }
-        for (User existingUser : userList) {
-            if (existingUser.getUserId().equals(userId)) {
-                userList.remove(userId.intValue());
-                return true;
-            }
-        }
-        log.info("User with ID {} not found", userId);
-        return false;
+        userRepository.deleteById(userId);
+        return !userRepository.existsById(userId);
     }
 
     @Override
     public List<User> getAllUsers() {
-        if (userList != null) {
-            return userList;
-        } else {
-            log.info("users not found");
-            return null;
-        }
+        List<UserEntity> userEntities = userRepository.findAll();
+        List<User> users = new ArrayList<>();
+        userEntities.forEach(userEntity -> {
+            users.add(modelMapper.map(userEntity, User.class));
+        });
+        return users;
     }
 
     @Override
     public boolean isUserExist(Long userId) {
-        if (userList.isEmpty() || userId == null) {
-            log.info("user list is empty or userId is null");
+        if (userId == null) {
             return false;
         }
-        for (User existingUser : userList) {
-            if (existingUser.getUserId().equals(userId)) {
-                return true;
-            }
-        }
-        log.info("User with ID {} not found", userId);
-        return false;
+        return userRepository.existsById(userId);
     }
 
     @Override
     public boolean isUserExist(User user) {
-        if (userList.isEmpty() || user == null) {
-            log.info("users not found or user is null");
+        if (user == null) {
             return false;
         }
-        if (userList.contains(user)) {
-            return true;
-        }
-        log.info("User {} not found", user);
-        return false;
-
+        return userRepository.existsById(user.getUserId());
     }
 }

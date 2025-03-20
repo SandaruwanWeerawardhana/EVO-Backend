@@ -8,12 +8,16 @@ import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="customer")
+@Table(name = "customer")
 public class CustomerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
