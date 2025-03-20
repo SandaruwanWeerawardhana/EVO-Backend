@@ -10,4 +10,5 @@ import java.util.List;
 public interface WeddingRepository extends JpaRepository<WeddingEntity,Long> {
     List<WeddingEntity> findByWeddingType(WeddingType weddingType);
     List<WeddingEntity> findByDate(LocalDate date);
+
 }

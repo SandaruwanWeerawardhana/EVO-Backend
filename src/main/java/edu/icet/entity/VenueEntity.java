@@ -17,7 +17,7 @@ public class VenueEntity {
     private Long venueId;
     private Long supplierId;
     @Column(nullable = false)
-    private String location;
+    private LocationEntity location;
     @Column(nullable = false)
     private String eventType;
     @Column(nullable = false)

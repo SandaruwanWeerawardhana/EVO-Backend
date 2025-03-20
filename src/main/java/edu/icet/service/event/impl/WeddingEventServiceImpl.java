@@ -1,74 +1,73 @@
 package edu.icet.service.event.impl;
 
 import edu.icet.dto.Wedding;
+import edu.icet.entity.WeddingEntity;
+import edu.icet.repository.WeddingRepository;
 import edu.icet.service.event.WeddingEventService;
 import edu.icet.util.WeddingType;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
+@RequiredArgsConstructor
 public class WeddingEventServiceImpl implements WeddingEventService {
 
-    List<Wedding> weddingArrayList = new ArrayList<>();
+    private final WeddingRepository weddingRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public List<Wedding> getAll() {
-        return weddingArrayList;
+        return weddingRepository.findAll()
+                .stream()
+                .map(wedding -> modelMapper.map(wedding, Wedding.class))
+                .collect(Collectors.toList());
     }
 
     @Override
     public boolean add(Wedding wedding) {
-        return weddingArrayList.add(wedding);
+        weddingRepository.save(modelMapper.map(wedding, WeddingEntity.class));
+        return true;
     }
 
     @Override
-    public boolean delete(String id) {
-        return weddingArrayList.removeIf(wedding -> wedding.getWeddingID().equals(id));
-    }
-
-    @Override
-    public boolean update(Wedding wedding) {
-        for (final Wedding wedding1 : weddingArrayList) {
-            if (wedding1.getWeddingID().equals(wedding.getWeddingID())) {
-                wedding1.setWeddingType(wedding.getWeddingType());
-                wedding1.setDate(wedding.getDate());
-                return true;
-            }
+    public boolean delete(Long id) {
+        if (weddingRepository.existsById(id)) {
+            weddingRepository.deleteById(id);
+            return true;
         }
         return false;
     }
 
     @Override
-    public Wedding get(String id) {
-        for (final Wedding wedding1 : weddingArrayList) {
-            if (wedding1.getWeddingID().equals(id)) {
-                return wedding1;
-            }
-        }
-        return null;
+    public boolean update(Wedding wedding) {
+        return this.add(wedding);
+    }
+
+    @Override
+    public Wedding get(Long id) {
+        return weddingRepository.findById(id)
+                .map(wedding -> modelMapper.map(wedding, Wedding.class))
+                .orElse(null);
     }
 
     @Override
     public List<Wedding> getByDate(LocalDate date) {
-        List<Wedding> weddingsOnDate = new ArrayList<>();
-        for (Wedding wedding : weddingArrayList) {
-            if (wedding.getDate().equals(date)) {
-                weddingsOnDate.add(wedding);
-            }
-        }
-        return weddingsOnDate;
+        return weddingRepository.findByDate(date)
+                .stream()
+                .map(wedding -> modelMapper.map(wedding, Wedding.class))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Wedding> getByWeddingType(WeddingType weddingType) {
-        List<Wedding> weddingsOnType = new ArrayList<>();
-        for (Wedding wedding : weddingArrayList) {
-            if (wedding.getWeddingType().equals(weddingType)) {
-                weddingsOnType.add(wedding);
-            }
-        }
-        return weddingsOnType;
+        return weddingRepository.findByWeddingType(weddingType)
+                .stream()
+                .map(wedding -> modelMapper.map(wedding, Wedding.class))
+                .collect(Collectors.toList());
     }
 }
