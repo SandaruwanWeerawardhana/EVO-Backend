@@ -5,5 +5,5 @@ import edu.icet.util.AdminType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AdminRepository extends JpaRepository<AdminEntity,Long> {
-    Iterable<Object> findAllByType(AdminType type);
+     Iterable<Object> findAllByType(AdminType type);
 }

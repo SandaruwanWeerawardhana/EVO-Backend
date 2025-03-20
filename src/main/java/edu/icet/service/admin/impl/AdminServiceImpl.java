@@ -79,6 +79,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<Admin> getAllAdmins() {
         List<AdminEntity> all = repo.findAll();
+
         List<Admin> adminList=new ArrayList<>();
         all.forEach(admin ->{
            adminList.add(mapper.map(admin,Admin.class));
@@ -89,6 +90,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<Admin> getAdminByType(AdminType type) {
         List<Admin> adminList=new ArrayList<>();
+
        repo.findAllByType(type).forEach(admin -> {
            adminList.add(mapper.map(admin,Admin.class));
         });
