@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,8 +18,11 @@ public class CategoryServiceImpl implements CategoryService {
     final CategoryRepository categoryRepository;
 
     @Override
-    public List<CategoryEntity> getAll() {
-       return categoryRepository.findAll();
+    public List<Category> getAll() {
+        return categoryRepository.findAll()
+                .stream()
+                .map(entity -> modelMapper.map(entity, Category.class))
+                .collect(Collectors.toList());
     }
 
     @Override
