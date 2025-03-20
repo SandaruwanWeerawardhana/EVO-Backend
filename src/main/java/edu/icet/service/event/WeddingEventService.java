@@ -1,6 +1,7 @@
 package edu.icet.service.event;
 
 import edu.icet.dto.Wedding;
+import edu.icet.util.WeddingType;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -13,4 +14,5 @@ public interface WeddingEventService {
     boolean update(Wedding wedding);
     Wedding get(String id);
     List<Wedding> getByDate(LocalDate date);
+    List<Wedding> getByWeddingType(WeddingType weddingType);
 }
