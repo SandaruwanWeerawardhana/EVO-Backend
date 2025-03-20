@@ -1,47 +1,71 @@
 package edu.icet.service.admin.impl;
 
 import edu.icet.dto.TransactionHistory;
+import edu.icet.entity.TransactionHistoryEntity;
+import edu.icet.repository.TransactionHistoryRepository;
 import edu.icet.service.admin.TransactionHistoryService;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TransactionHistoryServiceImpl implements TransactionHistoryService {
-    private final List<TransactionHistory> transactionHistoryList = new ArrayList<>();
+    private final TransactionHistoryRepository repository;
+    private final ModelMapper mapper;
 
     @Override
-    public TransactionHistory save(TransactionHistory history) {
-        transactionHistoryList.add(history);
-        return history;
+    public Boolean saveTransactionHistory(TransactionHistory history) {
+        if (history == null) {
+            return false;
+        }
+        repository.save(mapper.map(history, TransactionHistoryEntity.class));
+        return true;
     }
 
     @Override
     public TransactionHistory getTransactionHistoryById(Long id) {
-        for (TransactionHistory transactionHistory : transactionHistoryList) {
-            if (transactionHistory.getId().equals(id)) {
-                return transactionHistory;
-            }
+        if (id == null){
+            return null;
         }
-        return null;
+        if (!repository.existsById(id)){
+            return null;
+        }
+        return mapper.map(repository.findById(id), TransactionHistory.class);
     }
 
     @Override
     public List<TransactionHistory> getAll() {
-        return new ArrayList<>(transactionHistoryList);
+        List<TransactionHistory> transactionHistoryList = new ArrayList<>();
+        List<TransactionHistoryEntity> all = repository.findAll();
+
+        all.forEach(transactionHistoryEntity -> {
+            transactionHistoryList.add(mapper.map(transactionHistoryEntity, TransactionHistory.class));
+        });
+
+        return transactionHistoryList;
     }
 
     @Override
     public boolean deleteTransactionHistoryById(Long id) {
-        return transactionHistoryList.removeIf(transaction -> transaction.getId().equals(id));
+        if (id == null){
+            return false;
+        }
+        if (!repository.existsById(id)){
+            return false;
+        }
+        repository.deleteById(id);
+        return true;
     }
 
     @Override
     public List<TransactionHistory> getTransactionByDate(LocalDate date) {
         List<TransactionHistory>result=new ArrayList<>();
-        for (TransactionHistory transaction:transactionHistoryList){
+        for (TransactionHistory transaction:this.getAll()){
             if (transaction.getDate().equals(date)){
                 result.add(transaction);
             }
@@ -52,8 +76,8 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
     @Override
     public List<TransactionHistory> getTransactionByUserId(Long id) {
         List<TransactionHistory>result=new ArrayList<>();
-        for (TransactionHistory transaction:transactionHistoryList){
-            if (transaction.getId().equals(id)){
+        for (TransactionHistory transaction:this.getAll()){
+            if (transaction.getUserId().equals(id)){
                 result.add(transaction);
             }
         }

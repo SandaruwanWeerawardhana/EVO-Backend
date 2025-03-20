@@ -20,7 +20,7 @@ public class Config {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
 		http
-				.csrf(AbstractHttpConfigurer::disable)
+				.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests((auth -> auth.anyRequest().permitAll()));
 //				.oauth2Login(Customizer.withDefaults());
 

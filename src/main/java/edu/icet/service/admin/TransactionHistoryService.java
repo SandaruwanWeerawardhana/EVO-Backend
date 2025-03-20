@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface TransactionHistoryService {
-    TransactionHistory save(TransactionHistory history);
+    Boolean saveTransactionHistory(TransactionHistory history);
     TransactionHistory getTransactionHistoryById(Long id);
     List<TransactionHistory> getAll();
     boolean deleteTransactionHistoryById(Long id);
