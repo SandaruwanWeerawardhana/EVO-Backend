@@ -1,7 +1,7 @@
 package edu.icet.service.system;
 
 import edu.icet.dto.Category;
-import org.springframework.stereotype.Service;
+import edu.icet.entity.CategoryEntity;
 
 import java.util.List;
 
