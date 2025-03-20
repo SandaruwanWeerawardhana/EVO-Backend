@@ -29,9 +29,8 @@ public class VenueRequestServiceImpl implements VenueRequestService {
         List<VenueRequest> venueRequestList = new ArrayList<>();
         List<VenueRequestEntity> all = venueRequestRepository.findAll();
 
-        all.forEach(venueRequestEntity -> {
-            venueRequestList.add(modelMapper.map(venueRequestEntity, VenueRequest.class));
-        });
+        all.forEach(venueRequestEntity -> venueRequestList.add(modelMapper.map(venueRequestEntity, VenueRequest.class)))
+        ;
 
         return venueRequestList;
     }
@@ -49,7 +48,7 @@ public class VenueRequestServiceImpl implements VenueRequestService {
 
     @Override
     public VenueRequest update(VenueRequest venueRequest) {
-      return this.save(venueRequest);
+        return this.save(venueRequest);
 
     }
 }
