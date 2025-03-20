@@ -2,7 +2,6 @@ package edu.icet.service.event;
 import edu.icet.dto.Event;
 import edu.icet.dto.Location;
 import edu.icet.util.EventType;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

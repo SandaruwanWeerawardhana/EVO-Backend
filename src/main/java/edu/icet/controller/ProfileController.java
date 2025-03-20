@@ -31,10 +31,8 @@ public class ProfileController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Profile> getProfileById(@PathVariable Integer id) {
-        return profileService.getProfileById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Profile> getProfileById(@PathVariable Long id) {
+        return ResponseEntity.ok(profileService.getProfileById(id));
     }
 
     @GetMapping("/all")
@@ -44,21 +42,10 @@ public class ProfileController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteProfile(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteProfile(@PathVariable Long id) {
         profileService.deleteProfile(id);
         return ResponseEntity.ok("Profile deleted successfully.");
     }
 
-    @GetMapping("/gender/{gender}")
-    public ResponseEntity<List<Profile>> getProfilesByGender(@PathVariable String gender) {
-        List<Profile> profiles = profileService.getProfilesByGender(gender);
-        return ResponseEntity.ok(profiles);
-    }
 
-    @GetMapping("/age-range")
-    public ResponseEntity<List<Profile>> getProfilesByAgeRange(
-            @RequestParam Integer minAge, @RequestParam Integer maxAge) {
-        List<Profile> profiles = profileService.getProfilesByAgeRange(minAge, maxAge);
-        return ResponseEntity.ok(profiles);
-    }
 }

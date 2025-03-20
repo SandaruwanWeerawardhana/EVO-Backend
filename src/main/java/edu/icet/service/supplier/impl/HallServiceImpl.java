@@ -1,73 +1,69 @@
 package edu.icet.service.supplier.impl;
 
 import edu.icet.dto.Hall;
-import edu.icet.dto.MusicPackage;
 import edu.icet.dto.Profile;
+import edu.icet.entity.HallEntity;
+import edu.icet.repository.HallReopsitory;
 import edu.icet.service.supplier.HallService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class HallServiceImpl implements HallService {
-
-    private ModelMapper modelMapper;
-    private final List<Hall> hallServiceList = new ArrayList<>();
+    final ModelMapper modelMapper;
+    final HallReopsitory hallReopsitory;
   
     @Override
     public List<Hall> getAll(Profile profile) {
-        return hallServiceList;
+        return hallReopsitory.findAll()
+                .stream()
+                .map(hallEntity -> modelMapper.map(hallEntity, Hall.class))
+                .toList();
     }
 
     @Override
     public Hall save(Hall hall) {
-        hallServiceList.add(hall);
-        return hall;
+        HallEntity entity = modelMapper.map(hall, HallEntity.class);
+        HallEntity savedEntity = hallReopsitory.save(entity);
+        return modelMapper.map(savedEntity, Hall.class);
     }
 
     @Override
     public Hall search(Hall hall) {
-        for (Hall hallTest : hallServiceList){
-            if (hallTest.getHallId().equals(hall.getHallId())){
-                return hallTest;
-            }
-        }
-        return null;
-    }
-
-    public Hall search(String query) {
-        Long id=Long.parseLong(query);
-        return hallServiceList.stream()
-                .filter(h -> h.getHallId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Hall not found"));
+        HallEntity entity = hallReopsitory.findById(hall.getHallId()).orElse(null);
+        return entity != null ? modelMapper.map(entity, Hall.class) : null;
     }
 
     @Override
     public Boolean delete(Hall hall) {
-        return hallServiceList.removeIf(hallCheck -> hallCheck.getHallId().equals(hall.getHallId()));
+        if (hallReopsitory.existsById(hall.getHallId())) {
+            hallReopsitory.deleteById(hall.getHallId());
+            return true;
+        }
+        return false;
     }
 
     @Override
     public Boolean delete(Long id) {
-
-        return hallServiceList.removeIf(hall -> hall.getHallId().equals(id));
+        if (hallReopsitory.existsById(id)) {
+            hallReopsitory.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public Hall update(Hall hall) {
-
-        for (int a=0;a<hallServiceList.size();a++){
-            if (hallServiceList.get(a).getHallId().equals(hall.getHallId())){
-                hall.setHallId(hall.getHallId());
-                hallServiceList.set(a,hall);
-                return hall;
-            }
+        if (hallReopsitory.existsById(hall.getHallId())) {
+            HallEntity entity = modelMapper.map(hall, HallEntity.class);
+            HallEntity updatedEntity = hallReopsitory.save(entity);
+            return modelMapper.map(updatedEntity, Hall.class);
         }
         return null;
     }
 }
-

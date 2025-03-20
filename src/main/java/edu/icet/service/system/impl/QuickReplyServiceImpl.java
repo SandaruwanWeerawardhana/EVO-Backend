@@ -2,8 +2,11 @@ package edu.icet.service.system.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.dto.QuickReplies;
-import edu.icet.dto.Supplier;
+import edu.icet.entity.QuickRepliesEntity;
+import edu.icet.repository.QuickReplyRepository;
 import edu.icet.service.system.QuickReplyService;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -12,45 +15,53 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class QuickReplyServiceImpl implements QuickReplyService {
     List<QuickReplies> repliesList = new ArrayList<>();
 
+    private final QuickReplyRepository replyRepository;
+    private final ModelMapper modelMapper;
+
     @Override
     public Boolean save(QuickReplies quickReplies) {
-        if (Boolean.FALSE.equals(filterProfanity(quickReplies.getContent()))) {
-            repliesList.add(quickReplies);
-            return true;
+        if (quickReplies==null) {
+            return false;
         }
-        return false;
+        if(filterProfanity(quickReplies.getContent())){
+            return false;
+        }
+        QuickRepliesEntity quickRepliesEntity = replyRepository.save(modelMapper.map(quickReplies, QuickRepliesEntity.class));
+        return replyRepository.existsById(quickRepliesEntity.getReplyID());
     }
 
     @Override
     public Boolean delete(Long id) {
-        return repliesList.removeIf(p->p.getReplyID().equals(id));
+        if (id==null) {
+            return false;
+        }
+        replyRepository.deleteById(id);
+        return !replyRepository.existsById(id);
     }
 
     @Override
     public Boolean update(QuickReplies quickReplies) {
-        if (quickReplies == null) return false;
-
-        for (QuickReplies temp : repliesList) {
-            if (temp.getReplyID().equals(quickReplies.getReplyID())) {
-                int index = repliesList.indexOf(temp);
-                repliesList.set(index, quickReplies);
-                return true;
-            }
+        if (quickReplies==null) {
+            return false;
         }
-        return false;
+        QuickRepliesEntity quickRepliesEntity = replyRepository.save(modelMapper.map(quickReplies, QuickRepliesEntity.class));
+        return replyRepository.existsById(quickRepliesEntity.getReplyID());
     }
 
     @Override
-    public List<QuickReplies> getAll(Supplier supplier) {
-        return Collections.singletonList(repliesList.get(Math.toIntExact(supplier.getUserId())));
+    public List<QuickReplies> getAll() {
+        List<QuickRepliesEntity> allEntities = replyRepository.findAll();
+        List<QuickReplies> repliesList = new ArrayList<>();
+        allEntities.forEach(entity -> repliesList.add(modelMapper.map(entity, QuickReplies.class)));
+        return repliesList;
     }
 
     public Boolean filterProfanity(String content) {

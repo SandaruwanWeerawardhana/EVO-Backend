@@ -1,6 +1,8 @@
 package edu.icet.service.supplier.impl;
 
 import edu.icet.dto.Pool;
+import edu.icet.entity.PoolEntity;
+import edu.icet.repository.PoolRepository;
 import edu.icet.service.supplier.PoolService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -12,36 +14,40 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PoolServiceImpl implements PoolService {
     final ModelMapper mapper;
-    private final ArrayList<Pool> pools = new ArrayList<>();
+    final PoolRepository repository;
 
     @Override
     public List<Pool> getAll() {
-        return pools;
+        return repository.findAll().stream().map(
+                poolEntity -> mapper.map(poolEntity, Pool.class)
+        ).toList();
     }
 
     @Override
     public Pool save(Pool pool) {
-        pools.add(pool);
-        return pool;
+        return mapper.map(repository.save(mapper.map(pool, PoolEntity.class)), Pool.class);
     }
 
     @Override
     public Boolean delete(Long id) {
-        pools.removeIf(pool -> pool.getId().equals(id));
-        return pools.isEmpty();
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+
+            return  true;
+        }
+
+        return false;
     }
 
     @Override
     public Boolean update(Pool pool) {
-        if (pool == null || pool.getId() == null) return null;
+        if (repository.existsById(pool.getId())) {
 
-        for (Pool bs : pools) {
-            if (bs.getId().equals(pool.getId())) {
-                int index = pools.indexOf(bs);
-                pools.set(index, pool);
-                return true;
-            }
+            repository.save(mapper.map(pool, PoolEntity.class));
+
+            return true;
         }
+
         return false;
     }
 }

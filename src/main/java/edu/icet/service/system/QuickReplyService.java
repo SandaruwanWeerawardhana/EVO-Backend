@@ -11,6 +11,6 @@ public interface QuickReplyService {
     Boolean save(QuickReplies quickReplies);
     Boolean delete(Long id);
     Boolean update (QuickReplies quickReplies);
-    List<QuickReplies> getAll(Supplier supplier);
+    List<QuickReplies> getAll();
 
 }

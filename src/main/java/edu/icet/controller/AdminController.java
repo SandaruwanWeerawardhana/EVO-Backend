@@ -29,7 +29,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/delete/{adminId}")
-    public ResponseEntity<String> deleteAdmin(@PathVariable Integer adminId){
+    public ResponseEntity<String> deleteAdmin(@PathVariable Long adminId){
        boolean deleteAdmin = adminService.deleteAdmin(adminId);
        if (deleteAdmin) {
            return new ResponseEntity<>(HttpStatus.OK);
@@ -40,7 +40,7 @@ public class AdminController {
     }
     
     @PutMapping("/update/{adminId}")
-    public ResponseEntity<String> updateAdmin(@PathVariable Integer adminId,@RequestBody Admin admin){
+    public ResponseEntity<String> updateAdmin(@PathVariable Long adminId,@RequestBody Admin admin){
         boolean updateAdmin = adminService.updateAdmin(adminId, admin);
         if (updateAdmin){
             return new ResponseEntity<>(HttpStatus.OK);
@@ -50,7 +50,7 @@ public class AdminController {
     }
 
     @GetMapping("/get/{adminId}")
-    public ResponseEntity<Admin> getAdminById(@PathVariable Integer adminId){
+    public ResponseEntity<Admin> getAdminById(@PathVariable Long adminId){
        Admin admin = adminService.getAdminById(adminId);
        if (admin!=null){
            return new ResponseEntity<>(admin,HttpStatus.OK);
@@ -60,7 +60,7 @@ public class AdminController {
     }
 
     @GetMapping("/exists/{adminId}")
-    public ResponseEntity<String> adminExits(@PathVariable Integer adminId){
+    public ResponseEntity<String> adminExits(@PathVariable Long adminId){
         boolean existsAdmin = adminService.adminExists(adminId);
         if (existsAdmin) {
             return new ResponseEntity<>(HttpStatus.OK);
@@ -70,8 +70,8 @@ public class AdminController {
     }
 
     @GetMapping("/count")
-    public ResponseEntity<Integer> countAdmins() {
-        Integer adminCount = adminService.countAdmins();
+    public ResponseEntity<Long> countAdmins() {
+        Long adminCount = adminService.countAdmins();
         if (adminCount>0) {
             return new ResponseEntity<>(adminCount,HttpStatus.OK);
         } else {

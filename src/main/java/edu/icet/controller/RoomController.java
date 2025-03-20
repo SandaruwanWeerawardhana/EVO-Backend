@@ -38,8 +38,4 @@ public class RoomController {
         return service.delete(id);
     }
 
-    @DeleteMapping("/delete")
-    public boolean delete(@RequestBody Room room){
-        return service.delete(room);
-    }
 }
