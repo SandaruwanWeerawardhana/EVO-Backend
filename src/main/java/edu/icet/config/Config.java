@@ -24,6 +24,7 @@ public class Config {
 				.authorizeHttpRequests((auth -> auth.anyRequest().permitAll()));
 //				.oauth2Login(Customizer.withDefaults());
 
+
 		return http.build();
 	}
 

@@ -36,7 +36,6 @@ public class NotificationController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     @DeleteMapping("/delete/{notificationId}")

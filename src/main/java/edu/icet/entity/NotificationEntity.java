@@ -18,6 +18,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "notifications")
 public class NotificationEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long notificationId;
