@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @Primary
@@ -18,7 +17,7 @@ import java.util.Objects;
 public class VerificationRequestServiceImpl implements VerificationRequestService {
 
     private final VerificationRequestRepository repository;
-    final ModelMapper mapper;
+    private final ModelMapper mapper;
 
     @Override
     public boolean saveVerificationRequest(VerificationRequest request) {

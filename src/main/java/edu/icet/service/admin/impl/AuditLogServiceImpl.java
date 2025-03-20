@@ -1,15 +1,13 @@
 package edu.icet.service.admin.impl;
 
 import edu.icet.dto.AuditLog;
-import edu.icet.dto.VerificationRequest;
 import edu.icet.entity.AuditLogEntity;
-import edu.icet.entity.VerificationRequestEntity;
 import edu.icet.repository.AuditLogRepository;
-import edu.icet.repository.VerificationRequestRepository;
 import edu.icet.service.admin.AuditLogService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 @Service
