@@ -39,6 +39,7 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private EventStatusType eventStatus;
     @NotNull
+    @Enumerated(EnumType.STRING)
     private List<EventSupplier> suppliers;
 
 

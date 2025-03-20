@@ -20,3 +20,4 @@ public interface EventRepository extends JpaRepository<EventEntity,Integer> {
 //    List<EventEntity> findAllByEventDateAndUserId(Long userId,Date date);
 
 }
+
