@@ -49,8 +49,7 @@ public class VenueRequestServiceImpl implements VenueRequestService {
 
     @Override
     public VenueRequest update(VenueRequest venueRequest) {
-        venueRequestRepository.save(modelMapper.map(venueRequest, VenueRequestEntity.class));
-        return venueRequest;
+      return this.save(venueRequest);
 
     }
 }
