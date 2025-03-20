@@ -18,9 +18,10 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "notifications")
 public class NotificationEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer notificationId;
+    private Long notificationId;
 
     @NotBlank(message = "Title is required.")
     @Column(nullable = false)
@@ -44,4 +45,12 @@ public class NotificationEntity {
 
     @PastOrPresent(message = "Sent date cannot be in the future")
     private LocalDate readAt;
+
+    @NotNull(message = "User Id is required")
+    @Column(nullable = false)
+    private Long userId;
+
+    @NotNull(message = "User Type is required")
+    @Column(nullable = false)
+    private String userType;
 }
