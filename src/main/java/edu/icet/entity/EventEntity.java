@@ -23,7 +23,7 @@ public class EventEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer eventId;
+    private Long eventId;
 
     @Column(name = "user_id", nullable = false)
     private Long userId;
@@ -38,10 +38,8 @@ public class EventEntity {
     @Column(name = "end_time",nullable = false)
     private Time endTime;
 
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "locationId",referencedColumnName = "locationId")
-    private LocationEntity location;
+    @Column(name ="location_Id")
+    private Integer locationId;
 
     @Column(name = "event_type",nullable = false)
     @Enumerated(EnumType.STRING)
