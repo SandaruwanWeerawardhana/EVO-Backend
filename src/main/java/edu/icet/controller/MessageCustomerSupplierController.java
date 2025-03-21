@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/system/message")
+@RequestMapping("/system/message/customer-supplier")
 @RequiredArgsConstructor
 @CrossOrigin
 public class MessageCustomerSupplierController {
