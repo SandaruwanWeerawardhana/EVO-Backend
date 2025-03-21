@@ -13,14 +13,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AnniversaryEventServiceImpl implements AnniversaryEventService {
 
-    final AnniversaryEventRepository repository;
-    final ModelMapper mapper;
+    private final AnniversaryEventRepository repository;
+    private final ModelMapper mapper;
 
     @Override
     public boolean add(Anniversary anniversary) {
-        if (anniversary == null) {
-            return false;
-        }
         if (anniversary.getEventId() != null && repository.existsById(anniversary.getEventId())) {
             return false;
         }
@@ -56,7 +53,7 @@ public class AnniversaryEventServiceImpl implements AnniversaryEventService {
 
     @Override
     public Anniversary get(Long eventId) {
-        if (eventId == null) {
+        if (eventId <=0) {
             return null;
         }
         return repository.findById(eventId)
