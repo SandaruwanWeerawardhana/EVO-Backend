@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 
 @RestController
-@RequestMapping("/messageAdminSupplier")
+@RequestMapping("/system/message/admin-supplier")
 @RequiredArgsConstructor
 @CrossOrigin
 public class MessageAdminSupplierController {
