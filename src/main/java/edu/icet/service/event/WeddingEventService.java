@@ -10,9 +10,9 @@ import java.util.List;
 public interface WeddingEventService {
     List<Wedding> getAll();
     boolean add(Wedding wedding);
-    boolean delete(String id);
+    boolean delete(Long id);
     boolean update(Wedding wedding);
-    Wedding get(String id);
+    Wedding get(Long id);
     List<Wedding> getByDate(LocalDate date);
     List<Wedding> getByWeddingType(WeddingType weddingType);
 }
