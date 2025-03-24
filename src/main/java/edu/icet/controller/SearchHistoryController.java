@@ -40,17 +40,6 @@ public class SearchHistoryController {
                     .body("try again!, Can't delete search history");
         }
     }
-
-    @DeleteMapping("/delete_all_search_history_by_id/{id}")
-    public ResponseEntity<String> deleteAllSearchHistoryByCustomerId(@PathVariable Long id){
-        if (searchHistoryService.deleteAllSearchHistoryByCustomerId(id)){
-            return ResponseEntity.ok("search histories delete successfully");
-        }else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("try again!, Can't delete search histories");
-        }
-    }
-
     @GetMapping("/get_search_history_by_id/{id}")
     public ResponseEntity<SearchHistory> searchSearchHistory(@PathVariable Long id){
         SearchHistory searchHistory = searchHistoryService.searchSearchHistory(id);

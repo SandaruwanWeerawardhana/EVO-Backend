@@ -17,7 +17,7 @@ public interface ReplyService {
 
     void deleteReplyById(Long replyId);
 
-    ReplyEntity searchReplyById(Long replyId);
+    Reply searchReplyById(Long replyId);
 
     Reply searchReplyByUserId(Long userId);
 

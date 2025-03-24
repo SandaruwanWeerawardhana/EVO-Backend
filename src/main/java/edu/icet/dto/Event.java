@@ -34,14 +34,10 @@ public class Event {
     private Integer capacity;
     @NotNull
     @Enumerated(EnumType.STRING)
-
     private BudgetType budgetType;
     @NotEmpty
     @Enumerated(EnumType.STRING)
-
     private EventStatusType eventStatus;
     @NotNull
     private List<EventSupplier> suppliers;
-
-
 }

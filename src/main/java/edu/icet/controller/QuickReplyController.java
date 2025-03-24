@@ -31,7 +31,7 @@ public class QuickReplyController {
     }
 
     @GetMapping("/get-all")
-    public List<QuickReplies> getAll(@RequestBody Supplier supplier) {
-        return service.getAll(supplier);
+    public List<QuickReplies> getAll() {
+        return service.getAll();
     }
 }

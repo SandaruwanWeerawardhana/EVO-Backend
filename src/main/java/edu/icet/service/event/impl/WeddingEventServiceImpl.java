@@ -2,6 +2,7 @@ package edu.icet.service.event.impl;
 
 import edu.icet.dto.Wedding;
 import edu.icet.service.event.WeddingEventService;
+import edu.icet.util.WeddingType;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -58,5 +59,16 @@ public class WeddingEventServiceImpl implements WeddingEventService {
             }
         }
         return weddingsOnDate;
+    }
+
+    @Override
+    public List<Wedding> getByWeddingType(WeddingType weddingType) {
+        List<Wedding> weddingsOnType = new ArrayList<>();
+        for (Wedding wedding : weddingArrayList) {
+            if (wedding.getWeddingType().equals(weddingType)) {
+                weddingsOnType.add(wedding);
+            }
+        }
+        return weddingsOnType;
     }
 }

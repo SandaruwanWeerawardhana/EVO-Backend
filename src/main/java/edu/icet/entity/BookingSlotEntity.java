@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @ToString
 @Entity
 @Table(name = "bookingSlot")
-public class BookingSlot {
+public class BookingSlotEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
