@@ -21,7 +21,6 @@ public class Config {
 				.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(auth -> auth
 						.anyRequest().permitAll()
-
 				)
 				.cors(Customizer.withDefaults());
 		return http.build();
