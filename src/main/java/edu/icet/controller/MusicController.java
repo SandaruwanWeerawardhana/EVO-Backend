@@ -24,7 +24,7 @@ public class MusicController {
     }
 
     @GetMapping("/search")
-    public Music search(@RequestParam String id){
+    public Music search(@RequestParam Long id){
         return musicService.searchMusic(id);
     }
 

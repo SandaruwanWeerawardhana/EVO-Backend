@@ -38,9 +38,4 @@ public class PropertyController {
     public boolean deleteById(@RequestParam Long id){
         return service.delete(id);
     }
-
-    @DeleteMapping("/delete")
-    public boolean delete(@RequestBody Property property){
-        return service.delete(property);
-    }
 }

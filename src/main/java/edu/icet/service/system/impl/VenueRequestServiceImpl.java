@@ -7,21 +7,20 @@ import edu.icet.service.system.VenueRequestService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+
 public class VenueRequestServiceImpl implements VenueRequestService {
 
     private final VenueRequestRepository venueRequestRepository;
-    private final ModelMapper modelMapper;
+    private ModelMapper mapper;
 
     @Override
     public VenueRequest save(VenueRequest venueRequest) {
-        venueRequestRepository.save(modelMapper.map(venueRequest, VenueRequestEntity.class));
-        return venueRequest;
+        return mapper.map(venueRequestRepository.save(mapper.map(venueRequest, VenueRequestEntity.class)),VenueRequest.class);
     }
 
     @Override
@@ -31,7 +30,6 @@ public class VenueRequestServiceImpl implements VenueRequestService {
 
         all.forEach(venueRequestEntity -> venueRequestList.add(modelMapper.map(venueRequestEntity, VenueRequest.class)))
         ;
-
         return venueRequestList;
     }
 
@@ -49,6 +47,5 @@ public class VenueRequestServiceImpl implements VenueRequestService {
     @Override
     public VenueRequest update(VenueRequest venueRequest) {
         return this.save(venueRequest);
-
     }
 }

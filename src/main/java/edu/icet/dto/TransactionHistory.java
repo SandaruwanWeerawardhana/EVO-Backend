@@ -32,4 +32,7 @@ public class TransactionHistory {
     @NotNull(message = "Confirmation cannot be null")
     private Boolean confirmation;
 
+    @NotNull(message = "Confirmation cannot be null")
+    private Long userId;
+
 }

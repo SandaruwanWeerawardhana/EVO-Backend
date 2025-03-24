@@ -41,6 +41,4 @@ public class Event {
     @NotNull
     @Enumerated(EnumType.STRING)
     private List<EventSupplier> suppliers;
-
-
 }

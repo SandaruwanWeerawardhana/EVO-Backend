@@ -1,8 +1,12 @@
 package edu.icet.service.system.impl;
 
 import edu.icet.dto.Notification;
+import edu.icet.entity.NotificationEntity;
+import edu.icet.repository.NotificationRepository;
 import edu.icet.service.system.NotificationService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -10,99 +14,124 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-
+@RequiredArgsConstructor
 public class NotificationServiceImpl implements NotificationService {
 
-    List<Notification> notificationList = new ArrayList<>();
+   private final NotificationRepository repository;
+   private final ModelMapper mapper;
 
     @Override
     public Notification createNotification(@Valid Notification notification) {
         if (notification != null) {
-            notificationList.add(notification);
-            return notification;
+            NotificationEntity saved=repository.save(mapper.map(notification,NotificationEntity.class));
+            Notification savedNotification=mapper.map(saved,Notification.class);
+            return savedNotification;
         }
         return null;
     }
 
     @Override
-    public Notification getNotificationById(Integer notificationId) {
+    public Notification getNotificationById(Long notificationId) {
         if (notificationId != null) {
-            return notificationList.stream()
-                    .filter(notification -> notification.getNotificationId().equals(notificationId))
-                    .findFirst().orElse(null);
+           if (!repository.existsById(notificationId)){
+               throw new RuntimeException("Notification"+notificationId+"not found!");
+           }
+           return repository.findById(notificationId).map(notificationEntity -> mapper.map(notificationEntity,Notification.class)).orElse(null);
         }
         return null;
     }
 
     @Override
-    public Notification updateNotification(Integer notificationId, Notification notification) {
+    public Notification updateNotification(Long notificationId, Notification notification) {
         if (notificationId != null && notification != null) {
-            for (int i = 0; i < notificationList.size(); i++){
-                if (notificationList.get(i).getNotificationId().equals(notificationId)){
-                    notificationList.set(i,notification);
-                    return notification;
-                }
+            if (!repository.existsById(notificationId)){
+                throw new RuntimeException("Notification"+notificationId+"not found!");
             }
+            NotificationEntity updatedEntity=repository.save(mapper.map(notification,NotificationEntity.class));
+            return mapper.map(updatedEntity,Notification.class);
         }
         return null;
     }
     @Override
-    public boolean deleteNotification(Integer notificationId) {
+    public boolean deleteNotification(Long notificationId) {
         if (notificationId != null) {
-            return notificationList
-                    .removeIf(notification -> notification.getNotificationId()
-                            .equals(notificationId));
+          if (repository.existsById(notificationId)){
+              repository.deleteById(notificationId);
+          }
+          return true;
         }
         return false;
     }
     @Override
     public List<Notification> getAllNotification() {
-        return notificationList;
+       List<NotificationEntity> notificationEntities=repository.findAll();
+       if (!notificationEntities.isEmpty()){
+           List<Notification> notificationList= new ArrayList<>();
+           notificationEntities.forEach(notificationEntity ->
+                   notificationList.add(mapper.map(notificationEntity,Notification.class)));
+           return notificationList;
+       }
+       return null;
     }
 
     @Override
     public List<Notification> getNotificationByType(String type) {
         if (type != null) {
-            return notificationList.stream()
-                    .filter(notification -> notification.getType().equals(type)).toList();
-        }
-        return List.of();
+            List<NotificationEntity> entities = repository.findByType(type);
+            List<Notification> notificationsByType = new ArrayList<>();
+            entities.forEach(entity -> notificationsByType.add(mapper.map(entity, Notification.class)));
+            return notificationsByType;
+           }
+        return null;
     }
 
     @Override
     public List<Notification> getNotificationByStatus(String status) {
         if (status != null) {
-            return notificationList.stream()
-                    .filter(notification -> notification.getStatus().equals(status)).toList();
+           List<NotificationEntity>entities=repository.findByStatus(status);
+           List<Notification> notificationsByStatus=new ArrayList<>();
+           entities.forEach(entity-> notificationsByStatus.add(mapper.map(entity,Notification.class)));
+           return notificationsByStatus;
         }
-        return List.of();
+        return null;
     }
 
     @Override
     public List<Notification> getNotificationByDeliveryMethod(String deliveryMethod) {
         if (deliveryMethod != null) {
-            return notificationList.stream()
-                    .filter(notification -> notification.getDeliveryMethod().equals(deliveryMethod)).toList();
+            List<NotificationEntity>entities=repository.findByDeliveryMethod(deliveryMethod);
+            List<Notification> notificationsByDeliveryMethod=new ArrayList<>();
+            entities.forEach(entity->notificationsByDeliveryMethod.add(mapper.map(entity,Notification.class)));
+            return notificationsByDeliveryMethod;
         }
-        return List.of();
+        return null;
     }
 
     @Override
-    public boolean markAsRead(Integer notificationId) {
-        if (notificationId != null){
-            for (Notification notification : notificationList){
-                if (notification.getNotificationId().equals(notificationId)){
-                    notification.setReadAt(LocalDate.now());
-                    return true;
-                }
-            }
-        }
-        return false;
+    public List<Notification> getNotificationByUser(String userType, Long userId) {
+        List<NotificationEntity> entities = repository.findByUserTypeAndUserId(userType, userId);
+        List<Notification> notificationsByUser = new ArrayList<>();
+        entities.forEach(entity -> notificationsByUser.add(mapper.map(entity, Notification.class)));
+        return notificationsByUser;
+    }
+
+    @Override
+    public boolean markAsRead(Long notificationId) {
+        if(notificationId!=null) {
+            NotificationEntity entity = repository.findById(notificationId)
+                    .orElseThrow(() -> new RuntimeException("Notification not found"));
+
+            entity.setReadAt(LocalDate.now());
+            repository.save(entity);
+            return true;
+        }return false;
     }
 
     @Override
     public List<Notification> getUnreadNotifications() {
-        return notificationList.stream()
-                .filter(notification -> notification.getReadAt() == null).toList();
+        List<NotificationEntity> entities = repository.findByReadAtIsNull();
+        List<Notification> unreadNotifications = new ArrayList<>();
+        entities.forEach(entity -> unreadNotifications.add(mapper.map(entity, Notification.class)));
+        return unreadNotifications;
     }
 }

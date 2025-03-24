@@ -12,11 +12,13 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Message {
+public class MessageAdminSupplier {
     @NotBlank(message = "Not be empty")
     private Long mid;
     @NotBlank(message = "Not be empty")
-    private Long userid;
+    private Long adminId;
+    @NotBlank(message = "Not be empty")
+    private Long supplierId;
     @NotNull
     @NotBlank(message = "Content may not be empty")
     private String content;

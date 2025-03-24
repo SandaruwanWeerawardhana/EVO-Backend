@@ -21,8 +21,9 @@ import java.time.LocalDate;
 @ToString
 
 public class Notification {
+
     @NotBlank
-    private Integer notificationId;
+    private Long notificationId;
     @Size(max = 150, message = "Title must be less than 150 characters")
     private String title;
     @NotBlank
@@ -37,6 +38,10 @@ public class Notification {
     private LocalDate readAt;
     @NotBlank(message = "Please provide the delivery method")
     private String deliveryMethod;
+    @NotNull
+    private Long userId;
+    @NotNull
+    private String userType;
 
 
 }
