@@ -40,6 +40,4 @@ public class Event {
     private EventStatusType eventStatus;
     @NotNull
     private List<EventSupplier> suppliers;
-
-
 }

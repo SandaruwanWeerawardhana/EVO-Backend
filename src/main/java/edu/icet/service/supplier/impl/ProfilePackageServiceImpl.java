@@ -1,80 +1,68 @@
 package edu.icet.service.supplier.impl;
 
 import edu.icet.dto.ProfilePackages;
-import edu.icet.dto.PropertyImage;
+import edu.icet.entity.ProfilePackagesEntity;
+import edu.icet.repository.ProfilePackageRepository;
 import edu.icet.service.supplier.ProfilePackageService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
+
 public class ProfilePackageServiceImpl implements ProfilePackageService {
-    final ModelMapper mapper;
-    private ArrayList<ProfilePackages> profilePackages = new ArrayList<>();
+    private final ModelMapper mapper;
+    private final ProfilePackageRepository repository;
 
     @Override
     public void addPackage(ProfilePackages profilePackage) {
-        profilePackages.add(profilePackage);
+        repository.save(mapper.map(profilePackage, ProfilePackagesEntity.class));
     }
 
     @Override
     public List<ProfilePackages> getAllPackages() {
+        List<ProfilePackagesEntity> all = repository.findAll();
+
+        List<ProfilePackages> profilePackages = new ArrayList<>();
+
+        all.forEach(profilePackagesEntity -> {
+            profilePackages.add(mapper.map(profilePackages,ProfilePackages.class));
+        });
         return profilePackages;
     }
 
     @Override
     public List<ProfilePackages> getAllProfileById(Long profileId) {
-        List<ProfilePackages> result = new ArrayList<>();
-        for (ProfilePackages packageItem : profilePackages) {
-            if (packageItem.getProfileId().equals(profileId)) {
-                result.add(packageItem);
-            }
-        }
+        List<ProfilePackagesEntity> all = repository.getAllByPackageId(profileId);
 
-        return result;
+        List<ProfilePackages> profilePackages = new ArrayList<>();
+
+        all.forEach(profilePackagesEntity -> {
+            profilePackages.add(mapper.map(profilePackages,ProfilePackages.class));
+        });
+        return profilePackages;
     }
 
     @Override
     public void updatePackage(ProfilePackages profilePackage) {
-        for (int i = 0; i < profilePackages.size(); i++) {
-            if (profilePackages.get(i).getPackageId().equals(profilePackage.getPackageId())) {
-                profilePackages.set(i, profilePackage);
-                return;
-            }
-        }
-        throw new IllegalArgumentException("Package with ID " + profilePackage.getPackageId() + " not found.");
+        repository.save(mapper.map(profilePackage, ProfilePackagesEntity.class));
     }
-
 
     @Override
     public void deletePackageById(Long packageId) {
-        profilePackages.removeIf(packageItem -> packageItem.getPackageId().equals(packageId));
+        repository.deleteById(packageId);
     }
-
-
-
 
     @Override
     public ProfilePackages searchByPackageId(Long packageId) {
-        for (ProfilePackages packageItem : profilePackages) {
-            if (packageItem.getPackageId().equals(packageId)) {
-                return packageItem;
-            }
-        }
-        return null;
-
+        return mapper.map(repository.findById(packageId),ProfilePackages.class);
     }
 
     @Override
     public ProfilePackages searchByPackageName(String packageName) {
-        for (ProfilePackages packageItem : profilePackages) {
-            if (packageItem.getPackageName().equalsIgnoreCase(packageName)) {
-                return packageItem;
-            }
-        }
-        return null;
+        return mapper.map(repository.findByPackageName(packageName),ProfilePackages.class);
     }
 }

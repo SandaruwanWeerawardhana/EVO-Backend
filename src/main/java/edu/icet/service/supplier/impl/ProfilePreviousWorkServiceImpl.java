@@ -2,8 +2,11 @@ package edu.icet.service.supplier.impl;
 
 import edu.icet.dto.Profile;
 import edu.icet.dto.ProfilePreviousWork;
+import edu.icet.entity.ProfilePreviousWorkEntity;
+import edu.icet.repository.ProfilePreviousWorkRepository;
 import edu.icet.service.supplier.ProfilePreviousWorkService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,31 +14,29 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class ProfilePreviousWorkServiceImpl implements ProfilePreviousWorkService {
-    private final List<ProfilePreviousWork> profilePreviousWorkList = new ArrayList<>();
 
+    private final ModelMapper mapper;
+    private final ProfilePreviousWorkRepository repository;
     @Override
     public List<ProfilePreviousWork> getAll(Profile profile) {
-        for (ProfilePreviousWork Work : profilePreviousWorkList) {
-            if (Work.getProfileID().equals(profile.getId())) {
-                profilePreviousWorkList.add(Work);
-            }
-        }
-        return profilePreviousWorkList;
+        return repository.findAll()
+                .stream()
+                .map(profilePreviousWorkEntity -> mapper.map(profilePreviousWorkEntity, ProfilePreviousWork.class))
+                .toList();
     }
 
     @Override
     public boolean save(ProfilePreviousWork profilePreviousWork) {
-        return profilePreviousWorkList.add(profilePreviousWork);
+        return repository.save(mapper.map(profilePreviousWork, ProfilePreviousWorkEntity.class)) != null;
     }
 
     @Override
     public Boolean delete(Long id) {
-        for (ProfilePreviousWork Work : profilePreviousWorkList) {
-            if (Work.getProfileID().equals(id)) {
-                profilePreviousWorkList.remove(Work);
-                return true;
-            }
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
         }
+
         return false;
     }
 
@@ -52,32 +53,25 @@ public class ProfilePreviousWorkServiceImpl implements ProfilePreviousWorkServic
     }
 
     private ProfilePreviousWork searchByPreviousWorkID(Long previousWorkID) {
-        for (ProfilePreviousWork work : profilePreviousWorkList) {
-            if (work.getPreviousWorkID().equals(previousWorkID)) {
-                return work;
-            }
-        }
-        return null;
+        ProfilePreviousWorkEntity entity = repository.findByPreviousWorkID(previousWorkID);
+
+        return entity != null ? mapper.map(entity, ProfilePreviousWork.class) : null;
     }
 
     private ProfilePreviousWork searchByProfileID(Long profileID) {
-        for (ProfilePreviousWork work : profilePreviousWorkList) {
-            if (work.getProfileID().equals(profileID)) {
-                return work;
-            }
-        }
-        return null;
+        ProfilePreviousWorkEntity entity = repository.findByProfileID(profileID);
+
+        return entity != null ? mapper.map(entity, ProfilePreviousWork.class) : null;
     }
 
 
     @Override
     public boolean update(ProfilePreviousWork profilePreviousWork) {
-        for (ProfilePreviousWork Work : profilePreviousWorkList) {
-            if (Work.getPreviousWorkID().equals(profilePreviousWork.getPreviousWorkID())) {
-                profilePreviousWorkList.set(profilePreviousWorkList.indexOf(Work), profilePreviousWork);
-                return true;
-            }
-        }
-        return false;
+       if (repository.existsById(profilePreviousWork.getProfileID())) {
+           repository.save(mapper.map(profilePreviousWork, ProfilePreviousWorkEntity.class));
+           return true;
+       }
+
+       return false;
     }
 }
