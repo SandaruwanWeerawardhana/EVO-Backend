@@ -4,29 +4,27 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "agenda")
 public class AgendaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "date", nullable = false)
+    @Column(nullable = false)
     private LocalDate date;
 
-    @Column(name = "time", nullable = false)
+    @Column(nullable = false)
     private LocalTime time;
 
-    @Column(name = "agenda_details", nullable = false)
-    private String agendaDetail;
+    @OneToMany(mappedBy = "agenda", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<AgendaTaskEntity> tasks;
 }
