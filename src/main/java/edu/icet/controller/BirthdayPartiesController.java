@@ -48,12 +48,12 @@ public class BirthdayPartiesController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable("id") Integer id) {
+    public boolean delete(@PathVariable("id") Long id) {
         return service.delete(id);
     }
 
     @GetMapping("/get-id/{id}")
-    public BirthdayParty get(@PathVariable("id") Integer id) {
+    public BirthdayParty get(@PathVariable("id") Long id) {
         return service.get(id);
     }
 
