@@ -7,17 +7,21 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Agenda {
-    @NotNull(message = "Id can't be null")
+    @NotNull(message = "Agenda ID cannot be null")
     private Integer id;
-    @NotNull(message = "Date can't be null")
+
+    @NotNull(message = "Date cannot be null")
     private LocalDate date;
-    @NotNull(message = "Time can't be null")
+
+    @NotNull(message = "Time cannot be null")
     private LocalTime time;
-    @NotNull(message = "Agenda Detail can't be null")
-    private String agendaDetail;
+
+    @NotNull(message = "Tasks cannot be null")
+    private List<AgendaTask> tasks;
 }

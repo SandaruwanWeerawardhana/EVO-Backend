@@ -25,32 +25,27 @@ public class VenueRequestServiceImpl implements VenueRequestService {
 
     @Override
     public List<VenueRequest> getAll() {
+        List<VenueRequest> venueRequestList = new ArrayList<>();
         List<VenueRequestEntity> all = venueRequestRepository.findAll();
 
-        List<VenueRequest> venueRequestList = new ArrayList<>();
-
-        all.forEach(venueRequestEntity -> {
-            venueRequestList.add(mapper.map(venueRequestEntity,VenueRequest.class));
-        });
+        all.forEach(venueRequestEntity -> venueRequestList.add(modelMapper.map(venueRequestEntity, VenueRequest.class)))
+        ;
         return venueRequestList;
     }
 
     @Override
     public VenueRequest getById(Long id) {
-        return mapper.map(venueRequestRepository.findByVenueID(id),VenueRequest.class);
+        return modelMapper.map(venueRequestRepository.findById(id), VenueRequest.class);
     }
 
     @Override
     public boolean delete(Long id) {
-        if (venueRequestRepository.existsById(id)){
-            venueRequestRepository.deleteById(id);
-            return true;
-        }
-        return false;
+        venueRequestRepository.deleteById(id);
+        return true;
     }
 
     @Override
     public VenueRequest update(VenueRequest venueRequest) {
-        return mapper.map(venueRequestRepository.save(mapper.map(venueRequest,VenueRequestEntity.class)),VenueRequest.class);
+        return this.save(venueRequest);
     }
 }

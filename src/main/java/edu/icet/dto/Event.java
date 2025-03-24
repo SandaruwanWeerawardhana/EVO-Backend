@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Event {
-    private Integer eventId;
+    private Long eventId;
     @NotNull
     private Long userId;
     @NotNull
@@ -26,7 +26,7 @@ public class Event {
     private Time startTime;
     @NotNull
     private Time endTime;
-    private Location location;
+    private Integer locationId;
     @NotNull
     @Enumerated(EnumType.STRING)
     private EventType eventType;
@@ -39,5 +39,6 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private EventStatusType eventStatus;
     @NotNull
+    @Enumerated(EnumType.STRING)
     private List<EventSupplier> suppliers;
 }

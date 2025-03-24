@@ -15,7 +15,7 @@ public class WeddingController {
     private final WeddingEventService weddingEventService;
 
     @GetMapping("/get/{id}")
-    public Wedding get(@PathVariable("id") String id){
+    public Wedding get(@PathVariable("id") Long id){
         return weddingEventService.get(id);
     }
 
@@ -35,7 +35,7 @@ public class WeddingController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable("id") String id){
+    public boolean delete(@PathVariable("id") Long id){
         return weddingEventService.delete(id);
     }
 
