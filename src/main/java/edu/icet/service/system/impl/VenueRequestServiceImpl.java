@@ -1,8 +1,8 @@
 package edu.icet.service.system.impl;
 
-import edu.icet.dto.VenueRequest;
-import edu.icet.entity.VenueRequestEntity;
-import edu.icet.repository.VenueRequestRepository;
+import edu.icet.dto.supplier.VenueRequest;
+import edu.icet.entity.supplier.VenueRequestEntity;
+import edu.icet.repository.supplier.VenueRequestRepository;
 import edu.icet.service.system.VenueRequestService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -28,14 +28,14 @@ public class VenueRequestServiceImpl implements VenueRequestService {
         List<VenueRequest> venueRequestList = new ArrayList<>();
         List<VenueRequestEntity> all = venueRequestRepository.findAll();
 
-        all.forEach(venueRequestEntity -> venueRequestList.add(modelMapper.map(venueRequestEntity, VenueRequest.class)))
+        all.forEach(venueRequestEntity -> venueRequestList.add(mapper.map(venueRequestEntity, VenueRequest.class)))
         ;
         return venueRequestList;
     }
 
     @Override
     public VenueRequest getById(Long id) {
-        return modelMapper.map(venueRequestRepository.findById(id), VenueRequest.class);
+        return mapper.map(venueRequestRepository.findById(id), VenueRequest.class);
     }
 
     @Override

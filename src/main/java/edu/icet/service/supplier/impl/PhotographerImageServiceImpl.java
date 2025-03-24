@@ -1,10 +1,8 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.BeautyPackage;
-import edu.icet.dto.PhotographerImage;
-import edu.icet.entity.BeautyPackageEntity;
-import edu.icet.entity.PhotographerImageEntity;
-import edu.icet.repository.PhotographerImageRepository;
+import edu.icet.dto.supplier.PhotographerImage;
+import edu.icet.entity.supplier.PhotographerImageEntity;
+import edu.icet.repository.supplier.PhotographerImageRepository;
 import edu.icet.service.supplier.PhotographerImageService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

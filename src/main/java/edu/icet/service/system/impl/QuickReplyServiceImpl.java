@@ -1,9 +1,9 @@
 package edu.icet.service.system.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.icet.dto.QuickReplies;
-import edu.icet.entity.QuickRepliesEntity;
-import edu.icet.repository.QuickReplyRepository;
+import edu.icet.dto.system.QuickReplies;
+import edu.icet.entity.system.QuickRepliesEntity;
+import edu.icet.repository.system.QuickReplyRepository;
 import edu.icet.service.system.QuickReplyService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

@@ -1,6 +1,6 @@
 package edu.icet.service.customer;
 
-import edu.icet.dto.Anniversary;
+import edu.icet.dto.event.Anniversary;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.Property;
-import edu.icet.entity.PropertyEntity;
-import edu.icet.repository.PropertyRepository;
+import edu.icet.dto.supplier.Property;
+import edu.icet.entity.supplier.PropertyEntity;
+import edu.icet.repository.supplier.PropertyRepository;
 import edu.icet.service.supplier.PropertyService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

@@ -1,8 +1,8 @@
 package edu.icet.service.system.impl;
 
-import edu.icet.dto.Category;
-import edu.icet.entity.CategoryEntity;
-import edu.icet.repository.CategoryRepository;
+import edu.icet.dto.system.Category;
+import edu.icet.entity.supplier.CategoryEntity;
+import edu.icet.repository.system.CategoryRepository;
 import edu.icet.service.system.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

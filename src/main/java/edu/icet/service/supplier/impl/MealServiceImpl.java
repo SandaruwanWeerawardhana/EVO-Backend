@@ -1,8 +1,8 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.Meal;
-import edu.icet.entity.MealEntity;
-import edu.icet.repository.MealRepository;
+import edu.icet.dto.supplier.Meal;
+import edu.icet.entity.supplier.MealEntity;
+import edu.icet.repository.supplier.MealRepository;
 import edu.icet.service.supplier.MealService;
 import edu.icet.util.MealType;
 import lombok.RequiredArgsConstructor;

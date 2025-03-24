@@ -1,6 +1,6 @@
 package edu.icet.service.admin;
 
-import edu.icet.dto.UserReport;
+import edu.icet.dto.customer.UserReport;
 import java.util.List;
 
 public interface UserReportService {

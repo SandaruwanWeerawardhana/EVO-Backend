@@ -1,9 +1,9 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.Profile;
-import edu.icet.dto.Room;
-import edu.icet.entity.RoomEntity;
-import edu.icet.repository.RoomRepository;
+import edu.icet.dto.system.Profile;
+import edu.icet.dto.supplier.Room;
+import edu.icet.entity.supplier.RoomEntity;
+import edu.icet.repository.supplier.RoomRepository;
 import edu.icet.service.supplier.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

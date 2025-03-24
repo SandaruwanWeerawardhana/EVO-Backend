@@ -1,8 +1,8 @@
 package edu.icet.service.system.impl;
 
-import edu.icet.dto.EventSummary;
-import edu.icet.entity.EventSummaryEntity;
-import edu.icet.repository.EventSummaryRepository;
+import edu.icet.dto.event.EventSummary;
+import edu.icet.entity.event.EventSummaryEntity;
+import edu.icet.repository.event.EventSummaryRepository;
 import edu.icet.service.system.EventSummaryService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

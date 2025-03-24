@@ -1,8 +1,8 @@
 package edu.icet.service.customer.impl;
 
-import edu.icet.dto.Anniversary;
-import edu.icet.entity.AnniversaryEntity;
-import edu.icet.repository.AnniversaryEventRepository;
+import edu.icet.dto.event.Anniversary;
+import edu.icet.entity.event.AnniversaryEntity;
+import edu.icet.repository.event.AnniversaryEventRepository;
 import edu.icet.service.customer.AnniversaryEventService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

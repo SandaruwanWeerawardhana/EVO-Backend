@@ -1,7 +1,6 @@
 package edu.icet.service.system;
 
-import edu.icet.dto.Notification;
-import org.springframework.stereotype.Service;
+import edu.icet.dto.system.Notification;
 
 import java.util.List;
 

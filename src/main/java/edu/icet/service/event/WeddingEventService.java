@@ -1,8 +1,7 @@
 package edu.icet.service.event;
 
-import edu.icet.dto.Wedding;
+import edu.icet.dto.event.Wedding;
 import edu.icet.util.WeddingType;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;

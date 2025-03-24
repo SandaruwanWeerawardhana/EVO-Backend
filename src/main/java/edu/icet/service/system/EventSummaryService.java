@@ -1,6 +1,6 @@
 package edu.icet.service.system;
 
-import edu.icet.dto.EventSummary;
+import edu.icet.dto.event.EventSummary;
 
 import java.util.List;
 

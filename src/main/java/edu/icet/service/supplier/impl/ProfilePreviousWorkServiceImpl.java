@@ -1,15 +1,14 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.Profile;
-import edu.icet.dto.ProfilePreviousWork;
-import edu.icet.entity.ProfilePreviousWorkEntity;
-import edu.icet.repository.ProfilePreviousWorkRepository;
+import edu.icet.dto.system.Profile;
+import edu.icet.dto.supplier.ProfilePreviousWork;
+import edu.icet.entity.supplier.ProfilePreviousWorkEntity;
+import edu.icet.repository.supplier.ProfilePreviousWorkRepository;
 import edu.icet.service.supplier.ProfilePreviousWorkService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 @RequiredArgsConstructor
 @Service

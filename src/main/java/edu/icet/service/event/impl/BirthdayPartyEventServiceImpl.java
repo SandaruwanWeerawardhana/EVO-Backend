@@ -1,8 +1,8 @@
 package edu.icet.service.event.impl;
 
-import edu.icet.dto.BirthdayParty;
-import edu.icet.entity.BirthdayPartyEntity;
-import edu.icet.repository.BirthdayPartyRepository;
+import edu.icet.dto.event.BirthdayParty;
+import edu.icet.entity.event.BirthdayPartyEntity;
+import edu.icet.repository.event.BirthdayPartyRepository;
 import edu.icet.service.event.BirthdayPartyEventService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

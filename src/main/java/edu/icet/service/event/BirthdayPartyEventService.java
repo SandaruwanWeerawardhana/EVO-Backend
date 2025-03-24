@@ -1,6 +1,6 @@
 package edu.icet.service.event;
 
-import edu.icet.dto.BirthdayParty;
+import edu.icet.dto.event.BirthdayParty;
 
 import java.util.Date;
 import java.util.List;

@@ -1,6 +1,6 @@
 package edu.icet.service.admin;
 
-import edu.icet.dto.VerificationRequest;
+import edu.icet.dto.admin.VerificationRequest;
 
 import java.util.List;
 

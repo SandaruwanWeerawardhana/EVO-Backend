@@ -1,7 +1,6 @@
 package edu.icet.service.system;
 
-import edu.icet.dto.ProfilePreviousWork;
-import edu.icet.dto.ProfilePreviousWorkImage;
+import edu.icet.dto.supplier.ProfilePreviousWorkImage;
 
 import java.util.List;
 

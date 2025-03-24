@@ -1,14 +1,13 @@
 package edu.icet.service.system.impl;
 
 
-import edu.icet.dto.Reply;
-import edu.icet.entity.ReplyEntity;
-import edu.icet.repository.ReplyRepository;
+import edu.icet.dto.system.Reply;
+import edu.icet.entity.system.ReplyEntity;
+import edu.icet.repository.system.ReplyRepository;
 import edu.icet.service.system.ReplyService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.FileReader;

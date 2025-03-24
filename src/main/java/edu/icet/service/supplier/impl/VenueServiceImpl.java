@@ -1,9 +1,8 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.Venue;
-import edu.icet.entity.VenueEntity;
-import edu.icet.repository.VenueRepository;
-import edu.icet.service.supplier.SupplierService;
+import edu.icet.dto.supplier.Venue;
+import edu.icet.entity.supplier.VenueEntity;
+import edu.icet.repository.supplier.VenueRepository;
 import edu.icet.service.supplier.VenueService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

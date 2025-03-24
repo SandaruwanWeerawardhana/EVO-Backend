@@ -1,8 +1,8 @@
 package edu.icet.service.admin.impl;
 
-import edu.icet.dto.AuditReport;
-import edu.icet.entity.AuditReportEntity;
-import edu.icet.repository.AuditReportRepository;
+import edu.icet.dto.admin.AuditReport;
+import edu.icet.entity.admin.AuditReportEntity;
+import edu.icet.repository.admin.AuditReportRepository;
 import edu.icet.service.admin.AuditReportService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

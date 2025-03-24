@@ -1,6 +1,6 @@
 package edu.icet.service.event;
-import edu.icet.dto.Event;
-import edu.icet.dto.Location;
+import edu.icet.dto.event.Event;
+import edu.icet.dto.supplier.Location;
 import edu.icet.util.EventType;
 import java.util.List;
 public interface EventService {

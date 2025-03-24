@@ -1,8 +1,8 @@
 package edu.icet.service.system.impl;
 
-import edu.icet.dto.MessageAdminSupplier;
-import edu.icet.entity.MessageAdminSupplierEntity;
-import edu.icet.repository.MessageAdminSupplierRepository;
+import edu.icet.dto.system.MessageAdminSupplier;
+import edu.icet.entity.system.MessageAdminSupplierEntity;
+import edu.icet.repository.system.MessageAdminSupplierRepository;
 import edu.icet.service.system.MessageAdminSupplierService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

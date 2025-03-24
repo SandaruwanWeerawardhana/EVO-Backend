@@ -1,8 +1,8 @@
 package edu.icet.service.system.impl;
 
-import edu.icet.dto.Notification;
-import edu.icet.entity.NotificationEntity;
-import edu.icet.repository.NotificationRepository;
+import edu.icet.dto.system.Notification;
+import edu.icet.entity.system.NotificationEntity;
+import edu.icet.repository.system.NotificationRepository;
 import edu.icet.service.system.NotificationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

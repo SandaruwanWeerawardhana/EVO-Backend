@@ -1,9 +1,6 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.Property;
-import edu.icet.repository.BookingSlotRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import edu.icet.dto.supplier.Property;
 
 import java.util.List;
 

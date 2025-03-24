@@ -1,6 +1,6 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.SupplierRequest;
+import edu.icet.dto.admin.SupplierRequest;
 import java.util.List;
 
 public interface SupplierRequestService {

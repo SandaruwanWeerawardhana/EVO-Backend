@@ -1,10 +1,8 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.ProfileExtraFeature;
-import edu.icet.dto.VerificationRequest;
-import edu.icet.entity.ProfileExtraFeatureEntity;
-import edu.icet.entity.VerificationRequestEntity;
-import edu.icet.repository.ProfileExtraFeatureRepository;
+import edu.icet.dto.supplier.ProfileExtraFeature;
+import edu.icet.entity.supplier.ProfileExtraFeatureEntity;
+import edu.icet.repository.supplier.ProfileExtraFeatureRepository;
 import edu.icet.service.supplier.ProfileExtraFeatureService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

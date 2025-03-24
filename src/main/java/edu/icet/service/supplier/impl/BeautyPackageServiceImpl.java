@@ -1,8 +1,8 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.BeautyPackage;
-import edu.icet.entity.BeautyPackageEntity;
-import edu.icet.repository.BeautyPackageRepository;
+import edu.icet.dto.supplier.BeautyPackage;
+import edu.icet.entity.event.BeautyPackageEntity;
+import edu.icet.repository.supplier.BeautyPackageRepository;
 import edu.icet.service.supplier.BeautyPackageService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
