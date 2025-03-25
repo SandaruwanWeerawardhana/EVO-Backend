@@ -32,7 +32,7 @@ public class ReviewController {
 
     @GetMapping("/searchByReviewId/{id}")
     public ResponseEntity<Review> searchByReview(@PathVariable long id) {
-        Review review = reviewService.searchByIdReview(id);
+        Review review = reviewService.getReviewSupplierId(id);
         if (review != null) {
             return new ResponseEntity<>(review, HttpStatus.OK);
         } else {
@@ -83,8 +83,8 @@ public class ReviewController {
 
 
     @GetMapping("/SearchSupplier/{id}")
-    public Review searchBySupliierID( @PathVariable long id) {
-      return   reviewService.searchByIDSuplier(id);
+    public Review searchBySupplierID( @PathVariable long id) {
+      return   reviewService.getReviewSupplierId(id);
 
     }
 }
