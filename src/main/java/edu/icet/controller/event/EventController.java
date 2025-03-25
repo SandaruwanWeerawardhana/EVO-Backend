@@ -14,8 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -23,7 +21,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @CrossOrigin
 public class EventController {
-
 
     private final EventService eventService;
     //anniversary Event service
@@ -122,10 +119,7 @@ public class EventController {
         return eventSummaryService.getById(id);
     }
 
-
-
     //getTogether
-
 
     @PostMapping("/add-get-together")
     public boolean addGetTogether(@RequestBody GetTogether getTogether){
@@ -155,6 +149,3 @@ public class EventController {
     }
 
 }
-
-
-
