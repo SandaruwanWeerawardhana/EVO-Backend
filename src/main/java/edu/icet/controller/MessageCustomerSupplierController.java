@@ -1,53 +1,53 @@
 package edu.icet.controller;
 
-import edu.icet.dto.MessageAdminSupplier;
-import edu.icet.service.system.MessageAdminSupplierService;
+import edu.icet.dto.MessageCustomerSupplier;
+import edu.icet.service.system.MessageCustomerSupplierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.time.LocalDateTime;
-
 
 @RestController
-@RequestMapping("/system/message/admin-supplier")
+@RequestMapping("/system/message")
 @RequiredArgsConstructor
 @CrossOrigin
-public class MessageAdminSupplierController {
+public class MessageCustomerSupplierController {
 
-    private final MessageAdminSupplierService messageService;
+    private final MessageCustomerSupplierService messageService;
+
 
     @MessageMapping("/chat")
     @SendTo("/topic/messages")
-    public MessageAdminSupplier handleChatMessage(MessageAdminSupplier MessageAdminSupplier) {
+    public MessageCustomerSupplier handleChatMessage(MessageCustomerSupplier messageCustomerSupplier) {
 
-        return messageService.sendMessage(MessageAdminSupplier);
+        return messageService.sendMessage(messageCustomerSupplier);
     }
 
     @MessageMapping("/chat/update")
     @SendTo("/topic/messages")
-    public MessageAdminSupplier handleMessageUpdate(MessageAdminSupplier messageDTO) {
-        MessageAdminSupplier MessageAdminSupplier = messageService.getMessageById(messageDTO.getMid());
+    public MessageCustomerSupplier handleMessageUpdate(MessageCustomerSupplier messageDTO) {
+        MessageCustomerSupplier messageCustomerSupplier = messageService.getMessageById(messageDTO.getMid());
 
-        if (!MessageAdminSupplier.getAdminId().equals(messageDTO.getAdminId())) {
+        if (!messageCustomerSupplier.getCustomerId().equals(messageDTO.getCustomerId())) {
             throw new SecurityException("Unauthorized message update");
         }
 
-        MessageAdminSupplier.setContent(messageDTO.getContent());
-        MessageAdminSupplier.setSendTime(LocalDateTime.now());
+        messageCustomerSupplier.setContent(messageDTO.getContent());
+        messageCustomerSupplier.setSendTime(LocalDateTime.now());
 
-        return messageService.sendMessage(MessageAdminSupplier);
+        return messageService.sendMessage(messageCustomerSupplier);
     }
 
     @GetMapping("/customersBySupplierId")
     public ResponseEntity<List<String>> getAllCustomerIds(Long supplierId) {
-        List<MessageAdminSupplier> messages = messageService.getMessagesBySupplierId(supplierId);
+        List<MessageCustomerSupplier> messages = messageService.getMessagesBySupplierId(supplierId);
         List<String> customerIds = messages.stream()
-                .map(MessageAdminSupplier::getAdminId)
+                .map(MessageCustomerSupplier::getCustomerId)
                 .map(String::valueOf)
                 .distinct()
                 .collect(Collectors.toList());
@@ -56,9 +56,9 @@ public class MessageAdminSupplierController {
 
     @GetMapping("/suppliersByCustomerId")
     public ResponseEntity<List<String>> getAllSuppliersIds(Long customerId) {
-        List<MessageAdminSupplier> messages = messageService.getMessagesByAdminId(customerId);
+        List<MessageCustomerSupplier> messages = messageService.getMessagesByCustomerId(customerId);
         List<String> customerIds = messages.stream()
-                .map(MessageAdminSupplier::getAdminId)
+                .map(MessageCustomerSupplier::getCustomerId)
                 .map(String::valueOf)
                 .distinct()
                 .collect(Collectors.toList());
@@ -67,9 +67,9 @@ public class MessageAdminSupplierController {
 
 
     @GetMapping("/chat/{customerId}/{supplierId}")
-    public ResponseEntity<List<MessageAdminSupplier>> getCustomerChat(@PathVariable Long customerId, @PathVariable Long supplierId) {
+    public ResponseEntity<List<MessageCustomerSupplier>> getCustomerChat(@PathVariable Long customerId, @PathVariable Long supplierId) {
 
-        List<MessageAdminSupplier> messages = messageService.getMessagesByIds(customerId, supplierId);
+        List<MessageCustomerSupplier> messages = messageService.getMessagesByIds(customerId, supplierId);
 
         return ResponseEntity.ok(messages);
     }
@@ -81,6 +81,5 @@ public class MessageAdminSupplierController {
             return id;
         }
         return null;
-
     }
 }
