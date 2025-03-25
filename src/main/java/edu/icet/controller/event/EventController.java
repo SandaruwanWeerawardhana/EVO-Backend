@@ -2,7 +2,10 @@ package edu.icet.controller.event;
 
 import edu.icet.dto.event.Anniversary;
 import edu.icet.dto.event.Event;
+import edu.icet.dto.event.EventSummary;
+import edu.icet.dto.event.GetTogether;
 import edu.icet.dto.supplier.Venue;
+import edu.icet.service.customer.AnniversaryEventService;
 import edu.icet.service.event.EventService;
 import edu.icet.service.event.GetTogetherEventService;
 import edu.icet.service.system.EventSummaryService;
