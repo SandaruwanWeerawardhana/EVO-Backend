@@ -3,6 +3,7 @@ package edu.icet.service.supplier.impl;
 import edu.icet.dto.supplier.PackageFeatureDetail;
 import edu.icet.entity.supplier.PackageFeatureDetailEntity;
 import edu.icet.repository.supplier.PackageFeatureDetailRepository;
+import edu.icet.repository.supplier.ProfileExtraFeatureRepository;
 import edu.icet.service.supplier.PackageFeatureDetailService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -25,8 +26,19 @@ public class PackageFeatureDetailServiceImpl implements PackageFeatureDetailServ
 
     @Override
     public void add(PackageFeatureDetail packageFeatureDetail) {
+
+        boolean exists= packageFeatureDetailRepository.existsByPackageIdAndFeatureId(
+                packageFeatureDetail.getPackageId(),
+                packageFeatureDetail.getFeatureId()
+        );
+        if (exists){
+            throw  new IllegalArgumentException("This Combination packageId and FeatureId already exists");
+
+        }
+
         PackageFeatureDetailEntity entity = mapper.map(packageFeatureDetail, PackageFeatureDetailEntity.class);
         packageFeatureDetailRepository.save(entity);
+
     }
 
     @Override
@@ -50,4 +62,5 @@ public class PackageFeatureDetailServiceImpl implements PackageFeatureDetailServ
             packageFeatureDetailRepository.deleteById(id);
         }
     }
+
 }

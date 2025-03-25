@@ -45,7 +45,21 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public void add(Supplier supplier) {
+
+        if (repository.existsByEmail(supplier.getEmail())){
+            throw new IllegalArgumentException("Email is already exits");
+        }
+
+        if (repository.existsByNumber(supplier.getPhoneNumber())) {
+            throw new IllegalArgumentException("phone number is already exists");
+        }
+
+        if (repository.existsBusinessName(supplier.getBusinessName())){
+            throw new IllegalArgumentException("Business name is already exists");
+        }
+
         repository.save(mapper.map(supplier, SupplierEntity.class));
+
     }
 
     @Override
@@ -83,4 +97,6 @@ public class SupplierServiceImpl implements SupplierService {
         throw new IllegalArgumentException("Supplier does not exist!");
 
     }
+
+
 }
