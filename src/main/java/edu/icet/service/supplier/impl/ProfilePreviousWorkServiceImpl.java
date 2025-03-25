@@ -1,5 +1,4 @@
 package edu.icet.service.supplier.impl;
-
 import edu.icet.dto.system.Profile;
 import edu.icet.dto.supplier.ProfilePreviousWork;
 import edu.icet.entity.supplier.ProfilePreviousWorkEntity;
@@ -13,9 +12,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class ProfilePreviousWorkServiceImpl implements ProfilePreviousWorkService {
-
     private final ModelMapper mapper;
     private final ProfilePreviousWorkRepository repository;
+
     @Override
     public List<ProfilePreviousWork> getAll(Profile profile) {
         return repository.findAll()

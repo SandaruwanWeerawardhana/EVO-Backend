@@ -17,7 +17,6 @@ public class ProfileExtraFeatureServiceImpl implements ProfileExtraFeatureServic
     final ProfileExtraFeatureRepository repository;
     final ModelMapper mapper;
 
-
     @Override
     public List<ProfileExtraFeature> getAll() {
         List<ProfileExtraFeature> profileExtraFeatureList = new ArrayList<>();
@@ -29,16 +28,17 @@ public class ProfileExtraFeatureServiceImpl implements ProfileExtraFeatureServic
 
         return profileExtraFeatureList;
     }
-
     @Override
     public Boolean save(ProfileExtraFeature profileExtraFeature) {
         if (profileExtraFeature == null) {
             return false;
         }
+        if (repository.existsByProfilePreviousWorkId(profileExtraFeature.getFeatureID())) {
+            throw new IllegalArgumentException("Already Exist Work");
+        }
         repository.save(mapper.map(profileExtraFeature, ProfileExtraFeatureEntity.class));
         return true;
     }
-
     @Override
     public Boolean delete(Long id) {
         if (id == null){
@@ -50,19 +50,30 @@ public class ProfileExtraFeatureServiceImpl implements ProfileExtraFeatureServic
         repository.deleteById(id);
         return true;
     }
-
+    public boolean deleteByNameAndPrice(String featureName,Double featurePrice){
+        if (featureName==null || featurePrice==null){
+            return false;
+        }
+        repository.deleteExtraFeaturesPriceAndName(featurePrice,featureName);
+        return true;
+    }
     @Override
-    public Boolean update(Long id, ProfileExtraFeature profileExtraFeature) {
+    public Boolean update(Long id,ProfileExtraFeature profileExtraFeature) {
         if (id == null) {
             return false;
         }
         if (!repository.existsById(id)) {
             return false;
         }
+        if (repository.updateExtraFeaturesName(profileExtraFeature.getFeatureName())){
+            throw new IllegalArgumentException("Feature Name Updated !");
+        }
+        if (repository.updateExtraFeaturesPrice(profileExtraFeature.getFeaturePrice())){
+            throw new IllegalArgumentException("Feature Price Updated !");
+        }
         repository.save(mapper.map(profileExtraFeature, ProfileExtraFeatureEntity.class));
         return true;
     }
-
     @Override
     public ProfileExtraFeature searchById(Long id) {
         if (id == null){

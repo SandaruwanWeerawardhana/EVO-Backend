@@ -12,4 +12,5 @@ public interface ProfilePreviousWorkRepository extends JpaRepository<ProfilePrev
     ProfilePreviousWorkEntity findByCustomerID(Long customerID);
     ProfilePreviousWorkEntity findByCompletionDateAfter(LocalDate date);
     ProfilePreviousWorkEntity findByCompletionDateBefore(LocalDate date);
+
 }

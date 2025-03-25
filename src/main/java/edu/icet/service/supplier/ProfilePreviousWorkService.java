@@ -11,4 +11,8 @@ public interface ProfilePreviousWorkService {
     Boolean delete(Long id);
     ProfilePreviousWork search(ProfilePreviousWork profilePreviousWork);
     boolean update(ProfilePreviousWork profilePreviousWork);
+
+
+
+
 }
