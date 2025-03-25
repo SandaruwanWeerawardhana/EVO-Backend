@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,10 +37,7 @@ public class GetTogetherEventServiceImpl implements GetTogetherEventService {
 
     @Override
     public List<GetTogether> getAll() {
-        List<GetTogether> togetherList = new ArrayList<>();
-        getTogetherRepository.findAll().forEach(getTogether ->
-                togetherList.add(modelMapper.map(getTogether, GetTogether.class)));
-        return togetherList;
+        return getTogetherRepository.findAll().stream().map(getTogether -> modelMapper.map(getTogether,GetTogether.class)).toList();
     }
 
     @Override
