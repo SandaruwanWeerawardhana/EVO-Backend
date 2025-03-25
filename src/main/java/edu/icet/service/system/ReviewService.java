@@ -11,15 +11,11 @@ import java.util.Map;
 public interface ReviewService {
     Review addReview(Review review);
 
-    Review getReviewSupplierId(Long id);
-
-    boolean updateByReview(Long id, Review review);
+    Review updateByReview(Review review);
 
     List<Review> getAll();
 
     boolean deleteByReview(Long id);
-
-    Map<String, Long> getBySummaryFilterReview(Long id);
 
     List<Review> getReviewsBySupplierId(Long supplierId);
 

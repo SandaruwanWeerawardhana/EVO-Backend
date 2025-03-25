@@ -1,63 +1,90 @@
 package edu.icet.service.system.impl;
 
 import edu.icet.dto.system.Review;
+import edu.icet.entity.system.ReviewEntity;
+import edu.icet.repository.system.ReviewRepository;
+import edu.icet.service.system.QuickReplyService;
 import edu.icet.service.system.ReviewService;
 import edu.icet.util.RatingType;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
+
 @Service
+@RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewService {
+    final ReviewRepository repository;
+    final ModelMapper mapper;
+    final QuickReplyService service;
 
     @Override
     public Review addReview(Review review) {
-        return null;
+        if (service.filterProfanity(review.getReviewText())){
+            return mapper.map(repository.save(new ModelMapper()
+                    .map(review, ReviewEntity.class)),Review.class);
+        }else {
+            return null;
+        }
+
     }
 
     @Override
-    public Review getReviewSupplierId(Long id) {
-        return null;
-    }
-
-    @Override
-    public boolean updateByReview(Long id, Review review) {
-        return false;
+    public Review updateByReview(Review review) {
+        if (service.filterProfanity(review.getReviewText())){
+            return mapper.map(repository.save(mapper
+                    .map(review, ReviewEntity.class)),Review.class);
+        }else {
+            return null;
+        }
     }
 
     @Override
     public List<Review> getAll() {
-        return List.of();
+        if (!repository.findAll().isEmpty()){
+            return repository.findAll().stream().map(reviewEntity ->
+                    mapper.map(reviewEntity,Review.class)
+            ).toList();
+        }else {
+            return Collections.emptyList();
+        }
     }
 
     @Override
     public boolean deleteByReview(Long id) {
-        return false;
-    }
-
-    @Override
-    public Map<String, Long> getBySummaryFilterReview(Long id) {
-        return Map.of();
+        boolean isExistId = repository.existsById(id);
+        if (isExistId){
+            repository.deleteById(id);
+            return true;
+        }else {
+            return false;
+        }
     }
 
     @Override
     public List<Review> getReviewsBySupplierId(Long supplierId) {
-        return List.of();
+        return repository.findBySupplierId(supplierId).stream().map(reviewEntity ->
+                mapper.map(reviewEntity,Review.class)).toList();
     }
 
     @Override
     public List<Review> getReviewsByCustomerId(Long customerId) {
-        return List.of();
+        return repository.findByCustomerId(customerId).stream().map(reviewEntity ->
+                mapper.map(reviewEntity,Review.class)).toList();
     }
 
     @Override
     public List<Review> getReviewsByDate(LocalDate date) {
-        return List.of();
+        return repository.findByDate(date).stream().map(reviewEntity -> mapper
+                .map(reviewEntity,Review.class)).toList();
     }
 
     @Override
     public List<Review> getReviewsByRateType(RatingType type) {
-        return List.of();
+        return repository.findByRatingType(type).stream().map(reviewEntity -> mapper
+                .map(reviewEntity,Review.class)).toList();
     }
 }

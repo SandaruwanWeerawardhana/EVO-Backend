@@ -18,5 +18,5 @@ public class Review {
    private Long customerId;
    private LocalDate date;
    private String reviewText;
-   private RatingType reviewType;
+   private RatingType ratingType;
 }

@@ -10,5 +10,6 @@ public interface QuickReplyService {
     Boolean delete(Long id);
     Boolean update (QuickReplies quickReplies);
     List<QuickReplies> getAll();
+    Boolean filterProfanity(String content);
 
 }
