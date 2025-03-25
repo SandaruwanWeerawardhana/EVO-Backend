@@ -14,12 +14,12 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Review searchByIdReview(long id) {
+    public Review searchByIdReview(Long id) {
         return null;
     }
 
     @Override
-    public boolean updateByReview(long id, Review review) {
+    public boolean updateByReview( Review review) {
         return false;
     }
 
@@ -29,17 +29,17 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public boolean deleteByReview(long id) {
+    public boolean deleteByReview(Long id) {
         return false;
     }
 
     @Override
-    public Map<String, Long> getBySummaryFilterReview(long id) {
+    public Map<String, Long> getBySummaryFilterReview(Long id) {
         return Map.of();
     }
 
     @Override
-    public Review searchByIDSuplier(long id) {
+    public Review searchByIDSuplier(Long id) {
         return null;
     }
 }

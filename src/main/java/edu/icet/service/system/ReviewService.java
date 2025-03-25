@@ -9,15 +9,15 @@ import java.util.Map;
 public interface ReviewService {
     Review addReview(@Valid Review review);
 
-    Review searchByIdReview(long id);
+    Review searchByIdReview(Long id);
 
-    boolean updateByReview(long id, Review review);
+    boolean updateByReview( Review review);
 
     List<Review> getAll();
 
-    boolean deleteByReview(long id);
+    boolean deleteByReview(Long id);
 
-    Map<String, Long> getBySummaryFilterReview(long id);
+    Map<String, Long> getBySummaryFilterReview(Long id);
 
-    Review searchByIDSuplier(long id);
+    Review searchByIDSuplier(Long id);
 }
