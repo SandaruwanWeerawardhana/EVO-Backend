@@ -39,7 +39,8 @@ public class EventEntity {
     private Time endTime;
 
     @Column(name ="location_Id")
-    private Integer locationId;
+    @ManyToOne
+    private VenueEntity venue_id;
 
     @Column(name = "event_type",nullable = false)
     @Enumerated(EnumType.STRING)
