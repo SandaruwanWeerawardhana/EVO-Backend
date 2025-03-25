@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Agenda {
-    @NotNull(message = "Agenda ID cannot be null")
+
     private Integer id;
 
     @NotNull(message = "Date cannot be null")
@@ -22,6 +22,5 @@ public class Agenda {
     @NotNull(message = "Time cannot be null")
     private LocalTime time;
 
-    @NotNull(message = "Tasks cannot be null")
     private List<AgendaTask> tasks;
 }
