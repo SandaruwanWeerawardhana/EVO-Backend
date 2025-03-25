@@ -1,89 +1,89 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.Meal;
+import edu.icet.dto.supplier.Meal;
+import edu.icet.entity.supplier.MealEntity;
+import edu.icet.repository.supplier.MealRepository;
 import edu.icet.service.supplier.MealService;
 import edu.icet.util.MealType;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
+
 public class MealServiceImpl implements MealService {
-    ArrayList<Meal> meals = new ArrayList<>();
-    final ModelMapper modelMapper;
+    private final MealRepository mealRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public List<Meal> getAll() {
-          ArrayList<Meal> mList = new ArrayList<>();
-          //TODO get data from repo
-        return mList;
+        List<MealEntity> all = mealRepository.findAll();
+
+        List<Meal> mealList = new ArrayList<>();
+
+        all.forEach(mealEntity -> {
+            mealList.add(modelMapper.map(mealEntity, Meal.class));
+        });
+        return mealList;
     }
 
     @Override
     public Meal save(Meal meal) {
-    meals.add(meal);
-        return meal;
+        return modelMapper.map(mealRepository.save(modelMapper.map(meal, MealEntity.class)), Meal.class);
     }
 
     @Override
     public Boolean delete(Meal meal) {
-        return meals.remove(meal);
+        if (mealRepository.existsById(meal.getId())){
+            mealRepository.delete(modelMapper.map(meal, MealEntity.class));
+            return true;
+        }
+        return false;
     }
 
     @Override
     public Boolean delete(Long id) {
-        for (int i = 0; i < meals.size(); i++) {
-            if(meals.get(i).getId().equals(id)){
-                meals.remove(i);
-                return true;
-            }
+        if (mealRepository.existsById(id)) {
+            mealRepository.deleteById(id);
+            return true;
         }
         return false;
     }
 
     @Override
     public Meal update(Meal meal) {
-    for (int i = 0; i < meals.size(); i++) {
-        if(meals.get(i).getId().equals(meal.getId())){
-            meals.add(i,meal);
-            return meal;
-        }
-    }
-        return null;
+        return modelMapper.map(mealRepository.save(modelMapper.map(meal, MealEntity.class)), Meal.class);
     }
 
     @Override
     public List<Meal> search(MealType type) {
-        ArrayList<Meal> mList = new ArrayList<>();
-        for (int i = 0; i < meals.size(); i++) {
-            if (meals.get(i).getMealType().equals(type)){
-                mList.add(meals.get(i));
-            }
-        }
-        return mList;
+        List<MealEntity> byMealType = mealRepository.findByMealType(String.valueOf(type));
+
+        List<Meal> mealList = new ArrayList<>();
+
+        byMealType.forEach(mealEntity -> {
+            mealList.add(modelMapper.map(mealEntity,Meal.class));
+        });
+        return mealList;
     }
 
     @Override
     public List<Meal> search(String name) {
-        ArrayList<Meal> mList = new ArrayList<>();
-        for (int i = 0; i < meals.size(); i++) {
-            if (meals.get(i).getName().equals(name)){
-                mList.add(meals.get(i));
-            }
-        }
-        return mList;
+        List<MealEntity> byName = mealRepository.findByName(name);
+
+        List<Meal> mealList = new ArrayList<>();
+
+        byName.forEach(mealEntity -> {
+            mealList.add(modelMapper.map(mealEntity,Meal.class));
+        });
+        return mealList;
     }
 
     @Override
     public Meal search(Long id) {
-        for (int i = 0; i < meals.size(); i++) {
-            if (meals.get(i).getId().equals(id)){
-                return meals.get(i);
-            }
-        }
-        return null;
+        return modelMapper.map(mealRepository.findAllById(id),Meal.class);
     }
 }

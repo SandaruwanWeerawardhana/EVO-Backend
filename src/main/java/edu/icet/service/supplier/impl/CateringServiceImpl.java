@@ -1,58 +1,61 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.Catering;
+import edu.icet.dto.supplier.Catering;
+import edu.icet.entity.supplier.CateringEntity;
+import edu.icet.repository.supplier.CateringRepository;
 import edu.icet.service.supplier.CateringService;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class CateringServiceImpl implements CateringService {
-    final List<Catering> cateringList = new ArrayList<>();
+    final CateringRepository repository;
+    final ModelMapper mapper;
+
 
     @Override
     public Catering addCatering(Catering catering) {
-        cateringList.add(catering);
+        repository.save(mapper.map(catering, CateringEntity.class));
         return catering;
     }
 
     @Override
     public Catering updateCatering(Catering catering) {
-        for (int i = 0; i < cateringList.size(); i++) {
-            if (cateringList.get(i).getCateringId().equals(catering.getCateringId())) {
-                cateringList.set(i, catering);
-                return catering;
-            }
-        }
-        throw new RuntimeException("Catering service not found");
+
+        return mapper.map(repository.save(mapper.map(catering, CateringEntity.class)), Catering.class);
     }
 
     @Override
     public Optional<Catering> getCateringById(Integer cateringId) {
-        return cateringList.stream()
-                .filter(catering -> catering.getCateringId().equals(cateringId))
-                .findFirst();
+        return repository.findById(cateringId).map(entity -> mapper.map(entity, Catering.class));
+
     }
 
     @Override
     public List<Catering> getAllCatering() {
-        return new ArrayList<>(cateringList);
+        return repository.findAll().stream()
+                .map(entity -> mapper.map(entity, Catering.class))
+                .collect(Collectors.toList());
     }
 
     @Override
     public void deleteCatering(Integer cateringId) {
-        cateringList.removeIf(catering -> catering.getCateringId().equals(cateringId));
+        if (repository.existsById(cateringId)) {
+            repository.deleteById(cateringId);
+        }
     }
 
     @Override
     public List<Catering> getCateringBySupplierId(Integer supplierId) {
-        List<Catering> result = new ArrayList<>();
-        for (Catering catering : cateringList) {
-            if (catering.getSupplierId().equals(supplierId)) {
-                result.add(catering);
-            }
-        }
-        return result;
+        return repository.findBySupplierId(supplierId).stream()
+                .map(entity -> mapper.map(entity, Catering.class))
+                .collect(Collectors.toList());
     }
+
 }

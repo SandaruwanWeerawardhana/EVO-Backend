@@ -1,6 +1,6 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.Supplier;
+import edu.icet.dto.supplier.Supplier;
 import java.util.List;
 
 public interface SupplierService {

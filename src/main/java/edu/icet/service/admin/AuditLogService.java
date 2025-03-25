@@ -1,7 +1,6 @@
 package edu.icet.service.admin;
 
-import edu.icet.dto.AuditLog;
-import org.springframework.stereotype.Service;
+import edu.icet.dto.admin.AuditLog;
 
 import java.util.List;
 

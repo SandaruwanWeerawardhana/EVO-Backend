@@ -1,16 +1,14 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.BeautySaloon;
-import org.springframework.stereotype.Service;
+import edu.icet.dto.supplier.BeautySaloon;
 
 import java.util.List;
 
 public interface BeautySaloonService {
     List<BeautySaloon> getAll();
-    List<BeautySaloon> add(BeautySaloon beautySaloon);
-    boolean delete(String id);
+    BeautySaloon add(BeautySaloon beautySaloon);
+    boolean delete(Long id);
     boolean update(BeautySaloon beautySaloon);
-    BeautySaloon get(String id);
+    BeautySaloon get(Long id);
 
-    List<BeautySaloon> getByName(String name);
 }

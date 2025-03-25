@@ -14,7 +14,6 @@ public class Config {
 	public ModelMapper getModelMapper () {
 		return new ModelMapper();
 	}
-
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http

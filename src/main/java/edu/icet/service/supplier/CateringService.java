@@ -1,7 +1,6 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.Catering;
-import org.springframework.stereotype.Service;
+import edu.icet.dto.supplier.Catering;
 
 import java.util.List;
 import java.util.Optional;

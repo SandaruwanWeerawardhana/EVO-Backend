@@ -1,8 +1,7 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.Music;
-import edu.icet.dto.Supplier;
-import org.springframework.stereotype.Service;
+import edu.icet.dto.supplier.Music;
+import edu.icet.dto.supplier.Supplier;
 
 import java.util.List;
 
@@ -11,7 +10,7 @@ public interface MusicService {
 
     boolean addMusic(Music music);
 
-    Music searchMusic(String qurey);
+    Music searchMusic(Long id);
 
     boolean updateMusic(Music music);
 

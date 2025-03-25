@@ -1,6 +1,6 @@
 package edu.icet.service.event;
 
-import edu.icet.dto.EventReport;
+import edu.icet.dto.event.EventReport;
 import java.util.List;
 
 public interface EventReportService {

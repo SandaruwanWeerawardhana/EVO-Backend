@@ -1,8 +1,7 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.Meal;
+import edu.icet.dto.supplier.Meal;
 import edu.icet.util.MealType;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
