@@ -1,12 +1,17 @@
 package edu.icet.service.supplier.impl;
 
 import edu.icet.dto.admin.SupplierRequest;
+import edu.icet.dto.supplier.BookingSlot;
+import edu.icet.dto.supplier.Supplier;
 import edu.icet.entity.admin.SupplierRequestEntity;
 import edu.icet.repository.admin.SupplierRequestReporsitory;
+import edu.icet.service.supplier.BookingSlotService;
 import edu.icet.service.supplier.SupplierRequestService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +24,36 @@ public class SupplierRequestServiceImpl implements SupplierRequestService {
     private final SupplierRequestReporsitory requestReporsitory;
     private final ModelMapper mapper;
 
+    private BookingSlotService bookingSlotService;
+
     @Override
     public void addSupplierRequest(SupplierRequest supplierRequest) {
-        requestReporsitory.save(mapper.map(supplierRequest, SupplierRequestEntity.class));
+        if (requestReporsitory.existsById(supplierRequest.getId()) && !isBookingOverLapped(supplierRequest)) {
+
+                requestReporsitory.save(mapper.map(supplierRequest, SupplierRequestEntity.class));
+
+        }
+    }
+    private boolean isBookingOverLapped(SupplierRequest supplierRequest){
+        List<BookingSlot> bookingSlots = bookingSlotService.getAll();
+
+
+            BookingSlot bookingSlot = new BookingSlot();
+            LocalDateTime startTime = bookingSlot.getStartTime();
+            LocalDateTime endTime = bookingSlot.getEndTime();
+
+            for (BookingSlot existing : bookingSlots) {
+                LocalDateTime existingStartTime = existing.getStartTime();
+                LocalDateTime existingEndTime = existing.getEndTime();
+
+                boolean overlap = startTime.isBefore(existingEndTime) && endTime.isBefore(existingStartTime);
+
+                if (overlap) {
+                    return true;
+                }
+
+        }
+        return false;
     }
 
     @Override
@@ -39,16 +71,26 @@ public class SupplierRequestServiceImpl implements SupplierRequestService {
 
     @Override
     public SupplierRequest findById(Long id) {
-        return mapper.map(requestReporsitory.findById(id), SupplierRequest.class);
+        if (requestReporsitory.existsById(id)){
+            return mapper.map(requestReporsitory.findById(id), SupplierRequest.class);
+        }
+        throw new IllegalArgumentException("Supplier not found");
     }
 
     @Override
     public void update(SupplierRequest supplierRequest) {
-        requestReporsitory.save(mapper.map(supplierRequest,SupplierRequestEntity.class));
+        if (requestReporsitory.existsById(supplierRequest.getSupplierId())){
+            requestReporsitory.save(mapper.map(supplierRequest,SupplierRequestEntity.class));
+        }
+        throw new IllegalArgumentException("Updating fail! supplier request does not exist");
     }
 
     @Override
     public void delete(Long id) {
-        requestReporsitory.deleteById(id);
+        if (requestReporsitory.existsById(id)){
+            requestReporsitory.deleteById(id);
+        }
+        throw new IllegalArgumentException("Supplier does not exist!");
+
     }
 }
