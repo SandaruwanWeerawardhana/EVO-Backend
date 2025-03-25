@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -67,9 +69,7 @@ public class EventController {
     public List<Event> getEventsByEventType(@PathVariable("eventType") EventType eventType) {
         return eventService.getEventsByEventType(eventType);
     }
-
-    //Anniversary
-
+  
     @PostMapping("/save-anniversary")
     public boolean addAnniversary(@RequestBody Anniversary anniversary) {
         return anniversaryEventService.add(anniversary);
