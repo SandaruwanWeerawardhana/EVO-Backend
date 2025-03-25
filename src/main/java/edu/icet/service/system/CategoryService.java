@@ -1,7 +1,6 @@
 package edu.icet.service.system;
 
-import edu.icet.dto.Category;
-import edu.icet.entity.CategoryEntity;
+import edu.icet.dto.system.Category;
 
 import java.util.List;
 

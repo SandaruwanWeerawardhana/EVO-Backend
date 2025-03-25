@@ -1,8 +1,8 @@
 package edu.icet.service.admin.impl;
 
-import edu.icet.dto.Report;
-import edu.icet.entity.ReportEntity;
-import edu.icet.repository.ReportRepository;
+import edu.icet.dto.admin.Report;
+import edu.icet.entity.system.ReportEntity;
+import edu.icet.repository.system.ReportRepository;
 import edu.icet.service.admin.ReportService;
 import edu.icet.util.ReportType;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -49,7 +48,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Report searchReport(long reportId) {
+    public Report searchReport(Long reportId) {
      return  mapper.map(repo.findById(reportId), Report.class);
     }
 

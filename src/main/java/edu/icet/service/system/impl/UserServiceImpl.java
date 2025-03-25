@@ -1,8 +1,8 @@
 package edu.icet.service.system.impl;
 
-import edu.icet.dto.User;
-import edu.icet.entity.UserEntity;
-import edu.icet.repository.UserRepository;
+import edu.icet.dto.customer.User;
+import edu.icet.entity.customer.UserEntity;
+import edu.icet.repository.customer.UserRepository;
 import edu.icet.service.system.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

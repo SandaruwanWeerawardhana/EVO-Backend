@@ -1,8 +1,8 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.OutdoorArea;
-import edu.icet.entity.OutdoorAreaEntity;
-import edu.icet.repository.OutdoorAreaRepository;
+import edu.icet.dto.supplier.OutdoorArea;
+import edu.icet.entity.supplier.OutdoorAreaEntity;
+import edu.icet.repository.supplier.OutdoorAreaRepository;
 import edu.icet.service.supplier.OutdoorAreaService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

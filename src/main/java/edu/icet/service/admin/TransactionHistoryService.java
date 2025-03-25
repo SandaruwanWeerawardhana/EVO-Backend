@@ -1,7 +1,6 @@
 package edu.icet.service.admin;
 
-import edu.icet.dto.TransactionHistory;
-import org.springframework.stereotype.Service;
+import edu.icet.dto.system.TransactionHistory;
 
 import java.time.LocalDate;
 import java.util.List;

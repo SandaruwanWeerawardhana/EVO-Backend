@@ -1,21 +1,16 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.Category;
-import edu.icet.dto.Supplier;
-import edu.icet.entity.SupplierEntity;
-import edu.icet.repository.SupplierRepository;
+import edu.icet.dto.supplier.Supplier;
+import edu.icet.entity.supplier.SupplierEntity;
+import edu.icet.repository.supplier.SupplierRepository;
 import edu.icet.service.supplier.SupplierService;
 import edu.icet.service.system.CategoryService;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

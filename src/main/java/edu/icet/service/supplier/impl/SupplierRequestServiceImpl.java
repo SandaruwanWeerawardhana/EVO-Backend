@@ -1,8 +1,8 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.SupplierRequest;
-import edu.icet.entity.SupplierRequestEntity;
-import edu.icet.repository.SupplierRequestReporsitory;
+import edu.icet.dto.admin.SupplierRequest;
+import edu.icet.entity.admin.SupplierRequestEntity;
+import edu.icet.repository.admin.SupplierRequestReporsitory;
 import edu.icet.service.supplier.SupplierRequestService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

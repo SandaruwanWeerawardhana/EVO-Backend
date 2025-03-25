@@ -1,8 +1,8 @@
 package edu.icet.service.admin.impl;
 
-import edu.icet.dto.TransactionHistory;
-import edu.icet.entity.TransactionHistoryEntity;
-import edu.icet.repository.TransactionHistoryRepository;
+import edu.icet.dto.system.TransactionHistory;
+import edu.icet.entity.admin.TransactionHistoryEntity;
+import edu.icet.repository.system.TransactionHistoryRepository;
 import edu.icet.service.admin.TransactionHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

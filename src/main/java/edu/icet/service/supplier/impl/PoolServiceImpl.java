@@ -1,14 +1,13 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.Pool;
-import edu.icet.entity.PoolEntity;
-import edu.icet.repository.PoolRepository;
+import edu.icet.dto.supplier.Pool;
+import edu.icet.entity.supplier.PoolEntity;
+import edu.icet.repository.supplier.PoolRepository;
 import edu.icet.service.supplier.PoolService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 @Service
 @RequiredArgsConstructor

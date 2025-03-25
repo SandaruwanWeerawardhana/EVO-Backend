@@ -1,55 +1,63 @@
 package edu.icet.service.customer.impl;
 
-import edu.icet.dto.Anniversary;
+import edu.icet.dto.event.Anniversary;
+import edu.icet.entity.event.AnniversaryEntity;
+import edu.icet.repository.event.AnniversaryEventRepository;
 import edu.icet.service.customer.AnniversaryEventService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class AnniversaryEventServiceImpl implements AnniversaryEventService {
 
-    private final List<Anniversary> anniversaryList=new ArrayList<>();
+    private final AnniversaryEventRepository repository;
+    private final ModelMapper mapper;
 
     @Override
     public boolean add(Anniversary anniversary) {
-        return anniversaryList.add(anniversary);
+        if (anniversary.getEventId() != null && repository.existsById(anniversary.getEventId())) {
+            return false;
+        }
+        repository.save(mapper.map(anniversary, AnniversaryEntity.class));
+        return true;
     }
 
     @Override
     public List<Anniversary> getAll() {
-        return anniversaryList;
+        return repository.findAll()
+                .stream()
+                .map(entity -> mapper.map(entity, Anniversary.class))
+                .toList();
     }
 
     @Override
-    public boolean delete(Integer eventId) {
-        return anniversaryList.removeIf(anniversary -> anniversary.getEventId().equals(eventId));
+    public boolean delete(Long eventId) {
+        if (eventId == null || !repository.existsById(eventId)) {
+            return false;
+        }
+        repository.deleteById(eventId);
+        return true;
     }
 
     @Override
     public boolean update(Anniversary anniversary) {
-        for(Anniversary anniversary1:anniversaryList) {
-            if (anniversary1.getEventId().equals(anniversary.getEventId())) {
-                anniversary1.setAnniversaryYear(anniversary.getAnniversaryYear());
-                anniversary1.setWifeName(anniversary.getWifeName());
-                anniversary1.setHusbandName(anniversary.getHusbandName());
-                anniversary1.setDescription(anniversary.getDescription());
-                return true;
-            }
+        if (anniversary == null || anniversary.getEventId() == null ||!repository.existsById(anniversary.getEventId())) {
+            return false;
         }
-        return false;
+        repository.save(mapper.map(anniversary, AnniversaryEntity.class));
+        return true;
     }
 
     @Override
-    public Anniversary get(Integer eventId) {
-        for (Anniversary anniversary: anniversaryList){
-            if (anniversary.getEventId().equals(eventId)){
-                return anniversary;
-            }
+    public Anniversary get(Long eventId) {
+        if (eventId <=0) {
+            return null;
         }
-        return null;
+        return repository.findById(eventId)
+                .map(anniversaryEntity -> mapper.map(anniversaryEntity, Anniversary.class))
+                .orElse(null);
     }
 }

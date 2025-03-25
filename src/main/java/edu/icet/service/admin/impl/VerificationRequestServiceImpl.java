@@ -1,8 +1,8 @@
 package edu.icet.service.admin.impl;
 
-import edu.icet.dto.VerificationRequest;
-import edu.icet.entity.VerificationRequestEntity;
-import edu.icet.repository.VerificationRequestRepository;
+import edu.icet.dto.admin.VerificationRequest;
+import edu.icet.entity.admin.VerificationRequestEntity;
+import edu.icet.repository.admin.VerificationRequestRepository;
 import edu.icet.service.admin.VerificationRequestService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

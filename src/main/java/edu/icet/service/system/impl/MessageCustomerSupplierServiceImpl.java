@@ -1,8 +1,8 @@
 package edu.icet.service.system.impl;
 
-import edu.icet.dto.MessageCustomerSupplier;
-import edu.icet.entity.MessageCustomerSupplierEntity;
-import edu.icet.repository.MessageCustomerSupplierRepository;
+import edu.icet.dto.system.MessageCustomerSupplier;
+import edu.icet.entity.system.MessageCustomerSupplierEntity;
+import edu.icet.repository.system.MessageCustomerSupplierRepository;
 import edu.icet.service.system.MessageCustomerSupplierService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

@@ -1,16 +1,14 @@
 package edu.icet.service.system.impl;
 
-import edu.icet.dto.Profile;
-import edu.icet.entity.ProfileEntity;
-import edu.icet.repository.ProfileRepository;
+import edu.icet.dto.system.Profile;
+import edu.icet.entity.supplier.ProfileEntity;
+import edu.icet.repository.supplier.ProfileRepository;
 import edu.icet.service.system.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

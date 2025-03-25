@@ -1,8 +1,6 @@
 package edu.icet.service.system;
 
-import edu.icet.dto.Venue;
-import edu.icet.dto.VenueRequest;
-import org.springframework.stereotype.Service;
+import edu.icet.dto.supplier.VenueRequest;
 
 import java.util.List;
 

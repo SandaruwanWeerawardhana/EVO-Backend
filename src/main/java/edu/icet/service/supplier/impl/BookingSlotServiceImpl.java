@@ -1,15 +1,14 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.BookingSlot;
-import edu.icet.entity.BookingSlotEntity;
-import edu.icet.repository.BookingSlotRepository;
+import edu.icet.dto.supplier.BookingSlot;
+import edu.icet.entity.supplier.BookingSlotEntity;
+import edu.icet.repository.supplier.BookingSlotRepository;
 import edu.icet.service.supplier.BookingSlotService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 @Service
 @RequiredArgsConstructor

@@ -1,6 +1,6 @@
 package edu.icet.service.system.impl;
 
-import edu.icet.dto.Terms;
+import edu.icet.dto.system.Terms;
 import edu.icet.service.system.TermsService;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;

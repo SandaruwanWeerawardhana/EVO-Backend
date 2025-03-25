@@ -1,6 +1,6 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.ProfilePackages;
+import edu.icet.dto.supplier.ProfilePackages;
 import java.util.List;
 
 public interface ProfilePackageService {

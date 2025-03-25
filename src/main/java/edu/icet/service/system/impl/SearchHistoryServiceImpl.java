@@ -1,19 +1,16 @@
 package edu.icet.service.system.impl;
 
-import edu.icet.dto.SearchHistory;
-import edu.icet.entity.SearchHistoryEntity;
-import edu.icet.repository.CustomerRepository;
-import edu.icet.repository.SearchHistoryRepository;
+import edu.icet.dto.system.SearchHistory;
+import edu.icet.entity.system.SearchHistoryEntity;
+import edu.icet.repository.customer.CustomerRepository;
+import edu.icet.repository.system.SearchHistoryRepository;
 import edu.icet.service.system.SearchHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

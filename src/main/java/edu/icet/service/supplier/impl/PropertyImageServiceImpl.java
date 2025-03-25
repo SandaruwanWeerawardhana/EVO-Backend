@@ -1,8 +1,8 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.PropertyImage;
-import edu.icet.entity.PropertyImageEntity;
-import edu.icet.repository.PropertyImageRepository;
+import edu.icet.dto.supplier.PropertyImage;
+import edu.icet.entity.supplier.PropertyImageEntity;
+import edu.icet.repository.supplier.PropertyImageRepository;
 import edu.icet.service.supplier.PropertyImageService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

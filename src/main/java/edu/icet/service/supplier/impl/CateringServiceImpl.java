@@ -1,13 +1,13 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.Catering;
-import edu.icet.entity.CateringEntity;
-import edu.icet.repository.CateringRepository;
+import edu.icet.dto.supplier.Catering;
+import edu.icet.entity.supplier.CateringEntity;
+import edu.icet.repository.supplier.CateringRepository;
 import edu.icet.service.supplier.CateringService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
