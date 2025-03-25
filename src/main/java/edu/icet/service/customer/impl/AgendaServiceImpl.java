@@ -14,18 +14,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class AgendaServiceImpl implements AgendaService {
 
     private final AgendaRepository agendaRepository;
     private final AgendaTaskRepository agendaTaskRepository;
 
-
     @Override
     public boolean create(Agenda agendaDto) {
         try {
-
             AgendaEntity agendaEntity = new AgendaEntity();
             agendaEntity.setDate(agendaDto.getDate());
             agendaEntity.setTime(agendaDto.getTime());
@@ -35,6 +33,8 @@ public class AgendaServiceImpl implements AgendaService {
                     .map(taskDto -> {
                         AgendaTaskEntity taskEntity = new AgendaTaskEntity();
                         taskEntity.setTaskName(taskDto.getTaskName());
+                        taskEntity.setStartTime(taskDto.getStartTime());
+                        taskEntity.setEndTime(taskDto.getEndTime());
                         taskEntity.setAgenda(savedAgenda);
                         return taskEntity;
                     })
@@ -42,13 +42,12 @@ public class AgendaServiceImpl implements AgendaService {
 
             agendaTaskRepository.saveAll(tasks);
             return true;
-
         } catch (Exception e) {
             System.err.println("Error creating agenda: " + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
-
     @Override
     public List<Agenda> getAll() {
         List<AgendaEntity> agendaEntities = agendaRepository.findAll();
@@ -60,11 +59,12 @@ public class AgendaServiceImpl implements AgendaService {
                     agendaDto.setDate(agendaEntity.getDate());
                     agendaDto.setTime(agendaEntity.getTime());
 
-
                     List<AgendaTask> tasks = agendaEntity.getTasks().stream()
                             .map(taskEntity -> new AgendaTask(
                                     taskEntity.getTaskId(),
-                                    taskEntity.getTaskName()
+                                    taskEntity.getTaskName(),
+                                    taskEntity.getStartTime(),
+                                    taskEntity.getEndTime()
                             ))
                             .collect(Collectors.toList());
 
@@ -73,7 +73,6 @@ public class AgendaServiceImpl implements AgendaService {
                 })
                 .collect(Collectors.toList());
     }
-
     @Override
     public boolean update(Agenda agendaDto) {
         try {
@@ -89,6 +88,8 @@ public class AgendaServiceImpl implements AgendaService {
                         .map(taskDto -> {
                             AgendaTaskEntity taskEntity = new AgendaTaskEntity();
                             taskEntity.setTaskName(taskDto.getTaskName());
+                            taskEntity.setStartTime(taskDto.getStartTime());
+                            taskEntity.setEndTime(taskDto.getEndTime());
                             taskEntity.setAgenda(entity);
                             return taskEntity;
                         })
@@ -101,10 +102,10 @@ public class AgendaServiceImpl implements AgendaService {
             return false;
         } catch (Exception e) {
             System.err.println("Update Agenda Failed: " + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
-
     @Override
     public boolean delete(Integer id) {
         try {
@@ -118,7 +119,6 @@ public class AgendaServiceImpl implements AgendaService {
             return false;
         }
     }
-
     @Override
     public Agenda getById(Integer id) {
         try {
@@ -132,7 +132,9 @@ public class AgendaServiceImpl implements AgendaService {
                 List<AgendaTask> tasks = entity.getTasks().stream()
                         .map(taskEntity -> new AgendaTask(
                                 taskEntity.getTaskId(),
-                                taskEntity.getTaskName()
+                                taskEntity.getTaskName(),
+                                taskEntity.getStartTime(),
+                                taskEntity.getEndTime()
                         ))
                         .collect(Collectors.toList());
 
@@ -142,6 +144,32 @@ public class AgendaServiceImpl implements AgendaService {
         } catch (Exception e) {
             System.err.println("Retrieve Agenda By ID Failed: " + e.getMessage());
             return null;
+        }
+    }
+    @Override
+    public boolean addTaskToAgenda(Integer agendaId, AgendaTask newTask) {
+        try {
+
+            Optional<AgendaEntity> optionalAgenda = agendaRepository.findById(agendaId);
+            if (optionalAgenda.isPresent()) {
+                AgendaEntity agendaEntity = optionalAgenda.get();
+
+                AgendaTaskEntity taskEntity = new AgendaTaskEntity();
+                taskEntity.setTaskName(newTask.getTaskName());
+                taskEntity.setStartTime(newTask.getStartTime());
+                taskEntity.setEndTime(newTask.getEndTime());
+                taskEntity.setAgenda(agendaEntity);
+
+                agendaEntity.getTasks().add(taskEntity);
+
+                agendaRepository.save(agendaEntity);
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            System.err.println("Error adding task to agenda: " + e.getMessage());
+            e.printStackTrace();
+            return false;
         }
     }
 }

@@ -1,6 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.Agenda;
+import edu.icet.dto.AgendaTask;
 import edu.icet.service.customer.AgendaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -37,5 +38,10 @@ public class AgendaController {
     @GetMapping("/get/{id}")
     public Agenda getById(@PathVariable("id") Integer id){
         return agendaService.getById(id);
+    }
+
+    @PostMapping("/{agendaId}/add-task")
+    public boolean addTaskToAgenda(@PathVariable Integer agendaId, @RequestBody AgendaTask newTask) {
+        return agendaService.addTaskToAgenda(agendaId, newTask);
     }
 }
