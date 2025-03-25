@@ -24,4 +24,5 @@ public interface ReviewService {
     List<Review> getReviewsByDate(LocalDate date);
 
     List<Review> getReviewsByRateType(RatingType type);
+
 }

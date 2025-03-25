@@ -15,10 +15,12 @@ import java.util.Map;
 @RestController
 @RequestMapping("/review")
 @CrossOrigin
-@RequiredArgsConstructor
-
 public class ReviewController {
-    final ReviewService reviewService;
+    private final ReviewService reviewService;
+
+    public ReviewController(ReviewService reviewService) {
+        this.reviewService = reviewService;
+    }
 
     @PostMapping("/addReview")
     public ResponseEntity<Review> addByReview(@Valid @RequestBody Review review) {
@@ -30,9 +32,9 @@ public class ReviewController {
 
     }
 
-    @GetMapping("/searchByReviewId/{id}")
-    public ResponseEntity<Review> searchByReview(@PathVariable long id) {
-        Review review = reviewService.getReviewSupplierId(id);
+    @GetMapping("/searchByIdReview/{id}")
+    public ResponseEntity<Review> searchByReview(@PathVariable Long id) {
+        Review review = reviewService.searchByIdReview(id);
         if (review != null) {
             return new ResponseEntity<>(review, HttpStatus.OK);
         } else {
@@ -41,10 +43,10 @@ public class ReviewController {
 
     }
 
-    @PutMapping("/updateByReviewId/{id}")
-    public ResponseEntity<String> updateByReview(@PathVariable long id, @RequestBody Review review) {
+    @PutMapping("/updateByReview")
+    public ResponseEntity<String> updateByReview( @RequestBody Review review) {
 
-        if (reviewService.updateByReview(id, review)) {
+        if (reviewService.updateByReview( review)) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -62,8 +64,8 @@ public class ReviewController {
     }
 
 
-    @DeleteMapping("/deleteByReviewId/{id}")
-    public ResponseEntity<String> deleteByReview(@PathVariable long id) {
+    @DeleteMapping("/deleteByReview/{id}")
+    public ResponseEntity<String> deleteByReview(@PathVariable Long id) {
         boolean isDeleted = reviewService.deleteByReview(id);
 
         return isDeleted
@@ -73,7 +75,7 @@ public class ReviewController {
 
 
     @GetMapping("/getSummaryById/{id}")
-    public ResponseEntity<Map<String, Long>> getSummaryFilterReview(@PathVariable long id) {
+    public ResponseEntity<Map<String, Long>> getBySummaryFilterReview(@PathVariable long id) {
         Map<String, Long> summary = reviewService.getBySummaryFilterReview(id);
 
         return (summary != null && !summary.isEmpty())
@@ -82,9 +84,21 @@ public class ReviewController {
     }
 
 
-    @GetMapping("/SearchSupplier/{id}")
-    public Review searchBySupplierID( @PathVariable long id) {
-      return   reviewService.getReviewSupplierId(id);
+    @GetMapping("/DeleteByReview/{id}")
+    public boolean deleteReview(@PathVariable Long id){
+        return reviewService.deleteByReview(id);
+    }
+
+    @GetMapping("/SearchBySupplierID/{id}")
+    public  Review searchBySupplierID(@PathVariable Long id){
+        return  reviewService.searchByIDSuplier(id);
 
     }
+    @GetMapping("/GetSummaryById/{id}")
+    public Map<String, Long> getBySummary(@PathVariable Long id){
+        return reviewService.getBySummaryFilterReview(id);
+    }
+
+
+
 }

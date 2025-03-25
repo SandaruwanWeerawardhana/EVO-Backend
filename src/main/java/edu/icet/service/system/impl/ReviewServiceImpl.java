@@ -42,7 +42,7 @@ public class ReviewServiceImpl implements ReviewService {
         }
     }
 
-    @Override
+
     public List<Review> getAll() {
         if (!repository.findAll().isEmpty()){
             return repository.findAll().stream().map(reviewEntity ->
@@ -62,15 +62,17 @@ public class ReviewServiceImpl implements ReviewService {
         }else {
             return false;
         }
-    }
 
+    }
+  
     @Override
     public List<Review> getReviewsBySupplierId(Long supplierId) {
         return repository.findBySupplierId(supplierId).stream().map(reviewEntity ->
                 mapper.map(reviewEntity,Review.class)).toList();
     }
 
-    @Override
+ 
+
     public List<Review> getReviewsByCustomerId(Long customerId) {
         return repository.findByCustomerId(customerId).stream().map(reviewEntity ->
                 mapper.map(reviewEntity,Review.class)).toList();
@@ -86,5 +88,6 @@ public class ReviewServiceImpl implements ReviewService {
     public List<Review> getReviewsByRateType(RatingType type) {
         return repository.findByRatingType(type).stream().map(reviewEntity -> mapper
                 .map(reviewEntity,Review.class)).toList();
+
     }
 }
