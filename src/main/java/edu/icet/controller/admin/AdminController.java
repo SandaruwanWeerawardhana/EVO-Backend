@@ -3,11 +3,16 @@ package edu.icet.controller.admin;
 import edu.icet.dto.admin.Admin;
 import edu.icet.dto.admin.AuditHistory;
 import edu.icet.dto.admin.AuditLog;
+import edu.icet.dto.admin.AuditReport;
 import edu.icet.service.admin.AdminService;
 import edu.icet.service.admin.AuditHistoryService;
 import edu.icet.service.admin.AuditLogService;
+import edu.icet.service.admin.AuditReportService;
 import edu.icet.util.AdminType;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +23,14 @@ import java.util.List;
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 @CrossOrigin
+@Slf4j
 public class AdminController {
 
     private final AdminService adminService;
     final AuditHistoryService service;
     final AuditLogService auditLogService;
+    final AuditReportService reportService;
+
 
     @PostMapping("/add")
     public ResponseEntity<String> addAdmin(@RequestBody Admin admin){
@@ -164,4 +172,57 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Audit log not found.");
         }
     }
+
+    @PostMapping("/audit/report/add")
+    public ResponseEntity<String> addAuditReport(@Valid @RequestBody AuditReport auditReport, HttpServletRequest request) {
+        if (reportService.saveAuditReport(auditReport)) {
+            String os = request.getRemoteAddr();
+            log.info("Request Received IP: {} | Add Report detail: {}", os, auditReport);
+            return ResponseEntity.ok(" Report saved successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("try again!, Can't added Report");
+        }
+    }
+
+    @PutMapping("/audit/report/update/{reportId}")
+    public ResponseEntity<String> updateReport(@PathVariable Long reportId, @Valid @RequestBody AuditReport auditReport) {
+        if (reportService.updateAuditReport(reportId, auditReport)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/audit/report/delete")
+    public ResponseEntity<String> deleteReport(@PathVariable Long reportId) {
+        if (reportService.deleteAuditReportById(reportId)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/audit/report/search/{reportId}")
+    public ResponseEntity<AuditReport> searchReport(@PathVariable Long reportId) {
+        AuditReport auditReport = reportService.getAuditReportById(reportId);
+        if (auditReport != null) {
+            return new ResponseEntity<>(auditReport, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/audit/report/getAll")
+    public ResponseEntity<List<AuditReport>> getAllReport() {
+        List<AuditReport> auditReports = reportService.getAllAuditReports();
+        if (auditReports != null) {
+            return new ResponseEntity<>(auditReports, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
 }
