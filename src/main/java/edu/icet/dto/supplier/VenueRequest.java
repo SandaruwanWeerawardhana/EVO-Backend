@@ -26,5 +26,5 @@ public class VenueRequest {
 
     @NotNull(message="Status cannot be null")
     @NotBlank(message="Status cannot be blank")
-    private String status;
+    private Boolean status;
 }

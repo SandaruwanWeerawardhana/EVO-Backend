@@ -1,14 +1,17 @@
 package edu.icet.service.system.impl;
 
+import edu.icet.dto.supplier.Venue;
 import edu.icet.dto.supplier.VenueRequest;
 import edu.icet.entity.supplier.VenueRequestEntity;
 import edu.icet.repository.supplier.VenueRequestRepository;
+import edu.icet.service.supplier.VenueService;
 import edu.icet.service.system.VenueRequestService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +19,7 @@ import java.util.List;
 public class VenueRequestServiceImpl implements VenueRequestService {
 
     private final VenueRequestRepository venueRequestRepository;
+    private final VenueService venueService;
     private ModelMapper mapper;
 
     @Override
@@ -24,18 +28,21 @@ public class VenueRequestServiceImpl implements VenueRequestService {
     }
 
     @Override
-    public List<VenueRequest> getAll() {
+    public Map<List<VenueRequest>,List<Venue>> getAll() {
         List<VenueRequest> venueRequestList = new ArrayList<>();
-        List<VenueRequestEntity> all = venueRequestRepository.findAll();
-
-        all.forEach(venueRequestEntity -> venueRequestList.add(mapper.map(venueRequestEntity, VenueRequest.class)))
-        ;
-        return venueRequestList;
+        List<Venue> venueList = new ArrayList<>();
+        venueRequestRepository.findAll().forEach(venueRequestEntity ->{
+            venueRequestList.add(mapper.map(venueRequestEntity, VenueRequest.class));
+            venueList.add(venueService.findById(venueRequestEntity.getVenueID()));
+        });
+        return Map.of(venueRequestList,venueList);
     }
 
     @Override
-    public VenueRequest getById(Long id) {
-        return mapper.map(venueRequestRepository.findById(id), VenueRequest.class);
+    public Map<VenueRequest,Venue> getById(Long id) {
+        VenueRequest venueRequest = mapper.map(venueRequestRepository.findById(id), VenueRequest.class);
+        Venue venue = mapper.map(venueService.findById(venueRequest.getVenueID()), Venue.class);
+        return Map.of(venueRequest,venue);
     }
 
     @Override
@@ -47,5 +54,38 @@ public class VenueRequestServiceImpl implements VenueRequestService {
     @Override
     public VenueRequest update(VenueRequest venueRequest) {
         return this.save(venueRequest);
+    }
+
+    @Override
+    public List<Venue> getAllVisibleVenues() {
+        List<Venue> visibleVenues = new ArrayList<>();
+        venueRequestRepository.findAll().forEach(venueRequestEntity -> {
+            if (venueRequestEntity.getStatus()){
+                visibleVenues.add(venueService.findById(venueRequestEntity.getVenueID()));
+            }
+        });
+        return visibleVenues;
+    }
+
+    @Override
+    public List<Venue> getAllVisibleVenuesByLocation(String location) {
+        List<Venue> visibleVenuesByLocation = new ArrayList<>();
+        venueRequestRepository.findAll().forEach(venueRequestEntity -> {
+           if(venueService.findById(venueRequestEntity.getVenueID()).getLocation().equals(location)) {
+               visibleVenuesByLocation.add(venueService.findById(venueRequestEntity.getVenueID()));
+           }
+        });
+        return visibleVenuesByLocation;
+    }
+
+    @Override
+    public List<Venue> getAllVisibleVenuesByEventType(String eventType) {
+        List<Venue> visibleVenuesByEventType = new ArrayList<>();
+        venueRequestRepository.findAll().forEach(venueRequestEntity -> {
+            if(venueService.findByEventType(venueRequestEntity.getVenueID()).getEventType().equals(eventType)){
+                visibleVenuesByEventType.add(venueService.findById(venueRequestEntity.getVenueID()));
+            }
+        });
+        return visibleVenuesByEventType;
     }
 }

@@ -29,5 +29,5 @@ public class VenueRequestEntity {
     private LocalDateTime createdDateTime;
 
     @Column(nullable = false)
-    private String status;
+    private Boolean status;
 }
