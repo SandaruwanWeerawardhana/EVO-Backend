@@ -1,9 +1,12 @@
 package edu.icet.entity.supplier;
 
+import edu.icet.entity.event.EventEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -22,4 +25,7 @@ public class VenueEntity {
     private String eventType;
     @Column(nullable = false)
     private Long capacity;
+
+    @OneToMany(mappedBy = "venue", cascade = CascadeType.ALL)
+    private List<EventEntity> events;
 }

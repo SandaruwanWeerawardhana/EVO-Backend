@@ -2,10 +2,7 @@ package edu.icet.controller.event;
 
 import edu.icet.dto.event.Anniversary;
 import edu.icet.dto.event.Event;
-import edu.icet.dto.event.EventSummary;
-import edu.icet.dto.event.GetTogether;
-import edu.icet.dto.supplier.Location;
-import edu.icet.service.customer.AnniversaryEventService;
+import edu.icet.dto.supplier.Venue;
 import edu.icet.service.event.EventService;
 import edu.icet.service.event.GetTogetherEventService;
 import edu.icet.service.system.EventSummaryService;
@@ -57,9 +54,9 @@ public class EventController {
         return  ResponseEntity.ok(eventService.updateEvent(event,event.getEventId()));
     }
 
-    @GetMapping("/get-by-location")
-    public List<Event> getEventByLocation(@RequestBody Location location) {
-        return eventService.getEventsByLocation(location);
+    @GetMapping("/get-by-venue")
+    public List<Event> getEventByVenue(@RequestBody Venue venue) {
+        return eventService.getEventsByVenue(venue);
     }
 
     @GetMapping("/get-event-type/{eventType}")

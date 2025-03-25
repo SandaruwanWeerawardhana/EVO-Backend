@@ -20,7 +20,7 @@ public class Venue {
     @Positive
     private Long supplierId;
     @NotEmpty(message = "location can not be null")
-    private Location location;
+    private String location;
     @NotEmpty(message = "venue type can not be null")
     private String eventType;
     private Long capacity;
