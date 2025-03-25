@@ -1,6 +1,8 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.PhotographerImage;
+import edu.icet.dto.supplier.PhotographerImage;
+import edu.icet.entity.supplier.PhotographerImageEntity;
+import edu.icet.repository.supplier.PhotographerImageRepository;
 import edu.icet.service.supplier.PhotographerImageService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -11,38 +13,46 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PhotographerImageServiceImpl implements PhotographerImageService {
-
-    private final List<PhotographerImage> photographerImages=new ArrayList<>();
-
+    final PhotographerImageRepository repository;
     final ModelMapper modelMapper;
 
     @Override
     public List<PhotographerImage> getAll() {
-        return photographerImages;
+
+        List<PhotographerImage>photographerImageList=new ArrayList<>();
+        List<PhotographerImageEntity>all=repository.findAll();
+
+        all.forEach(beautyPackageEntity -> {
+            photographerImageList.add(modelMapper.map(photographerImageList, PhotographerImage.class));
+        });
+        return photographerImageList;
     }
 
     @Override
     public PhotographerImage save(PhotographerImage photographerImage) {
-        photographerImages.add(photographerImage);
+        repository.save(modelMapper.map(photographerImage,PhotographerImageEntity.class));
         return photographerImage;
     }
 
     @Override
     public Boolean delete(Long id) {
-        return photographerImages.removeIf(p->p.getId().equals(id));
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public PhotographerImage update(PhotographerImage photographerImage) {
         if(photographerImage==null||photographerImage.getId()==null) return null;
 
-        for(PhotographerImage p:photographerImages){
-            if(p.getId().equals(photographerImage.getId())){
-                int index=photographerImages.indexOf(p);
-                photographerImages.set(index,photographerImage);
-                return photographerImage;
-            }
+        if (!repository.existsById(photographerImage.getId())) {
+            return null;
         }
-        return null;
+
+        PhotographerImageEntity savedEntity = repository.save(modelMapper.map(photographerImage, PhotographerImageEntity.class));
+
+        return modelMapper.map(savedEntity, PhotographerImage.class);
     }
 }

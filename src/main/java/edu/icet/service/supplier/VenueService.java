@@ -1,7 +1,6 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.Venue;
-import org.springframework.stereotype.Service;
+import edu.icet.dto.supplier.Venue;
 
 import java.util.List;
 

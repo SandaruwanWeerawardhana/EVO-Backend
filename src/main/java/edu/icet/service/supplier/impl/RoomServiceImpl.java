@@ -1,58 +1,65 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.Profile;
-import edu.icet.dto.Room;
+import edu.icet.dto.system.Profile;
+import edu.icet.dto.supplier.Room;
+import edu.icet.entity.supplier.RoomEntity;
+import edu.icet.repository.supplier.RoomRepository;
 import edu.icet.service.supplier.RoomService;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
-@Service
-public class RoomServiceImpl implements RoomService {
 
-    private final List<Room> roomList = new ArrayList<>();
+@Service
+@RequiredArgsConstructor
+
+public class RoomServiceImpl implements RoomService {
+    private final RoomRepository repository;
+    private final ModelMapper mapper;
 
     @Override
     public List<Room> getAll(Profile profile) {
+        List<Room> roomList = new ArrayList<>();
+        List<RoomEntity> all = repository.findAll();
+
+        all.forEach(roomEntity -> {
+            roomList.add(mapper.map(roomEntity,Room.class));
+        });
         return roomList;
     }
 
     @Override
     public boolean save(Room room) {
-        roomList.add(room);
+        if (repository.existsById(room.getRoomId())){
+            repository.save(mapper.map(room, RoomEntity.class));
+            return true;
+        }
         return false;
     }
 
     @Override
     public Room search(Long id) {
-        for (Room room:roomList){
-            if (room.getRoomId()==id){
-                return room;
-            }
-        }
-        return null;
+        return mapper.map(repository.findById(id),Room.class);
     }
 
-    @Override
-    public Boolean delete(Room room) {
-        return roomList.removeIf(room1 -> room1.equals(room));
-    }
+
 
     @Override
     public Boolean delete(Long id) {
-        return roomList.removeIf(room1 -> room1.getRoomId().equals(id));
+        if(repository.existsById(id)){
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
     }
-
-
 
     @Override
     public Room update(Room room) {
-        for (Room roomEntity : roomList) {
-            if (roomEntity.getRoomId().equals(room.getRoomId())) {
-                roomEntity.getPropertyId().equals(room.getPropertyId());
-                roomEntity.getBeds().equals(room.getBeds());
-            }
+        if (room==null){
+            return null;
         }
-        return null;
+        RoomEntity save = repository.save(mapper.map(room, RoomEntity.class));
+        return mapper.map(save, Room.class);
     }
 }

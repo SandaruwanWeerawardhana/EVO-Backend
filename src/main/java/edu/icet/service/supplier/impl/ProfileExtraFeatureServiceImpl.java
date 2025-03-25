@@ -1,6 +1,8 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.ProfileExtraFeature;
+import edu.icet.dto.supplier.ProfileExtraFeature;
+import edu.icet.entity.supplier.ProfileExtraFeatureEntity;
+import edu.icet.repository.supplier.ProfileExtraFeatureRepository;
 import edu.icet.service.supplier.ProfileExtraFeatureService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -12,45 +14,63 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProfileExtraFeatureServiceImpl implements ProfileExtraFeatureService {
+    final ProfileExtraFeatureRepository repository;
     final ModelMapper mapper;
-    private final ArrayList<ProfileExtraFeature> profileExtraFeatures = new ArrayList<>();
+
+
     @Override
     public List<ProfileExtraFeature> getAll() {
-        return profileExtraFeatures;
+        List<ProfileExtraFeature> profileExtraFeatureList = new ArrayList<>();
+        List<ProfileExtraFeatureEntity> all = repository.findAll();
+
+        all.forEach(profileExtraFeatureEntity -> {
+            profileExtraFeatureList.add(mapper.map(profileExtraFeatureEntity, ProfileExtraFeature.class));
+        });
+
+        return profileExtraFeatureList;
     }
 
     @Override
-    public ProfileExtraFeature save(ProfileExtraFeature profileExtraFeature) {
-      profileExtraFeatures.add(profileExtraFeature);
-      return profileExtraFeature;
+    public Boolean save(ProfileExtraFeature profileExtraFeature) {
+        if (profileExtraFeature == null) {
+            return false;
+        }
+        repository.save(mapper.map(profileExtraFeature, ProfileExtraFeatureEntity.class));
+        return true;
     }
 
     @Override
     public Boolean delete(Long id) {
-        return profileExtraFeatures.removeIf(feature -> feature.getFeatureID().equals(id));
+        if (id == null){
+            return false;
+        }
+        if (!repository.existsById(id)){
+            return false;
+        }
+        repository.deleteById(id);
+        return true;
     }
 
     @Override
-    public Boolean update(ProfileExtraFeature profileExtraFeature) {
-        if (profileExtraFeature == null || profileExtraFeature.getFeatureID() == null) return false;
-
-        for (ProfileExtraFeature feature : profileExtraFeatures) {
-            if (feature.getFeatureID().equals(profileExtraFeature.getFeatureID())) {
-                int index = profileExtraFeatures.indexOf(feature);
-                profileExtraFeatures.set(index, profileExtraFeature);
-                return true;
-            }
+    public Boolean update(Long id, ProfileExtraFeature profileExtraFeature) {
+        if (id == null) {
+            return false;
         }
-        return false;
+        if (!repository.existsById(id)) {
+            return false;
+        }
+        repository.save(mapper.map(profileExtraFeature, ProfileExtraFeatureEntity.class));
+        return true;
     }
 
     @Override
     public ProfileExtraFeature searchById(Long id) {
-        for (ProfileExtraFeature feature : profileExtraFeatures) {
-            if (feature.getFeatureID().equals(id)) {
-                return feature;
-            }
+        if (id == null){
+            return null;
         }
-        return null;
+        if (!repository.existsById(id)){
+            return null;
+        }
+        return mapper.map(repository.findById(id), ProfileExtraFeature.class);
     }
 }

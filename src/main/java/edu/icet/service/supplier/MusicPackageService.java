@@ -1,7 +1,6 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.MusicPackage;
-import org.springframework.stereotype.Service;
+import edu.icet.dto.supplier.MusicPackage;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.PhotographerImage;
-import org.springframework.stereotype.Service;
+import edu.icet.dto.supplier.PhotographerImage;
 
 import java.util.List;
 

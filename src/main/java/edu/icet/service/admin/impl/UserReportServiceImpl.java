@@ -1,7 +1,7 @@
 package edu.icet.service.admin.impl;
 
 
-import edu.icet.dto.UserReport;
+import edu.icet.dto.customer.UserReport;
 import edu.icet.service.admin.UserReportService;
 import org.springframework.stereotype.Service;
 import java.util.List;

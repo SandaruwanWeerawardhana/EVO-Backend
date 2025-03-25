@@ -1,7 +1,6 @@
 package edu.icet.service.oauth.impl;
 
-import edu.icet.dto.Supplier;
-import edu.icet.dto.User;
+import edu.icet.dto.customer.User;
 import edu.icet.service.oauth.SignUpService;
 import edu.icet.util.UserType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
