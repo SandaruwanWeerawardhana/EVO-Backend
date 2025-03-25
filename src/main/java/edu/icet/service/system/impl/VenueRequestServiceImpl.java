@@ -60,7 +60,7 @@ public class VenueRequestServiceImpl implements VenueRequestService {
     public List<Venue> getAllVisibleVenues() {
         List<Venue> visibleVenues = new ArrayList<>();
         venueRequestRepository.findAll().forEach(venueRequestEntity -> {
-            if (venueRequestEntity.getStatus()){
+            if (Boolean.TRUE.equals(venueRequestEntity.getStatus())){
                 visibleVenues.add(venueService.findById(venueRequestEntity.getVenueID()));
             }
         });
