@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/system/message")
+@RequestMapping("/system/message/customer-supplier")
 @RequiredArgsConstructor
 @CrossOrigin
 public class MessageCustomerSupplierController {
@@ -21,14 +21,14 @@ public class MessageCustomerSupplierController {
     private final MessageCustomerSupplierService messageService;
 
 
-    @MessageMapping("/chat")
+    @MessageMapping("/chat/customer-supplier")
     @SendTo("/topic/messages")
     public MessageCustomerSupplier handleChatMessage(MessageCustomerSupplier messageCustomerSupplier) {
 
         return messageService.sendMessage(messageCustomerSupplier);
     }
 
-    @MessageMapping("/chat/update")
+    @MessageMapping("/chat/customer-supplier/update")
     @SendTo("/topic/messages")
     public MessageCustomerSupplier handleMessageUpdate(MessageCustomerSupplier messageDTO) {
         MessageCustomerSupplier messageCustomerSupplier = messageService.getMessageById(messageDTO.getMid());
@@ -74,7 +74,7 @@ public class MessageCustomerSupplierController {
         return ResponseEntity.ok(messages);
     }
 
-    @MessageMapping("/message/delete")
+    @MessageMapping("/message/customer-supplier/delete")
     @SendTo("/topic/messages")
     public Long deleteMessage(Long id) {
         if (messageService.deleteMessage(id)) {

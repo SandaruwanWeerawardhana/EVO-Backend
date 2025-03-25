@@ -21,14 +21,14 @@ public class MessageAdminSupplierController {
 
     private final MessageAdminSupplierService messageService;
 
-    @MessageMapping("/chat")
+    @MessageMapping("/chat/admin-supplier")
     @SendTo("/topic/messages")
     public MessageAdminSupplier handleChatMessage(MessageAdminSupplier MessageAdminSupplier) {
 
         return messageService.sendMessage(MessageAdminSupplier);
     }
 
-    @MessageMapping("/chat/update")
+    @MessageMapping("/chat/admin-supplier/update")
     @SendTo("/topic/messages")
     public MessageAdminSupplier handleMessageUpdate(MessageAdminSupplier messageDTO) {
         MessageAdminSupplier MessageAdminSupplier = messageService.getMessageById(messageDTO.getMid());
@@ -74,7 +74,7 @@ public class MessageAdminSupplierController {
         return ResponseEntity.ok(messages);
     }
 
-    @MessageMapping("/message/delete")
+    @MessageMapping("/message/admin-supplier/delete")
     @SendTo("/topic/messages")
     public Long deleteMessage(Long id) {
         if (messageService.deleteMessage(id)) {
