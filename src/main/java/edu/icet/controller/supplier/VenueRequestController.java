@@ -39,5 +39,4 @@ public class VenueRequestController {
     public VenueRequest updateVenueRequest(@RequestBody VenueRequest venueRequest) {
         return venueRequestService.update(venueRequest);
     }
-
 }

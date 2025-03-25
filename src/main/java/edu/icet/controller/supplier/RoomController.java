@@ -12,30 +12,30 @@ import java.util.List;
 @CrossOrigin
 @RestController
 public class RoomController {
-    final RoomService service;
+    final RoomService roomService;
     @PostMapping("/save")
     public void saveRoom(@RequestBody Room room){
-        service.save(room);
+        roomService.save(room);
     }
 
     @GetMapping("/getAll")
     public List<Room> getRoomData(@RequestBody Profile profile){
-        return service.getAll(profile);
+        return roomService.getAll(profile);
     }
 
     @PutMapping("/update")
     public Room updateRoom(@RequestBody Room room){
-        return service.update(room);
+        return roomService.update(room);
     }
 
     @GetMapping("/search/{id}")
     public Room searchRoom(@PathVariable Long id){
-        return service.search(id);
+        return roomService.search(id);
     }
 
     @DeleteMapping("/delete-by-id")
     public boolean deleteById(@RequestParam Long id){
-        return service.delete(id);
+        return roomService.delete(id);
     }
 
 }
