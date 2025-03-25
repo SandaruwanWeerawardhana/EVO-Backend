@@ -1,7 +1,6 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.BeautyPackage;
-import org.springframework.stereotype.Service;
+import edu.icet.dto.supplier.BeautyPackage;
 
 import java.util.List;
 

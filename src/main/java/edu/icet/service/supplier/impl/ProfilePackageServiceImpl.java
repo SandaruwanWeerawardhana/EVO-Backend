@@ -1,8 +1,8 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.ProfilePackages;
-import edu.icet.entity.ProfilePackagesEntity;
-import edu.icet.repository.ProfilePackageRepository;
+import edu.icet.dto.supplier.ProfilePackages;
+import edu.icet.entity.supplier.ProfilePackagesEntity;
+import edu.icet.repository.supplier.ProfilePackageRepository;
 import edu.icet.service.supplier.ProfilePackageService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

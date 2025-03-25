@@ -1,7 +1,6 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.OutdoorArea;
-import edu.icet.entity.OutdoorAreaEntity;
+import edu.icet.dto.supplier.OutdoorArea;
 
 import java.util.List;
 

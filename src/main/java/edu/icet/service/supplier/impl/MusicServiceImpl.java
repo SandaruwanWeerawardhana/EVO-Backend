@@ -1,18 +1,16 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.Music;
-import edu.icet.dto.Supplier;
-import edu.icet.entity.MusicEntity;
-import edu.icet.repository.MusicRepository;
+import edu.icet.dto.supplier.Music;
+import edu.icet.dto.supplier.Supplier;
+import edu.icet.entity.supplier.MusicEntity;
+import edu.icet.repository.supplier.MusicRepository;
 import edu.icet.service.supplier.MusicService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

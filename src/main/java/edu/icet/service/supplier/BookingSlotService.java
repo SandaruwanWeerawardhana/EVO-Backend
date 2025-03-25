@@ -1,7 +1,7 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.BookingSlot;
-import edu.icet.repository.BookingSlotRepository;
+import edu.icet.dto.supplier.BookingSlot;
+
 import java.time.LocalDateTime;
 import java.util.List;
 

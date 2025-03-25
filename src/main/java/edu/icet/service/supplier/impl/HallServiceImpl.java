@@ -1,15 +1,14 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.Hall;
-import edu.icet.dto.Profile;
-import edu.icet.entity.HallEntity;
-import edu.icet.repository.HallReopsitory;
+import edu.icet.dto.supplier.Hall;
+import edu.icet.dto.system.Profile;
+import edu.icet.entity.supplier.HallEntity;
+import edu.icet.repository.supplier.HallReopsitory;
 import edu.icet.service.supplier.HallService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 @Service

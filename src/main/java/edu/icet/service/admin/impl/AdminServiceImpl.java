@@ -1,8 +1,8 @@
 package edu.icet.service.admin.impl;
 
-import edu.icet.dto.Admin;
-import edu.icet.entity.AdminEntity;
-import edu.icet.repository.AdminRepository;
+import edu.icet.dto.admin.Admin;
+import edu.icet.entity.admin.AdminEntity;
+import edu.icet.repository.admin.AdminRepository;
 import edu.icet.service.admin.AdminService;
 import edu.icet.util.AdminType;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @Primary

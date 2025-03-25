@@ -1,5 +1,5 @@
 package edu.icet.service.system;
-import edu.icet.dto.MessageCustomerSupplier;
+import edu.icet.dto.system.MessageCustomerSupplier;
 
 import java.util.List;
 

@@ -1,19 +1,15 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.BeautySaloon;
-import edu.icet.entity.BeautySaloonEntity;
-import edu.icet.repository.BeautySaloonRepository;
-import edu.icet.repository.SupplierRepository;
+import edu.icet.dto.supplier.BeautySaloon;
+import edu.icet.entity.event.BeautySaloonEntity;
+import edu.icet.repository.supplier.BeautySaloonRepository;
+import edu.icet.repository.supplier.SupplierRepository;
 import edu.icet.service.supplier.BeautySaloonService;
-import edu.icet.service.supplier.SupplierService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

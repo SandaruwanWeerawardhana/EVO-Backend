@@ -1,6 +1,6 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.ProfileExtraFeature;
+import edu.icet.dto.supplier.ProfileExtraFeature;
 
 import java.util.List;
 

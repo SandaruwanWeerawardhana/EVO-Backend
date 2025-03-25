@@ -1,8 +1,8 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.Inventory;
-import edu.icet.entity.InventoryEntity;
-import edu.icet.repository.InventoryRepository;
+import edu.icet.dto.supplier.Inventory;
+import edu.icet.entity.supplier.InventoryEntity;
+import edu.icet.repository.supplier.InventoryRepository;
 import edu.icet.service.supplier.InventoryService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -36,11 +36,11 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public List<Inventory> search(String name) {
-        if(name==null){
+    public List<Inventory> search(Long id) {
+        if(id==null){
             return null;
         }
-        List<InventoryEntity> entity = Collections.singletonList(repository.findByInventory(name));
+        List<InventoryEntity> entity = Collections.singletonList(repository.findByInventoryId(id));
         List<Inventory> inventoryList = new ArrayList<>();
         entity.forEach(e -> inventoryList.add(mapper.map(e,Inventory.class)));
         return inventoryList;

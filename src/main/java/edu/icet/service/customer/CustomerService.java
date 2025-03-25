@@ -1,8 +1,6 @@
 package edu.icet.service.customer;
 
-import edu.icet.dto.Admin;
-import edu.icet.dto.Customer;
-import edu.icet.util.AdminType;
+import edu.icet.dto.customer.Customer;
 
 import java.util.List;
 

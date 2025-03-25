@@ -1,7 +1,6 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.PackageFeatureDetail;
-import edu.icet.entity.PackageFeatureDetailEntity;
+import edu.icet.dto.supplier.PackageFeatureDetail;
 
 import java.util.List;
 

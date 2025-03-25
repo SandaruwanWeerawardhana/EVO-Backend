@@ -1,8 +1,8 @@
 package edu.icet.service.event.impl;
 
-import edu.icet.dto.Wedding;
-import edu.icet.entity.WeddingEntity;
-import edu.icet.repository.WeddingRepository;
+import edu.icet.dto.event.Wedding;
+import edu.icet.entity.event.WeddingEntity;
+import edu.icet.repository.event.WeddingRepository;
 import edu.icet.service.event.WeddingEventService;
 import edu.icet.util.WeddingType;
 import lombok.RequiredArgsConstructor;

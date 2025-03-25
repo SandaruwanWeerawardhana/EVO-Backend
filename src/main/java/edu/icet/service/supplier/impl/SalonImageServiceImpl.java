@@ -1,6 +1,6 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.SalonImage;
+import edu.icet.dto.supplier.SalonImage;
 import edu.icet.service.supplier.SalonImageService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

@@ -1,8 +1,8 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.PackageFeatureDetail;
-import edu.icet.entity.PackageFeatureDetailEntity;
-import edu.icet.repository.PackageFeatureDetailRepository;
+import edu.icet.dto.supplier.PackageFeatureDetail;
+import edu.icet.entity.supplier.PackageFeatureDetailEntity;
+import edu.icet.repository.supplier.PackageFeatureDetailRepository;
 import edu.icet.service.supplier.PackageFeatureDetailService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

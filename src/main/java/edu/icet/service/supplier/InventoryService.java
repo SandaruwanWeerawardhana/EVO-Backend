@@ -1,7 +1,6 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.Inventory;
-import edu.icet.dto.Supplier;
+import edu.icet.dto.supplier.Inventory;
 
 import java.util.List;
 
@@ -10,7 +9,7 @@ public interface InventoryService {
 
     Boolean add(Inventory inventory);
 
-    List<Inventory> search(String name);
+    List<Inventory> search(Long id);
 
     Boolean update(Inventory inventory);
 

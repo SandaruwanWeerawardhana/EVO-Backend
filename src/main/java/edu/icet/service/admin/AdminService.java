@@ -1,7 +1,6 @@
 package edu.icet.service.admin;
-import edu.icet.dto.Admin;
+import edu.icet.dto.admin.Admin;
 import edu.icet.util.AdminType;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
