@@ -84,8 +84,6 @@ public class ReviewController {
     }
 
 
-
-
     @GetMapping("/DeleteByReview/{id}")
     public boolean deleteReview(@PathVariable Long id){
         return reviewService.deleteByReview(id);
