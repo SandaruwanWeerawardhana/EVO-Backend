@@ -37,20 +37,16 @@ public class SupplierRequestServiceImpl implements SupplierRequestService {
     private boolean isBookingOverLapped(SupplierRequest supplierRequest){
         List<BookingSlot> bookingSlots = bookingSlotService.getAll();
 
+        LocalDateTime requestTime = supplierRequest.getDueDateTime();
 
-            BookingSlot bookingSlot = new BookingSlot();
-            LocalDateTime startTime = bookingSlot.getStartTime();
-            LocalDateTime endTime = bookingSlot.getEndTime();
+        for (BookingSlot slot : bookingSlots) {
 
-            for (BookingSlot existing : bookingSlots) {
-                LocalDateTime existingStartTime = existing.getStartTime();
-                LocalDateTime existingEndTime = existing.getEndTime();
+            LocalDateTime endTime = slot.getEndTime();
+            boolean overlapped = !requestTime.isAfter(endTime);
 
-                boolean overlap = startTime.isBefore(existingEndTime) && endTime.isBefore(existingStartTime);
-
-                if (overlap) {
-                    return true;
-                }
+            if (overlapped) {
+                return true;
+            }
 
         }
         return false;
