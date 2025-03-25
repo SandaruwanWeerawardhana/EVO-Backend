@@ -1,7 +1,6 @@
 package edu.icet.service.system;
 
-import edu.icet.dto.SearchHistory;
-import org.springframework.stereotype.Service;
+import edu.icet.dto.system.SearchHistory;
 
 import java.util.List;
 
@@ -11,5 +10,4 @@ public interface SearchHistoryService {
     SearchHistory searchSearchHistory(Long id);
     List<SearchHistory> getAllSearchHistory();
     List<SearchHistory> getFilterSearchHistory(String title);
-    boolean deleteAllSearchHistoryByCustomerId(Long id);
 }

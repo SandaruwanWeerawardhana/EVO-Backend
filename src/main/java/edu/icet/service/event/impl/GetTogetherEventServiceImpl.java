@@ -1,6 +1,6 @@
 package edu.icet.service.event.impl;
 
-import edu.icet.dto.GetTogether;
+import edu.icet.dto.event.GetTogether;
 import edu.icet.service.event.GetTogetherEventService;
 import org.springframework.stereotype.Service;
 

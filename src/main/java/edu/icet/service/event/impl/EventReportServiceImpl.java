@@ -1,8 +1,8 @@
 package edu.icet.service.event.impl;
 
-import edu.icet.dto.EventReport;
-import edu.icet.entity.EventReportEntity;
-import edu.icet.repository.EventReportRepository;
+import edu.icet.dto.event.EventReport;
+import edu.icet.entity.event.EventReportEntity;
+import edu.icet.repository.event.EventReportRepository;
 import edu.icet.service.event.EventReportService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

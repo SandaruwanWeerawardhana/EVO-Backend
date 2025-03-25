@@ -1,7 +1,6 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.PhotographerImage;
-import edu.icet.dto.PhotographerPackage;
+import edu.icet.dto.supplier.PhotographerPackage;
 import edu.icet.service.supplier.PhotographerPackageService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

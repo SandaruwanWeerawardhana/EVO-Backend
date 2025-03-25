@@ -1,11 +1,11 @@
 package edu.icet.service.system;
 
-import edu.icet.dto.Chat;
-import org.springframework.stereotype.Service;
-
+import edu.icet.dto.system.Chat;
 
 public interface ChatService {
     boolean create(Chat chat);
+
     Chat getChat(Integer id);
+
     boolean delete(Integer id);
 }

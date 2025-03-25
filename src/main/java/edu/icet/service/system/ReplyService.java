@@ -1,8 +1,6 @@
 package edu.icet.service.system;
 
-import edu.icet.dto.Reply;
-import edu.icet.entity.ReplyEntity;
-import org.springframework.stereotype.Service;
+import edu.icet.dto.system.Reply;
 
 import java.util.List;
 
@@ -17,7 +15,7 @@ public interface ReplyService {
 
     void deleteReplyById(Long replyId);
 
-    ReplyEntity searchReplyById(Long replyId);
+    Reply searchReplyById(Long replyId);
 
     Reply searchReplyByUserId(Long userId);
 

@@ -1,33 +1,23 @@
 package edu.icet.service.system.impl;
 
-import edu.icet.dto.Chat;
+import edu.icet.dto.system.Chat;
 import edu.icet.service.system.ChatService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class ChatServiceImpl implements ChatService {
-    private List<Chat> chatList = new ArrayList<>();
-
     @Override
     public boolean create(Chat chat) {
-        return chatList.add(chat);
+        return false;
     }
 
     @Override
     public Chat getChat(Integer id) {
-        for (Chat chat:chatList){
-            if (chat.getId().equals(id)){
-                return chat;
-            }
-        }
         return null;
     }
 
     @Override
     public boolean delete(Integer id) {
-        return chatList.removeIf(chat -> chat.getId().equals(id));
+        return false;
     }
 }

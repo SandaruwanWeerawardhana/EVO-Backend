@@ -1,14 +1,13 @@
 package edu.icet.service.system.impl;
 
 
-import edu.icet.dto.Reply;
-import edu.icet.entity.ReplyEntity;
-import edu.icet.repository.ReplyRepository;
+import edu.icet.dto.system.Reply;
+import edu.icet.entity.system.ReplyEntity;
+import edu.icet.repository.system.ReplyRepository;
 import edu.icet.service.system.ReplyService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -25,8 +24,7 @@ public class ReplyServiceImpl implements ReplyService {
     private static String BAD_WORDS_FILE_PATH = "src/main/resources/text/profanity.txt";
     private  Set<String> badWords = new HashSet<>();
     private final ModelMapper mapper;
-    @Autowired
-    private  ReplyRepository replyRepository;
+    private final ReplyRepository replyRepository;
 
     @PostConstruct
     public void loadBadWords() {
@@ -42,7 +40,6 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     public void addReply(Reply reply) {
-//        System.out.println(containsBadWords(reply.getText()));
 
         if (containsBadWords(reply.getText())) {
             throw new IllegalArgumentException("This reply cannot be sent coz it contains bad words!!");
@@ -64,24 +61,41 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     public void updateReply(Reply reply) {
+        if (replyRepository.existsById(reply.getReplyId())) {
+            replyRepository.save(mapper.map(reply, ReplyEntity.class));
 
+            return;
+        }
+
+        throw new IllegalArgumentException("Reply doesn't exist!");
     }
 
 
 
     @Override
     public void deleteReplyById(Long replyId) {
-        replyRepository.deleteById(replyId);
+        if (replyRepository.existsById(replyId)) {
+
+            replyRepository.deleteById(replyId);
+            return;
+        }
+
+        throw new IllegalArgumentException("Reply doesn't exist!");
+
     }
 
     @Override
-    public ReplyEntity searchReplyById(Long replyId) {
-        return replyRepository.findById(replyId).orElse(null);
+    public Reply searchReplyById(Long replyId) {
+        ReplyEntity replyEntity = replyRepository.findById(replyId).orElse(null);
+
+        return replyEntity != null ? mapper.map(replyEntity, Reply.class) : null;
     }
 
     @Override
     public Reply searchReplyByUserId(Long userId) {
-        return replyRepository.findByUserId(userId).stream().findFirst().orElse(null);
+        ReplyEntity replyEntity = replyRepository.findByUserId(userId).stream().findFirst().orElse(null);
+
+        return replyEntity != null ? mapper.map(replyEntity, Reply.class) : null;
     }
 
 

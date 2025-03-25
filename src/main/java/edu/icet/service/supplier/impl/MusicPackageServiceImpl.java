@@ -1,7 +1,6 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.BeautyPackage;
-import edu.icet.dto.MusicPackage;
+import edu.icet.dto.supplier.MusicPackage;
 import edu.icet.service.supplier.MusicPackageService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

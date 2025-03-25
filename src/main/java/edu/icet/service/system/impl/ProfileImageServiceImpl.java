@@ -1,6 +1,6 @@
 package edu.icet.service.system.impl;
 
-import edu.icet.dto.ProfileImage;
+import edu.icet.dto.supplier.ProfileImage;
 import edu.icet.service.system.ProfileImageService;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;

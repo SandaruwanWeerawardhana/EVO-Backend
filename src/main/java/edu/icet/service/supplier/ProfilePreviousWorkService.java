@@ -1,8 +1,7 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.Profile;
-import edu.icet.dto.ProfilePreviousWork;
-import org.springframework.stereotype.Service;
+import edu.icet.dto.system.Profile;
+import edu.icet.dto.supplier.ProfilePreviousWork;
 
 import java.util.List;
 
