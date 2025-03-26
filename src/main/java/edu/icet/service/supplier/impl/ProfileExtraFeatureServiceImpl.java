@@ -33,7 +33,7 @@ public class ProfileExtraFeatureServiceImpl implements ProfileExtraFeatureServic
         if (profileExtraFeature == null) {
             return false;
         }
-        if (repository.existsByProfilePreviousWorkId(profileExtraFeature.getFeatureID())) {
+        if (repository.existsById(profileExtraFeature.getFeatureID())) {
             throw new IllegalArgumentException("Already Exist Work");
         }
         repository.save(mapper.map(profileExtraFeature, ProfileExtraFeatureEntity.class));
