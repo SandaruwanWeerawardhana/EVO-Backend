@@ -1,5 +1,6 @@
 package edu.icet.dto.system;
 
+import edu.icet.dto.supplier.Supplier;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -18,7 +19,7 @@ public class Terms {
     private Long termId;
 
     @NotNull
-    private Long profileId;
+    private Supplier supplier;
 
     @NotBlank
     @Size(min = 100)

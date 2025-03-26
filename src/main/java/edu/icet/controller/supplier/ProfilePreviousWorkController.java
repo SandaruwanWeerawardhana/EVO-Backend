@@ -1,7 +1,7 @@
 package edu.icet.controller.supplier;
 
-import edu.icet.dto.system.Profile;
 import edu.icet.dto.supplier.ProfilePreviousWork;
+import edu.icet.dto.supplier.Supplier;
 import edu.icet.service.supplier.ProfilePreviousWorkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +22,8 @@ public class ProfilePreviousWorkController {
     }
 
     @GetMapping("/get-all")
-    public List<ProfilePreviousWork> getAll(@RequestBody Profile profile){
-        return service.getAll(profile);
+    public List<ProfilePreviousWork> getAll(){
+        return service.getAll();
     }
 
     @PutMapping("/update")
