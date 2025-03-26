@@ -1,7 +1,6 @@
 package edu.icet.controller.supplier;
 
 import edu.icet.dto.supplier.Hall;
-import edu.icet.dto.system.Profile;
 import edu.icet.service.supplier.HallService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +21,8 @@ public class HallController {
     }
 
     @GetMapping("/get-all")
-    public List<Hall> getData(@RequestBody Profile profile){
-        return service.getAll(profile);
+    public List<Hall> getData(){
+        return service.getAll();
     }
 
     @PutMapping("/update")

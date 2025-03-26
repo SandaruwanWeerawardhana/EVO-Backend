@@ -1,5 +1,6 @@
 package edu.icet.dto.supplier;
 
+import edu.icet.dto.system.Category;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -13,17 +14,12 @@ public class Supplier {
     @PositiveOrZero(message = "ID must be positive")
     private long userId;
 
-    @NotEmpty(message = "Category ID required")
-    @PositiveOrZero(message = "ID must be positive")
-    private Long categoryId;
+    private Category category;
 
-    @NotEmpty(message = "Profile ID is required")
-    @PositiveOrZero(message = "ID must be positive")
-    private long profileId;
+//    private Terms terms;
 
-    @NotEmpty(message = "Terms ID is required")
-    @PositiveOrZero(message = "ID must be positive")
-    private long termsId;
+    // TODO: Implement TermsEntity by User Feature
+    private Long terms;
 
     @NotEmpty(message = "Business Name is required")
     private String businessName;

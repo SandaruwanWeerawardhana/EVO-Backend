@@ -15,8 +15,7 @@ public class Hall {
     private Long hallId;
 
     @NotNull
-    @NotBlank(message = "PropertyId may not be empty")
-    private Long propertyId;
+    private Property property;
 
     @NotNull
     @NotBlank

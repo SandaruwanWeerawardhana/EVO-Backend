@@ -15,9 +15,12 @@ public class CateringEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Integer cateringId;
-    @Column(nullable = false)
-    private Integer supplierId;
+    private Long cateringId;
+
+    @OneToOne
+    @JoinColumn(name = "supplier_id")
+    private SupplierEntity supplier;
+
     @Column(nullable = false)
     private String availabilityStatus;
 }

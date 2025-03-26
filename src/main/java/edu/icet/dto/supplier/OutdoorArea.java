@@ -15,15 +15,22 @@ import lombok.Setter;
 
 public class OutdoorArea {
     private Long id;
+
     @NotNull
     @NotBlank
     private String name;
+
     @NotNull
     @NotBlank
     private double size;
+
     private Boolean seatingCapacity;
+
     private Boolean lighting;
+
     private Boolean weatherProtection;
+
+    private Property property;
 
 
 }

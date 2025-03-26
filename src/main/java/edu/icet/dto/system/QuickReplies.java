@@ -1,6 +1,7 @@
 
 package edu.icet.dto.system;
 
+import edu.icet.dto.supplier.Supplier;
 import edu.icet.util.CategoryType;
 import jakarta.validation.constraints.*;
         import lombok.AllArgsConstructor;
@@ -20,8 +21,7 @@ public class QuickReplies {
     private Long replyID;
 
     @NotNull
-    @Positive
-    private Long supplierID;
+    private Supplier supplier;
 
     @NotNull
     @Size(min = 5 , max = 225)
