@@ -1,7 +1,7 @@
 package edu.icet.controller.supplier;
 
-import edu.icet.dto.system.Profile;
 import edu.icet.dto.supplier.Room;
+import edu.icet.dto.supplier.Supplier;
 import edu.icet.service.supplier.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +19,8 @@ public class RoomController {
     }
 
     @GetMapping("/getAll")
-    public List<Room> getRoomData(@RequestBody Profile profile){
-        return service.getAll(profile);
+    public List<Room> getRoomData(){
+        return service.getAll();
     }
 
     @PutMapping("/update")

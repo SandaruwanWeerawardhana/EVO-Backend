@@ -22,8 +22,9 @@ public class ProfilePreviousWorkImageEntity {
     private Long profilePreviousWorkImageId;
 
     @NotNull
-    @Column(nullable = false)
-    private Long profilePreviousWorkId;
+    @ManyToOne
+    @JoinColumn(name = "profile_previous_work_id")
+    private ProfilePreviousWorkEntity profilePreviousWork;
 
     @NotBlank
     @Column(nullable = false)

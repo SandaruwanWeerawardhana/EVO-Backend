@@ -18,7 +18,7 @@ public class ProfilePreviousWorkImage {
     private Long profilePreviousWorkImageId;
 
     @NotNull
-    private Long profilePreviousWorkId;
+    private ProfilePreviousWork profilePreviousWork;
 
     @NotBlank
     private String imageUrl;

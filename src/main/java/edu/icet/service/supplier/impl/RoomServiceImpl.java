@@ -1,6 +1,5 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.system.Profile;
 import edu.icet.dto.supplier.Room;
 import edu.icet.entity.supplier.RoomEntity;
 import edu.icet.repository.supplier.RoomRepository;
@@ -19,7 +18,7 @@ public class RoomServiceImpl implements RoomService {
     private final ModelMapper mapper;
 
     @Override
-    public List<Room> getAll(Profile profile) {
+    public List<Room> getAll() {
         List<Room> roomList = new ArrayList<>();
         List<RoomEntity> all = repository.findAll();
 

@@ -15,10 +15,10 @@ public class VenueRequest {
     private Long venueRequestID;
 
     @NotNull(message="Supplier ID cannot be null")
-    private Long supplierId;
+    private Supplier supplier;
 
     @NotNull(message="Venue ID cannot be null")
-    private Long venueID;
+    private Venue venue;
 
     @NotNull(message="Created DateTime cannot be null")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")

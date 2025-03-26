@@ -1,5 +1,6 @@
 package edu.icet.dto.system;
 
+import edu.icet.dto.customer.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -17,12 +18,10 @@ public class Reply {
     private Long replyId;
 
     @NotBlank
-    @Size(min = 1, max = 10)
-    private Long reviewId;
+    private Review review;
 
     @NotBlank
-    @Size(min = 1, max = 10)
-    private Long userId;
+    private User user;
 
     @NotBlank
     private String text;
