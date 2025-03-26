@@ -1,14 +1,21 @@
 package edu.icet.service.system;
 
+import edu.icet.dto.supplier.Venue;
 import edu.icet.dto.supplier.VenueRequest;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface VenueRequestService {
     VenueRequest save(VenueRequest venueRequest);
-    List<VenueRequest> getAll();
-    VenueRequest getById(Long id);
+    Map<List<VenueRequest>,List<Venue>> getAll();
+    Map<VenueRequest,Venue> getById(Long id);
     boolean delete(Long id);
     VenueRequest update(VenueRequest venueRequest);
+    List<Venue> getAllVisibleVenues();
+    List<Venue> getAllVisibleVenuesByLocation(String location);
+    List<Venue> getAllVisibleVenuesByEventType(String eventType);
+
+
 }
