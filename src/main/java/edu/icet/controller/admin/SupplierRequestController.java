@@ -1,6 +1,7 @@
 package edu.icet.controller.admin;
 
-import edu.icet.dto.admin.SupplierRequest;
+
+import edu.icet.dto.supplier.SupplierRequest;
 import edu.icet.service.supplier.SupplierRequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +9,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/supplierRequest")
+@RequestMapping("/supplier/request")
 @RequiredArgsConstructor
 
 public class SupplierRequestController {
