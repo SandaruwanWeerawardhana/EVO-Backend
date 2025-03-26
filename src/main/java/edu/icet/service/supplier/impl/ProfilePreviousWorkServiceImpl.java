@@ -13,9 +13,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class ProfilePreviousWorkServiceImpl implements ProfilePreviousWorkService {
-
     private final ModelMapper mapper;
     private final ProfilePreviousWorkRepository repository;
+
     @Override
     public List<ProfilePreviousWork> getAll() {
         return repository.findAll()
