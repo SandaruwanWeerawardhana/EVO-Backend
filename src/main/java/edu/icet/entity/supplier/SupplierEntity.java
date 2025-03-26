@@ -20,17 +20,13 @@ public class SupplierEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
 
-    @NotEmpty(message = "Category ID required")
-    @PositiveOrZero(message = "ID must be positive")
-    private Long categoryId;
+    @OneToOne
+    @JoinColumn(name = "category_id")
+    private CategoryEntity category;
 
-    @NotEmpty(message = "Profile ID is required")
-    @PositiveOrZero(message = "ID must be positive")
-    private long profileId;
 
-    @NotEmpty(message = "Terms ID is required")
-    @PositiveOrZero(message = "ID must be positive")
-    private long termsId;
+    // TODO: Implement TermsEntity by User Feature
+    private Long terms;
 
     @NotEmpty(message = "Business Name is required")
     private String businessName;
@@ -55,6 +51,4 @@ public class SupplierEntity {
 
     private Boolean availability;
 
-	@OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
-	private List<EventSupplierEntity> eventSuppliers;
 }

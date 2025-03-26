@@ -1,5 +1,6 @@
-package edu.icet.dto.admin;
+package edu.icet.dto.supplier;
 
+import edu.icet.dto.customer.Customer;
 import edu.icet.dto.supplier.Location;
 import edu.icet.util.SupplerRequestStatusType;
 import jakarta.validation.constraints.NotNull;
@@ -15,11 +16,11 @@ import java.time.LocalDateTime;
 public class SupplierRequest {
     private Long id;
 
-    @NotNull(message = "SupplierId not be empty")
-    private Long supplierId;
+    @NotNull(message = "Supplier not be empty")
+    private Supplier supplier;
 
-    @NotNull(message = "CustomerId not be empty")
-    private Long customerId;
+    @NotNull(message = "Customer not be empty")
+    private Customer customer;
 
     @NotNull(message = "RequestDate not be empty")
     private LocalDateTime requestDate;
