@@ -54,7 +54,7 @@ public class ProfileExtraFeatureServiceImpl implements ProfileExtraFeatureServic
         if (featureName==null || featurePrice==null){
             return false;
         }
-        repository.deleteExtraFeaturesPriceAndName(featurePrice,featureName);
+        repository.deleteByFeaturePriceAndFeatureName(featurePrice,featureName);
         return true;
     }
     @Override
@@ -65,12 +65,7 @@ public class ProfileExtraFeatureServiceImpl implements ProfileExtraFeatureServic
         if (!repository.existsById(id)) {
             return false;
         }
-        if (repository.updateExtraFeaturesName(profileExtraFeature.getFeatureName())){
-            throw new IllegalArgumentException("Feature Name Updated !");
-        }
-        if (repository.updateExtraFeaturesPrice(profileExtraFeature.getFeaturePrice())){
-            throw new IllegalArgumentException("Feature Price Updated !");
-        }
+
         repository.save(mapper.map(profileExtraFeature, ProfileExtraFeatureEntity.class));
         return true;
     }
