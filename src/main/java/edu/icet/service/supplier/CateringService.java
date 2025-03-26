@@ -1,6 +1,7 @@
 package edu.icet.service.supplier;
 
 import edu.icet.dto.supplier.Catering;
+import edu.icet.dto.supplier.Supplier;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,5 +12,5 @@ public interface CateringService {
     Optional<Catering> getCateringById(Integer cateringId);
     List<Catering> getAllCatering();
     void deleteCatering(Integer cateringId);
-    List<Catering> getCateringBySupplierId(Integer supplierId);
+    List<Catering> getCateringBySupplierId(Supplier supplier);
 }

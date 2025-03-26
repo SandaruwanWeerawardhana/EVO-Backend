@@ -1,6 +1,7 @@
 package edu.icet.service.supplier.impl;
-import edu.icet.dto.system.Profile;
+
 import edu.icet.dto.supplier.ProfilePreviousWork;
+import edu.icet.dto.supplier.Supplier;
 import edu.icet.entity.supplier.ProfilePreviousWorkEntity;
 import edu.icet.repository.supplier.ProfilePreviousWorkRepository;
 import edu.icet.service.supplier.ProfilePreviousWorkService;
@@ -16,7 +17,7 @@ public class ProfilePreviousWorkServiceImpl implements ProfilePreviousWorkServic
     private final ProfilePreviousWorkRepository repository;
 
     @Override
-    public List<ProfilePreviousWork> getAll(Profile profile) {
+    public List<ProfilePreviousWork> getAll() {
         return repository.findAll()
                 .stream()
                 .map(profilePreviousWorkEntity -> mapper.map(profilePreviousWorkEntity, ProfilePreviousWork.class))
@@ -43,8 +44,8 @@ public class ProfilePreviousWorkServiceImpl implements ProfilePreviousWorkServic
         if (profilePreviousWork != null) {
             if (profilePreviousWork.getPreviousWorkID() != null) {
                 return searchByPreviousWorkID(profilePreviousWork.getPreviousWorkID());
-            } else if (profilePreviousWork.getProfileID() != null) {
-                return searchByProfileID(profilePreviousWork.getProfileID());
+            } else {
+                return searchBySupplier(profilePreviousWork.getSupplier());
             }
         }
         return null;
@@ -56,8 +57,8 @@ public class ProfilePreviousWorkServiceImpl implements ProfilePreviousWorkServic
         return entity != null ? mapper.map(entity, ProfilePreviousWork.class) : null;
     }
 
-    private ProfilePreviousWork searchByProfileID(Long profileID) {
-        ProfilePreviousWorkEntity entity = repository.findByProfileID(profileID);
+    private ProfilePreviousWork searchBySupplier(Supplier supplier) {
+        ProfilePreviousWorkEntity entity = repository.findBySupplier(supplier);
 
         return entity != null ? mapper.map(entity, ProfilePreviousWork.class) : null;
     }
@@ -65,7 +66,7 @@ public class ProfilePreviousWorkServiceImpl implements ProfilePreviousWorkServic
 
     @Override
     public boolean update(ProfilePreviousWork profilePreviousWork) {
-       if (repository.existsById(profilePreviousWork.getProfileID())) {
+       if (repository.existsById(profilePreviousWork.getPreviousWorkID())) {
            repository.save(mapper.map(profilePreviousWork, ProfilePreviousWorkEntity.class));
            return true;
        }

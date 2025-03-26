@@ -1,7 +1,9 @@
 package edu.icet.controller.system;
 
+import edu.icet.dto.customer.User;
 import edu.icet.dto.system.Reply;
 import edu.icet.service.system.ReplyService;
+import edu.icet.service.system.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import java.util.List;
 
 public class ReplyController {
     final ReplyService service;
+    final UserService userService;
 
     @PostMapping("/add-reply")
     public ResponseEntity<String> addReply(@RequestBody Reply reply) {
@@ -44,7 +47,14 @@ public class ReplyController {
 
     @GetMapping("/search-reply-by-user-id/{userId}")
     public Reply searchReplyByUserId(@PathVariable Long userId){
-        return service.searchReplyByUserId(userId);
+
+        User currentUser = userService.getAllUsers()
+                .stream()
+                .filter(user -> user.getUserId() == userId)
+                .findFirst()
+                .orElse(null);
+
+        return service.searchReplyByUserId(currentUser);
     }
 
 }
