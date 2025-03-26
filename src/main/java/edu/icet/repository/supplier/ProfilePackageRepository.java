@@ -8,5 +8,5 @@ import java.util.List;
 public interface ProfilePackageRepository extends JpaRepository<ProfilePackagesEntity,Long> {
     List<ProfilePackagesEntity> getAllByPackageId(Long id);
     ProfilePackagesEntity findByPackageName(String name);
-    boolean existsPackageName(String name);
+    boolean existsByPackageName(String name);
 }

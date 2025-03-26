@@ -20,7 +20,7 @@ public class ProfilePackageServiceImpl implements ProfilePackageService {
     @Override
     public void addPackage(ProfilePackages profilePackage) {
 
-        if (repository.existsPackageName(profilePackage.getPackageName())){
+        if (repository.existsByPackageName(profilePackage.getPackageName())){
             throw new IllegalArgumentException("PackageName is already exits");
         }
 

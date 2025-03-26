@@ -50,11 +50,11 @@ public class SupplierServiceImpl implements SupplierService {
             throw new IllegalArgumentException("Email is already exits");
         }
 
-        if (repository.existsByNumber(supplier.getPhoneNumber())) {
+        if (repository.existsByPhoneNumber(supplier.getPhoneNumber())) {
             throw new IllegalArgumentException("phone number is already exists");
         }
 
-        if (repository.existsBusinessName(supplier.getBusinessName())){
+        if (repository.existsByBusinessName(supplier.getBusinessName())){
             throw new IllegalArgumentException("Business name is already exists");
         }
 
