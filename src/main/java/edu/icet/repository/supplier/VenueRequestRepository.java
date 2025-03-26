@@ -10,6 +10,6 @@ public interface VenueRequestRepository extends JpaRepository<VenueRequestEntity
 
     List<VenueRequestEntity> findBySupplier(SupplierEntity supplier);
     List<VenueRequestEntity> findByVenue(VenueEntity venue);
-    List<VenueRequestEntity> findByStatus(String status);
+    List<VenueRequestEntity> findByStatus(Boolean status);
 
 }

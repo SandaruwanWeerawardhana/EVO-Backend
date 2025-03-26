@@ -3,6 +3,7 @@ package edu.icet.controller.supplier;
 import edu.icet.dto.supplier.Venue;
 import edu.icet.dto.supplier.VenueRequest;
 import edu.icet.service.system.VenueRequestService;
+import edu.icet.util.EventType;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -54,7 +55,7 @@ public class VenueRequestController {
     }
 
     @GetMapping("/get-all-visible-venues-by-eventType/{eventType}")
-    public List<Venue> getAllVisibleVenuesByEventType(@PathVariable String eventType) {
+    public List<Venue> getAllVisibleVenuesByEventType(@PathVariable EventType eventType) {
         return venueRequestService.getAllVisibleVenuesByEventType(eventType);
     }
 

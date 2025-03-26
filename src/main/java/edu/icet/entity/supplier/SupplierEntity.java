@@ -1,6 +1,7 @@
 package edu.icet.entity.supplier;
 
 import edu.icet.entity.event.EventSupplierEntity;
+import edu.icet.entity.system.TermsEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -24,9 +25,9 @@ public class SupplierEntity {
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
 
-
-    // TODO: Implement TermsEntity by User Feature
-    private Long terms;
+    @OneToOne
+    @JoinColumn(name = "terms_id")
+    private TermsEntity terms;
 
     @NotEmpty(message = "Business Name is required")
     private String businessName;

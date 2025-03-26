@@ -6,6 +6,7 @@ import edu.icet.entity.supplier.VenueRequestEntity;
 import edu.icet.repository.supplier.VenueRequestRepository;
 import edu.icet.service.supplier.VenueService;
 import edu.icet.service.system.VenueRequestService;
+import edu.icet.util.EventType;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class VenueRequestServiceImpl implements VenueRequestService {
         List<Venue> venueList = new ArrayList<>();
         venueRequestRepository.findAll().forEach(venueRequestEntity ->{
             venueRequestList.add(mapper.map(venueRequestEntity, VenueRequest.class));
-            venueList.add(venueService.findById(venueRequestEntity.getVenueID()));
+            venueList.add(venueService.findById(venueRequestEntity.getVenue().getVenueId()));
         });
         return Map.of(venueRequestList,venueList);
     }
@@ -41,7 +42,7 @@ public class VenueRequestServiceImpl implements VenueRequestService {
     @Override
     public Map<VenueRequest,Venue> getById(Long id) {
         VenueRequest venueRequest = mapper.map(venueRequestRepository.findById(id), VenueRequest.class);
-        Venue venue = mapper.map(venueService.findById(venueRequest.getVenueID()), Venue.class);
+        Venue venue = mapper.map(venueService.findById(venueRequest.getVenue().getVenueId()), Venue.class);
         return Map.of(venueRequest,venue);
     }
 
@@ -61,7 +62,7 @@ public class VenueRequestServiceImpl implements VenueRequestService {
         List<Venue> visibleVenues = new ArrayList<>();
         venueRequestRepository.findAll().forEach(venueRequestEntity -> {
             if (Boolean.TRUE.equals(venueRequestEntity.getStatus())){
-                visibleVenues.add(venueService.findById(venueRequestEntity.getVenueID()));
+                visibleVenues.add(venueService.findById(venueRequestEntity.getVenue().getVenueId()));
             }
         });
         return visibleVenues;
@@ -71,19 +72,19 @@ public class VenueRequestServiceImpl implements VenueRequestService {
     public List<Venue> getAllVisibleVenuesByLocation(String location) {
         List<Venue> visibleVenuesByLocation = new ArrayList<>();
         venueRequestRepository.findAll().forEach(venueRequestEntity -> {
-           if(venueService.findById(venueRequestEntity.getVenueID()).getLocation().equals(location)) {
-               visibleVenuesByLocation.add(venueService.findById(venueRequestEntity.getVenueID()));
+           if(venueRequestEntity.getVenue().getLocation().equals(location)) {
+               visibleVenuesByLocation.add(venueService.findById(venueRequestEntity.getVenue().getVenueId()));
            }
         });
         return visibleVenuesByLocation;
     }
 
     @Override
-    public List<Venue> getAllVisibleVenuesByEventType(String eventType) {
+    public List<Venue> getAllVisibleVenuesByEventType(EventType eventType) {
         List<Venue> visibleVenuesByEventType = new ArrayList<>();
         venueRequestRepository.findAll().forEach(venueRequestEntity -> {
-            if(venueService.findByEventType(venueRequestEntity.getVenueID()).getEventType().equals(eventType)){
-                visibleVenuesByEventType.add(venueService.findById(venueRequestEntity.getVenueID()));
+            if(venueRequestEntity.getVenue().getEventType().equals(eventType)){
+                visibleVenuesByEventType.add(venueService.findById(venueRequestEntity.getVenue().getVenueId()));
             }
         });
         return visibleVenuesByEventType;

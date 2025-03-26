@@ -1,6 +1,9 @@
 package edu.icet.dto.supplier;
 
 import edu.icet.dto.system.Category;
+import edu.icet.dto.system.Terms;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -16,10 +19,9 @@ public class Supplier {
 
     private Category category;
 
-//    private Terms terms;
-
-    // TODO: Implement TermsEntity by User Feature
-    private Long terms;
+    @OneToOne
+    @JoinColumn(name = "terms_id")
+    private Terms terms;
 
     @NotEmpty(message = "Business Name is required")
     private String businessName;
