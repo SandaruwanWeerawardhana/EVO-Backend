@@ -23,9 +23,9 @@ public class VenueServiceImpl implements VenueService {
 
         List<Venue> venues = new ArrayList<>();
 
-        all.forEach(venueEntity -> {
-            venues.add(mapper.map(venueEntity,Venue.class));
-        });
+        all.forEach(venueEntity ->
+            venues.add(mapper.map(venueEntity,Venue.class))
+        );
         return venues;
     }
 
@@ -60,6 +60,16 @@ public class VenueServiceImpl implements VenueService {
     @Override
     public Venue search(Long id){
         return mapper.map(repository.findById(id),Venue.class);
+    }
+
+    @Override
+    public Venue findById(Long venueID) {
+        return null;
+    }
+
+    @Override
+    public Venue findByEventType(Long venueID) {
+        return null;
     }
 
 

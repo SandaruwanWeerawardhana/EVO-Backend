@@ -67,7 +67,6 @@ public class SupplierServiceImpl implements SupplierService {
         return getAll().stream()
                 .filter(s ->
                         (query.getUserId() != 0 && Objects.equals(s.getUserId(), query.getUserId())) ||
-                                (query.getProfileId() != 0 && Objects.equals(s.getProfileId(), query.getProfileId())) ||
                                 (query.getBusinessName() != null && s.getBusinessName().equalsIgnoreCase(query.getBusinessName())) ||
                                 (query.getEmail() != null && s.getEmail().equalsIgnoreCase(query.getEmail())) ||
                                 (query.getPhoneNumber() != null && s.getPhoneNumber().equals(query.getPhoneNumber()))

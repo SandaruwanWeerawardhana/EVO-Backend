@@ -15,6 +15,6 @@ public interface EventRepository extends JpaRepository<EventEntity,Long> {
     List<EventEntity> findAllByUserId(Long userId);
     List<EventEntity> findAllByEventDate(Date date);
 
-    List<EventEntity> findAllByLocationId(Integer locationId);
+    List<EventEntity> findAllByLocationId(Long locationId);
 }
 

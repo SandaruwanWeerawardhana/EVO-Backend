@@ -11,11 +11,9 @@ import lombok.NoArgsConstructor;
 public class Catering {
     @NotNull(message = "Catering ID cannot be null")
     @Min(value = 1, message = "Catering ID must be a positive number")
-    private Integer cateringId;
+    private Long cateringId;
 
-    @NotNull(message = "Supplier ID cannot be null")
-    @Min(value = 1, message = "Supplier ID must be a positive number")
-    private Integer supplierId;
+    private Supplier supplier;
 
     @NotBlank(message = "Service availability is required")
     private String availabilityStatus;

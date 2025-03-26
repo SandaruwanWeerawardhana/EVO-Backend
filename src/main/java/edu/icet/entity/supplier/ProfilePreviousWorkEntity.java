@@ -1,5 +1,6 @@
 package edu.icet.entity.supplier;
 
+import edu.icet.entity.customer.CustomerEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,11 +19,13 @@ public class ProfilePreviousWorkEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long previousWorkID;
 
-    @Column(nullable = false)
-    private Long  profileID;
+    @ManyToOne
+    @JoinColumn(name = "supplier_id")
+    private SupplierEntity  supplier;
 
-    @Column(nullable = false)
-    private Long  customerID;
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = true)
+    private CustomerEntity customer; // Customers can also be null
 
     @Column(nullable = false)
     private String title;
