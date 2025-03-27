@@ -24,9 +24,7 @@ public class VenueController {
     final PropertyImageService propertyImageService;
     final OutdoorAreaService outdoorAreaService;
     final PropertyService propertyService;
-
     final VenueRequestService venueRequestService;
-
 
     @PostMapping("/save-venue")
     public void saveVenue(@RequestBody Venue venue){
@@ -144,7 +142,6 @@ public class VenueController {
     @DeleteMapping("/property/image/delete-property-image/{id}")
     public boolean deletePropertyImage(@PathVariable Long id) {
         return propertyImageService.delete(id);
-
     }
 
     @PutMapping("/property/image/update-property-image")

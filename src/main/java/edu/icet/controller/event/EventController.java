@@ -23,17 +23,10 @@ import java.util.List;
 public class EventController {
 
     private final EventService eventService;
-    //anniversary Event service
     private final AnniversaryEventService anniversaryEventService;
-
-    //event summary
     private final EventSummaryService eventSummaryService;
-
-     //get together
-     private final GetTogetherEventService getTogetherEventService;
-
+    private final GetTogetherEventService getTogetherEventService;
     private final AgendaService agendaService;
-
     private final BirthdayPartyEventService birthdayPartyEventService;
 
     @PostMapping("/add")
@@ -58,7 +51,7 @@ public class EventController {
 
     @PutMapping("/update")
     public ResponseEntity<Event> updateEvent(@RequestBody Event event) {
-        return  ResponseEntity.ok(eventService.updateEvent(event,event.getEventId()));
+        return ResponseEntity.ok(eventService.updateEvent(event, event.getEventId()));
     }
 
     @GetMapping("/get-by-venue")
@@ -70,7 +63,7 @@ public class EventController {
     public List<Event> getEventsByEventType(@PathVariable("eventType") EventType eventType) {
         return eventService.getEventsByEventType(eventType);
     }
-  
+
     @PostMapping("/save-anniversary")
     public boolean addAnniversary(@RequestBody Anniversary anniversary) {
         return anniversaryEventService.add(anniversary);
@@ -99,55 +92,55 @@ public class EventController {
     //event Summary Controller
 
     @PostMapping("/add-summary")
-    public boolean add(@RequestBody EventSummary eventSummary){
+    public boolean add(@RequestBody EventSummary eventSummary) {
         return eventSummaryService.add(eventSummary);
     }
 
     @GetMapping("/get-all-summary")
-    public List<EventSummary> getAllSummary(){
+    public List<EventSummary> getAllSummary() {
         return eventSummaryService.getAll();
     }
 
     @DeleteMapping("/delete-summary/{id}")
-    public boolean deleteSummary(@PathVariable("id") Integer id){
+    public boolean deleteSummary(@PathVariable("id") Integer id) {
         return eventSummaryService.delete(id);
     }
 
     @PutMapping("/update-summary")
-    public boolean updateSummary(@RequestBody EventSummary eventSummary){
+    public boolean updateSummary(@RequestBody EventSummary eventSummary) {
         return eventSummaryService.update(eventSummary);
     }
 
     @GetMapping("/get-summary/{id}")
-    public EventSummary getById(@PathVariable("id") Integer id){
+    public EventSummary getById(@PathVariable("id") Integer id) {
         return eventSummaryService.getById(id);
     }
 
     //getTogether
 
     @PostMapping("/add-get-together")
-    public boolean addGetTogether(@RequestBody GetTogether getTogether){
+    public boolean addGetTogether(@RequestBody GetTogether getTogether) {
 
         return getTogetherEventService.add(getTogether);
     }
 
     @GetMapping("/get-all-get-together")
-    public List<GetTogether> getAllGetTogethers(){
+    public List<GetTogether> getAllGetTogethers() {
         return getTogetherEventService.getAll();
     }
 
     @GetMapping("/search-getTogether/{id}")
-    public GetTogether getSearchGetTogether(@PathVariable("id") Integer id){
+    public GetTogether getSearchGetTogether(@PathVariable("id") Integer id) {
         return getTogetherEventService.get(id);
     }
 
     @DeleteMapping("/delete-get-together/{id}")
-    public boolean deleteGetTogether(@PathVariable("id") Integer id){
+    public boolean deleteGetTogether(@PathVariable("id") Integer id) {
         return getTogetherEventService.delete(id);
     }
 
     @PutMapping("/update-getTogether")
-    public boolean updateGetTogether(@RequestBody GetTogether  getTogether){
+    public boolean updateGetTogether(@RequestBody GetTogether getTogether) {
         return getTogetherEventService.update(getTogether);
     }
 

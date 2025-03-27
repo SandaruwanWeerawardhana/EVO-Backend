@@ -35,6 +35,7 @@ public class ReplyController {
     public List<Reply> getAllReplies(){
         return service.getAllReplies();
     }
+
     @PutMapping("/update-reply")
     public void updateReply(@RequestBody Reply reply){
         service.updateReply(reply);

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 public class SignUpController {
     private final SignUpService signUpService;
 
-
     @GetMapping("/google")
     public ResponseEntity<Boolean> google(OAuth2AuthenticationToken token, @RequestParam String userType) {
         return   ResponseEntity.ok(signUpService.AuthenticateUser(token,userType)) ;
@@ -23,6 +22,4 @@ public class SignUpController {
     public ResponseEntity<Boolean> facebook(OAuth2AuthenticationToken token, @RequestParam String userType) {
         return   ResponseEntity.ok(signUpService.AuthenticateUser(token,userType)) ;
     }
-
-
 }

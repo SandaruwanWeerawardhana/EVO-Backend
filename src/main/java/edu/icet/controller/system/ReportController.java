@@ -35,7 +35,6 @@ public class ReportController {
         }
     }
 
-
     @PutMapping("/update/{reportId}")
     public ResponseEntity<String> updateReport(@PathVariable Long reportId, @Valid @RequestBody Report report) {
         if (service.updateReport(reportId, report)) {
