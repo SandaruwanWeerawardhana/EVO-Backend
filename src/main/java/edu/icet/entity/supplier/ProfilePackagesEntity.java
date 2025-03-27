@@ -1,5 +1,6 @@
 package edu.icet.entity.supplier;
 
+import edu.icet.entity.event.EventSummaryEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -46,4 +47,7 @@ public class ProfilePackagesEntity {
     @OneToMany
     @JoinColumn(name = "profile_id")
     private List<ProfileExtraFeatureEntity> featureList;
+
+    @ManyToMany
+    private List<EventSummaryEntity> summaryEntities;
 }
