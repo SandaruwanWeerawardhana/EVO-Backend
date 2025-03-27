@@ -44,8 +44,7 @@ public class ProfilePackagesEntity {
     @Column(nullable = false)
     private String status;
 
-    @OneToMany(mappedBy = "profile_packages", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SupplierRequestEntity> supplierRequestList;
 
     @OneToMany

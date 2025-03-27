@@ -32,7 +32,7 @@ public class SupplierRequestEntity {
     @JoinColumn(name = "event_summary_id", nullable = false)
     private EventSummaryEntity eventSummaryEntity;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "package_id")
     private ProfilePackagesEntity request_package;
 
