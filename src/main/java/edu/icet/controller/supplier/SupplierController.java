@@ -40,4 +40,5 @@ public class SupplierController {
     public void update(@RequestBody Supplier supplier){
         supplierService.update(supplier);
     }
+
 }

@@ -1,5 +1,6 @@
 package edu.icet.entity.supplier;
 
+import edu.icet.entity.event.EventEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class LocationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long locationId;
+    private Integer locationId;
 
     @Column(name = "city", nullable = false)
     private String city;
@@ -25,4 +28,6 @@ public class LocationEntity {
     @Column(name = "village", nullable = false)
     private String village;
 
+    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
+    private List<EventEntity> events;
 }
