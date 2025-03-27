@@ -1,8 +1,6 @@
 package edu.icet.dto.supplier;
 
 import edu.icet.dto.system.Category;
-import edu.icet.dto.system.Terms;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -11,36 +9,31 @@ import lombok.*;
 @ToString
 @Data
 public class Supplier {
-
     @PositiveOrZero(message = "ID must be positive")
     private long userId;
 
-    @NotBlank(message = "firstName cannot be empty")
-    @NotNull
+    @NotBlank(message = "First Name cannot be empty")
     private String firstName;
 
-    @NotBlank(message = "lastName cannot be empty")
+    @NotBlank(message = "Last Name cannot be empty")
     private String lastName;
 
     @NotBlank(message = "Email cannot be empty")
     @Email(message = "Invalid email format")
     private String email;
 
-    @NotBlank(message = "Email cannot be empty")
-    @NotNull
+    @NotBlank(message = "Password cannot be empty")
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,}$",
-            message = "password must be at least 8 characters, contain a number, an uppercase letter, and a special character.")
+            message = "Password must be at least 8 characters, contain a number, an uppercase letter, and a special character.")
     private String password;
 
     @NotBlank(message = "Phone number cannot be empty")
-    @NotNull
     @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be exactly 10 digits")
     private String contactNumber;
 
     @NotBlank(message = "Business Name is required")
     private String businessName;
 
-    @Enumerated(EnumType.STRING)
     private Category category;
 
     @NotBlank(message = "Description is required")
@@ -50,7 +43,6 @@ public class Supplier {
     private String profilePictureImageUrl;
     private Boolean availability;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "terms_id")
-    private Terms terms;
+    @NotNull(message = "Terms must be accepted")
+    private Long termsId;
 }

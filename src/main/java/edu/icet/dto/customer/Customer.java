@@ -11,7 +11,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Customer {
-
     @PositiveOrZero(message = "ID must be positive")
     private Long id;
 

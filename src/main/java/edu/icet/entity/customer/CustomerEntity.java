@@ -1,9 +1,7 @@
 package edu.icet.entity.customer;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,20 +10,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "customer")
+@Table(name = "customers")
 public class CustomerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Name cannot be empty")
-    private String name;
+    @NotBlank
+    private String firstName;
 
-    @NotBlank(message = "Email cannot be empty")
-    @Email(message = "Invalid email format")
+    @NotBlank
+    private String lastName;
+
+    @Email
+    @NotBlank
     private String email;
 
-    @NotBlank(message = "Phone number cannot be empty")
-    @Pattern(regexp = "^(?:\\+94|0)(7[01245678]\\d{7})$", message = "Phone number must be exactly 10 digits")
+    @NotBlank
+    private String password;
+
+    @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be exactly 10 digits")
     private String contactNumber;
 }
