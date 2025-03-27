@@ -2,9 +2,13 @@ package edu.icet.controller.supplier;
 
 import edu.icet.dto.supplier.*;
 import edu.icet.service.supplier.*;
+import edu.icet.service.system.VenueRequestService;
+import edu.icet.util.EventType;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @CrossOrigin
@@ -20,6 +24,9 @@ public class VenueController {
     final PropertyImageService propertyImageService;
     final OutdoorAreaService outdoorAreaService;
     final PropertyService propertyService;
+
+    final VenueRequestService venueRequestService;
+
 
     @PostMapping("/save-venue")
     public void saveVenue(@RequestBody Venue venue){
@@ -186,5 +193,45 @@ public class VenueController {
     @DeleteMapping("/property/delete-by-id")
     public boolean deletePropertyById(@RequestParam Long id){
         return propertyService.delete(id);
+    }
+
+    @PostMapping("/request/add")
+    public VenueRequest addVenueRequest(@Valid @io.swagger.v3.oas.annotations.parameters.RequestBody VenueRequest venueRequest) {
+        return venueRequestService.save(venueRequest);
+    }
+
+    @GetMapping("/request/getAll")
+    public Map<List<VenueRequest>,List<Venue>> getAllVenueRequests() {
+        return venueRequestService.getAll();
+    }
+
+    @GetMapping("/request/search/{id}")
+    public Map<VenueRequest,Venue> searchById(@Valid @PathVariable("id") Long id) {
+        return venueRequestService.getById(id);
+    }
+
+    @DeleteMapping("/request/delete/{id}")
+    public boolean deleteVenueRequest(@Valid @PathVariable("id") Long id) {
+        return venueRequestService.delete(id);
+    }
+
+    @PutMapping("/request/update")
+    public VenueRequest updateVenueRequest(@Valid @io.swagger.v3.oas.annotations.parameters.RequestBody VenueRequest venueRequest) {
+        return venueRequestService.update(venueRequest);
+    }
+
+    @GetMapping("/request/get-all-visible-venues")
+    public List<Venue> getAllVisibleVenues() {
+        return venueRequestService.getAllVisibleVenues();
+    }
+
+    @GetMapping("/request/get-all-visible-venues-by-location/{location}")
+    public List<Venue> getAllVisibleVenuesByLocation(@PathVariable String location) {
+        return venueRequestService.getAllVisibleVenuesByLocation(location);
+    }
+
+    @GetMapping("/request/get-all-visible-venues-by-eventType/{eventType}")
+    public List<Venue> getAllVisibleVenuesByEventType(@PathVariable EventType eventType) {
+        return venueRequestService.getAllVisibleVenuesByEventType(eventType);
     }
 }
