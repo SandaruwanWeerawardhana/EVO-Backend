@@ -1,4 +1,4 @@
-package edu.icet.controller.admin;
+package edu.icet.controller.supplier;
 
 import edu.icet.dto.supplier.SupplierRequest;
 import edu.icet.service.supplier.SupplierRequestService;

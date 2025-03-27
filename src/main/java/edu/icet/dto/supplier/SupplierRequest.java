@@ -22,6 +22,9 @@ public class SupplierRequest {
     @NotNull(message = "Customer not be empty")
     private Customer customer;
 
+    @NotNull(message = "Profile Package not be empty")
+    private ProfilePackages packages;
+
     @NotNull(message = "RequestDate not be empty")
     private LocalDateTime requestDate;
 
