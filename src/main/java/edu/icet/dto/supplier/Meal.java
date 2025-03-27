@@ -11,8 +11,11 @@ import lombok.*;
 public class Meal {
     @NonNull
     private Long id;
+
     @NonNull
     private String name;
+
+    private Catering catering;
 
     @NonNull
     @Positive

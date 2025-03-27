@@ -1,5 +1,7 @@
 package edu.icet.entity.event;
 
+import edu.icet.entity.supplier.LocationEntity;
+import edu.icet.entity.supplier.VenueEntity;
 import edu.icet.util.BudgetType;
 import edu.icet.util.EventStatusType;
 import edu.icet.util.EventType;
@@ -38,8 +40,13 @@ public class EventEntity {
     @Column(name = "end_time",nullable = false)
     private Time endTime;
 
-    @Column(name ="location_Id")
-    private Integer locationId;
+    @ManyToOne
+    @JoinColumn(name = "venue_id")
+    private VenueEntity venue;
+
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private LocationEntity location;
 
     @Column(name = "event_type",nullable = false)
     @Enumerated(EnumType.STRING)

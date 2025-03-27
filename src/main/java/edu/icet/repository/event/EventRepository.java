@@ -4,6 +4,7 @@ import edu.icet.entity.event.EventEntity;
 import edu.icet.util.BudgetType;
 import edu.icet.util.EventType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.sql.Date;
 import java.util.List;
@@ -15,6 +16,7 @@ public interface EventRepository extends JpaRepository<EventEntity,Long> {
     List<EventEntity> findAllByUserId(Long userId);
     List<EventEntity> findAllByEventDate(Date date);
 
-    List<EventEntity> findAllByLocationId(Integer locationId);
+    @Query("SELECT e FROM EventEntity e WHERE e.venue.id = ?1")
+    List<EventEntity> findAllByVenueId(Long venueId);
 }
 
