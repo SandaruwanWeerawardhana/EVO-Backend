@@ -23,7 +23,7 @@ public class Venue {
     @Positive
     private Supplier supplier;
     @NotEmpty(message = "location can not be null")
-    private Location location;
+    private String location;
     @NotEmpty(message = "venue type can not be null")
     @Enumerated(EnumType.STRING)
     private EventType eventType;

@@ -34,7 +34,8 @@ public class ProfilePackagesEntity {
     private String packageName;
 
     @NotNull
-    @DecimalMax("10.0") @DecimalMin("0.0")
+    @DecimalMax("10.0")
+    @DecimalMin("0.0")
     @Column(nullable = false)
     private Double price;
 
