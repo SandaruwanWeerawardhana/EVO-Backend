@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,8 +19,7 @@ public class ProfilePackages {
     private Long packageId;
 
     @NotNull
-    @Min(1)
-    private Long profileId;
+    private Supplier profile;
 
     @NotNull
     private String description;
@@ -33,5 +34,7 @@ public class ProfilePackages {
 
     @NotNull
     private String status;
+
+    private List<ProfileExtraFeature> featureList;
 
 }

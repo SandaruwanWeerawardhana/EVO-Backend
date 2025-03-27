@@ -14,7 +14,7 @@ public class Property {
     private Long propertyId;
 
     @NotNull
-    private Long supplierID;
+    private Supplier supplier;
 
     @NotNull
     @NotBlank(message = "Name may not be empty!")

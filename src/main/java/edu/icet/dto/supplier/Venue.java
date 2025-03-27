@@ -1,5 +1,8 @@
 package edu.icet.dto.supplier;
 
+import edu.icet.util.EventType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -18,10 +21,11 @@ public class Venue {
     private Long venueId;
     @NotEmpty(message = "supplier id can not be null")
     @Positive
-    private Long supplierId;
+    private Supplier supplier;
     @NotEmpty(message = "location can not be null")
     private String location;
     @NotEmpty(message = "venue type can not be null")
-    private String eventType;
+    @Enumerated(EnumType.STRING)
+    private EventType eventType;
     private Long capacity;
 }
