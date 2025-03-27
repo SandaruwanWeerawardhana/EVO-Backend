@@ -1,7 +1,9 @@
 package edu.icet.service.supplier.impl;
 
 import edu.icet.dto.supplier.Catering;
+import edu.icet.dto.supplier.Supplier;
 import edu.icet.entity.supplier.CateringEntity;
+import edu.icet.entity.supplier.SupplierEntity;
 import edu.icet.repository.supplier.CateringRepository;
 import edu.icet.service.supplier.CateringService;
 import lombok.RequiredArgsConstructor;
@@ -52,8 +54,8 @@ public class CateringServiceImpl implements CateringService {
     }
 
     @Override
-    public List<Catering> getCateringBySupplierId(Integer supplierId) {
-        return repository.findBySupplierId(supplierId).stream()
+    public List<Catering> getCateringBySupplierId(Supplier supplier) {
+        return repository.findBySupplier(mapper.map(supplier, SupplierEntity.class)).stream()
                 .map(entity -> mapper.map(entity, Catering.class))
                 .collect(Collectors.toList());
     }

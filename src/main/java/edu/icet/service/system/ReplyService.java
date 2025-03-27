@@ -1,5 +1,6 @@
 package edu.icet.service.system;
 
+import edu.icet.dto.customer.User;
 import edu.icet.dto.system.Reply;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface ReplyService {
 
     Reply searchReplyById(Long replyId);
 
-    Reply searchReplyByUserId(Long userId);
+    Reply searchReplyByUserId(User user);
 
     boolean containsBadWords(String reply);
 

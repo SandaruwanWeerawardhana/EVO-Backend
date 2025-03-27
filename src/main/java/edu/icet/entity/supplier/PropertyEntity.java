@@ -17,8 +17,9 @@ public class PropertyEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long propertyId;
 
-    @Column(nullable = false)
-    private Long supplierID;
+    @OneToOne
+    @JoinColumn(name = "supplier_id")
+    private SupplierEntity supplier;
 
     @NotNull
     @NotBlank(message = "Name may not be empty!")

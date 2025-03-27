@@ -16,14 +16,23 @@ public class OutdoorAreaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     @Column(name = "id")
     private Long id;
+
     @Column(name = "name",nullable = false)
     private String name;
+
     @Column(name = "size",nullable = false)
     private double size;
+
     @Column(name = "seating_capacity",nullable = false)
     private Boolean seatingCapacity;
+
     @Column(name = "lighting",nullable = false)
     private Boolean lighting;
+
     @Column(name = "weather_protection",nullable = false)
     private Boolean weatherProtection;
+
+    @OneToOne
+    @JoinColumn(name = "property_id")
+    private PropertyEntity property;
 }
