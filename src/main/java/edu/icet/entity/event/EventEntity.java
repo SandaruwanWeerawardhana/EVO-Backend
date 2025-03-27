@@ -82,5 +82,3 @@ public class EventEntity {
     @OneToOne(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private BirthdayPartyEntity birthdayParty;
 }
-
-
