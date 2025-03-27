@@ -14,7 +14,9 @@ import lombok.Setter;
 
 public class ProfileExtraFeature {
     private Long featureID;
-    private Long profileID;
+
+    private Supplier supplier;
+
     @NotBlank
     @NotNull(message="featureName cannot be null")
     private String featureName;

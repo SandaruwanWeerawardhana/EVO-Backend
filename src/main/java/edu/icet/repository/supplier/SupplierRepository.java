@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface SupplierRepository extends JpaRepository<SupplierEntity, Long> {
     List<SupplierEntity> findAllByCategoryIdEquals(Long categoryId);
+    boolean existsByEmail(String email);
+    boolean existsByPhoneNumber(String number);
+    boolean existsByBusinessName(String name);
+
 }

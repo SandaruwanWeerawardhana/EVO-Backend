@@ -1,9 +1,8 @@
 package edu.icet.service.supplier.impl;
 
 import edu.icet.dto.supplier.Hall;
-import edu.icet.dto.system.Profile;
 import edu.icet.entity.supplier.HallEntity;
-import edu.icet.repository.supplier.HallReopsitory;
+import edu.icet.repository.supplier.HallRepository;
 import edu.icet.service.supplier.HallService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -15,11 +14,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HallServiceImpl implements HallService {
     final ModelMapper modelMapper;
-    final HallReopsitory hallReopsitory;
+    final HallRepository hallRepository;
   
     @Override
-    public List<Hall> getAll(Profile profile) {
-        return hallReopsitory.findAll()
+    public List<Hall> getAll() {
+        return hallRepository.findAll()
                 .stream()
                 .map(hallEntity -> modelMapper.map(hallEntity, Hall.class))
                 .toList();
@@ -28,20 +27,20 @@ public class HallServiceImpl implements HallService {
     @Override
     public Hall save(Hall hall) {
         HallEntity entity = modelMapper.map(hall, HallEntity.class);
-        HallEntity savedEntity = hallReopsitory.save(entity);
+        HallEntity savedEntity = hallRepository.save(entity);
         return modelMapper.map(savedEntity, Hall.class);
     }
 
     @Override
     public Hall search(Hall hall) {
-        HallEntity entity = hallReopsitory.findById(hall.getHallId()).orElse(null);
+        HallEntity entity = hallRepository.findById(hall.getHallId()).orElse(null);
         return entity != null ? modelMapper.map(entity, Hall.class) : null;
     }
 
     @Override
     public Boolean delete(Hall hall) {
-        if (hallReopsitory.existsById(hall.getHallId())) {
-            hallReopsitory.deleteById(hall.getHallId());
+        if (hallRepository.existsById(hall.getHallId())) {
+            hallRepository.deleteById(hall.getHallId());
             return true;
         }
         return false;
@@ -49,8 +48,8 @@ public class HallServiceImpl implements HallService {
 
     @Override
     public Boolean delete(Long id) {
-        if (hallReopsitory.existsById(id)) {
-            hallReopsitory.deleteById(id);
+        if (hallRepository.existsById(id)) {
+            hallRepository.deleteById(id);
             return true;
         }
         return false;
@@ -58,9 +57,9 @@ public class HallServiceImpl implements HallService {
 
     @Override
     public Hall update(Hall hall) {
-        if (hallReopsitory.existsById(hall.getHallId())) {
+        if (hallRepository.existsById(hall.getHallId())) {
             HallEntity entity = modelMapper.map(hall, HallEntity.class);
-            HallEntity updatedEntity = hallReopsitory.save(entity);
+            HallEntity updatedEntity = hallRepository.save(entity);
             return modelMapper.map(updatedEntity, Hall.class);
         }
         return null;

@@ -30,5 +30,4 @@ public class LocationEntity {
 
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
     private List<EventEntity> events;
-
 }
