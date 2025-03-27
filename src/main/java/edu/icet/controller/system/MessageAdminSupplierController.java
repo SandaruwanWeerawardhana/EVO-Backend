@@ -43,7 +43,7 @@ public class MessageAdminSupplierController {
         return messageService.sendMessage(MessageAdminSupplier);
     }
 
-    @GetMapping("/customersBySupplierId")
+    @GetMapping("/adminsBySupplierId")
     public ResponseEntity<List<String>> getAllCustomerIds(Long supplierId) {
         List<MessageAdminSupplier> messages = messageService.getMessagesBySupplierId(supplierId);
         List<String> customerIds = messages.stream()
