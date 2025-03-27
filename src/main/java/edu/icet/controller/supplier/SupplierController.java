@@ -2,21 +2,15 @@ package edu.icet.controller.supplier;
 
 import edu.icet.dto.supplier.*;
 
-import edu.icet.dto.system.Profile;
 import edu.icet.service.supplier.*;
-import edu.icet.service.system.ProfileService;
 import edu.icet.util.MealType;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/supplier")
@@ -33,7 +27,6 @@ public class SupplierController {
     private final MusicService musicService;
     private final MusicPackageService musicPackageService;
     private final PhotographerPackageService photographerPackageService;
-    private final ProfileService profileService;
     private final ProfileExtraFeatureService profileExtraFeatureService;
     private final ProfilePackageService profilePackageService;
     private final ProfilePreviousWorkService previousWorkService;
@@ -63,26 +56,6 @@ public class SupplierController {
     @PutMapping("/update-supplier")
     public void updateSupplier(@RequestBody Supplier supplier){
         supplierService.update(supplier);
-    }
-
-    @PostMapping("/beauty-packages/add-BeautyPackages")
-    public BeautyPackage addBeautyPackage(@RequestBody BeautyPackage beautyPackage){
-        return beautyPackageService.save(beautyPackage);
-    }
-
-    @GetMapping("/beauty-packages/getAll-BeautyPackages")
-    public List<BeautyPackage> getAllBeautyPackage(){
-        return beautyPackageService.getAll();
-    }
-
-    @DeleteMapping("/beauty-packages/delete-BeautyPackages/{id}")
-    public boolean deleteBeautyPackage(@PathVariable("id") Long id){
-        return beautyPackageService.delete(id);
-    }
-
-    @PutMapping("/beauty-packages/update-BeautyPackages")
-    public BeautyPackage updateBeautyPackage(@RequestBody BeautyPackage beautyPackage){
-        return beautyPackageService.update(beautyPackage);
     }
 
     @PostMapping("/beauty-saloon/add-beautySaloon")
@@ -159,9 +132,9 @@ public class SupplierController {
         return ResponseEntity.ok("Catering service deleted successfully.");
     }
 
-    @GetMapping("Catering/Catering-supplier/{supplierId}")
-    public ResponseEntity<List<Catering>> getCateringBySupplierId(@PathVariable Integer supplierId) {
-        List<Catering> cateringList = cateringService.getCateringBySupplierId(supplierId);
+    @GetMapping("Catering/Catering-supplier/")
+    public ResponseEntity<List<Catering>> getCateringBySupplierId(@RequestBody Supplier supplier) {
+        List<Catering> cateringList = cateringService.getCateringBySupplierId(supplier);
         return ResponseEntity.ok(cateringList);
     }
 
@@ -255,116 +228,6 @@ public class SupplierController {
         musicService.updateMusic(music);
     }
 
-    @PostMapping("/music/music-package/create-music-package")
-    public boolean createMusicPackage(@RequestBody MusicPackage musicPackage) {
-        return musicPackageService.create(musicPackage);
-    }
-
-    @GetMapping("/music/music-package/get-all-music-package")
-    public List<MusicPackage> getAllMusicPackages() {
-        return musicPackageService.getAll();
-    }
-
-    @PostMapping("/music/music-package/update-music-package")
-    public boolean updateMusicPackage(@RequestBody MusicPackage musicPackage) {
-        return musicPackageService.update(musicPackage);
-    }
-
-    @GetMapping("/music/music-package/get-music-package-by-id")
-    public MusicPackage getMusicPackageById(@RequestParam(value = "id") Integer id) {
-        return musicPackageService.getById(id);
-    }
-
-    @DeleteMapping("/music/music-package/delete-music-package")
-    public MusicPackage deleteMusicPackageById(@RequestParam(value = "id") Integer id) {
-        return musicPackageService.getById(id);
-    }
-
-    @GetMapping("/package/packageFeatureDetail/all-featureDetails")
-    public List<PackageFeatureDetail> getAllFeatureDetails(){
-        return featureDetailService.getAll();
-    }
-
-    @PostMapping("/package/packageFeatureDetail/add-featureDetail")
-    public void addFeatureDetail(@RequestBody PackageFeatureDetail detail){featureDetailService.add(detail);}
-
-    @GetMapping("/package/packageFeatureDetail/search-featureDetail")
-    public PackageFeatureDetail searchFeatureDetail(@RequestBody PackageFeatureDetail query){return featureDetailService.search(query);}
-
-    @PutMapping("/package/packageFeatureDetail/update-featureDetail")
-    public void updateFeatureDetail(@RequestBody PackageFeatureDetail detail){featureDetailService.update(detail);}
-
-    @DeleteMapping("/package/packageFeatureDetail/delete-featureDetail/{id}")
-    public void deleteFeatureDetail(@PathVariable Long id){featureDetailService.delete(id);}
-
-    @PostMapping("/photographer/image/add-photographerImage")
-    public PhotographerImage addPhotographerImage(@RequestBody PhotographerImage photographerImage){
-        return photographerImageService.save(photographerImage);
-    }
-
-    @GetMapping("/photographer/image/getAll-PhotographerImages")
-    public List<PhotographerImage> getAllPhotographerImages(){
-        return photographerImageService.getAll();
-    }
-
-    @DeleteMapping("/photographer/image/delete-photographerImage/{id}")
-    public boolean deletePhotographerImage(@PathVariable("id") Long id){
-        return  photographerImageService.delete(id);
-    }
-
-    @PutMapping("/photographer/image/update-photographerImage")
-    public PhotographerImage updatePhotographerImage(@RequestBody PhotographerImage photographerImage){
-        return photographerImageService.update(photographerImage);
-    }
-
-    @PostMapping("/photographer/package/add-photographerPackage")
-    public PhotographerPackage addPhotographerPackage(@RequestBody PhotographerPackage photographerPackage){
-        return photographerPackageService.save(photographerPackage);
-    }
-
-    @GetMapping("/photographer/package/getAll-photographerPackages")
-    public List<PhotographerPackage> getAllPhotographerPackages(){
-        return photographerPackageService.getAll();
-    }
-
-    @DeleteMapping("/photographer/package/delete-photographerPackage/{id}")
-    public boolean deletePhotographerPackage(@PathVariable("id") Long id){
-        return  photographerPackageService.delete(id);
-    }
-
-    @PutMapping("/photographer/package/update-photographerPackage")
-    public PhotographerPackage updatePhotographerPackage(@RequestBody PhotographerPackage photographerPackage){
-        return photographerPackageService.update(photographerPackage);
-    }
-
-    @PostMapping("/profiles/add-profile")
-    public ResponseEntity<Profile> addProfile(@Valid @RequestBody Profile profile) {
-        Profile createdProfile = profileService.addProfile(profile);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdProfile);
-    }
-
-    @PutMapping("/profiles/update-profile")
-    public ResponseEntity<Profile> updateProfile(@Valid @RequestBody Profile profile) {
-        Profile updatedProfile = profileService.updateProfile(profile);
-        return ResponseEntity.ok(updatedProfile);
-    }
-
-    @GetMapping("/profiles/get-profile/{id}")
-    public ResponseEntity<Profile> getProfileById(@PathVariable Long id) {
-        return ResponseEntity.ok(profileService.getProfileById(id));
-    }
-
-    @GetMapping("/profiles/all-profiles")
-    public ResponseEntity<List<Profile>> getAllProfiles() {
-        List<Profile> profiles = profileService.getAllProfiles();
-        return ResponseEntity.ok(profiles);
-    }
-
-    @DeleteMapping("/profiles/delete-profile/{id}")
-    public ResponseEntity<String> deleteProfile(@PathVariable Long id) {
-        profileService.deleteProfile(id);
-        return ResponseEntity.ok("Profile deleted successfully.");
-    }
 
     @PostMapping("/profile/profile-extra-feature/add-profileExtraFeature")
     public Boolean saveProfileExtraFeature(@RequestBody ProfileExtraFeature profileExtraFeature) {
@@ -434,11 +297,6 @@ public class SupplierController {
         previousWorkService.save(previousWork);
     }
 
-    @GetMapping("/profile/previous-work/get-all-previousWorks")
-    public List<ProfilePreviousWork> getAllPreviousWorks(@RequestBody Profile profile){
-        return previousWorkService.getAll(profile);
-    }
-
     @PutMapping("/profile/previous-work/update-previousWork")
     public boolean updateProfile(@RequestBody ProfilePreviousWork previousWork){
         return previousWorkService.update(previousWork);
@@ -454,23 +312,4 @@ public class SupplierController {
         return previousWorkService.search(profilePreviousWork);
     }
 
-    @PostMapping("/salon/images/add-image")
-    public SalonImage addSalonImage(@RequestBody SalonImage salonImage){
-        return salonImageService.save(salonImage);
-    }
-
-    @GetMapping("/salon/images/getAll-images")
-    public List<SalonImage> getAllSalonImages(){
-        return salonImageService.getAll();
-    }
-
-    @DeleteMapping("/salon/images/delete-image-by-id/{id}")
-    public boolean deleteSalonImage(@PathVariable("id") Long id){
-        return  salonImageService.delete(id);
-    }
-
-    @PutMapping("/salon/images/update-image")
-    public SalonImage updateSalonImage(@RequestBody SalonImage salonImage){
-        return  salonImageService.update(salonImage);
-    }
 }
