@@ -1,7 +1,9 @@
 package edu.icet.controller.supplier;
 
+import edu.icet.dto.admin.VerificationRequest;
 import edu.icet.dto.supplier.*;
 
+import edu.icet.service.admin.VerificationRequestService;
 import edu.icet.service.supplier.*;
 import edu.icet.util.MealType;
 import jakarta.validation.Valid;
@@ -25,12 +27,17 @@ public class SupplierController {
     private final InventoryService inventoryService;
     private final MealService mealService;
     private final MusicService musicService;
+
     private final MusicPackageService musicPackageService;
+
     private final PhotographerPackageService photographerPackageService;
     private final ProfileExtraFeatureService profileExtraFeatureService;
     private final ProfilePackageService profilePackageService;
     private final ProfilePreviousWorkService previousWorkService;
+
     private final SalonImageService salonImageService;
+
+    private VerificationRequestService verificationRequestService;
 
     @PostMapping("/add-supplier")
     public void addSupplier(@RequestBody Supplier supplier){
@@ -310,6 +317,41 @@ public class SupplierController {
     @GetMapping("/profile/previous-work/get-previous-work-by-id")
     public ProfilePreviousWork searchPreviousWork(@RequestParam ProfilePreviousWork profilePreviousWork){
         return previousWorkService.search(profilePreviousWork);
+    }
+
+    @PostMapping("/verification-request/add")
+    @ResponseStatus(HttpStatus.CREATED)
+    ResponseEntity<Boolean> saveVerificationRequest(@RequestBody VerificationRequest request) {
+        boolean result = verificationRequestService.saveVerificationRequest(request);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/verification-request/find-by-id/{id}")
+    ResponseEntity<VerificationRequest> findVerificationRequestById(@PathVariable Long id) {
+        VerificationRequest verificationRequest = verificationRequestService.findVerificationrequestById(id);
+        if (verificationRequest == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(verificationRequest);
+    }
+
+    @GetMapping("/verification-request/get-all")
+    ResponseEntity<List<VerificationRequest>> getAllVerificationRequest() {
+        List<VerificationRequest> allVerificationRequest = verificationRequestService.getAllVerificationRequest();
+        return ResponseEntity.ok(allVerificationRequest);
+    }
+
+    @DeleteMapping("/verification-request/delete/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    ResponseEntity<Boolean> deleteVerificationRequest(@PathVariable Long id) {
+        boolean result = verificationRequestService.deleteVerificationRequest(id);
+        return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("/verification-request/update/{id}")
+    ResponseEntity<Boolean> updateVerificationRequest(@PathVariable Long id, @RequestBody VerificationRequest request) {
+        boolean result = verificationRequestService.updateVerificationRequest(id, request);
+        return ResponseEntity.ok(result);
     }
 
 }
