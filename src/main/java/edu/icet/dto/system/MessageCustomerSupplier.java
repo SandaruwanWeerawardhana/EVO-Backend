@@ -23,7 +23,7 @@ public class MessageCustomerSupplier {
     @NotBlank(message = "Content may not be empty")
     private String content;
     @NotNull
-    @JsonFormat(pattern = "HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime sendTime;
     @Enumerated(EnumType.STRING)
     private UserType userType;
