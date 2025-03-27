@@ -8,7 +8,6 @@ import edu.icet.service.system.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -33,34 +32,32 @@ public class SupplierServiceImpl implements SupplierService {
         if (category == null || category.isBlank()) {
             throw new IllegalArgumentException("Category name cannot be null or blank");
         }
+        return null;
 
-
-        return repository.findAllByCategoryIdEquals(categoryService.search(category).getId())
+       /* return repository.findAllByCategoryIdEquals(categoryService.search(category).getId())
                 .stream()
                 .map(supplierEntity -> mapper.map(supplierEntity, Supplier.class))
-                .toList();
-
+                .toList();*/
     }
-
 
     @Override
     public void add(Supplier supplier) {
 
-        if (repository.existsByEmail(supplier.getEmail())){
-            throw new IllegalArgumentException("Email is already exits");
-        }
-
-        if (repository.existsByPhoneNumber(supplier.getPhoneNumber())) {
-            throw new IllegalArgumentException("phone number is already exists");
-        }
-
-        if (repository.existsByBusinessName(supplier.getBusinessName())){
-            throw new IllegalArgumentException("Business name is already exists");
-        }
+//        if (repository.existsByEmail(supplier.getEmail())){
+//            throw new IllegalArgumentException("Email is already exits");
+//        }
+//
+//        if (repository.existsByPhoneNumber(supplier.getContactNumber())) {
+//            throw new IllegalArgumentException("phone number is already exists");
+//        }
+//
+//        if (repository.existsByBusinessName(supplier.getBusinessName())){
+//            throw new IllegalArgumentException("Business name is already exists");
+//        }
 
         repository.save(mapper.map(supplier, SupplierEntity.class));
-
     }
+
 
     @Override
     public Supplier search(Supplier query) {
@@ -69,7 +66,7 @@ public class SupplierServiceImpl implements SupplierService {
                         (query.getUserId() != 0 && Objects.equals(s.getUserId(), query.getUserId())) ||
                                 (query.getBusinessName() != null && s.getBusinessName().equalsIgnoreCase(query.getBusinessName())) ||
                                 (query.getEmail() != null && s.getEmail().equalsIgnoreCase(query.getEmail())) ||
-                                (query.getPhoneNumber() != null && s.getPhoneNumber().equals(query.getPhoneNumber()))
+                                (query.getContactNumber() != null && s.getContactNumber().equals(query.getContactNumber()))
                 )
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Supplier not found"));
@@ -81,21 +78,14 @@ public class SupplierServiceImpl implements SupplierService {
             repository.save(mapper.map(supplier, SupplierEntity.class));
             return;
         }
-
         throw new IllegalArgumentException("Supplier does not exist!");
-
     }
 
     @Override
     public void delete(Long id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
-
         }
-
         throw new IllegalArgumentException("Supplier does not exist!");
-
     }
-
-
 }

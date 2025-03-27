@@ -1,15 +1,13 @@
 package edu.icet.entity.supplier;
 
-import edu.icet.entity.event.EventSupplierEntity;
+import edu.icet.dto.system.Category;
 import edu.icet.entity.system.TermsEntity;
+import edu.icet.util.CategoryType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
-
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,35 +19,36 @@ public class SupplierEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
 
-    @OneToOne
-    @JoinColumn(name = "category_id")
-    private CategoryEntity category;
+    @NotBlank
+    private String firstName;
 
-    @OneToOne
-    @JoinColumn(name = "terms_id")
-    private TermsEntity terms;
-
-    @NotEmpty(message = "Business Name is required")
-    private String businessName;
+    @NotBlank
+    private String lastName;
 
     @Email
-    @NotEmpty(message = "Email is required")
+    @NotBlank
     private String email;
 
-    @Pattern(regexp = "^\\+?'[^0-9]'{10,15}$", message = "Invalid phone number")
-    @NotBlank(message = "Phone Number is required")
-    private String phoneNumber;
+    @NotBlank
+    private String password;
 
-    @NotEmpty(message = "Description is required")
+    @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be exactly 10 digits")
+    private String contactNumber;
+
+    @NotBlank
+    private String businessName;
+
+    @Enumerated(EnumType.STRING)
+    private CategoryType categoryType;
+
+    @NotBlank
     private String description;
 
-    @NotNull(message = "Location is required")
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "locationId",referencedColumnName = "locationId")
-    private String location;
-
+    private String websiteURL;
     private String profilePictureImageUrl;
-
     private Boolean availability;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "terms_id", referencedColumnName = "termId")
+    private TermsEntity terms;
 }
