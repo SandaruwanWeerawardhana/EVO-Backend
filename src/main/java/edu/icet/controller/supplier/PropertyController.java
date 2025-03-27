@@ -12,30 +12,30 @@ import java.util.List;
 @RestController
 
 public class PropertyController {
-    final PropertyService service;
+    final PropertyService propertyService;
 
     @PostMapping("/save")
     public void saveProperty(@RequestBody Property property){
-        service.save(property);
+        propertyService.save(property);
     }
 
     @GetMapping("/get-all")
     public List<Property> getAll(){
-        return service.getAll();
+        return propertyService.getAll();
     }
 
     @GetMapping("/search")
     public Property searchProperty(@RequestBody Property property){
-        return service.search(property);
+        return propertyService.search(property);
     }
 
     @PutMapping("/update")
     public Property updateProperty(@RequestBody Property property){
-        return service.update(property);
+        return propertyService.update(property);
     }
 
     @DeleteMapping("/delete-by-id")
     public boolean deleteById(@RequestParam Long id){
-        return service.delete(id);
+        return propertyService.delete(id);
     }
 }
