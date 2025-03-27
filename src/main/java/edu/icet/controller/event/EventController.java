@@ -109,7 +109,7 @@ public class EventController {
     }
 
     @DeleteMapping("/delete-summary/{id}")
-    public boolean deleteSummary(@PathVariable("id") Integer id){
+    public boolean deleteSummary(@PathVariable("id") Long id){
         return eventSummaryService.delete(id);
     }
 
@@ -119,7 +119,7 @@ public class EventController {
     }
 
     @GetMapping("/get-summary/{id}")
-    public EventSummary getById(@PathVariable("id") Integer id){
+    public EventSummary getById(@PathVariable("id") Long id){
         return eventSummaryService.getById(id);
     }
 
@@ -197,7 +197,7 @@ public class EventController {
     }
 
     @PostMapping("/birthday-party/add")
-    private boolean addBirthdayParty(@RequestBody BirthdayParty birthdayParty) {
+    public boolean addBirthdayParty(@RequestBody BirthdayParty birthdayParty) {
         return birthdayPartyEventService.add(birthdayParty);
     }
 
