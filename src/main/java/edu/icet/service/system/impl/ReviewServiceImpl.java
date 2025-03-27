@@ -18,14 +18,16 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewService {
+
     final ReviewRepository repository;
     final ModelMapper mapper;
     final QuickReplyService service;
 
+
     @Override
     public Review addReview(Review review) {
-        if (service.filterProfanity(review.getReviewText())){
-            return mapper.map(repository.save(new ModelMapper()
+        if (Boolean.FALSE.equals(service.filterProfanity(review.getReviewText()))){
+            return new ModelMapper().map(repository.save(new ModelMapper()
                     .map(review, ReviewEntity.class)),Review.class);
         }else {
             return null;
@@ -35,8 +37,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review updateByReview(Review review) {
-        if (service.filterProfanity(review.getReviewText())){
-            return mapper.map(repository.save(mapper
+        if (Boolean.FALSE.equals(service.filterProfanity(review.getReviewText()))){
+            return new ModelMapper().map(repository.save(new ModelMapper()
                     .map(review, ReviewEntity.class)),Review.class);
         }else {
             return null;
@@ -47,7 +49,7 @@ public class ReviewServiceImpl implements ReviewService {
     public List<Review> getAll() {
         if (!repository.findAll().isEmpty()){
             return repository.findAll().stream().map(reviewEntity ->
-                    mapper.map(reviewEntity,Review.class)
+                    new ModelMapper().map(reviewEntity,Review.class)
             ).toList();
         }else {
             return Collections.emptyList();
@@ -65,14 +67,12 @@ public class ReviewServiceImpl implements ReviewService {
         }
 
     }
-  
+
     @Override
     public List<Review> getReviewsBySupplierId(Long supplierId) {
         return repository.findBySupplierId(supplierId).stream().map(reviewEntity ->
-                mapper.map(reviewEntity,Review.class)).toList();
+                new ModelMapper().map(reviewEntity,Review.class)).toList();
     }
-
- 
 
     public List<Review> getReviewsByCustomerId(Long customerId) {
         return repository.findByCustomerId(customerId).stream().map(reviewEntity ->
@@ -87,11 +87,12 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<Review> getReviewsByRateType(RatingType type) {
-        return repository.findByRating(type).stream().map(reviewEntity -> mapper
-                .map(reviewEntity,Review.class)).toList();
-
-
+        return repository.findAll().stream()
+                .filter(reviewEntity -> reviewEntity.getRating().equals(type))
+                .map(reviewEntity -> mapper.map(reviewEntity, Review.class))
+                .toList();
     }
+
 
     @Override
     public Review SearchByReviewID(Long id) {

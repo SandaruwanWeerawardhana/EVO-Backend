@@ -3,6 +3,7 @@ package edu.icet.controller.system;
 import edu.icet.dto.system.Review;
 
 import edu.icet.service.system.ReviewService;
+import edu.icet.util.RatingType;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -45,8 +46,10 @@ public class ReviewController {
     }
 
     @PutMapping("/updateByReview")
-    public Review updateReview(@RequestBody Review review){
-        return reviewService.updateByReview(review);
+    public Boolean updateReview(@RequestBody Review review){
+        Review result = reviewService.updateByReview(review);
+        return result != null;
+
     }
 
     @GetMapping("/getAll")
@@ -79,6 +82,14 @@ public class ReviewController {
         return  reviewService.getReviewsByDate(date);
 
 
+    }
+    @GetMapping("SearchByReviewType/{ratingType}")
+    public List<Review>searchByReviewType(@PathVariable RatingType ratingType ) {
+        List<Review> reviews = reviewService.getReviewsByRateType(ratingType);
+        if (reviews == null || reviews.isEmpty()) {
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).body("not found Review Type");
+        }
+        return reviews;
     }
 
 
