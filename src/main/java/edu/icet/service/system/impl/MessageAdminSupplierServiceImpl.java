@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -20,10 +21,13 @@ public class MessageAdminSupplierServiceImpl implements MessageAdminSupplierServ
 
 
     @Override
-    public MessageAdminSupplier sendMessage(MessageAdminSupplier message) {
-        MessageAdminSupplierEntity messageCustomerSupplierEntity = messageAdminSupplierRepository.save(mapper.map(message, MessageAdminSupplierEntity.class));
-        return mapper.map(messageCustomerSupplierEntity, MessageAdminSupplier.class);
+    public MessageAdminSupplier sendMessage(MessageAdminSupplier dto) {
+        // Always set sendTime server-side
+        dto.setSendTime(Instant.now());
 
+        MessageAdminSupplierEntity entity = mapper.map(dto, MessageAdminSupplierEntity.class);
+        MessageAdminSupplierEntity savedEntity = messageAdminSupplierRepository.save(entity);
+        return mapper.map(savedEntity, MessageAdminSupplier.class);
     }
 
     @Override

@@ -4,12 +4,16 @@ import edu.icet.dto.system.MessageAdminSupplier;
 import edu.icet.service.system.MessageAdminSupplierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -21,11 +25,19 @@ public class MessageAdminSupplierController {
 
     private final MessageAdminSupplierService messageService;
 
-    @MessageMapping("/chat/admin-supplier")
-    @SendTo("/topic/messages")
-    public MessageAdminSupplier handleChatMessage(MessageAdminSupplier MessageAdminSupplier) {
+    @MessageMapping("/chat/admin-supplier/{supplierId}/{adminId}")
+    @SendTo("/topic/chat/{supplierId}/{adminId}")
+    public MessageAdminSupplier handleChatMessage(
+            MessageAdminSupplier message,
+            @DestinationVariable Long supplierId,
+            @DestinationVariable Long adminId) {
 
-        return messageService.sendMessage(MessageAdminSupplier);
+        // Validate path variables match message content
+        if (!supplierId.equals(message.getSupplierId()) || !adminId.equals(message.getAdminId())) {
+            throw new IllegalArgumentException("Path variables don't match message content");
+        }
+
+        return messageService.sendMessage(message);
     }
 
     @MessageMapping("/chat/admin-supplier/update")
@@ -38,7 +50,7 @@ public class MessageAdminSupplierController {
         }
 
         MessageAdminSupplier.setContent(messageDTO.getContent());
-        MessageAdminSupplier.setSendTime(LocalDateTime.now());
+        MessageAdminSupplier.setSendTime(Instant.from(LocalDateTime.now()));
 
         return messageService.sendMessage(MessageAdminSupplier);
     }

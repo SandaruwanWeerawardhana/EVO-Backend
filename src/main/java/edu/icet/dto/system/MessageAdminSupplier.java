@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Data
@@ -22,9 +23,11 @@ public class MessageAdminSupplier {
     @NotNull
     @NotBlank(message = "Content may not be empty")
     private String content;
+
     @NotNull
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime sendTime;
+    private Instant sendTime;
+
+
     @Enumerated(EnumType.STRING)
     private UserType userType;
 }
