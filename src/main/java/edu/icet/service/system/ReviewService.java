@@ -25,4 +25,6 @@ public interface ReviewService {
 
     List<Review> getReviewsByRateType(RatingType type);
 
+    Review SearchByReviewID(Long id);
+
 }

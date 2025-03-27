@@ -5,6 +5,7 @@ import edu.icet.entity.system.ReviewEntity;
 import edu.icet.util.RatingType;
 import io.micrometer.common.KeyValues;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,5 +17,5 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity,Long> {
 
     List<ReviewEntity> findByDate(LocalDate date);
 
-    List<ReviewEntity> findByRatingType(RatingType type);
+    List<ReviewEntity> findByRating(RatingType type);
 }

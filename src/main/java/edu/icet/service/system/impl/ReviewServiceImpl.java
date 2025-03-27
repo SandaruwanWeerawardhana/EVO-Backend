@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -86,8 +87,15 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<Review> getReviewsByRateType(RatingType type) {
-        return repository.findByRatingType(type).stream().map(reviewEntity -> mapper
+        return repository.findByRating(type).stream().map(reviewEntity -> mapper
                 .map(reviewEntity,Review.class)).toList();
 
+
+    }
+
+    @Override
+    public Review SearchByReviewID(Long id) {
+        Optional<ReviewEntity> reviewEntity=repository.findById(id);
+        return reviewEntity.map(entity->mapper.map(entity,Review.class)).orElse(null);
     }
 }

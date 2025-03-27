@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class ReviewController {
 
     @GetMapping("/searchByIdReview/{id}")
     public ResponseEntity<Review> searchByReview(@PathVariable Long id) {
-        Review review = reviewService.searchByIdReview(id);
+        Review review = reviewService.SearchByReviewID(id);
         if (review != null) {
             return new ResponseEntity<>(review, HttpStatus.OK);
         } else {
@@ -44,14 +45,8 @@ public class ReviewController {
     }
 
     @PutMapping("/updateByReview")
-    public ResponseEntity<String> updateByReview( @RequestBody Review review) {
-
-        if (reviewService.updateByReview( review)) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
+    public Review updateReview(@RequestBody Review review){
+        return reviewService.updateByReview(review);
     }
 
     @GetMapping("/getAll")
@@ -64,7 +59,7 @@ public class ReviewController {
     }
 
 
-    @DeleteMapping("/deleteByReview/{id}")
+    @DeleteMapping("/deleteByIdReview/{id}")
     public ResponseEntity<String> deleteByReview(@PathVariable Long id) {
         boolean isDeleted = reviewService.deleteByReview(id);
 
@@ -73,30 +68,17 @@ public class ReviewController {
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Review not found!");
     }
 
-
-    @GetMapping("/getSummaryById/{id}")
-    public ResponseEntity<Map<String, Long>> getBySummaryFilterReview(@PathVariable long id) {
-        Map<String, Long> summary = reviewService.getBySummaryFilterReview(id);
-
-        return (summary != null && !summary.isEmpty())
-                ? ResponseEntity.ok(summary)
-                : ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", 0L));
-    }
-
-
-    @GetMapping("/DeleteByReview/{id}")
-    public boolean deleteReview(@PathVariable Long id){
-        return reviewService.deleteByReview(id);
-    }
-
-    @GetMapping("/SearchBySupplierID/{id}")
-    public  Review searchBySupplierID(@PathVariable Long id){
-        return  reviewService.searchByIDSuplier(id);
+    @GetMapping("/SearchBySupplierId/{id}")
+     public List<Review>  searchBySupplierID(@PathVariable Long id){
+        return  reviewService.getReviewsBySupplierId(id);
 
     }
-    @GetMapping("/GetSummaryById/{id}")
-    public Map<String, Long> getBySummary(@PathVariable Long id){
-        return reviewService.getBySummaryFilterReview(id);
+
+    @GetMapping("/getByReviewDate/{date}")
+    public  List<Review> getReviewByDate(@PathVariable LocalDate date){
+        return  reviewService.getReviewsByDate(date);
+
+
     }
 
 
