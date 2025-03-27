@@ -66,10 +66,10 @@ public class MessageAdminSupplierController {
     }
 
 
-    @GetMapping("/chat/{customerId}/{supplierId}")
-    public ResponseEntity<List<MessageAdminSupplier>> getCustomerChat(@PathVariable Long customerId, @PathVariable Long supplierId) {
+    @GetMapping("/chat/{AdminId}/{supplierId}")
+    public ResponseEntity<List<MessageAdminSupplier>> getCustomerChat(@PathVariable Long AdminId, @PathVariable Long supplierId) {
 
-        List<MessageAdminSupplier> messages = messageService.getMessagesByIds(customerId, supplierId);
+        List<MessageAdminSupplier> messages = messageService.getMessagesByIds(AdminId, supplierId);
 
         return ResponseEntity.ok(messages);
     }
