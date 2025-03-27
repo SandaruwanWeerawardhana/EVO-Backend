@@ -1,6 +1,7 @@
 
 package edu.icet.entity.system;
 
+import edu.icet.entity.supplier.SupplierEntity;
 import edu.icet.util.CategoryType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,8 +22,9 @@ public class QuickRepliesEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long replyID;
 
-    @Column(nullable = false)
-    private Long supplierID;
+    @ManyToOne
+    @JoinColumn(name = "supplier_id")
+    private SupplierEntity supplier;
 
     private String content;
 

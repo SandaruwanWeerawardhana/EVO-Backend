@@ -1,6 +1,7 @@
 package edu.icet.entity.supplier;
 
 import edu.icet.entity.event.EventSupplierEntity;
+import edu.icet.entity.system.TermsEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -20,17 +21,13 @@ public class SupplierEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
 
-    @NotEmpty(message = "Category ID required")
-    @PositiveOrZero(message = "ID must be positive")
-    private Long categoryId;
+    @OneToOne
+    @JoinColumn(name = "category_id")
+    private CategoryEntity category;
 
-    @NotEmpty(message = "Profile ID is required")
-    @PositiveOrZero(message = "ID must be positive")
-    private long profileId;
-
-    @NotEmpty(message = "Terms ID is required")
-    @PositiveOrZero(message = "ID must be positive")
-    private long termsId;
+    @OneToOne
+    @JoinColumn(name = "terms_id")
+    private TermsEntity terms;
 
     @NotEmpty(message = "Business Name is required")
     private String businessName;
@@ -55,6 +52,4 @@ public class SupplierEntity {
 
     private Boolean availability;
 
-	@OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
-	private List<EventSupplierEntity> eventSuppliers;
 }

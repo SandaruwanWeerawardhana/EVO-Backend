@@ -1,6 +1,6 @@
 package edu.icet.service.event;
 import edu.icet.dto.event.Event;
-import edu.icet.dto.supplier.Location;
+import edu.icet.dto.supplier.Venue;
 import edu.icet.util.EventType;
 import java.util.List;
 public interface EventService {
@@ -9,6 +9,6 @@ public interface EventService {
     Event searchEvent(Long id);
     boolean deleteEvent(Long id);
     List<Event> getAll();
-    List<Event> getEventsByLocation(Location location);
+    List<Event> getEventsByVenue(Venue venue);
     List<Event> getEventsByEventType(EventType eventType);
 }
