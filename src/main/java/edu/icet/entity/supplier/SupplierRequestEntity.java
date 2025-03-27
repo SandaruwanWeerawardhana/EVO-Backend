@@ -34,7 +34,7 @@ public class SupplierRequestEntity {
 
     @OneToOne
     @JoinColumn(name = "package_id")
-    private ProfilePackagesEntity packages;
+    private ProfilePackagesEntity request_package;
 
     @Column(nullable = false)
     private LocalDateTime requestDate;

@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
 import java.util.List;
 
 @Data
@@ -16,6 +15,7 @@ import java.util.List;
 @ToString
 @Entity
 @Table(name="profile_packages")
+
 public class ProfilePackagesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,6 +43,10 @@ public class ProfilePackagesEntity {
     @NotNull
     @Column(nullable = false)
     private String status;
+
+    @OneToMany(mappedBy = "profile_packages", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column
+    private List<SupplierRequestEntity> supplierRequestList;
 
     @OneToMany
     @JoinColumn(name = "profile_id")
