@@ -1,6 +1,5 @@
 package edu.icet.dto.supplier;
 
-import edu.icet.dto.system.Category;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -34,7 +33,7 @@ public class Supplier {
     @NotBlank(message = "Business Name is required")
     private String businessName;
 
-    private Category category;
+    private String category;
 
     @NotBlank(message = "Description is required")
     private String description;

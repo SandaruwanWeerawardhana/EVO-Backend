@@ -5,11 +5,13 @@ import edu.icet.entity.supplier.SupplierEntity;
 import edu.icet.repository.supplier.SupplierRepository;
 import edu.icet.service.supplier.SupplierService;
 import edu.icet.service.system.CategoryService;
+import edu.icet.util.CategoryType;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,13 +34,13 @@ public class SupplierServiceImpl implements SupplierService {
         if (category == null || category.isBlank()) {
             throw new IllegalArgumentException("Category name cannot be null or blank");
         }
+        CategoryType categoryEnum = CategoryType.valueOf(category.toUpperCase());
 
-        return repository.findAllByCategoryIdEquals(categoryService.search(category).getId())
+        return repository.findAllByCategory(categoryEnum)
                 .stream()
                 .map(supplierEntity -> mapper.map(supplierEntity, Supplier.class))
-                .toList();
+                .collect(Collectors.toList());
     }
-
 
     @Override
     public void add(Supplier supplier) {
@@ -47,7 +49,7 @@ public class SupplierServiceImpl implements SupplierService {
             throw new IllegalArgumentException("Email is already exits");
         }
 
-        if (repository.existsByPhoneNumber(supplier.getContactNumber())) {
+        if (repository.existsByContactNumber(supplier.getContactNumber())) {
             throw new IllegalArgumentException("phone number is already exists");
         }
 
