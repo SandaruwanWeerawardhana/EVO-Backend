@@ -2,15 +2,14 @@ package edu.icet.service.supplier.impl;
 
 import edu.icet.service.supplier.WhatsappMessageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.Map;
 
-
-@Primary
 @RequiredArgsConstructor
+@Service
 public class WhatsappMessageServiceImpl implements WhatsappMessageService {
 
     private final WebClient webClient;
