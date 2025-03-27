@@ -27,7 +27,6 @@ import java.util.Optional;
 public class SupplierController {
 
     private final SupplierService supplierService;
-    private final BeautyPackageService beautyPackageService;
     private final BeautySaloonService service;
     private final BookingSlotService bookingSlotService;
     private final CateringService cateringService;
@@ -35,8 +34,6 @@ public class SupplierController {
     private final MealService mealService;
     private final MusicService musicService;
     private final MusicPackageService musicPackageService;
-    private final PackageFeatureDetailService featureDetailService;
-    private final PhotographerImageService photographerImageService;
     private final PhotographerPackageService photographerPackageService;
     private final ProfileService profileService;
     private final ProfileExtraFeatureService profileExtraFeatureService;
