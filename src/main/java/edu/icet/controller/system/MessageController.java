@@ -150,7 +150,7 @@ public class MessageController {
         return ResponseEntity.ok(messages);
     }
 
-    @MessageMapping("/message/customer-supplier/message/customer-supplier/delete")
+    @MessageMapping("/message/customer-supplier/delete")
     @SendTo("/message/customer-supplier/topic/messages")
     public Long deleteMessageCustomerAndSupplier(Long id) {
         if (messageCustomerSupplierService.deleteMessage(id)) {
