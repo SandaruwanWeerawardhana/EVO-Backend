@@ -2,45 +2,55 @@ package edu.icet.dto.supplier;
 
 import edu.icet.dto.system.Category;
 import edu.icet.dto.system.Terms;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Data
 public class Supplier {
 
-    @NotEmpty(message = "User ID required")
     @PositiveOrZero(message = "ID must be positive")
     private long userId;
 
-    private Category category;
+    @NotBlank(message = "firstName cannot be empty")
+    @NotNull
+    private String firstName;
 
-    @OneToOne
-    @JoinColumn(name = "terms_id")
-    private Terms terms;
+    @NotBlank(message = "lastName cannot be empty")
+    private String lastName;
 
-    @NotEmpty(message = "Business Name is required")
-    private String businessName;
-
-    @Email
-    @NotEmpty(message = "Email is required")
+    @NotBlank(message = "Email cannot be empty")
+    @Email(message = "Invalid email format")
     private String email;
 
-    @Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "Invalid phone number")
-    @NotBlank(message = "Phone Number is required")
-    private String phoneNumber;
+    @NotBlank(message = "Email cannot be empty")
+    @NotNull
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,}$",
+            message = "password must be at least 8 characters, contain a number, an uppercase letter, and a special character.")
+    private String password;
 
-    @NotEmpty(message = "Description is required")
+    @NotBlank(message = "Phone number cannot be empty")
+    @NotNull
+    @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be exactly 10 digits")
+    private String contactNumber;
+
+    @NotBlank(message = "Business Name is required")
+    private String businessName;
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
+    @NotBlank(message = "Description is required")
     private String description;
 
-    @NotNull(message = "Location is required")
-    private Location location;
-
+    private String websiteURL;
     private String profilePictureImageUrl;
-
     private Boolean availability;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "terms_id")
+    private Terms terms;
 }
