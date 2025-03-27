@@ -1,7 +1,6 @@
 package edu.icet.controller.supplier;
 
 import edu.icet.dto.supplier.*;
-import edu.icet.dto.system.Profile;
 import edu.icet.service.supplier.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +9,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @CrossOrigin
 @RestController
-@RequestMapping("supplier/venue")
+@RequestMapping("/supplier/venue")
 
 public class VenueController {
 
@@ -57,8 +56,8 @@ public class VenueController {
     }
 
     @GetMapping("/hall/get-all-halls")
-    public List<Hall> getAllHalls(@RequestBody Profile profile){
-        return hallService.getAll(profile);
+    public List<Hall> getAllHalls(){
+        return hallService.getAll();
     }
 
     @PutMapping("/hall/update-hall")
@@ -105,8 +104,8 @@ public class VenueController {
     }
 
     @GetMapping("/room/getAll-rooms")
-    public List<Room> getAllRoomData(@RequestBody Profile profile){
-        return roomService.getAll(profile);
+    public List<Room> getAllRoomData(){
+        return roomService.getAll();
     }
 
     @PutMapping("/room/update-room")
