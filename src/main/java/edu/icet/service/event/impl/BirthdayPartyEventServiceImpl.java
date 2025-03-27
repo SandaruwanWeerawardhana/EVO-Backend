@@ -71,10 +71,10 @@ public class BirthdayPartyEventServiceImpl implements BirthdayPartyEventService 
 
     @Override
     public Boolean delete(BirthdayParty birthdayParty) {
-        if (birthdayParty == null || birthdayParty.getBirthdayPartyId() == null) {
+        if (birthdayParty == null || birthdayParty.getEventId() == null) {
             return false;
         }
-        birthdayPartyRepository.deleteById(birthdayParty.getBirthdayPartyId());
+        birthdayPartyRepository.deleteById(birthdayParty.getEventId());
         return true;
     }
 
@@ -89,10 +89,10 @@ public class BirthdayPartyEventServiceImpl implements BirthdayPartyEventService 
 
     @Override
     public Boolean update(BirthdayParty bdParty) {
-        if (bdParty == null || bdParty.getBirthdayPartyId() == null) {
+        if (bdParty == null || bdParty.getEventId() == null) {
             return false;
         }
         BirthdayPartyEntity updatedEntity = birthdayPartyRepository.save(modelMapper.map(bdParty, BirthdayPartyEntity.class));
-        return updatedEntity.getBirthdayPartyId().equals(bdParty.getBirthdayPartyId());
+        return updatedEntity.getEventId().equals(bdParty.getEventId());
     }
 }

@@ -1,6 +1,7 @@
 package edu.icet.entity.supplier;
 
 import edu.icet.entity.customer.CustomerEntity;
+import edu.icet.entity.event.EventSummaryEntity;
 import edu.icet.util.SupplerRequestStatusType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,10 @@ public class SupplierRequestEntity {
     private CustomerEntity customer;
 
     @ManyToOne
+    @JoinColumn(name = "event_summary_id", nullable = false)
+    private EventSummaryEntity eventSummaryEntity;
+
+    @OneToOne
     @JoinColumn(name = "package_id")
     private ProfilePackagesEntity request_package;
 
