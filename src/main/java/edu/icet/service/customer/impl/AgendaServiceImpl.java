@@ -4,8 +4,10 @@ import edu.icet.dto.event.Agenda;
 import edu.icet.dto.event.AgendaTask;
 import edu.icet.entity.event.AgendaEntity;
 import edu.icet.entity.event.AgendaTaskEntity;
+import edu.icet.entity.event.EventEntity;
 import edu.icet.repository.event.AgendaRepository;
 import edu.icet.repository.event.AgendaTaskRepository;
+import edu.icet.repository.event.EventRepository;
 import edu.icet.service.customer.AgendaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,12 +23,18 @@ public class AgendaServiceImpl implements AgendaService {
 
     private final AgendaRepository agendaRepository;
     private final AgendaTaskRepository agendaTaskRepository;
+    private final EventRepository eventRepository;
 
     @Override
     @Transactional
     public boolean create(Agenda agenda) {
         AgendaEntity entity = new AgendaEntity();
-        entity.setEventId(agenda.getEventId());
+        EventEntity event = eventRepository.findById(agenda.getEventId()).orElse(null);
+
+        if (event == null) return false;
+
+        entity.setEvent(event);
+
         entity.setDate(agenda.getDate());
         entity.setTime(agenda.getTime());
         AgendaEntity savedEntity = agendaRepository.save(entity);
@@ -48,7 +56,11 @@ public class AgendaServiceImpl implements AgendaService {
         AgendaEntity existing = agendaRepository.findById(agenda.getId()).orElse(null);
         if (existing == null) return false;
 
-        existing.setEventId(agenda.getEventId());
+        EventEntity event = eventRepository.findById(agenda.getEventId()).orElse(null);
+
+        if (event == null) return false;
+
+        existing.setEvent(event);
         existing.setDate(agenda.getDate());
         existing.setTime(agenda.getTime());
         agendaRepository.save(existing);
@@ -128,7 +140,7 @@ public class AgendaServiceImpl implements AgendaService {
     private Agenda convertToDto(AgendaEntity entity) {
         Agenda dto = new Agenda();
         dto.setId(entity.getId());
-        dto.setEventId(entity.getEventId());
+        dto.setEventId(entity.getEvent().getEventId());
         dto.setDate(entity.getDate());
         dto.setTime(entity.getTime());
         dto.setTasks(entity.getTasks().stream()

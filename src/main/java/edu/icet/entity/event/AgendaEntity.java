@@ -20,8 +20,9 @@ public class AgendaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "event_id", nullable = false)
-    private Long eventId;
+    @OneToOne
+    @JoinColumn(name = "event_id", nullable = false, unique = true)
+    private EventEntity event;
 
     @Column(nullable = false)
     private LocalDate date;
