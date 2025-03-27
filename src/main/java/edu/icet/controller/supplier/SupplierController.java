@@ -4,8 +4,6 @@ import edu.icet.dto.supplier.*;
 
 import edu.icet.dto.system.Profile;
 import edu.icet.service.supplier.*;
-import edu.icet.service.system.ProfileImageService;
-import edu.icet.service.system.ProfilePreviousWorkImageService;
 import edu.icet.service.system.ProfileService;
 import edu.icet.util.MealType;
 import jakarta.validation.Valid;
@@ -40,10 +38,8 @@ public class SupplierController {
     private final PhotographerPackageService photographerPackageService;
     private final ProfileService profileService;
     private final ProfileExtraFeatureService profileExtraFeatureService;
-    private final ProfileImageService profileImageService;
     private final ProfilePackageService profilePackageService;
     private final ProfilePreviousWorkService previousWorkService;
-    private final ProfilePreviousWorkImageService profilePreviousWorkImageService;
     private final SalonImageService salonImageService;
 
     @PostMapping("/add-supplier")
@@ -397,44 +393,6 @@ public class SupplierController {
         return profileExtraFeatureService.searchById(id);
     }
 
-    @PostMapping("/profile/profile-images/update-profile-image/{userId}")
-    public ResponseEntity<String> updateProfileImage(@PathVariable Long userId,
-                                                     @RequestParam("file") MultipartFile file) {
-        try {
-            ProfileImage profileImage = new ProfileImage();
-            profileImage.setUserId(userId);
-            profileImage.setProfileImage(file);
-
-            profileImageService.updateProfileImage(profileImage);
-            return ResponseEntity.ok("Profile image updated successfully.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating profile image.");
-        }
-    }
-
-    @GetMapping("/profile/profile-images/get-profile-image/{userId}")
-    public ResponseEntity<byte[]> getProfileImage(@PathVariable Integer userId) {
-        Optional<ProfileImage> profileImageOpt = profileImageService.getProfileImageByUserId(userId);
-
-        if (profileImageOpt.isPresent()) {
-            try {
-                ProfileImage profileImage = profileImageOpt.get();
-                return ResponseEntity.ok()
-                        .contentType(MediaType.IMAGE_JPEG)  // Adjust based on file type
-                        .body(profileImage.getProfileImage().getBytes());
-            } catch (IOException e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-            }
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @DeleteMapping("/profile/profile-images/delete-profile-image/{userId}")
-    public ResponseEntity<String> deleteProfileImage(@PathVariable Integer userId) {
-        profileImageService.deleteProfileImage(userId);
-        return ResponseEntity.ok("Profile image deleted successfully.");
-    }
 
     @PostMapping("/profile/package/add-package")
     public ProfilePackages addPackage(@RequestBody ProfilePackages profilePackage) {
@@ -497,31 +455,6 @@ public class SupplierController {
     @GetMapping("/profile/previous-work/get-previous-work-by-id")
     public ProfilePreviousWork searchPreviousWork(@RequestParam ProfilePreviousWork profilePreviousWork){
         return previousWorkService.search(profilePreviousWork);
-    }
-
-    @PostMapping("/profile/previous-work-img/add-work-img")
-    public ProfilePreviousWorkImage addPreviousWorkImage(@RequestBody ProfilePreviousWorkImage profilePreviousWorkImage) {
-        return profilePreviousWorkImageService.addPreviousWorkImage(profilePreviousWorkImage);
-    }
-
-    @PutMapping("/profile/previous-work-img/update-work-img")
-    public ProfilePreviousWorkImage updatePreviousWorkImage(@RequestBody ProfilePreviousWorkImage profilePreviousWorkImage) {
-        return profilePreviousWorkImageService.updatePreviousWorkImage(profilePreviousWorkImage);
-    }
-
-    @GetMapping("/profile/previous-work-img/all-work-images")
-    public List<ProfilePreviousWorkImage> getAllPreviousWorkImages() {
-        return profilePreviousWorkImageService.getAllPreviousWorkImage();
-    }
-
-    @DeleteMapping("/profile/previous-work-img/delete-work-img/{id}")
-    public void deletePreviousWorkImage(@PathVariable Long id) {
-        profilePreviousWorkImageService.deleteByProfilePreviousWorkImageId(id);
-    }
-
-    @GetMapping("/profile/previous-work-img/search-work-img/{id}")
-    public ProfilePreviousWorkImage searchPreviousWorkImage(@PathVariable Long id) {
-        return profilePreviousWorkImageService.searchByProfilePreviousWorkImageId(id);
     }
 
     @PostMapping("/salon/images/add-image")
