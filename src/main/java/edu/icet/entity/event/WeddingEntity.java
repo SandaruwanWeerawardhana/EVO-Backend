@@ -5,21 +5,23 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "wedding")
 public class WeddingEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long weddingId;
+    @Column(name = "event_id", nullable = false)
+    private Long eventId;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "event_id")
+    private EventEntity event;
 
     @Column(name = "wedding_type", nullable = false)
     @Enumerated(EnumType.STRING)
