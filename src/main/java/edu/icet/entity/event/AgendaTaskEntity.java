@@ -1,23 +1,42 @@
-//package edu.icet.entity.event;
-//
-//import jakarta.persistence.*;
-//import lombok.AllArgsConstructor;
-//import lombok.Data;
-//import lombok.NoArgsConstructor;
-//import lombok.ToString;
-//
-//@Data
-//@AllArgsConstructor
-//@NoArgsConstructor
-//@ToString
-//@Entity
-//@Table(name="agenda_task")
-//public class AgendaTaskEntity {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Integer id;
-//    private String description;
-//    private Integer taskId;
-//    private String taskName;
-//    private AgendaEntity agenda;
-//}
+package edu.icet.entity.event;
+
+import edu.icet.util.SupplierType;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.time.LocalTime;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString(exclude = "agenda")
+@Entity
+@Table(name = "agenda_task")
+public class AgendaTaskEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer taskId;
+
+    @Column(nullable = false)
+    private String taskName;
+
+    @Column(name = "start_time")
+    private LocalTime startTime;
+
+    @Column(name = "end_time")
+    private LocalTime endTime;
+
+    @Column(name = "supplier_id")
+    private Long supplierId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "supplier_type")
+    private SupplierType supplierType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "agenda_id")
+    private AgendaEntity agenda;
+}

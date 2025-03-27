@@ -15,7 +15,11 @@ public class ProfileExtraFeatureEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long featureID;
-    private Long profileID;
+
+    @ManyToOne
+    @JoinColumn(name = "supplier_id")
+    private SupplierEntity supplier;
+
     @Column(nullable = false)
     private String featureName;
     @Column(nullable = false)

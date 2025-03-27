@@ -19,7 +19,11 @@ public class BookingSlotEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookingSlotId;
-    private Long propertyId;
+
+    @ManyToOne
+    @JoinColumn(name = "property_id")
+    private PropertyEntity property;
+
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 }
