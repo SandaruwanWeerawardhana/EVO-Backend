@@ -17,7 +17,6 @@ public class EventSummary {
 
     private Event event;
 
-    @NotNull(message = "venue cannot be null")
     private Venue venue;
 
     @NotNull(message = "customer cannot be null")
