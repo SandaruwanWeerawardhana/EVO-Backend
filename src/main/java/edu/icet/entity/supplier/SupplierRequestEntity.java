@@ -1,7 +1,5 @@
 package edu.icet.entity.supplier;
 
-import edu.icet.dto.supplier.Location;
-import edu.icet.dto.supplier.ProfilePackages;
 import edu.icet.entity.customer.CustomerEntity;
 import edu.icet.util.SupplerRequestStatusType;
 import jakarta.persistence.*;
@@ -29,9 +27,9 @@ public class SupplierRequestEntity {
     @JoinColumn(name = "customer_id")
     private CustomerEntity customer;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "package_id")
-    private ProfilePackagesEntity packages;
+    private ProfilePackagesEntity request_package;
 
     @Column(nullable = false)
     private LocalDateTime requestDate;

@@ -29,11 +29,13 @@ public class ProfilePackages {
     private String packageName;
 
     @NotNull
-   @DecimalMax("10.0")@DecimalMin("0.0")
+    @DecimalMax("10.0")@DecimalMin("0.0")
     private Double price;
 
     @NotNull
     private String status;
+
+    private List<SupplierRequest> supplierRequestList;
 
     private List<ProfileExtraFeature> featureList;
 
