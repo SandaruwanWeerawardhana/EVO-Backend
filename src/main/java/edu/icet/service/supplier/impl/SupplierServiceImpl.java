@@ -32,28 +32,28 @@ public class SupplierServiceImpl implements SupplierService {
         if (category == null || category.isBlank()) {
             throw new IllegalArgumentException("Category name cannot be null or blank");
         }
+        return null;
 
-        return repository.findAllByCategoryIdEquals(categoryService.search(category).getId())
+       /* return repository.findAllByCategoryIdEquals(categoryService.search(category).getId())
                 .stream()
                 .map(supplierEntity -> mapper.map(supplierEntity, Supplier.class))
-                .toList();
+                .toList();*/
     }
-
 
     @Override
     public void add(Supplier supplier) {
 
-        if (repository.existsByEmail(supplier.getEmail())){
-            throw new IllegalArgumentException("Email is already exits");
-        }
-
-        if (repository.existsByPhoneNumber(supplier.getContactNumber())) {
-            throw new IllegalArgumentException("phone number is already exists");
-        }
-
-        if (repository.existsByBusinessName(supplier.getBusinessName())){
-            throw new IllegalArgumentException("Business name is already exists");
-        }
+//        if (repository.existsByEmail(supplier.getEmail())){
+//            throw new IllegalArgumentException("Email is already exits");
+//        }
+//
+//        if (repository.existsByPhoneNumber(supplier.getContactNumber())) {
+//            throw new IllegalArgumentException("phone number is already exists");
+//        }
+//
+//        if (repository.existsByBusinessName(supplier.getBusinessName())){
+//            throw new IllegalArgumentException("Business name is already exists");
+//        }
 
         repository.save(mapper.map(supplier, SupplierEntity.class));
     }

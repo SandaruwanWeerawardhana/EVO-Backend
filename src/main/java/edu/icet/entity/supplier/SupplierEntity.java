@@ -2,6 +2,7 @@ package edu.icet.entity.supplier;
 
 import edu.icet.dto.system.Category;
 import edu.icet.entity.system.TermsEntity;
+import edu.icet.util.CategoryType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -38,7 +39,7 @@ public class SupplierEntity {
     private String businessName;
 
     @Enumerated(EnumType.STRING)
-    private Category category;
+    private CategoryType categoryType;
 
     @NotBlank
     private String description;
@@ -48,6 +49,6 @@ public class SupplierEntity {
     private Boolean availability;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "terms_id", referencedColumnName = "id")
+    @JoinColumn(name = "terms_id", referencedColumnName = "termId")
     private TermsEntity terms;
 }
