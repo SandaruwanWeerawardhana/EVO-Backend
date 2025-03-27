@@ -10,9 +10,9 @@ public interface EventSummaryService {
 
     boolean update(EventSummary eventSummary);
 
-    boolean delete(Integer id);
+    boolean delete(Long id);
 
     List<EventSummary> getAll();
 
-    EventSummary getById(Integer id);
+    EventSummary getById(Long id);
 }

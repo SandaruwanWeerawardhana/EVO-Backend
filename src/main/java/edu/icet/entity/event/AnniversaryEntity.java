@@ -4,20 +4,21 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "anniversary")
 public class AnniversaryEntity {
-    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "event_id", nullable = false)
     private Long eventId;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "event_id")
+    private EventEntity event;
 
     @Column(name = "anniversary_year", nullable = false)
     private Integer anniversaryYear;
@@ -29,4 +30,5 @@ public class AnniversaryEntity {
     private String husbandName;
 
     @Column(name = "description")
-    private String description;}
+    private String description;
+}
