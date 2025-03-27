@@ -16,16 +16,16 @@ import java.util.List;
 @Slf4j
 @RestController
 @CrossOrigin
-@RequestMapping("/report")
+@RequestMapping("/system/report")
 @RequiredArgsConstructor
 
 public class ReportController {
 
-    final ReportService service;
+    final ReportService reportService;
 
-    @PostMapping("/add")
+    @PostMapping("/add-report")
     public ResponseEntity<String> addReport(@Valid @RequestBody Report report, HttpServletRequest request) {
-        if (service.saveReport(report)) {
+        if (reportService.saveReport(report)) {
             String os = request.getRemoteAddr();
             log.info("Request Received IP: {} | Add Report detail: {}", os, report);
             return ResponseEntity.ok(" Report saved successfully");
@@ -36,27 +36,27 @@ public class ReportController {
     }
 
 
-    @PutMapping("/update/{reportId}")
+    @PutMapping("/update-report/{reportId}")
     public ResponseEntity<String> updateReport(@PathVariable Long reportId, @Valid @RequestBody Report report) {
-        if (service.updateReport(reportId, report)) {
+        if (reportService.updateReport(reportId, report)) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete-report")
     public ResponseEntity<String> deleteReport(@PathVariable Long reportId) {
-        if (service.deleteReportById(reportId)) {
+        if (reportService.deleteReportById(reportId)) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @GetMapping("/search/{reportId}")
+    @GetMapping("/search-report-by-id/{reportId}")
     public ResponseEntity<Report> searchReport(@PathVariable Long reportId) {
-        Report report = service.searchReport(reportId);
+        Report report = reportService.searchReport(reportId);
         if (report != null) {
             return new ResponseEntity<>(report, HttpStatus.OK);
         } else {
@@ -64,9 +64,9 @@ public class ReportController {
         }
     }
 
-    @GetMapping("/getAll")
-    public ResponseEntity<List<Report>> getAll() {
-        List<Report> allReports = service.getAllReports();
+    @GetMapping("/getAll-reports")
+    public ResponseEntity<List<Report>> getAllReports() {
+        List<Report> allReports = reportService.getAllReports();
         if (allReports != null) {
             return new ResponseEntity<>(allReports, HttpStatus.OK);
         } else {
@@ -74,9 +74,9 @@ public class ReportController {
         }
     }
 
-    @GetMapping("/filter")
+    @GetMapping("/filter-reports")
     public ResponseEntity<List<Report>> getFilterReports(ReportType reportType) {
-        List<Report> filterReports = service.getFillterReports(reportType);
+        List<Report> filterReports = reportService.getFillterReports(reportType);
         if (filterReports != null) {
             return new ResponseEntity<>(filterReports, HttpStatus.OK);
         } else {
