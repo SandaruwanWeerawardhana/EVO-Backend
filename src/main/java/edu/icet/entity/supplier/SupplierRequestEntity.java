@@ -1,5 +1,7 @@
-package edu.icet.entity.admin;
+package edu.icet.entity.supplier;
 
+import edu.icet.dto.supplier.Location;
+import edu.icet.entity.customer.CustomerEntity;
 import edu.icet.util.SupplerRequestStatusType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,11 +20,13 @@ public class SupplierRequestEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long supplierId;
+    @OneToOne
+    @JoinColumn(name = "supplier_id")
+    private SupplierEntity supplier;
 
-    @Column(nullable = false)
-    private Long customerId;
+    @OneToOne
+    @JoinColumn(name = "customer_id")
+    private CustomerEntity customer;
 
     @Column(nullable = false)
     private LocalDateTime requestDate;
@@ -31,8 +35,9 @@ public class SupplierRequestEntity {
     @Column(nullable = false)
     private SupplerRequestStatusType requestStatus;
 
-    @Column(nullable = false)
-    private Long locationID;
+    @OneToOne
+    @JoinColumn(name = "location_id")
+    private LocationEntity location;
 
     @Column(nullable = false)
     private LocalDateTime dueDateTime;

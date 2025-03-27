@@ -1,5 +1,6 @@
 package edu.icet.controller.system;
 
+import edu.icet.dto.supplier.Supplier;
 import edu.icet.dto.system.Terms;
 import edu.icet.service.system.TermsService;
 import jakarta.validation.Valid;
@@ -36,8 +37,8 @@ public class TermsController {
     }
 
     @GetMapping("/profile/{profileId}")
-    public ResponseEntity<List<Terms>> getTermsByProfileId(@PathVariable Integer profileId) {
-        List<Terms> termsList = termsService.getTermsByProfileId(profileId);
+    public ResponseEntity<List<Terms>> getTermsBySupplier(@PathVariable Supplier supplier) {
+        List<Terms> termsList = termsService.getTermsBySupplier(supplier);
         return ResponseEntity.ok(termsList);
     }
 
@@ -48,8 +49,8 @@ public class TermsController {
     }
 
     @GetMapping("/active/{profileId}")
-    public ResponseEntity<Terms> getActiveTerms(@PathVariable Integer profileId) {
-        return termsService.getActiveTerms(profileId)
+    public ResponseEntity<Terms> getActiveTerms(@PathVariable Supplier supplier) {
+        return termsService.getActiveTerms(supplier)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

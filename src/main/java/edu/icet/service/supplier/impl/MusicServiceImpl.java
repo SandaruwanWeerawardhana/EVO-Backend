@@ -30,7 +30,7 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public boolean addMusic(Music music) {
-        return !repository.existsById(music.getSupplierId()) &&
+        return !repository.existsById(music.getMusicID()) &&
                 repository.save(mapper.map(music, MusicEntity.class)) != null;
     }
 
@@ -45,7 +45,7 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public boolean updateMusic(Music music) {
-        return repository.existsById(music.getSupplierId()) &&
+        return repository.existsById(music.getMusicID()) &&
                 repository.save(mapper.map(music, MusicEntity.class)) != null;
     }
 

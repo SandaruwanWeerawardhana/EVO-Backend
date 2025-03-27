@@ -13,7 +13,11 @@ import lombok.NoArgsConstructor;
 public class MusicEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long supplierId;
+    private Long musicID;
+
+    @OneToOne
+    @JoinColumn(name = "supplier_id")
+    private SupplierEntity supplier;
 
     private Integer teamSize;
 

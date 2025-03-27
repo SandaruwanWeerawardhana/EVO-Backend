@@ -1,5 +1,6 @@
 package edu.icet.entity.supplier;
 
+import edu.icet.dto.supplier.Venue;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,15 +20,17 @@ public class VenueRequestEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "supplier_id",nullable = false)
-    private Long supplierId;
+    @OneToOne
+    @JoinColumn(name = "supplier_id")
+    private SupplierEntity supplier;
 
-    @Column(name = "venue_id",nullable = false)
-    private Long venueID;
+    @OneToOne
+    @JoinColumn(name = "venue_id")
+    private VenueEntity venue;
 
     @Column(name = "created_datetime",nullable = false)
     private LocalDateTime createdDateTime;
 
     @Column(nullable = false)
-    private String status;
+    private Boolean status;
 }

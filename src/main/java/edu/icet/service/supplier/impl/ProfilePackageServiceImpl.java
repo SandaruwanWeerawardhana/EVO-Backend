@@ -19,6 +19,11 @@ public class ProfilePackageServiceImpl implements ProfilePackageService {
 
     @Override
     public void addPackage(ProfilePackages profilePackage) {
+
+        if (repository.existsByPackageName(profilePackage.getPackageName())){
+            throw new IllegalArgumentException("PackageName is already exits");
+        }
+
         repository.save(mapper.map(profilePackage, ProfilePackagesEntity.class));
     }
 
