@@ -1,6 +1,7 @@
 package edu.icet.entity.system;
 
 import edu.icet.dto.supplier.Supplier;
+import edu.icet.entity.supplier.CategoryEntity;
 import edu.icet.entity.supplier.SupplierEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -19,8 +20,8 @@ public class TermsEntity {
     private Long termId;
 
     @OneToOne
-    @JoinColumn(name = "supplier_id")
-    private SupplierEntity supplier;
+    @JoinColumn(name = "category_id")
+    private CategoryEntity category;
 
     @NotBlank
     @Size(min = 100)

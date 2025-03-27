@@ -19,7 +19,7 @@ public class Terms {
     private Long termId;
 
     @NotNull
-    private Supplier supplier;
+    private Category category;
 
     @NotBlank
     @Size(min = 100)
