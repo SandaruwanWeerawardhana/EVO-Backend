@@ -1,7 +1,9 @@
 package edu.icet.controller.supplier;
 
 import edu.icet.dto.supplier.Catering;
+import edu.icet.dto.supplier.Supplier;
 import edu.icet.service.supplier.CateringService;
+import edu.icet.service.supplier.SupplierService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/supplier/catering")
@@ -16,6 +19,7 @@ import java.util.List;
 @CrossOrigin
 public class CateringController {
     final CateringService cateringService;
+    final SupplierService supplierService;
 
     @PostMapping("/add")
     public ResponseEntity<Catering> addCatering(@Valid @RequestBody Catering catering) {
@@ -49,8 +53,14 @@ public class CateringController {
     }
 
     @GetMapping("/supplier/{supplierId}")
-    public ResponseEntity<List<Catering>> getCateringBySupplierId(@PathVariable Integer supplierId) {
-        List<Catering> cateringList = cateringService.getCateringBySupplierId(supplierId);
+    public ResponseEntity<List<Catering>> getCateringBySupplierId(@PathVariable Long supplierId) {
+        Supplier supplier= supplierService.getAll()
+                .stream()
+                .filter(entity -> entity.getUserId() == supplierId)
+                .findFirst()
+                .orElse(null);
+
+        List<Catering> cateringList = cateringService.getCateringBySupplierId(supplier);
         return ResponseEntity.ok(cateringList);
     }
 }

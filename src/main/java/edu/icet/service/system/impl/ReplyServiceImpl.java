@@ -1,6 +1,7 @@
 package edu.icet.service.system.impl;
 
 
+import edu.icet.dto.customer.User;
 import edu.icet.dto.system.Reply;
 import edu.icet.entity.system.ReplyEntity;
 import edu.icet.repository.system.ReplyRepository;
@@ -92,8 +93,8 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
-    public Reply searchReplyByUserId(Long userId) {
-        ReplyEntity replyEntity = replyRepository.findByUserId(userId).stream().findFirst().orElse(null);
+    public Reply searchReplyByUserId(User user) {
+        ReplyEntity replyEntity = replyRepository.findByUser(user).stream().findFirst().orElse(null);
 
         return replyEntity != null ? mapper.map(replyEntity, Reply.class) : null;
     }

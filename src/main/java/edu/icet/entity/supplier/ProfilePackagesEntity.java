@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,10 +20,9 @@ public class ProfilePackagesEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long packageId;
 
-    @NotNull
-    @Min(1)
-    @Column(nullable = false)
-    private Long profileId;
+    @ManyToOne
+    @JoinColumn(name = "supplier_id")
+    private SupplierEntity supplier;
 
     @NotNull
     @Column(nullable = false)
@@ -42,4 +43,7 @@ public class ProfilePackagesEntity {
     @Column(nullable = false)
     private String status;
 
+    @OneToMany
+    @JoinColumn(name = "profile_id")
+    private List<ProfileExtraFeatureEntity> featureList;
 }
