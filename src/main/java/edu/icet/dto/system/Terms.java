@@ -1,6 +1,9 @@
 package edu.icet.dto.system;
 
 import edu.icet.dto.supplier.Supplier;
+import edu.icet.util.SupplierCategoryType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -18,8 +21,8 @@ public class Terms {
     @NotNull
     private Long termId;
 
-    @NotNull
-    private Category category;
+    @Enumerated(EnumType.STRING)
+    private SupplierCategoryType category;
 
     @NotBlank
     @Size(min = 100)

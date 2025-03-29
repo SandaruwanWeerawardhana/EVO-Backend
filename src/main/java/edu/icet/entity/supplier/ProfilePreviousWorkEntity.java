@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -19,14 +20,6 @@ public class ProfilePreviousWorkEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long previousWorkID;
 
-    @ManyToOne
-    @JoinColumn(name = "supplier_id")
-    private SupplierEntity  supplier;
-
-    @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = true)
-    private CustomerEntity customer; // Customers can also be null
-
     @Column(nullable = false)
     private String title;
 
@@ -34,4 +27,12 @@ public class ProfilePreviousWorkEntity {
 
     @Column(nullable = false)
     private LocalDate completionDate;
+
+    @OneToOne
+    @JoinColumn(name = "customer_id", nullable = true)
+    private CustomerEntity customer; // Customers can also be null
+
+    @OneToMany
+    @JoinColumn(name = "profile_previous_work_id")
+    private List<ProfilePreviousWorkImageEntity> images;
 }

@@ -81,12 +81,13 @@ public class VenueRequestServiceImpl implements VenueRequestService {
 
     @Override
     public List<Venue> getAllVisibleVenuesByEventType(EventType eventType) {
-        List<Venue> visibleVenuesByEventType = new ArrayList<>();
-        venueRequestRepository.findAll().forEach(venueRequestEntity -> {
-            if(venueRequestEntity.getVenue().getEventType().equals(eventType)){
-                visibleVenuesByEventType.add(venueService.findById(venueRequestEntity.getVenue().getVenueId()));
-            }
-        });
-        return visibleVenuesByEventType;
+//        List<Venue> visibleVenuesByEventType = new ArrayList<>();
+//        venueRequestRepository.findAll().forEach(venueRequestEntity -> {
+//            if(venueRequestEntity.getVenue().getEventType().equals(eventType)){
+//                visibleVenuesByEventType.add(venueService.findById(venueRequestEntity.getVenue().getVenueId()));
+//            }
+//        });
+//        return visibleVenuesByEventType;
+        return null;
     }
 }

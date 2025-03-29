@@ -71,9 +71,9 @@ public class SupplierRequestServiceImpl implements SupplierRequestService {
 
     @Override
     public void update(SupplierRequest supplierRequest) {
-        if (requestReporsitory.existsById(supplierRequest.getSupplier().getUserId())) { // TODO: Logical error here
-            requestReporsitory.save(mapper.map(supplierRequest, SupplierRequestEntity.class));
-        }
+//        if (requestReporsitory.existsById(supplierRequest.getSupplier().getUserId())) { // TODO: Logical error here
+//            requestReporsitory.save(mapper.map(supplierRequest, SupplierRequestEntity.class));
+//        }
         throw new IllegalArgumentException("Updating fail! supplier request does not exist");
     }
 

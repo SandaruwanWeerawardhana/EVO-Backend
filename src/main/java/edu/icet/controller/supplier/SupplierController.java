@@ -29,8 +29,6 @@ public class SupplierController {
     private final MusicService musicService;
 
     private final MusicPackageService musicPackageService;
-
-    private final PhotographerPackageService photographerPackageService;
     private final ProfileExtraFeatureService profileExtraFeatureService;
     private final ProfilePackageService profilePackageService;
     private final ProfilePreviousWorkService previousWorkService;
@@ -237,8 +235,8 @@ public class SupplierController {
 
 
     @PostMapping("/profile/profile-extra-feature/add-profileExtraFeature")
-    public Boolean saveProfileExtraFeature(@RequestBody ProfileExtraFeature profileExtraFeature) {
-        return profileExtraFeatureService.save(profileExtraFeature);
+    public Boolean saveProfileExtraFeature(@RequestBody PackageFeature packageFeature) {
+        return profileExtraFeatureService.save(packageFeature);
     }
     @DeleteMapping("/profile/profile-extra-feature/delete-profileExtraFeature/{id}")
     public boolean deleteProfileExtraFeature(@PathVariable Long id) {
@@ -246,39 +244,39 @@ public class SupplierController {
     }
 
     @PutMapping("/profile/profile-extra-feature/update-profileExtraFeature")
-    public boolean updateProfileExtraFeature(@RequestBody Long id, ProfileExtraFeature profileExtraFeature) {
-        return profileExtraFeatureService.update(id, profileExtraFeature);
+    public boolean updateProfileExtraFeature(@RequestBody Long id, PackageFeature packageFeature) {
+        return profileExtraFeatureService.update(id, packageFeature);
     }
 
     @GetMapping("/profile/profile-extra-feature/getAll-profileExtraFeatures")
-    public List<ProfileExtraFeature> getAllProfileExtraFeature() {
+    public List<PackageFeature> getAllProfileExtraFeature() {
         return profileExtraFeatureService.getAll();
     }
 
     @GetMapping("/profile/profile-extra-feature/get-profileExtraFeature/{id}")
-    public ProfileExtraFeature searchProfileExtraFeatureById(@PathVariable Long id) {
+    public PackageFeature searchProfileExtraFeatureById(@PathVariable Long id) {
         return profileExtraFeatureService.searchById(id);
     }
 
 
     @PostMapping("/profile/package/add-package")
-    public ProfilePackages addPackage(@RequestBody ProfilePackages profilePackage) {
+    public ProfilePackage addPackage(@RequestBody ProfilePackage profilePackage) {
         profilePackageService.addPackage(profilePackage);
         return profilePackage;
     }
 
     @GetMapping("/profile/package/getAll-packages")
-    public List<ProfilePackages> getAllPackages() {
+    public List<ProfilePackage> getAllPackages() {
         return profilePackageService.getAllPackages();
     }
 
     @GetMapping("/profile/package/getAllPackagesByProfileId/{profileId}")
-    public List<ProfilePackages> getAllPackagesByProfileId(@PathVariable Long profileId) {
+    public List<ProfilePackage> getAllPackagesByProfileId(@PathVariable Long profileId) {
         return profilePackageService.getAllProfileById(profileId);
     }
 
     @PutMapping("/profile/package/update-package")
-    public boolean updatePackage(@RequestBody ProfilePackages profilePackage) {
+    public boolean updatePackage(@RequestBody ProfilePackage profilePackage) {
         profilePackageService.updatePackage(profilePackage);
         return true;
     }
@@ -290,12 +288,12 @@ public class SupplierController {
     }
 
     @GetMapping("/profile/package/get-package-by-id/{packageId}")
-    public ProfilePackages getPackageById(@PathVariable Long packageId) {
+    public ProfilePackage getPackageById(@PathVariable Long packageId) {
         return profilePackageService.searchByPackageId(packageId);
     }
 
     @GetMapping("/profile/package/get-package-by-name/{packageName}")
-    public ProfilePackages getByName(@PathVariable String packageName) {
+    public ProfilePackage getByName(@PathVariable String packageName) {
         return profilePackageService.searchByPackageName(packageName);
     }
 

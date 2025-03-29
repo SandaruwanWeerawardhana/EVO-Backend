@@ -1,7 +1,6 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.supplier.ProfileExtraFeature;
-import edu.icet.entity.supplier.ProfileExtraFeatureEntity;
+import edu.icet.entity.supplier.PackageFeatureEntity;
 import edu.icet.repository.supplier.ProfileExtraFeatureRepository;
 import edu.icet.service.supplier.ProfileExtraFeatureService;
 import lombok.RequiredArgsConstructor;
@@ -18,25 +17,25 @@ public class ProfileExtraFeatureServiceImpl implements ProfileExtraFeatureServic
     final ModelMapper mapper;
 
     @Override
-    public List<ProfileExtraFeature> getAll() {
-        List<ProfileExtraFeature> profileExtraFeatureList = new ArrayList<>();
-        List<ProfileExtraFeatureEntity> all = repository.findAll();
+    public List<edu.icet.dto.supplier.PackageFeature> getAll() {
+        List<edu.icet.dto.supplier.PackageFeature> packageFeatureList = new ArrayList<>();
+        List<PackageFeatureEntity> all = repository.findAll();
 
-        all.forEach(profileExtraFeatureEntity -> {
-            profileExtraFeatureList.add(mapper.map(profileExtraFeatureEntity, ProfileExtraFeature.class));
+        all.forEach(packageFeatureEntity -> {
+            packageFeatureList.add(mapper.map(packageFeatureEntity, edu.icet.dto.supplier.PackageFeature.class));
         });
 
-        return profileExtraFeatureList;
+        return packageFeatureList;
     }
     @Override
-    public Boolean save(ProfileExtraFeature profileExtraFeature) {
-        if (profileExtraFeature == null) {
+    public Boolean save(edu.icet.dto.supplier.PackageFeature packageFeature) {
+        if (packageFeature == null) {
             return false;
         }
-        if (repository.existsById(profileExtraFeature.getFeatureID())) {
+        if (repository.existsById(packageFeature.getFeatureID())) {
             throw new IllegalArgumentException("Already Exist Work");
         }
-        repository.save(mapper.map(profileExtraFeature, ProfileExtraFeatureEntity.class));
+        repository.save(mapper.map(packageFeature, PackageFeatureEntity.class));
         return true;
     }
     @Override
@@ -58,7 +57,7 @@ public class ProfileExtraFeatureServiceImpl implements ProfileExtraFeatureServic
         return true;
     }
     @Override
-    public Boolean update(Long id,ProfileExtraFeature profileExtraFeature) {
+    public Boolean update(Long id, edu.icet.dto.supplier.PackageFeature packageFeature) {
         if (id == null) {
             return false;
         }
@@ -66,17 +65,17 @@ public class ProfileExtraFeatureServiceImpl implements ProfileExtraFeatureServic
             return false;
         }
 
-        repository.save(mapper.map(profileExtraFeature, ProfileExtraFeatureEntity.class));
+        repository.save(mapper.map(packageFeature, PackageFeatureEntity.class));
         return true;
     }
     @Override
-    public ProfileExtraFeature searchById(Long id) {
+    public edu.icet.dto.supplier.PackageFeature searchById(Long id) {
         if (id == null){
             return null;
         }
         if (!repository.existsById(id)){
             return null;
         }
-        return mapper.map(repository.findById(id), ProfileExtraFeature.class);
+        return mapper.map(repository.findById(id), edu.icet.dto.supplier.PackageFeature.class);
     }
 }

@@ -55,9 +55,11 @@ public class CateringServiceImpl implements CateringService {
 
     @Override
     public List<Catering> getCateringBySupplierId(Supplier supplier) {
-        return repository.findBySupplier(mapper.map(supplier, SupplierEntity.class)).stream()
-                .map(entity -> mapper.map(entity, Catering.class))
-                .collect(Collectors.toList());
+//        return repository.findBySupplier(mapper.map(supplier, SupplierEntity.class)).stream()
+//                .map(entity -> mapper.map(entity, Catering.class))
+//                .collect(Collectors.toList());
+
+        return null;
     }
 
 }

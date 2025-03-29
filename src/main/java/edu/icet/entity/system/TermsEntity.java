@@ -3,6 +3,7 @@ package edu.icet.entity.system;
 import edu.icet.dto.supplier.Supplier;
 import edu.icet.entity.supplier.CategoryEntity;
 import edu.icet.entity.supplier.SupplierEntity;
+import edu.icet.util.SupplierCategoryType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,9 +20,8 @@ public class TermsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long termId;
 
-    @OneToOne
-    @JoinColumn(name = "category_id")
-    private CategoryEntity category;
+    @Enumerated(EnumType.STRING)
+    private SupplierCategoryType category;
 
     @NotBlank
     @Size(min = 100)

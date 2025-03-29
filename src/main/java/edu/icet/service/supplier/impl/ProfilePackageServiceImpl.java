@@ -1,7 +1,7 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.supplier.ProfilePackages;
-import edu.icet.entity.supplier.ProfilePackagesEntity;
+import edu.icet.dto.supplier.ProfilePackage;
+import edu.icet.entity.supplier.ProfilePackageEntity;
 import edu.icet.repository.supplier.ProfilePackageRepository;
 import edu.icet.service.supplier.ProfilePackageService;
 import lombok.RequiredArgsConstructor;
@@ -18,42 +18,42 @@ public class ProfilePackageServiceImpl implements ProfilePackageService {
     private final ProfilePackageRepository repository;
 
     @Override
-    public void addPackage(ProfilePackages profilePackage) {
+    public void addPackage(ProfilePackage profilePackage) {
 
         if (repository.existsByPackageName(profilePackage.getPackageName())){
             throw new IllegalArgumentException("PackageName is already exits");
         }
 
-        repository.save(mapper.map(profilePackage, ProfilePackagesEntity.class));
+        repository.save(mapper.map(profilePackage, ProfilePackageEntity.class));
     }
 
     @Override
-    public List<ProfilePackages> getAllPackages() {
-        List<ProfilePackagesEntity> all = repository.findAll();
+    public List<ProfilePackage> getAllPackages() {
+        List<ProfilePackageEntity> all = repository.findAll();
 
-        List<ProfilePackages> profilePackages = new ArrayList<>();
+        List<ProfilePackage> profilePackages = new ArrayList<>();
 
         all.forEach(profilePackagesEntity -> {
-            profilePackages.add(mapper.map(profilePackages,ProfilePackages.class));
+            profilePackages.add(mapper.map(profilePackages, ProfilePackage.class));
         });
         return profilePackages;
     }
 
     @Override
-    public List<ProfilePackages> getAllProfileById(Long profileId) {
-        List<ProfilePackagesEntity> all = repository.getAllByPackageId(profileId);
+    public List<ProfilePackage> getAllProfileById(Long profileId) {
+        List<ProfilePackageEntity> all = repository.getAllByPackageId(profileId);
 
-        List<ProfilePackages> profilePackages = new ArrayList<>();
+        List<ProfilePackage> profilePackages = new ArrayList<>();
 
         all.forEach(profilePackagesEntity -> {
-            profilePackages.add(mapper.map(profilePackages,ProfilePackages.class));
+            profilePackages.add(mapper.map(profilePackages, ProfilePackage.class));
         });
         return profilePackages;
     }
 
     @Override
-    public void updatePackage(ProfilePackages profilePackage) {
-        repository.save(mapper.map(profilePackage, ProfilePackagesEntity.class));
+    public void updatePackage(ProfilePackage profilePackage) {
+        repository.save(mapper.map(profilePackage, ProfilePackageEntity.class));
     }
 
     @Override
@@ -62,12 +62,12 @@ public class ProfilePackageServiceImpl implements ProfilePackageService {
     }
 
     @Override
-    public ProfilePackages searchByPackageId(Long packageId) {
-        return mapper.map(repository.findById(packageId),ProfilePackages.class);
+    public ProfilePackage searchByPackageId(Long packageId) {
+        return mapper.map(repository.findById(packageId), ProfilePackage.class);
     }
 
     @Override
-    public ProfilePackages searchByPackageName(String packageName) {
-        return mapper.map(repository.findByPackageName(packageName),ProfilePackages.class);
+    public ProfilePackage searchByPackageName(String packageName) {
+        return mapper.map(repository.findByPackageName(packageName), ProfilePackage.class);
     }
 }

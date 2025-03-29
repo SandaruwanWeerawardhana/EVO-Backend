@@ -1,7 +1,7 @@
 package edu.icet.entity.event;
 
 import edu.icet.entity.customer.CustomerEntity;
-import edu.icet.entity.supplier.ProfilePackagesEntity;
+import edu.icet.entity.supplier.ProfilePackageEntity;
 import edu.icet.entity.supplier.SupplierRequestEntity;
 import edu.icet.entity.supplier.VenueEntity;
 import jakarta.persistence.*;
@@ -51,9 +51,9 @@ public class EventSummaryEntity {
     private Integer headCount;
 
     @ManyToMany
-    private List<ProfilePackagesEntity> packagesList;
+    private List<ProfilePackageEntity> packagesList;
 
-    @OneToMany(mappedBy = "eventSummaryEntity", cascade = CascadeType.ALL)
+    @OneToMany( cascade = CascadeType.ALL)
     private List<SupplierRequestEntity> requests;
 
     @Column(name = "total_price")

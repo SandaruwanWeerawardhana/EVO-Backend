@@ -1,6 +1,5 @@
 package edu.icet.entity.supplier;
 
-import edu.icet.entity.event.EventSummaryEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -16,14 +15,10 @@ import java.util.List;
 @Entity
 @Table(name="profile_packages")
 
-public class ProfilePackagesEntity {
+public class ProfilePackageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long packageId;
-
-    @ManyToOne
-    @JoinColumn(name = "supplier_id")
-    private SupplierEntity supplier;
 
     @NotNull
     @Column(nullable = false)
@@ -44,13 +39,8 @@ public class ProfilePackagesEntity {
     @Column(nullable = false)
     private String status;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SupplierRequestEntity> supplierRequestList;
-
     @OneToMany
-    @JoinColumn(name = "profile_id")
-    private List<ProfileExtraFeatureEntity> featureList;
+    @JoinColumn(name = "profile_package_id")
+    private List<PackageFeatureEntity> features;
 
-    @ManyToMany
-    private List<EventSummaryEntity> summaryEntities;
 }

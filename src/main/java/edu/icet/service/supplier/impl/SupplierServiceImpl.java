@@ -35,28 +35,30 @@ public class SupplierServiceImpl implements SupplierService {
         }
 
 
-        return repository.findAllByCategoryIdEquals(categoryService.search(category).getId())
-                .stream()
-                .map(supplierEntity -> mapper.map(supplierEntity, Supplier.class))
-                .toList();
+//        return repository.findAllByCategoryIdEquals(categoryService.search(category).getId())
+//                .stream()
+//                .map(supplierEntity -> mapper.map(supplierEntity, Supplier.class))
+//                .toList();
+
+        return null;
 
     }
 
 
     @Override
     public void add(Supplier supplier) {
-
-        if (repository.existsByEmail(supplier.getEmail())){
-            throw new IllegalArgumentException("Email is already exits");
-        }
-
-        if (repository.existsByPhoneNumber(supplier.getPhoneNumber())) {
-            throw new IllegalArgumentException("phone number is already exists");
-        }
-
-        if (repository.existsByBusinessName(supplier.getBusinessName())){
-            throw new IllegalArgumentException("Business name is already exists");
-        }
+//
+//        if (repository.existsByEmail(supplier.getEmail())){
+//            throw new IllegalArgumentException("Email is already exits");
+//        }
+//
+//        if (repository.existsByPhoneNumber(supplier.getPhoneNumber())) {
+//            throw new IllegalArgumentException("phone number is already exists");
+//        }
+//
+//        if (repository.existsByBusinessName(supplier.getBusinessName())){
+//            throw new IllegalArgumentException("Business name is already exists");
+//        }
 
         repository.save(mapper.map(supplier, SupplierEntity.class));
 
@@ -64,23 +66,24 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public Supplier search(Supplier query) {
-        return getAll().stream()
-                .filter(s ->
-                        (query.getUserId() != 0 && Objects.equals(s.getUserId(), query.getUserId())) ||
-                                (query.getBusinessName() != null && s.getBusinessName().equalsIgnoreCase(query.getBusinessName())) ||
-                                (query.getEmail() != null && s.getEmail().equalsIgnoreCase(query.getEmail())) ||
-                                (query.getPhoneNumber() != null && s.getPhoneNumber().equals(query.getPhoneNumber()))
-                )
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Supplier not found"));
+        return null;
+//        return getAll().stream()
+//                .filter(s ->
+//                        (query.getUserId() != 0 && Objects.equals(s.getUserId(), query.getUserId())) ||
+//                                (query.getBusinessName() != null && s.getBusinessName().equalsIgnoreCase(query.getBusinessName())) ||
+//                                (query.getEmail() != null && s.getEmail().equalsIgnoreCase(query.getEmail())) ||
+//                                (query.getPhoneNumber() != null && s.getPhoneNumber().equals(query.getPhoneNumber()))
+//                )
+//                .findFirst()
+//                .orElseThrow(() -> new IllegalArgumentException("Supplier not found"));
     }
 
     @Override
     public void update(Supplier supplier) {
-        if (repository.existsById(supplier.getUserId())) {
-            repository.save(mapper.map(supplier, SupplierEntity.class));
-            return;
-        }
+//        if (repository.existsById(supplier.getUserId())) {
+//            repository.save(mapper.map(supplier, SupplierEntity.class));
+//            return;
+//        }
 
         throw new IllegalArgumentException("Supplier does not exist!");
 

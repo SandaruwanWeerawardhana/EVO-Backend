@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "ProfileExtraFeature")
 
-public class ProfileExtraFeatureEntity {
+public class PackageFeatureEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long featureID;

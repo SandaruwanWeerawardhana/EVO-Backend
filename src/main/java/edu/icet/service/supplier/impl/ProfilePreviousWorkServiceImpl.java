@@ -41,13 +41,13 @@ public class ProfilePreviousWorkServiceImpl implements ProfilePreviousWorkServic
 
     @Override
     public ProfilePreviousWork search(ProfilePreviousWork profilePreviousWork) {
-        if (profilePreviousWork != null) {
-            if (profilePreviousWork.getPreviousWorkID() != null) {
-                return searchByPreviousWorkID(profilePreviousWork.getPreviousWorkID());
-            } else {
-                return searchBySupplier(profilePreviousWork.getSupplier());
-            }
-        }
+//        if (profilePreviousWork != null) {
+//            if (profilePreviousWork.getPreviousWorkID() != null) {
+//                return searchByPreviousWorkID(profilePreviousWork.getPreviousWorkID());
+//            } else {
+//                return searchBySupplier(profilePreviousWork.getSupplier());
+//            }
+//        }
         return null;
     }
 
@@ -58,9 +58,11 @@ public class ProfilePreviousWorkServiceImpl implements ProfilePreviousWorkServic
     }
 
     private ProfilePreviousWork searchBySupplier(Supplier supplier) {
-        ProfilePreviousWorkEntity entity = repository.findBySupplier(supplier);
+//        ProfilePreviousWorkEntity entity = repository.findBySupplier(supplier);
+//
+//        return entity != null ? mapper.map(entity, ProfilePreviousWork.class) : null;
 
-        return entity != null ? mapper.map(entity, ProfilePreviousWork.class) : null;
+        return null;
     }
 
 

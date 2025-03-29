@@ -13,13 +13,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ProfilePackages {
+public class ProfilePackage {
     @NotNull
     @Min(1)
     private Long packageId;
-
-    @NotNull
-    private Supplier profile;
 
     @NotNull
     private String description;
@@ -35,8 +32,6 @@ public class ProfilePackages {
     @NotNull
     private String status;
 
-    private List<SupplierRequest> supplierRequestList;
-
-    private List<ProfileExtraFeature> featureList;
+    private List<PackageFeature> features;
 
 }

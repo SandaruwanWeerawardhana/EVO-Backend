@@ -1,13 +1,19 @@
 package edu.icet.entity.supplier;
 
+import edu.icet.dto.customer.Customer;
+import edu.icet.dto.supplier.Location;
+import edu.icet.dto.supplier.PackageFeature;
+import edu.icet.dto.supplier.ProfilePackage;
 import edu.icet.entity.customer.CustomerEntity;
 import edu.icet.entity.event.EventSummaryEntity;
 import edu.icet.util.SupplerRequestStatusType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,37 +22,31 @@ import java.time.LocalDateTime;
 @Table(name = "SupplierRequest")
 
 public class SupplierRequestEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "supplier_id")
-    private SupplierEntity supplier;
+    private LocalDateTime requestDate;
+
+    private LocalDateTime dueDateTime;
+
+    @Enumerated(EnumType.STRING)
+    private SupplerRequestStatusType requestStatus;
 
     @OneToOne
     @JoinColumn(name = "customer_id")
     private CustomerEntity customer;
 
-    @ManyToOne
-    @JoinColumn(name = "event_summary_id", nullable = false)
-    private EventSummaryEntity eventSummaryEntity;
+    @OneToOne
+    @JoinColumn(name = "profile_package_id")
+    private ProfilePackageEntity selectedPackage;
 
-    @ManyToOne
-    @JoinColumn(name = "package_id")
-    private ProfilePackagesEntity request_package;
-
-    @Column(nullable = false)
-    private LocalDateTime requestDate;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private SupplerRequestStatusType requestStatus;
+    @OneToMany
+    @JoinColumn(name = "supplier_request_id")
+    private List<PackageFeatureEntity> extraFeatures;
 
     @OneToOne
     @JoinColumn(name = "location_id")
     private LocationEntity location;
-
-    @Column(nullable = false)
-    private LocalDateTime dueDateTime;
 }
