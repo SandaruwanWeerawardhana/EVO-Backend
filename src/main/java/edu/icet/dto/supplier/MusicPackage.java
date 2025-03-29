@@ -11,10 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MusicPackage {
-    @NotEmpty
     private Integer id;
+
     @NotEmpty
     private String description;
+
     @NotEmpty
     @Positive
     private Double price_per_hour;

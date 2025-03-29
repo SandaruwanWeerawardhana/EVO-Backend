@@ -14,8 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class ProfilePackage {
-    @NotNull
-    @Min(1)
+
     private Long packageId;
 
     @NotNull

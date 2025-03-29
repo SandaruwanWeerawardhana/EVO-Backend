@@ -21,12 +21,10 @@ public class ProfilePreviousWorkImageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long profilePreviousWorkImageId;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "profile_previous_work_id")
     private ProfilePreviousWorkEntity profilePreviousWork;
 
-    @NotBlank
     @Column(nullable = false)
     private String imageUrl;
 

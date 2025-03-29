@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Catering {
-    @NotNull(message = "Catering ID cannot be null")
+
     private Long cateringId;
 
     private Boolean isAvailable;

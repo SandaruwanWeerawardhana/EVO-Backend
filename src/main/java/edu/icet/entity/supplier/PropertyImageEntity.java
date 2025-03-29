@@ -22,6 +22,6 @@ public class PropertyImageEntity {
     @JoinColumn(name = "property_id")
     private PropertyEntity property;
 
-   @Column(nullable = false)
+    @Column(nullable = false)
     private String imageUrl;
 }

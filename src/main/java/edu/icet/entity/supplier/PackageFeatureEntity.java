@@ -22,6 +22,7 @@ public class PackageFeatureEntity {
 
     @Column(nullable = false)
     private String featureName;
+
     @Column(nullable = false)
     private Double featurePrice;
 }

@@ -12,7 +12,7 @@ import lombok.*;
 @Getter
 @Setter
 public class Meal {
-    @NonNull
+
     private Long id;
 
     @NonNull
