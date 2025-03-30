@@ -332,6 +332,33 @@ public class SupplierController {
         return ResponseEntity.ok(service.deleteProfileImage(id));
     }
 
+    // Supplier Request
+
+    @GetMapping("/request")
+    public ResponseEntity<List<SupplierRequest>> getAllSupplierRequests() {
+        return ResponseEntity.ok(service.getAllSupplierRequests());
+    }
+
+    @GetMapping("/request/{supplierRequestID}")
+    public ResponseEntity<SupplierRequest> getSupplierRequestByID(@PathVariable Long supplierRequestID) {
+        return ResponseEntity.ok(service.getSupplierRequestByID(supplierRequestID));
+    }
+
+    @PostMapping("/{supplierID}/request")
+    public ResponseEntity<Supplier> addSupplierRequest(@RequestBody SupplierRequest supplierRequest, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.addSupplierRequest(supplierRequest, supplierID));
+    }
+
+    @PutMapping("/{supplierID}/request")
+    public ResponseEntity<Supplier> updateSupplierRequest(@RequestBody SupplierRequest supplierRequest, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.updateSupplierRequest(supplierRequest, supplierID));
+    }
+
+    @DeleteMapping("/request/{supplierRequestID}")
+    public ResponseEntity<Boolean> deleteSupplierRequest(@PathVariable Long supplierRequestID) {
+        return ResponseEntity.ok(service.deleteSupplierRequest(supplierRequestID));
+    }
+
 
 
 }

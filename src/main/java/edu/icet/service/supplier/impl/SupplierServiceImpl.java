@@ -38,6 +38,7 @@ public class SupplierServiceImpl implements SupplierService {
     final PackageFeatureService packageFeatureService;
     final ProfilePreviousWorkService profilePreviousWorkService;
     final ProfileImageService imageService;
+    final SupplierRequestService requestService;
 
 
     @Override
@@ -478,6 +479,39 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public Boolean deleteProfileImage(Long profileImageID) {
         return imageService.deleteProfileImage(profileImageID);
+    }
+
+    @Override
+    public Supplier addSupplierRequest(SupplierRequest supplierRequest, Long supplierID) {
+        SupplierEntity supplier = findSupplier(supplierID);
+
+        SupplierRequest request = requestService.addSupplierRequest(supplierRequest);
+        supplier.getRequests().add(mapper.map(request, SupplierRequestEntity.class));
+
+        return updateSupplier(supplier);
+    }
+
+    @Override
+    public List<SupplierRequest> getAllSupplierRequests() {
+        return requestService.getAll();
+    }
+
+    @Override
+    public SupplierRequest getSupplierRequestByID(Long id) {
+        return requestService.findById(id);
+    }
+
+    @Override
+    public Supplier updateSupplierRequest(SupplierRequest supplierRequest, Long supplierID) {
+
+        requestService.update(supplierRequest);
+
+        return mapper.map(findSupplier(supplierID), Supplier.class);
+    }
+
+    @Override
+    public Boolean deleteSupplierRequest(Long id) {
+        return requestService.delete(id);
     }
 
 

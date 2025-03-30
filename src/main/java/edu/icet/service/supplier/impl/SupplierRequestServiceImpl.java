@@ -28,10 +28,12 @@ public class SupplierRequestServiceImpl implements SupplierRequestService {
     private BookingSlotService bookingSlotService;
 
     @Override
-    public void addSupplierRequest(SupplierRequest supplierRequest) {
-        if (requestReporsitory.existsById(supplierRequest.getId()) && !isBookingOverLapped(supplierRequest)) {
-            requestReporsitory.save(mapper.map(supplierRequest, SupplierRequestEntity.class));
+    public SupplierRequest addSupplierRequest(SupplierRequest supplierRequest) {
+        if (!requestReporsitory.existsById(supplierRequest.getId()) && !isBookingOverLapped(supplierRequest)) {
+            return  mapper.map(requestReporsitory.save(mapper.map(supplierRequest, SupplierRequestEntity.class)), SupplierRequest.class);
         }
+
+        throw new IllegalArgumentException("Supplier request already exists or booking is overlapped.");
     }
 
     private boolean isBookingOverLapped(SupplierRequest supplierRequest) {
@@ -70,17 +72,20 @@ public class SupplierRequestServiceImpl implements SupplierRequestService {
     }
 
     @Override
-    public void update(SupplierRequest supplierRequest) {
-//        if (requestReporsitory.existsById(supplierRequest.getSupplier().getUserId())) { // TODO: Logical error here
-//            requestReporsitory.save(mapper.map(supplierRequest, SupplierRequestEntity.class));
-//        }
+    public SupplierRequest update(SupplierRequest supplierRequest) {
+        if (requestReporsitory.existsById(supplierRequest.getId())) {
+            return mapper.map(requestReporsitory.save(mapper.map(supplierRequest, SupplierRequestEntity.class)), SupplierRequest.class);
+        }
+
         throw new IllegalArgumentException("Updating fail! supplier request does not exist");
     }
 
     @Override
-    public void delete(Long id) {
+    public Boolean delete(Long id) {
         if (requestReporsitory.existsById(id)) {
             requestReporsitory.deleteById(id);
+
+            return true;
         }
         throw new IllegalArgumentException("Supplier does not exist!");
     }

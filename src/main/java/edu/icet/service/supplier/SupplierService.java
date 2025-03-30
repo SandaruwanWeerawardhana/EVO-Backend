@@ -87,4 +87,11 @@ public interface SupplierService {
     ProfileImage getProfileImageByID(Long profileImageID);
     Boolean deleteProfileImage(Long profileImageID);
 
+    // SupplierRequest
+    Supplier addSupplierRequest(SupplierRequest supplierRequest, Long supplierID);
+    List<SupplierRequest> getAllSupplierRequests();
+    SupplierRequest getSupplierRequestByID(Long id);
+    Supplier updateSupplierRequest(SupplierRequest supplierRequest, Long supplierID);
+    Boolean deleteSupplierRequest(Long id);
+
 }
