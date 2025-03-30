@@ -2,8 +2,11 @@ package edu.icet.dto.customer;
 
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
 import edu.icet.dto.admin.Admin;
 import edu.icet.dto.supplier.Supplier;
+import edu.icet.util.JsonAPIViews;
 import edu.icet.util.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -51,8 +54,16 @@ public class User {
     @NotEmpty(message = "City should not be blank")
     private String city;
 
+//    @JsonView(JsonAPIViews.SupplierView.class)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Supplier supplier;
+
+//    @JsonView(JsonAPIViews.AdminView.class)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Admin admin;
+
+//    @JsonView(JsonAPIViews.CustomerView.class)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Customer customer;
 
 }

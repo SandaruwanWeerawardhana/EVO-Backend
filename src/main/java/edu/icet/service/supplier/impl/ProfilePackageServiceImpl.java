@@ -1,6 +1,8 @@
 package edu.icet.service.supplier.impl;
 
+import edu.icet.dto.supplier.PackageFeature;
 import edu.icet.dto.supplier.ProfilePackage;
+import edu.icet.entity.supplier.PackageFeatureEntity;
 import edu.icet.entity.supplier.ProfilePackageEntity;
 import edu.icet.repository.supplier.ProfilePackageRepository;
 import edu.icet.service.supplier.ProfilePackageService;
@@ -8,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -18,13 +22,13 @@ public class ProfilePackageServiceImpl implements ProfilePackageService {
     private final ProfilePackageRepository repository;
 
     @Override
-    public void addPackage(ProfilePackage profilePackage) {
+    public ProfilePackage addPackage(ProfilePackage profilePackage) {
 
         if (repository.existsByPackageName(profilePackage.getPackageName())){
             throw new IllegalArgumentException("PackageName is already exits");
         }
 
-        repository.save(mapper.map(profilePackage, ProfilePackageEntity.class));
+        return mapper.map(repository.save(mapper.map(profilePackage, ProfilePackageEntity.class)), ProfilePackage.class);
     }
 
     @Override
@@ -52,13 +56,20 @@ public class ProfilePackageServiceImpl implements ProfilePackageService {
     }
 
     @Override
-    public void updatePackage(ProfilePackage profilePackage) {
-        repository.save(mapper.map(profilePackage, ProfilePackageEntity.class));
+    public ProfilePackage updatePackage(ProfilePackage profilePackage) {
+        if (repository.existsById(profilePackage.getPackageId())) {
+
+            return mapper.map(repository.save(mapper.map(profilePackage, ProfilePackageEntity.class)), ProfilePackage.class);
+        }
+
+        throw new IllegalArgumentException("Profile Package does not exist!");
     }
 
     @Override
-    public void deletePackageById(Long packageId) {
+    public Boolean deletePackageById(Long packageId) {
         repository.deleteById(packageId);
+
+        return true;
     }
 
     @Override
@@ -69,5 +80,13 @@ public class ProfilePackageServiceImpl implements ProfilePackageService {
     @Override
     public ProfilePackage searchByPackageName(String packageName) {
         return mapper.map(repository.findByPackageName(packageName), ProfilePackage.class);
+    }
+
+    @Override
+    public ProfilePackage searchByPackageFeature(PackageFeature features) {
+        return mapper.map(
+                repository.findByFeaturesIn(
+                                List.of(mapper.map(features, PackageFeatureEntity.class))
+                ), ProfilePackage.class);
     }
 }

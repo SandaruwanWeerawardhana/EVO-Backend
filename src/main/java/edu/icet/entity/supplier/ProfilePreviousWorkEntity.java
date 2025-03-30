@@ -32,7 +32,7 @@ public class ProfilePreviousWorkEntity {
     @JoinColumn(name = "customer_id", nullable = true)
     private CustomerEntity customer; // Customers can also be null
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_previous_work_id")
     private List<ProfilePreviousWorkImageEntity> images;
 }

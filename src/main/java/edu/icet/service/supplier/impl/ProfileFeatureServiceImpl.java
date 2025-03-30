@@ -1,8 +1,9 @@
 package edu.icet.service.supplier.impl;
 
+import edu.icet.dto.supplier.PackageFeature;
 import edu.icet.entity.supplier.PackageFeatureEntity;
 import edu.icet.repository.supplier.ProfileExtraFeatureRepository;
-import edu.icet.service.supplier.ProfileExtraFeatureService;
+import edu.icet.service.supplier.PackageFeatureService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ProfileExtraFeatureServiceImpl implements ProfileExtraFeatureService {
+public class ProfileFeatureServiceImpl implements PackageFeatureService {
     final ProfileExtraFeatureRepository repository;
     final ModelMapper mapper;
 
@@ -28,15 +29,12 @@ public class ProfileExtraFeatureServiceImpl implements ProfileExtraFeatureServic
         return packageFeatureList;
     }
     @Override
-    public Boolean save(edu.icet.dto.supplier.PackageFeature packageFeature) {
-        if (packageFeature == null) {
-            return false;
-        }
+    public PackageFeature save(edu.icet.dto.supplier.PackageFeature packageFeature) {
         if (repository.existsById(packageFeature.getFeatureID())) {
             throw new IllegalArgumentException("Already Exist Work");
         }
-        repository.save(mapper.map(packageFeature, PackageFeatureEntity.class));
-        return true;
+        return mapper.map(repository.save(mapper.map(packageFeature, PackageFeatureEntity.class)), PackageFeature.class);
+
     }
     @Override
     public Boolean delete(Long id) {
@@ -57,19 +55,16 @@ public class ProfileExtraFeatureServiceImpl implements ProfileExtraFeatureServic
         return true;
     }
     @Override
-    public Boolean update(Long id, edu.icet.dto.supplier.PackageFeature packageFeature) {
-        if (id == null) {
-            return false;
-        }
-        if (!repository.existsById(id)) {
-            return false;
+    public PackageFeature update(PackageFeature packageFeature) {
+
+        if (!repository.existsById(packageFeature.getFeatureID())) {
+            throw new IllegalArgumentException("Package feature does not exist!");
         }
 
-        repository.save(mapper.map(packageFeature, PackageFeatureEntity.class));
-        return true;
+        return mapper.map(repository.save(mapper.map(packageFeature, PackageFeatureEntity.class)), PackageFeature.class);
     }
     @Override
-    public edu.icet.dto.supplier.PackageFeature searchById(Long id) {
+    public PackageFeature searchById(Long id) {
         if (id == null){
             return null;
         }

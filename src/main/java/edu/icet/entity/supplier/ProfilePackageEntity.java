@@ -39,7 +39,7 @@ public class ProfilePackageEntity {
     @Column(nullable = false)
     private String status;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_package_id")
     private List<PackageFeatureEntity> features;
 

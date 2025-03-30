@@ -22,7 +22,7 @@ public class CateringEntity {
     @Column(nullable = false)
     private Boolean isAvailable;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "catering_id")
     private List<MealEntity> meals;
 }

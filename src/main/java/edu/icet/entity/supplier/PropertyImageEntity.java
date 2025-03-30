@@ -18,10 +18,6 @@ public class PropertyImageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "property_id")
-    private PropertyEntity property;
-
     @Column(nullable = false)
     private String imageUrl;
 }

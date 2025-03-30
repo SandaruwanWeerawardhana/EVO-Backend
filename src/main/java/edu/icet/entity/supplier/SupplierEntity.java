@@ -4,6 +4,7 @@ import edu.icet.entity.event.BeautySaloonEntity;
 import edu.icet.entity.system.TermsEntity;
 import edu.icet.util.SupplierCategoryType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,10 @@ public class SupplierEntity {
     private Long id;
 
     private String businessName;
+
+    private String businessContactNumber;
+
+    private String businessEmail;
 
     private String description;
 

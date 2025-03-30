@@ -1,5 +1,6 @@
 package edu.icet.entity.customer;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import edu.icet.entity.admin.AdminEntity;
 import edu.icet.entity.supplier.SupplierEntity;
 import edu.icet.util.UserType;
@@ -46,15 +47,15 @@ public class UserEntity {
 
     private String city;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "supplier_id")
     private SupplierEntity supplier;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "admin_id")
     private AdminEntity admin;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     private CustomerEntity customer;
 }

@@ -16,14 +16,9 @@ import lombok.ToString;
 @Table(name="profile_previous_work_images")
 public class ProfilePreviousWorkImageEntity {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long profilePreviousWorkImageId;
-
-    @ManyToOne
-    @JoinColumn(name = "profile_previous_work_id")
-    private ProfilePreviousWorkEntity profilePreviousWork;
 
     @Column(nullable = false)
     private String imageUrl;

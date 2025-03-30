@@ -1,6 +1,9 @@
 package edu.icet.dto.supplier;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
 import edu.icet.dto.system.Terms;
+import edu.icet.util.JsonAPIViews;
 import edu.icet.util.SupplierCategoryType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -20,6 +23,11 @@ public class Supplier {
     @NotEmpty(message = "Business Name is required")
     private String businessName;
 
+    private String businessContactNumber;
+
+    @Email(message = "Email should be valid")
+    private String businessEmail;
+
     @NotEmpty(message = "Description is required")
     private String description;
 
@@ -33,12 +41,16 @@ public class Supplier {
     @Enumerated(EnumType.STRING)
     private SupplierCategoryType category;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private BeautySaloon beautySaloon;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Catering catering;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Venue venue;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Music music;
 
     private List<SupplierRequest> requests;

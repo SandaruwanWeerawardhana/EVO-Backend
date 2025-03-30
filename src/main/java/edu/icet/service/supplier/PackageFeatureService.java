@@ -4,10 +4,10 @@ import edu.icet.dto.supplier.PackageFeature;
 
 import java.util.List;
 
-public interface ProfileExtraFeatureService {
+public interface PackageFeatureService {
     List<PackageFeature> getAll();
-    Boolean save(PackageFeature packageFeature);
+    PackageFeature save(PackageFeature packageFeature);
     Boolean delete(Long id);
-    Boolean update(Long id, PackageFeature packageFeature);
+    PackageFeature update(PackageFeature packageFeature);
     PackageFeature searchById(Long id);
 }
