@@ -3,7 +3,8 @@ package edu.icet.service.supplier.impl;
 import edu.icet.dto.supplier.*;
 import edu.icet.entity.supplier.VenueEntity;
 import edu.icet.repository.supplier.VenueRepository;
-import edu.icet.service.supplier.VenueService;
+import edu.icet.service.supplier.*;
+import edu.icet.service.system.VenueRequestService;
 import edu.icet.util.EventType;
 import edu.icet.util.VenueType;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,13 @@ public class VenueServiceImpl implements VenueService {
     private final VenueRepository repository;
     private final ModelMapper mapper;
 
+    final PropertyService propertyService;
+    final HallService hallService;
+    final PoolService poolService;
+    final RoomService roomService;
+    final OutdoorAreaService outdoorAreaService;
+    final PropertyImageService propertyImageService;
+    final VenueRequestService venueRequestService;
 
     @Override
     public List<Property> getAllProperties() {
