@@ -34,7 +34,7 @@ public class VenueRequestServiceImpl implements VenueRequestService {
         List<Venue> venueList = new ArrayList<>();
         venueRequestRepository.findAll().forEach(venueRequestEntity ->{
             venueRequestList.add(mapper.map(venueRequestEntity, VenueRequest.class));
-            venueList.add(venueService.findById(venueRequestEntity.getVenue().getVenueId()));
+            venueList.add(venueService.searchVenueByID(venueRequestEntity.getVenue().getVenueId()));
         });
         return Map.of(venueRequestList,venueList);
     }
@@ -42,7 +42,7 @@ public class VenueRequestServiceImpl implements VenueRequestService {
     @Override
     public Map<VenueRequest,Venue> getById(Long id) {
         VenueRequest venueRequest = mapper.map(venueRequestRepository.findById(id), VenueRequest.class);
-        Venue venue = mapper.map(venueService.findById(venueRequest.getVenue().getVenueId()), Venue.class);
+        Venue venue = mapper.map(venueService.searchVenueByID(venueRequest.getVenue().getVenueId()), Venue.class);
         return Map.of(venueRequest,venue);
     }
 
@@ -62,7 +62,7 @@ public class VenueRequestServiceImpl implements VenueRequestService {
         List<Venue> visibleVenues = new ArrayList<>();
         venueRequestRepository.findAll().forEach(venueRequestEntity -> {
             if (Boolean.TRUE.equals(venueRequestEntity.getStatus())){
-                visibleVenues.add(venueService.findById(venueRequestEntity.getVenue().getVenueId()));
+                visibleVenues.add(venueService.searchVenueByID(venueRequestEntity.getVenue().getVenueId()));
             }
         });
         return visibleVenues;
@@ -73,7 +73,7 @@ public class VenueRequestServiceImpl implements VenueRequestService {
         List<Venue> visibleVenuesByLocation = new ArrayList<>();
         venueRequestRepository.findAll().forEach(venueRequestEntity -> {
            if(venueRequestEntity.getVenue().getLocation().equals(location)) {
-               visibleVenuesByLocation.add(venueService.findById(venueRequestEntity.getVenue().getVenueId()));
+               visibleVenuesByLocation.add(venueService.searchVenueByID(venueRequestEntity.getVenue().getVenueId()));
            }
         });
         return visibleVenuesByLocation;
