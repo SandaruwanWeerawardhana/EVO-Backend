@@ -3,7 +3,6 @@ package edu.icet.dto.supplier;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
 import edu.icet.dto.system.Terms;
-import edu.icet.util.JsonAPIViews;
 import edu.icet.util.SupplierCategoryType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

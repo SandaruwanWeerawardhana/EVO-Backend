@@ -3,10 +3,8 @@ package edu.icet.dto.customer;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonView;
 import edu.icet.dto.admin.Admin;
 import edu.icet.dto.supplier.Supplier;
-import edu.icet.util.JsonAPIViews;
 import edu.icet.util.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
