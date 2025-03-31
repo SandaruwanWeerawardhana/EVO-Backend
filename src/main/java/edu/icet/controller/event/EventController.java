@@ -7,14 +7,12 @@ import edu.icet.service.customer.AnniversaryEventService;
 import edu.icet.service.event.BirthdayPartyEventService;
 import edu.icet.service.event.EventService;
 import edu.icet.service.event.GetTogetherEventService;
-import edu.icet.service.event.WeddingEventService;
 import edu.icet.service.system.EventSummaryService;
 import edu.icet.util.EventType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -23,13 +21,20 @@ import java.util.List;
 @RequiredArgsConstructor
 @CrossOrigin
 public class EventController {
+
     private final EventService eventService;
+    //anniversary Event service
     private final AnniversaryEventService anniversaryEventService;
+
+    //event summary
     private final EventSummaryService eventSummaryService;
-    private final GetTogetherEventService getTogetherEventService;
+
+     //get together
+     private final GetTogetherEventService getTogetherEventService;
+
     private final AgendaService agendaService;
+
     private final BirthdayPartyEventService birthdayPartyEventService;
-    private final WeddingEventService weddingEventService;
 
     @PostMapping("/add")
     public ResponseEntity<Event> addEvent(@RequestBody Event event) {
@@ -91,6 +96,8 @@ public class EventController {
         return anniversaryEventService.delete(eventId);
     }
 
+    //event Summary Controller
+
     @PostMapping("/add-summary")
     public boolean add(@RequestBody EventSummary eventSummary){
         return eventSummaryService.add(eventSummary);
@@ -116,8 +123,11 @@ public class EventController {
         return eventSummaryService.getById(id);
     }
 
+    //getTogether
+
     @PostMapping("/add-get-together")
     public boolean addGetTogether(@RequestBody GetTogether getTogether){
+
         return getTogetherEventService.add(getTogether);
     }
 
@@ -187,7 +197,7 @@ public class EventController {
     }
 
     @PostMapping("/birthday-party/add")
-    private boolean addBirthdayParty(@RequestBody BirthdayParty birthdayParty) {
+    public boolean addBirthdayParty(@RequestBody BirthdayParty birthdayParty) {
         return birthdayPartyEventService.add(birthdayParty);
     }
 
@@ -231,33 +241,4 @@ public class EventController {
         return birthdayPartyEventService.get(ownerName);
     }
 
-    @GetMapping("/wedding/get/{id}")
-    public Wedding getWedding(@PathVariable("id") Long id){
-        return weddingEventService.get(id);
-    }
-
-    @GetMapping("/wedding/get-by-date/{date}")
-    public List<Wedding> getWeddingByDate(@PathVariable("date") LocalDate date){
-        return weddingEventService.getByDate(date);
-    }
-
-    @GetMapping("/wedding/get-all")
-    public List<Wedding> getAllWedding(){
-        return weddingEventService.getAll();
-    }
-
-    @RequestMapping("/wedding/save")
-    public boolean saveWedding(@RequestBody Wedding wedding){
-        return weddingEventService.add(wedding);
-    }
-
-    @DeleteMapping("/wedding/delete/{id}")
-    public boolean deleteWedding(@PathVariable("id") Long id){
-        return weddingEventService.delete(id);
-    }
-
-    @PutMapping("/wedding/update")
-    public boolean updateWedding(@RequestBody Wedding wedding){
-        return weddingEventService.update(wedding);
-    }
 }
