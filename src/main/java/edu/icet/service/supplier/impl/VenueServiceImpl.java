@@ -1,236 +1,64 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.supplier.*;
+import edu.icet.dto.supplier.Supplier;
+import edu.icet.dto.supplier.Venue;
 import edu.icet.entity.supplier.VenueEntity;
 import edu.icet.repository.supplier.VenueRepository;
-import edu.icet.service.supplier.*;
-import edu.icet.service.system.VenueRequestService;
-import edu.icet.util.EventType;
+import edu.icet.service.supplier.VenueService;
 import edu.icet.util.VenueType;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Map;
 
-@RequiredArgsConstructor
 @Service
-
+@RequiredArgsConstructor
 public class VenueServiceImpl implements VenueService {
     private final VenueRepository repository;
     private final ModelMapper mapper;
 
-    final PropertyService propertyService;
-    final HallService hallService;
-    final PoolService poolService;
-    final RoomService roomService;
-    final OutdoorAreaService outdoorAreaService;
-    final PropertyImageService propertyImageService;
-    final VenueRequestService venueRequestService;
-
-    @Override
-    public List<Property> getAllProperties() {
-        return null;
-    }
-
-    @Override
-    public Property addProperty(Property property) {
-        return null;
-    }
-
-    @Override
-    public Property searchProperty(Long propertyID) {
-        return null;
-    }
-
-    @Override
-    public Boolean deleteProperty(Long propertyID) {
-        return null;
-    }
-
-    @Override
-    public Property updateProperty(Property property) {
-        return null;
-    }
-
     @Override
     public List<Venue> getAllVenues() {
-        return null;
+        return repository.findAll().stream().map(venue -> mapper.map(venue, Venue.class)).toList();
     }
 
     @Override
-    public Supplier addVenueSupplier(Venue venue, Long supplierID) {
-        return null;
+    public Venue addVenueSupplier(Venue venue) {
+        return mapper.map(repository.save(mapper.map(venue, VenueEntity.class)), Venue.class);
     }
 
     @Override
-    public Boolean deleteVenueSupplier(Long supplierID) {
-        return null;
+    public Boolean deleteVenueSupplier(Long venueID) {
+        if (repository.existsById(venueID)) {
+            repository.deleteById(venueID);
+            return true;
+        }
+
+        throw new IllegalArgumentException("Venue does not exist!");
     }
 
     @Override
-    public Supplier updateVenueSupplier(Venue venue) {
-        return null;
+    public Venue updateVenueSupplier(Venue venue) {
+        if (repository.existsById(venue.getVenueId())) {
+            return mapper.map(repository.save(mapper.map(venue, VenueEntity.class)), Venue.class);
+        }
+
+        throw new IllegalArgumentException("Venue does not exist!");
     }
 
     @Override
     public Venue searchVenueByID(Long venueID) {
-        return null;
+        VenueEntity venueEntity = repository.findById(venueID).orElse(null);
+
+        return venueEntity != null ? mapper.map(venueEntity, Venue.class) : null;
     }
 
     @Override
-    public Venue findByVenueType(VenueType venueType) {
-        return null;
-    }
-
-    @Override
-    public List<Hall> getAllHalls() {
-        return null;
-    }
-
-    @Override
-    public Property addHallProperty(Hall hall, Long propertyID) {
-        return null;
-    }
-
-    @Override
-    public Hall searchHallByID(Long hallID) {
-        return null;
-    }
-
-    @Override
-    public Boolean deleteHallByID(Long propertyID) {
-        return null;
-    }
-
-    @Override
-    public Property updateHallProperty(Hall hall, Long propertyID) {
-        return null;
-    }
-
-    @Override
-    public List<Pool> getAllPools() {
-        return null;
-    }
-
-    @Override
-    public Property addPoolProperty(Pool pool, Long propertyID) {
-        return null;
-    }
-
-    @Override
-    public Property updatePoolProperty(Pool pool, Long propertyID) {
-        return null;
-    }
-
-    @Override
-    public Boolean deletePoolProperty(Long propertyID) {
-        return null;
-    }
-
-    @Override
-    public List<Room> getAllRooms() {
-        return null;
-    }
-
-    @Override
-    public Property saveRoomProperty(Room room, Long propertyID) {
-        return null;
-    }
-
-    @Override
-    public Room searchRoomByID(Long id) {
-        return null;
-    }
-
-    @Override
-    public Boolean deleteRoomPropertyByID(Long propertyID) {
-        return null;
-    }
-
-    @Override
-    public Property updateRoomProperty(Room room, Long propertyID) {
-        return null;
-    }
-
-    @Override
-    public List<OutdoorArea> getAllOutdoorAreas() {
-        return null;
-    }
-
-    @Override
-    public Property saveOutdoorAreaProperty(OutdoorArea outdoorArea, Long propertyID) {
-        return null;
-    }
-
-    @Override
-    public Boolean deleteOutdoorAreaProperty(Long propertyID) {
-        return null;
-    }
-
-    @Override
-    public OutdoorArea updateOutdoorAreaProperty(OutdoorArea outdoorArea, Long propertyID) {
-        return null;
-    }
-
-    @Override
-    public List<PropertyImage> getAllPropertyImage() {
-        return null;
-    }
-
-    @Override
-    public Property addPropertyImage(PropertyImage propertyImage, Long propertyID) {
-        return null;
-    }
-
-    @Override
-    public Boolean deletePropertyImage(Long propertyImageID) {
-        return null;
-    }
-
-    @Override
-    public Property updatePropertyImage(PropertyImage propertyImage, Long propertyID) {
-        return null;
-    }
-
-    @Override
-    public Venue addVenueRequest(VenueRequest venueRequest, Long venueID) {
-        return null;
-    }
-
-    @Override
-    public Map<List<VenueRequest>, List<Venue>> getAllVenueRequests() {
-        return null;
-    }
-
-    @Override
-    public Map<VenueRequest, Venue> getVenueRequestById(Long id) {
-        return null;
-    }
-
-    @Override
-    public Boolean deleteVenueRequest(Long venueRequestID) {
-        return null;
-    }
-
-    @Override
-    public Venue updateVenueRequest(VenueRequest venueRequest, Long venueID) {
-        return null;
-    }
-
-    @Override
-    public List<Venue> getAllVisibleVenues() {
-        return null;
-    }
-
-    @Override
-    public List<Venue> getAllVisibleVenuesByLocation(String location) {
-        return null;
-    }
-
-    @Override
-    public List<Venue> getAllVisibleVenuesByEventType(EventType eventType) {
-        return null;
+    public List<Venue> findByVenueType(VenueType venueType) {
+        return repository.findAllByVenueType(venueType)
+                .stream()
+                .map(venueEntity -> mapper.map(venueEntity, Venue.class))
+                .toList();
     }
 }

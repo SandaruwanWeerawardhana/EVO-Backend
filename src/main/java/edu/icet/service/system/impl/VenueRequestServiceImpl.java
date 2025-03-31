@@ -9,6 +9,7 @@ import edu.icet.service.system.VenueRequestService;
 import edu.icet.util.EventType;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;

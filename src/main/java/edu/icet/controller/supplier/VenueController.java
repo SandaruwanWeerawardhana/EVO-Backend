@@ -1,7 +1,7 @@
 package edu.icet.controller.supplier;
 
 import edu.icet.dto.supplier.*;
-import edu.icet.service.supplier.VenueService;
+import edu.icet.service.supplier.VenueManager;
 import edu.icet.util.EventType;
 import edu.icet.util.VenueType;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,7 +16,7 @@ import java.util.Map;
 @RequestMapping("/venue")
 @RequiredArgsConstructor
 public class VenueController {
-    private final VenueService service;
+    private final VenueManager service;
 
     // Property endpoints
 

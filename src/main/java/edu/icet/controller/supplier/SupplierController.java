@@ -2,7 +2,7 @@ package edu.icet.controller.supplier;
 
 import edu.icet.dto.customer.User;
 import edu.icet.dto.supplier.*;
-import edu.icet.service.supplier.SupplierService;
+import edu.icet.service.supplier.SupplierManager;
 import edu.icet.util.MealType;
 import edu.icet.util.SupplierCategoryType;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/supplier")
 @RequiredArgsConstructor
 public class SupplierController {
-    private final SupplierService service;
+    private final SupplierManager service;
 
     // Supplier endpoints
 
