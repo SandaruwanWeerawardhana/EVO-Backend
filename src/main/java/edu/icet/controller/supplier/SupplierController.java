@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/supplier")
+@RequestMapping("/api/supplier")
 @RequiredArgsConstructor
 public class SupplierController {
     private final SupplierManager service;

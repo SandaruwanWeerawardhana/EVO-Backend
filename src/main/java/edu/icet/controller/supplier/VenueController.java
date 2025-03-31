@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/venue")
+@RequestMapping("/api/supplier/venue")
 @RequiredArgsConstructor
 public class VenueController {
     private final VenueManager service;
