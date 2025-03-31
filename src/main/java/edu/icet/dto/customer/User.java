@@ -54,6 +54,9 @@ public class User {
     @NotEmpty(message = "City should not be blank")
     private String city;
 
+
+    private UserReport report;
+
 //    @JsonView(JsonAPIViews.SupplierView.class)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Supplier supplier;

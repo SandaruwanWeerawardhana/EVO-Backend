@@ -3,6 +3,7 @@ package edu.icet.entity.customer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import edu.icet.entity.admin.AdminEntity;
 import edu.icet.entity.supplier.SupplierEntity;
+import edu.icet.entity.system.UserReportEntity;
 import edu.icet.util.UserType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -46,6 +47,10 @@ public class UserEntity {
     private String address;
 
     private String city;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_report_id")
+    private UserReportEntity report;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "supplier_id")
