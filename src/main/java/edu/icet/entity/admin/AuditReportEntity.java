@@ -1,5 +1,6 @@
 package edu.icet.entity.admin;
 
+import edu.icet.entity.event.EventEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,9 +17,15 @@ public class AuditReportEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reportId;
-    private Long eventId;
+
+//    @OneToOne
+//    @JoinColumn(name = "event_id")
+//    private EventEntity event; TODO: Unsure relationship
+
     private String timestamp;
+
     private String action;
+
     private String data;
 
 }

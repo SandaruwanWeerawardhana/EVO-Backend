@@ -16,10 +16,13 @@ import lombok.ToString;
 public class AdminEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer adminId;
-    private String adminName;
-    private String adminPassword;
-    private String adminEmail;
+    private Long adminId;
+
+    @OneToOne
+    @JoinColumn(name = "audit_history_id")
+    private AuditHistoryEntity auditHistory;
+
+    @Enumerated(EnumType.STRING)
     private AdminType type;
 
 }

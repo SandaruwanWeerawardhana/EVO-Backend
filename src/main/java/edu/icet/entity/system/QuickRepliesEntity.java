@@ -2,7 +2,7 @@
 package edu.icet.entity.system;
 
 import edu.icet.entity.supplier.SupplierEntity;
-import edu.icet.util.CategoryType;
+import edu.icet.util.SupplierCategoryType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,7 +30,7 @@ public class QuickRepliesEntity {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private CategoryType category;
+    private SupplierCategoryType category;
 
 
 }

@@ -60,7 +60,7 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public List<Meal> search(MealType type) {
-        List<MealEntity> byMealType = mealRepository.findByMealType(String.valueOf(type));
+        List<MealEntity> byMealType = mealRepository.findByMealType(type);
 
         List<Meal> mealList = new ArrayList<>();
 

@@ -1,18 +1,15 @@
 package edu.icet.service.supplier;
 
 import edu.icet.dto.supplier.Supplier;
+import edu.icet.util.SupplierCategoryType;
+
 import java.util.List;
 
 public interface SupplierService {
-    List<Supplier> getAll();
-
-    List<Supplier> getByCategory(String category);
-
-    void add(Supplier supplier);
-
-    Supplier search(Supplier query);
-
-    void update(Supplier supplier);
-
-    void delete(Long id);
+    // Supplier
+    List<Supplier> getAllSuppliers();
+    List<Supplier> getSupplierByCategory(SupplierCategoryType category);
+    Supplier searchSupplier(Long id);
+    Supplier updateSupplier(Supplier supplier);
+    Boolean deleteSupplier(Long supplerID);
 }

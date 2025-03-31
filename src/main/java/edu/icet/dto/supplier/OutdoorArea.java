@@ -30,7 +30,5 @@ public class OutdoorArea {
 
     private Boolean weatherProtection;
 
-    private Property property;
-
 
 }
