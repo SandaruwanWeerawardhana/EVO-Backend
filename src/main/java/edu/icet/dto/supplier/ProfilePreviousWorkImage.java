@@ -15,8 +15,6 @@ import lombok.ToString;
 public class ProfilePreviousWorkImage {
     private Long profilePreviousWorkImageId;
 
-    @NotNull
-    private ProfilePreviousWork profilePreviousWork;
 
     @NotBlank
     private String imageUrl;

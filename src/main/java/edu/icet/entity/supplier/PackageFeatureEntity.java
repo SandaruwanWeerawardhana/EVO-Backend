@@ -16,10 +16,6 @@ public class PackageFeatureEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long featureID;
 
-    @ManyToOne
-    @JoinColumn(name = "supplier_id")
-    private SupplierEntity supplier;
-
     @Column(nullable = false)
     private String featureName;
 

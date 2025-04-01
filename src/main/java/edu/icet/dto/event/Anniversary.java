@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Anniversary {
-    private Long eventId;
-    private Event event;
+    private Long id;
 
     @NotNull(message = "anniversaryYear cannot be null")
     private Integer anniversaryYear;

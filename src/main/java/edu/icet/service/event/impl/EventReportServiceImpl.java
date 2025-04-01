@@ -26,7 +26,9 @@ public class EventReportServiceImpl implements EventReportService {
             return false;
         }
         EventReportEntity savedEntity = eventReportRepository.save(modelMapper.map(eventReport, EventReportEntity.class));
-        return true;
+
+        return savedEntity.getId().equals(eventReport.getId());
+
     }
 
     @Override
@@ -35,7 +37,7 @@ public class EventReportServiceImpl implements EventReportService {
             return false;
         }
         EventReportEntity updatedEntity = eventReportRepository.save(modelMapper.map(eventReport, EventReportEntity.class));
-        return updatedEntity.getReportId().equals(id);
+        return updatedEntity.getId().equals(id);
     }
 
     @Override

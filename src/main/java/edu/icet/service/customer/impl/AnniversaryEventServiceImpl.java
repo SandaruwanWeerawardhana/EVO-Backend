@@ -18,10 +18,10 @@ public class AnniversaryEventServiceImpl implements AnniversaryEventService {
 
     @Override
     public boolean add(Anniversary anniversary) {
-        if (anniversary.getEventId() != null && repository.existsById(anniversary.getEventId())) {
-            return false;
-        }
-        repository.save(mapper.map(anniversary, AnniversaryEntity.class));
+//        if (anniversary.getEventId() != null && repository.existsById(anniversary.getEventId())) {
+//            return false;
+//        }
+//        repository.save(mapper.map(anniversary, AnniversaryEntity.class));
         return true;
     }
 
@@ -44,10 +44,10 @@ public class AnniversaryEventServiceImpl implements AnniversaryEventService {
 
     @Override
     public boolean update(Anniversary anniversary) {
-        if (anniversary == null || anniversary.getEventId() == null ||!repository.existsById(anniversary.getEventId())) {
-            return false;
-        }
-        repository.save(mapper.map(anniversary, AnniversaryEntity.class));
+//        if (anniversary == null || anniversary.getEventId() == null ||!repository.existsById(anniversary.getEventId())) {
+//            return false;
+//        }
+//        repository.save(mapper.map(anniversary, AnniversaryEntity.class));
         return true;
     }
 

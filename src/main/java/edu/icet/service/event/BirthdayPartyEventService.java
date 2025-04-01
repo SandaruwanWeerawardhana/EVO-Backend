@@ -9,7 +9,6 @@ public interface BirthdayPartyEventService {
     BirthdayParty get(Long id);
     BirthdayParty get(String ownerName);
     List<BirthdayParty> getAll ();
-    List<BirthdayParty> getAll (Date date);
     List<BirthdayParty> getAll (String username);
     Boolean add(BirthdayParty birthdayParty);
     Boolean delete (BirthdayParty birthdayParty);

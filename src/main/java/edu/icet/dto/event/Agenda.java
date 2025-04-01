@@ -14,10 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Agenda {
-    private Integer id;
-
-    @NotNull(message = "Event ID is required")
-    private Long eventId;
+    private Long id;
 
     @NotNull(message = "Date is required")
     @JsonFormat(pattern = "yyyy-MM-dd")
