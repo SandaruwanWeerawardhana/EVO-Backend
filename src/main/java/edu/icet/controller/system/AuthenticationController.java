@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class SignUpController {
+public class AuthenticationController {
     private final SignUpService signUpService;
 
     @GetMapping("/google")

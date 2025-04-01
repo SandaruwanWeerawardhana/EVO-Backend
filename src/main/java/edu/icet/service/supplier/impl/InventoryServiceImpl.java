@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,32 +28,26 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public Boolean add(Inventory inventory) {
-        if(inventory==null){
-            return false;
-        }
-        repository.save(mapper.map(inventory, InventoryEntity.class));
-        return true;
+    public Inventory add(Inventory inventory) {
+        return mapper.map(repository.save(mapper.map(inventory, InventoryEntity.class)), Inventory.class);
     }
 
     @Override
-    public List<Inventory> search(Long id) {
-        if(id==null){
-            return null;
-        }
-        List<InventoryEntity> entity = Collections.singletonList(repository.findByInventoryId(id));
-        List<Inventory> inventoryList = new ArrayList<>();
-        entity.forEach(e -> inventoryList.add(mapper.map(e,Inventory.class)));
-        return inventoryList;
+    public Inventory search(Long id) {
+        InventoryEntity inventory = repository.findById(id).orElse(null);
+
+        return inventory != null
+                ? mapper.map(inventory, Inventory.class)
+                : null;
     }
 
     @Override
-    public Boolean update(Inventory inventory) {
-        if(inventory==null){
-            return false;
+    public Inventory update(Inventory inventory) {
+        if (repository.existsById(inventory.getInventoryID())) {
+            return mapper.map(repository.save(mapper.map(inventory, InventoryEntity.class)), Inventory.class);
         }
-        repository.save(mapper.map(inventory, InventoryEntity.class));
-        return true;
+
+        throw new IllegalArgumentException("Inventory does not exist!");
     }
 
     @Override

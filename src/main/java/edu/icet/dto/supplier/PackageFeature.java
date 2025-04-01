@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class ProfileExtraFeature {
+public class PackageFeature {
     private Long featureID;
 
     private Supplier supplier;

@@ -1,5 +1,9 @@
 package edu.icet.entity.customer;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import edu.icet.entity.admin.AdminEntity;
+import edu.icet.entity.supplier.SupplierEntity;
+import edu.icet.entity.system.UserReportEntity;
 import edu.icet.util.UserType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -23,23 +27,40 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
-    @NotEmpty(message = "First Name should not be blank")
+
     private String firstName;
-    @NotEmpty(message = "Last Name should not be blank")
+
     private String lastName;
-    @NotNull
+
     private String password;
-    @Email(message = "Email should be valid")
+
     private String email;
-    @PastOrPresent(message = "Registered date should be in past or present")
+
     private String registeredDate;
-    @NotEmpty(message = "User type should not be blank")
+
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
     @NotEmpty(message = "Contact Number should not be blank")
     private String contactNumber;
-    @NotEmpty(message = "Address should not be blank")
+
     private String address;
-    @NotEmpty(message = "City should not be blank")
+
     private String city;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_report_id")
+    private UserReportEntity report;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "supplier_id")
+    private SupplierEntity supplier;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "admin_id")
+    private AdminEntity admin;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id")
+    private CustomerEntity customer;
 }

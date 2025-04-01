@@ -39,14 +39,13 @@ public class PoolServiceImpl implements PoolService {
     }
 
     @Override
-    public Boolean update(Pool pool) {
+    public Pool update(Pool pool) {
         if (repository.existsById(pool.getId())) {
 
-            repository.save(mapper.map(pool, PoolEntity.class));
+            return mapper.map(repository.save(mapper.map(pool, PoolEntity.class)), Pool.class);
 
-            return true;
         }
 
-        return false;
+        throw new IllegalArgumentException("Pool does not exist!");
     }
 }

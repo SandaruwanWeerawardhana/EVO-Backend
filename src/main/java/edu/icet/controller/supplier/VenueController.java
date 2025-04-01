@@ -1,234 +1,285 @@
 package edu.icet.controller.supplier;
 
 import edu.icet.dto.supplier.*;
-import edu.icet.service.supplier.*;
-import edu.icet.service.system.VenueRequestService;
+import edu.icet.service.supplier.VenueManager;
 import edu.icet.util.EventType;
-import jakarta.validation.Valid;
+import edu.icet.util.VenueType;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
 
-@RequiredArgsConstructor
-@CrossOrigin
 @RestController
-@RequestMapping("/supplier/venue")
-
+@RequestMapping("/api/supplier/venue")
+@RequiredArgsConstructor
 public class VenueController {
+    private final VenueManager service;
 
-    final VenueService service;
-    final HallService hallService;
-    final PoolService poolService;
-    final RoomService roomService;
-    final PropertyImageService propertyImageService;
-    final OutdoorAreaService outdoorAreaService;
-    final PropertyService propertyService;
-    final VenueRequestService venueRequestService;
+    // Property endpoints
 
-    @PostMapping("/save-venue")
-    public void saveVenue(@RequestBody Venue venue){
-        service.save(venue);
+    @GetMapping("/property")
+    public ResponseEntity<List<Property>> getAllProperties() {
+        List<Property> properties = service.getAllProperties();
+
+        return properties.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(properties);
     }
 
-    @GetMapping("/get-all-venue")
-    public List<Venue> getVenueData(){
-        return service.getAll();
+    @PostMapping("/property")
+    public ResponseEntity<Property> addProperty(@RequestBody Property property) {
+        return ResponseEntity.ok(service.addProperty(property));
     }
 
-    @GetMapping("/search-venue")
-    public Venue searchVenue(@PathVariable Long id){
-        return service.search(id);
+    @GetMapping("/property/{propertyID}")
+    public ResponseEntity<Property> searchProperty(@PathVariable Long propertyID) {
+        return ResponseEntity.ok(service.searchProperty(propertyID));
     }
 
-    @PutMapping("/update-venue")
-    public Venue updateVenue(@RequestBody Venue venue){
-        return service.update(venue);
+    @DeleteMapping("/property/{propertyID}")
+    public ResponseEntity<Boolean> deleteProperty(@PathVariable Long propertyID) {
+        return ResponseEntity.ok(service.deleteProperty(propertyID));
     }
 
-    @DeleteMapping("/delete-venue-by-id")
-    public boolean deleteVenueById(@RequestParam Long id){
-        return service.delete(id);
+    @PutMapping("/property")
+    public ResponseEntity<Property> updateProperty(@RequestBody Property property) {
+        return ResponseEntity.ok(service.updateProperty(property));
     }
 
-    @DeleteMapping("/delete-venue")
-    public boolean deleteVenue(@RequestBody Venue venue){
-        return service.delete(venue);
-    }
-    @PostMapping("/hall/save-hall")
-    public void saveHall(@RequestBody Hall hall){
-        hallService.save(hall);
+    // Venue endpoints
+
+    @GetMapping
+    public ResponseEntity<List<Venue>> getAllVenues() {
+        List<Venue> venues = service.getAllVenues();
+
+        return venues.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(venues);
     }
 
-    @GetMapping("/hall/get-all-halls")
-    public List<Hall> getAllHalls(){
-        return hallService.getAll();
+    @PostMapping("/{supplierID}")
+    public ResponseEntity<Supplier> addVenueSupplier(@RequestBody Venue venue, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.addVenueSupplier(venue, supplierID));
     }
 
-    @PutMapping("/hall/update-hall")
-    public Hall updateHallData(@RequestBody Hall hall){
-        return hallService.update(hall);
+    @DeleteMapping("/{supplierID}")
+    public ResponseEntity<Boolean> deleteVenueSupplier(@PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.deleteVenueSupplier(supplierID));
     }
 
-    @GetMapping("/hall/search-hall-by-id")
-    public Hall searchHall(@RequestBody Hall hall){
-        return hallService.search(hall);
+    @PutMapping
+    public ResponseEntity<Supplier> updateVenueSupplier(@RequestBody Venue venue) {
+        return ResponseEntity.ok(service.updateVenueSupplier(venue));
     }
 
-    @DeleteMapping("/hall/delete-hall-by-id")
-    public boolean deleteHallById(@RequestParam Long id){
-        return hallService.delete(id);
+    @GetMapping("/{venueID}")
+    public ResponseEntity<Venue> searchVenueByID(@PathVariable Long venueID) {
+        return ResponseEntity.ok(service.searchVenueByID(venueID));
     }
 
-    @DeleteMapping("/hall/delete-hall")
-    public boolean deleteHall(@RequestBody Hall hall){
-        return hallService.delete(hall);
-    }
-    @PostMapping("/pool/add-pool")
-    public Pool savePool(@RequestBody Pool pool){
-        return poolService.save(pool);
+    @GetMapping("/type")
+    public ResponseEntity<Venue> findByVenueType(@RequestParam VenueType venueType) {
+        return ResponseEntity.ok(service.findByVenueType(venueType));
     }
 
-    @DeleteMapping("/pool/delete-pool/{id}")
-    public boolean deletePoolById(@PathVariable Long id){
-        return poolService.delete(id);
+    // Hall endpoints
+
+    @GetMapping("/hall")
+    public ResponseEntity<List<Hall>> getAllHalls() {
+        List<Hall> halls = service.getAllHalls();
+
+        return halls.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(halls);
     }
 
-    @PutMapping("/pool/update-pool")
-    public boolean updatePool(@RequestBody Pool pool){
-        return poolService.update(pool);
+    @PostMapping("/property/{propertyID}/hall")
+    public ResponseEntity<Property> addHallProperty(@RequestBody Hall hall, @PathVariable Long propertyID) {
+        return ResponseEntity.ok(service.addHallProperty(hall, propertyID));
     }
 
-    @GetMapping("/pool/getAll-pools")
-    public List <Pool> getAllPool() {
-        return poolService.getAll();
-    }
-    @PostMapping("/room/add-room")
-    public void addRoom(@RequestBody Room room){
-        roomService.save(room);
+    @GetMapping("/hall/{hallID}")
+    public ResponseEntity<Hall> searchHallByID(@PathVariable Long hallID) {
+        return ResponseEntity.ok(service.searchHallByID(hallID));
     }
 
-    @GetMapping("/room/getAll-rooms")
-    public List<Room> getAllRoomData(){
-        return roomService.getAll();
+    @DeleteMapping("/property/{propertyID}/hall")
+    public ResponseEntity<Boolean> deleteHallByID(@PathVariable Long propertyID) {
+        return ResponseEntity.ok(service.deleteHallByID(propertyID));
     }
 
-    @PutMapping("/room/update-room")
-    public Room updateRoom(@RequestBody Room room){
-        return roomService.update(room);
+    @PutMapping("/property/{propertyID}/hall")
+    public ResponseEntity<Property> updateHallProperty(@RequestBody Hall hall, @PathVariable Long propertyID) {
+        return ResponseEntity.ok(service.updateHallProperty(hall, propertyID));
     }
 
-    @GetMapping("/room/search-room/{id}")
-    public Room searchRoomById(@PathVariable Long id){
-        return roomService.search(id);
+    // Pool endpoints
+
+    @GetMapping("/pool")
+    public ResponseEntity<List<Pool>> getAllPools() {
+        List<Pool> pools = service.getAllPools();
+
+        return pools.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(pools);
     }
 
-    @DeleteMapping("/room/delete-room-by-id/{id}")
-    public boolean deleteRoomById(@PathVariable Long id) {
-        return roomService.delete(id);
+    @PostMapping("/property/{propertyID}/pool")
+    public ResponseEntity<Property> addPoolProperty(@RequestBody Pool pool, @PathVariable Long propertyID) {
+        return ResponseEntity.ok(service.addPoolProperty(pool, propertyID));
     }
 
-
-    @PostMapping("/property/image/add-property-image")
-    public PropertyImage addPropertyImage(@RequestBody PropertyImage propertyImage) {
-        return propertyImageService.save(propertyImage);
-
-    }
-    @GetMapping("/property/image/getAll-property-images")
-    public List<PropertyImage> getAllPropertyImages() {
-        return propertyImageService.getAll();
+    @PutMapping("/property/{propertyID}/pool")
+    public ResponseEntity<Property> updatePoolProperty(@RequestBody Pool pool, @PathVariable Long propertyID) {
+        return ResponseEntity.ok(service.updatePoolProperty(pool, propertyID));
     }
 
-    @DeleteMapping("/property/image/delete-property-image/{id}")
-    public boolean deletePropertyImage(@PathVariable Long id) {
-        return propertyImageService.delete(id);
+    @DeleteMapping("/property/{propertyID}/pool")
+    public ResponseEntity<Boolean> deletePoolProperty(@PathVariable Long propertyID) {
+        return ResponseEntity.ok(service.deletePoolProperty(propertyID));
     }
 
-    @PutMapping("/property/image/update-property-image")
-    public boolean updatePropertyImage(@RequestBody PropertyImage propertyImage){
-        return propertyImageService.update(propertyImage);
-    }
-    @PostMapping("/outdoor-event/add-outdoor-event")
-    public OutdoorArea saveOutdoorEvent(@RequestBody OutdoorArea outdoorArea){
-        return outdoorAreaService.save(outdoorArea);
+    // Room endpoints
+
+    @GetMapping("/room")
+    public ResponseEntity<List<Room>> getAllRooms() {
+        List<Room> rooms = service.getAllRooms();
+
+        return rooms.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(rooms);
     }
 
-    @DeleteMapping("/outdoor-event/delete-outdoor-event-by-id/{id}")
-    public boolean deleteOutdoorEventById(@PathVariable Long id){
-        return outdoorAreaService.delete(id);
+    @PostMapping("/property/{propertyID}/room")
+    public ResponseEntity<Property> saveRoomProperty(@RequestBody Room room, @PathVariable Long propertyID) {
+        return ResponseEntity.ok(service.saveRoomProperty(room, propertyID));
     }
 
-    @PutMapping("/outdoor-event/update-outdoor-event")
-    public boolean updateOutdoorEvent(@RequestBody OutdoorArea outdoorArea){
-        return outdoorAreaService.update(outdoorArea);
+    @GetMapping("/room/{roomID}")
+    public ResponseEntity<Room> searchRoomByID(@PathVariable Long roomID) {
+        return ResponseEntity.ok(service.searchRoomByID(roomID));
     }
 
-    @GetMapping("/outdoor-event/getAll-outdoor-events")
-    public List<OutdoorArea> getAllOutdoorEvents() {
-        return outdoorAreaService.getAll();
-    }
-    @PostMapping("/property/save-property")
-    public void saveProperty(@RequestBody Property property){
-        propertyService.save(property);
+    @DeleteMapping("/property/{propertyID}/room")
+    public ResponseEntity<Boolean> deleteRoomPropertyByID(@PathVariable Long propertyID) {
+        return ResponseEntity.ok(service.deleteRoomPropertyByID(propertyID));
     }
 
-    @GetMapping("/property/get-all-properties")
-    public List<Property> getAllProperties(){
-        return propertyService.getAll();
+    @PutMapping("/property/{propertyID}/room")
+    public ResponseEntity<Property> updateRoomProperty(@RequestBody Room room, @PathVariable Long propertyID) {
+        return ResponseEntity.ok(service.updateRoomProperty(room, propertyID));
     }
 
-    @GetMapping("/property/search-property")
-    public Property searchProperty(@RequestBody Property property){
-        return propertyService.search(property);
+    // Outdoor Area endpoints
+
+    @GetMapping("/outdoor-area")
+    public ResponseEntity<List<OutdoorArea>> getAllOutdoorAreas() {
+        List<OutdoorArea> outdoorAreas = service.getAllOutdoorAreas();
+
+        return outdoorAreas.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(outdoorAreas);
     }
 
-    @PutMapping("/property/update-property")
-    public Property updateProperty(@RequestBody Property property){
-        return propertyService.update(property);
+    @PostMapping("/property/{propertyID}/outdoor-area")
+    public ResponseEntity<Property> saveOutdoorAreaProperty(@RequestBody OutdoorArea outdoorArea, @PathVariable Long propertyID) {
+        return ResponseEntity.ok(service.saveOutdoorAreaProperty(outdoorArea, propertyID));
     }
 
-    @DeleteMapping("/property/delete-by-id")
-    public boolean deletePropertyById(@RequestParam Long id){
-        return propertyService.delete(id);
+    @DeleteMapping("/property/{propertyID}/outdoor-area")
+    public ResponseEntity<Boolean> deleteOutdoorAreaProperty(@PathVariable Long propertyID) {
+        return ResponseEntity.ok(service.deleteOutdoorAreaProperty(propertyID));
     }
 
-    @PostMapping("/request/add")
-    public VenueRequest addVenueRequest(@Valid @io.swagger.v3.oas.annotations.parameters.RequestBody VenueRequest venueRequest) {
-        return venueRequestService.save(venueRequest);
+    @PutMapping("/property/{propertyID}/outdoor-area")
+    public ResponseEntity<OutdoorArea> updateOutdoorAreaProperty(@RequestBody OutdoorArea outdoorArea, @PathVariable Long propertyID) {
+        return ResponseEntity.ok(service.updateOutdoorAreaProperty(outdoorArea, propertyID));
     }
 
-    @GetMapping("/request/getAll")
-    public Map<List<VenueRequest>,List<Venue>> getAllVenueRequests() {
-        return venueRequestService.getAll();
+    // Property Image endpoints
+
+    @GetMapping("/property-image")
+    @Operation(summary = "Returns all property images")
+    public ResponseEntity<List<PropertyImage>> getAllPropertyImage() {
+        List<PropertyImage> propertyImages = service.getAllPropertyImage();
+
+        return propertyImages.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(propertyImages);
     }
 
-    @GetMapping("/request/search/{id}")
-    public Map<VenueRequest,Venue> searchById(@Valid @PathVariable("id") Long id) {
-        return venueRequestService.getById(id);
+    @PostMapping("/property/{propertyID}/property-image")
+    public ResponseEntity<Property> addPropertyImage(@RequestBody PropertyImage propertyImage, @PathVariable Long propertyID) {
+        return ResponseEntity.ok(service.addPropertyImage(propertyImage, propertyID));
     }
 
-    @DeleteMapping("/request/delete/{id}")
-    public boolean deleteVenueRequest(@Valid @PathVariable("id") Long id) {
-        return venueRequestService.delete(id);
+    @DeleteMapping("/property-image/{propertyImageID}")
+    public ResponseEntity<Boolean> deletePropertyImage(@PathVariable Long propertyImageID) {
+        return ResponseEntity.ok(service.deletePropertyImage(propertyImageID));
     }
 
-    @PutMapping("/request/update")
-    public VenueRequest updateVenueRequest(@Valid @io.swagger.v3.oas.annotations.parameters.RequestBody VenueRequest venueRequest) {
-        return venueRequestService.update(venueRequest);
+    @PutMapping("/property/{propertyID}/property-image")
+    public ResponseEntity<Property> updatePropertyImage(@RequestBody PropertyImage propertyImage, @PathVariable Long propertyID) {
+        return ResponseEntity.ok(service.updatePropertyImage(propertyImage, propertyID));
     }
 
-    @GetMapping("/request/get-all-visible-venues")
-    public List<Venue> getAllVisibleVenues() {
-        return venueRequestService.getAllVisibleVenues();
+    // Venue Request endpoints
+
+    @GetMapping("/request")
+    public ResponseEntity<Map<List<VenueRequest>, List<Venue>>> getAllVenueRequests() {
+        return ResponseEntity.ok(service.getAllVenueRequests());
     }
 
-    @GetMapping("/request/get-all-visible-venues-by-location/{location}")
-    public List<Venue> getAllVisibleVenuesByLocation(@PathVariable String location) {
-        return venueRequestService.getAllVisibleVenuesByLocation(location);
+    @GetMapping("/request/{venueRequestID}")
+    public ResponseEntity<Map<VenueRequest, Venue>> getVenueRequestById(@PathVariable Long venueRequestID) {
+        return ResponseEntity.ok(service.getVenueRequestById(venueRequestID));
     }
 
-    @GetMapping("/request/get-all-visible-venues-by-eventType/{eventType}")
-    public List<Venue> getAllVisibleVenuesByEventType(@PathVariable EventType eventType) {
-        return venueRequestService.getAllVisibleVenuesByEventType(eventType);
+    @PostMapping("/{venueID}/request")
+    public ResponseEntity<Venue> addVenueRequest(@RequestBody VenueRequest venueRequest, @PathVariable Long venueID) {
+        return ResponseEntity.ok(service.addVenueRequest(venueRequest, venueID));
+    }
+
+    @PutMapping("/{venueID}/request")
+    public ResponseEntity<Venue> updateVenueRequest(@RequestBody VenueRequest venueRequest, @PathVariable Long venueID) {
+        return ResponseEntity.ok(service.updateVenueRequest(venueRequest, venueID));
+    }
+
+    @DeleteMapping("/request/{venueRequestID}")
+    public ResponseEntity<Boolean> deleteVenueRequest(@PathVariable Long venueRequestID) {
+        return ResponseEntity.ok(service.deleteVenueRequest(venueRequestID));
+    }
+
+    // Visible Venues endpoints
+
+    @GetMapping("/request/visible")
+    public ResponseEntity<List<Venue>> getAllVisibleVenues() {
+        List<Venue> venues = service.getAllVisibleVenues();
+
+        return venues.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(venues);
+    }
+
+    @GetMapping("/request/visible/location")
+    public ResponseEntity<List<Venue>> getAllVisibleVenuesByLocation(@RequestParam String location) {
+        List<Venue> venues = service.getAllVisibleVenuesByLocation(location);
+
+        return venues.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(venues);
+    }
+
+    @GetMapping("/request/visible/event-type")
+    @Operation(summary = "Returns all visible venues by event type")
+    public ResponseEntity<List<Venue>> getAllVisibleVenuesByEventType(@RequestParam EventType eventType) {
+        List<Venue> venues = service.getAllVisibleVenuesByEventType(eventType);
+
+        return venues.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(venues);
     }
 }

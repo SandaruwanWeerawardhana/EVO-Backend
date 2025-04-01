@@ -1,48 +1,64 @@
 package edu.icet.dto.supplier;
 
-import edu.icet.dto.system.Category;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
+import edu.icet.dto.system.Terms;
+import edu.icet.util.SupplierCategoryType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
+import java.util.List;
+
+
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Data
 public class Supplier {
-    @PositiveOrZero(message = "ID must be positive")
-    private long userId;
 
-    @NotBlank(message = "First Name cannot be empty")
-    private String firstName;
+    private Long id;
 
-    @NotBlank(message = "Last Name cannot be empty")
-    private String lastName;
-
-    @NotBlank(message = "Email cannot be empty")
-    @Email(message = "Invalid email format")
-    private String email;
-
-    @NotBlank(message = "Password cannot be empty")
-    @Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,}$",
-            message = "Password must be at least 8 characters, contain a number, an uppercase letter, and a special character.")
-    private String password;
-
-    @NotBlank(message = "Phone number cannot be empty")
-    @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be exactly 10 digits")
-    private String contactNumber;
-
-    @NotBlank(message = "Business Name is required")
+    @NotEmpty(message = "Business Name is required")
     private String businessName;
 
-    private Category category;
+    private String businessContactNumber;
 
-    @NotBlank(message = "Description is required")
+    @Email(message = "Email should be valid")
+    private String businessEmail;
+
+    @NotEmpty(message = "Description is required")
     private String description;
 
-    private String websiteURL;
-    private String profilePictureImageUrl;
     private Boolean availability;
 
-    @NotNull(message = "Terms must be accepted")
-    private Long termsId;
+    @NotNull(message = "Location is required")
+    private Location location;
+
+    private ProfileImage profileImage;
+
+    @Enumerated(EnumType.STRING)
+    private SupplierCategoryType category;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private BeautySaloon beautySaloon;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Catering catering;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Venue venue;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Music music;
+
+    private List<SupplierRequest> requests;
+
+    private List<ProfilePackage> packages;
+
+    private List<ProfilePreviousWork> previousWorks;
+
+    private List<ProfileImage> images;
+
+    private List<Inventory> inventories;
 }

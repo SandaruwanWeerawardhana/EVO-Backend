@@ -14,6 +14,7 @@ import lombok.Setter;
 
 public class PropertyImage {
     private Long id;
+
     @NotNull
     @NotBlank
     private String imageUrl;

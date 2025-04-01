@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface HallRepository extends JpaRepository<HallEntity,Long> {
-    List<HallEntity> findByProperty(PropertyEntity property);
     List<HallEntity> findByCountGreaterThanEqual(Integer count);
     List<HallEntity> findByAvailability(HallAvailabilityType availability);
 

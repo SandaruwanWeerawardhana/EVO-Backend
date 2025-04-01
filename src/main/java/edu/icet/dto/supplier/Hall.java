@@ -15,9 +15,6 @@ public class Hall {
     private Long hallId;
 
     @NotNull
-    private Property property;
-
-    @NotNull
     @NotBlank
     private Integer count;
 
