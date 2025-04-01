@@ -21,9 +21,8 @@ import lombok.ToString;
 @Data
 @ToString
 @Entity
-@Table(name = "User")
+@Table(name = "user")
 public class UserEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;

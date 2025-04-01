@@ -12,9 +12,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class EventReport {
-
-    private Long reportId;
+    @NotNull
+    @NotEmpty(message = "ID should not be blank")
+    private Long id;
 
     private Event event;
-
 }

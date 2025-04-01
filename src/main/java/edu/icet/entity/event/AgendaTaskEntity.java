@@ -12,13 +12,13 @@ import java.time.LocalTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "agenda")
+@ToString
 @Entity
 @Table(name = "agenda_task")
 public class AgendaTaskEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer taskId;
+    private Long taskId;
 
     @Column(nullable = false)
     private String taskName;
@@ -36,7 +36,7 @@ public class AgendaTaskEntity {
     @Column(name = "supplier_type")
     private SupplierType supplierType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "agenda_id")
+    @ManyToOne
+    @JoinColumn(name = "agenda_id", nullable = false)
     private AgendaEntity agenda;
 }

@@ -2,8 +2,6 @@ package edu.icet.entity.event;
 
 import edu.icet.dto.event.Event;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +17,8 @@ public class EventReportEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long reportId;
+    private Long id;
+
 
     @OneToOne
     @JoinColumn(name = "event_id")
