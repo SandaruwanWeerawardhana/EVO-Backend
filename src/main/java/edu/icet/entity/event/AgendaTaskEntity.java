@@ -36,7 +36,4 @@ public class AgendaTaskEntity {
     @Column(name = "supplier_type")
     private SupplierType supplierType;
 
-    @ManyToOne
-    @JoinColumn(name = "agenda_id", nullable = false)
-    private AgendaEntity agenda;
 }

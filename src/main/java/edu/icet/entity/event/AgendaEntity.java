@@ -26,5 +26,6 @@ public class AgendaEntity {
     private LocalTime time;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "agenda_id")
     private List<AgendaTaskEntity> tasks;
 }

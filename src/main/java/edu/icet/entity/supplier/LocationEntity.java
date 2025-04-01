@@ -27,6 +27,5 @@ public class LocationEntity {
     @Column(name = "village", nullable = false)
     private String village;
 
-    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
-    private List<VenueEntity> venues;
+
 }

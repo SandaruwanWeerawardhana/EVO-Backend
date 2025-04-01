@@ -61,10 +61,11 @@ public class EventEntity {
     @Enumerated(EnumType.STRING)
     private EventStatusType eventStatus;
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<SupplierEntity> suppliers;
 
     @OneToOne
+    @JoinColumn(name = "agenda_id")
     private AgendaEntity agenda;
 
     @OneToOne
@@ -82,4 +83,6 @@ public class EventEntity {
     @OneToOne
     @JoinColumn(name = "birthday_party_id")
     private BirthdayPartyEntity birthdayParty;
+
+
 }

@@ -50,10 +50,8 @@ public class EventSummaryEntity {
     @Column(name = "head_count",nullable = false)
     private Integer headCount;
 
-    @ManyToMany
-    private List<ProfilePackagesEntity> packages;
-
     @OneToMany( cascade = CascadeType.ALL)
+    @JoinColumn(name = "request_id")
     private List<SupplierRequestEntity> requests;
 
     @Column(name = "total_price")

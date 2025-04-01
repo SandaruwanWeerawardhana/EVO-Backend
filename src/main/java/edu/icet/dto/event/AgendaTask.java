@@ -31,5 +31,5 @@ public class AgendaTask {
     @Enumerated(EnumType.STRING)
     private SupplierType supplierType;
 
-    private Agenda agenda;
+
 }

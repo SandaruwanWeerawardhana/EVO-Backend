@@ -10,7 +10,9 @@ import edu.icet.repository.event.AgendaTaskRepository;
 import edu.icet.repository.event.EventRepository;
 import edu.icet.service.customer.AgendaService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.ReactiveTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -24,6 +26,8 @@ public class AgendaServiceImpl implements AgendaService {
     private final AgendaRepository agendaRepository;
     private final AgendaTaskRepository agendaTaskRepository;
     private final EventRepository eventRepository;
+
+    private final ModelMapper mapper;
 
     @Override
     @Transactional
@@ -103,32 +107,23 @@ public class AgendaServiceImpl implements AgendaService {
     @Override
     @Transactional
     public boolean updateTask(Long agendaId, Long taskId, AgendaTask updatedTask) {
-        AgendaTaskEntity task = agendaTaskRepository.findByAgendaIdAndTaskId(agendaId, taskId);
-        if (task == null) return false;
-
-        task.setTaskName(updatedTask.getTaskName());
-        task.setStartTime(updatedTask.getStartTime());
-        task.setEndTime(updatedTask.getEndTime());
-        task.setSupplierId(updatedTask.getSupplierId());
-        task.setSupplierType(updatedTask.getSupplierType());
-        agendaTaskRepository.save(task);
+        agendaTaskRepository.save(mapper.map(updatedTask, AgendaTaskEntity.class));
         return true;
     }
 
     @Override
     @Transactional
     public boolean deleteTask(Long agendaId, Long taskId) {
-        AgendaTaskEntity task = agendaTaskRepository.findByAgendaIdAndTaskId(agendaId, taskId);
-        if (task == null) return false;
+//        AgendaTaskEntity task = agendaTaskRepository.findByAgendaIdAndTaskId(agendaId, taskId);
 
-        agendaTaskRepository.delete(task);
+        agendaTaskRepository.deleteById(taskId);
         return true;
     }
 
     @Override
     @Transactional(readOnly = true)
     public AgendaTask getTaskById(Long agendaId, Long taskId) {
-        return Optional.ofNullable(agendaTaskRepository.findByAgendaIdAndTaskId(agendaId, taskId))
+        return agendaTaskRepository.findById(taskId)
                 .map(this::convertTaskToDto)
                 .orElse(null);
     }
