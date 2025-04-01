@@ -28,20 +28,7 @@ public class MessageCustomerSupplierController {
         return messageService.sendMessage(messageCustomerSupplier);
     }
 
-    @MessageMapping("/chat/customer-supplier/update")
-    @SendTo("/topic/messages")
-    public MessageCustomerSupplier handleMessageUpdate(MessageCustomerSupplier messageDTO) {
-        MessageCustomerSupplier messageCustomerSupplier = messageService.getMessageById(messageDTO.getMid());
 
-        if (!messageCustomerSupplier.getCustomerId().equals(messageDTO.getCustomerId())) {
-            throw new SecurityException("Unauthorized message update");
-        }
-
-        messageCustomerSupplier.setContent(messageDTO.getContent());
-        messageCustomerSupplier.setSendTime(LocalDateTime.now());
-
-        return messageService.sendMessage(messageCustomerSupplier);
-    }
 
     @GetMapping("/customersBySupplierId")
     public ResponseEntity<List<String>> getAllCustomerIds(Long supplierId) {
@@ -74,14 +61,6 @@ public class MessageCustomerSupplierController {
         return ResponseEntity.ok(messages);
     }
 
-    @MessageMapping("/message/customer-supplier/delete")
-    @SendTo("/topic/messages")
-    public Long deleteMessage(Long id) {
-        if (messageService.deleteMessage(id)) {
-            return id;
-        }
-        return null;
 
-    }
 
 }

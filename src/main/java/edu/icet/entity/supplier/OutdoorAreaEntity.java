@@ -32,7 +32,4 @@ public class OutdoorAreaEntity {
     @Column(name = "weather_protection",nullable = false)
     private Boolean weatherProtection;
 
-    @OneToOne
-    @JoinColumn(name = "property_id")
-    private PropertyEntity property;
 }

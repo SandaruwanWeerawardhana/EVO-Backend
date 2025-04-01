@@ -39,6 +39,10 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private EventStatusType eventStatus;
     @NotNull
-    @Enumerated(EnumType.STRING)
     private List<EventSupplier> suppliers;
+
+    private Anniversary anniversary;
+    private Wedding wedding;
+    private GetTogether getTogether;
+    private BirthdayParty birthdayParty;
 }

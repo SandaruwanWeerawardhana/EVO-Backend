@@ -46,11 +46,11 @@ public class PropertyImageServiceImpl implements PropertyImageService {
     }
 
     @Override
-    public Boolean update(PropertyImage propertyImage) {
+    public PropertyImage update(PropertyImage propertyImage) {
         if (repository.existsById(propertyImage.getId())){
-            repository.save(mapper.map(propertyImage,PropertyImageEntity.class));
-            return true;
+            return mapper.map(repository.save(mapper.map(propertyImage,PropertyImageEntity.class)), PropertyImage.class);
         }
-        return false;
+
+        throw new IllegalArgumentException("Property image does not exist");
     }
 }

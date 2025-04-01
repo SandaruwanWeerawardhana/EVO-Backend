@@ -18,10 +18,6 @@ public class PoolEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "property_id")
-    private PropertyEntity property;
-
     @Column(nullable = false)
     private String size;
 

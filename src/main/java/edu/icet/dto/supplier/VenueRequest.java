@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 public class VenueRequest {
-    @NotNull(message="Venue Request ID cannot be null")
     private Long venueRequestID;
 
     @NotNull(message="Supplier ID cannot be null")

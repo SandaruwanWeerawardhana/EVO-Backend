@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 public interface ProfilePreviousWorkRepository extends JpaRepository<ProfilePreviousWorkEntity,Long> {
 
-    ProfilePreviousWorkEntity findBySupplier(Supplier supplier);
+//    ProfilePreviousWorkEntity findBySupplier(Supplier supplier);
     ProfilePreviousWorkEntity findByPreviousWorkID(Long id);
     ProfilePreviousWorkEntity findByCustomer(CustomerEntity customer);
     ProfilePreviousWorkEntity findByCompletionDateAfter(LocalDate date);
