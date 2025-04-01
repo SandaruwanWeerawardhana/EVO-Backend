@@ -7,6 +7,7 @@ import edu.icet.service.customer.AnniversaryEventService;
 import edu.icet.service.event.BirthdayPartyEventService;
 import edu.icet.service.event.EventService;
 import edu.icet.service.event.GetTogetherEventService;
+import edu.icet.service.event.WeddingEventService;
 import edu.icet.service.system.EventSummaryService;
 import edu.icet.util.EventType;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,8 @@ public class EventController {
     private final AgendaService agendaService;
 
     private final BirthdayPartyEventService birthdayPartyEventService;
+
+    private final WeddingEventService weddingEventService;
 
     @PostMapping("/")
     public ResponseEntity<Event> addEvent(@RequestBody Event event) {
