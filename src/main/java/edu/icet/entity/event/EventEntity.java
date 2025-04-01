@@ -1,12 +1,12 @@
 package edu.icet.entity.event;
 
 import edu.icet.entity.supplier.LocationEntity;
+import edu.icet.entity.supplier.SupplierEntity;
 import edu.icet.entity.supplier.VenueEntity;
 import edu.icet.util.BudgetType;
 import edu.icet.util.EventStatusType;
 import edu.icet.util.EventType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,14 +24,12 @@ import java.util.List;
 public class EventEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long eventId;
+    private Long id;
 
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
     @Column(name = "event_date",nullable = false)
-    @Future
     private Date eventDate;
 
     @Column(name = "start_time",nullable = false)
@@ -53,7 +51,6 @@ public class EventEntity {
     private EventType eventType;
 
     @Column(name = "capacity",nullable = false)
-    @Min(1)
     private Integer capacity;
 
     @Column(name = "budget_type", nullable = false)
@@ -65,20 +62,24 @@ public class EventEntity {
     private EventStatusType eventStatus;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
-    private List<EventSupplierEntity> eventSuppliers;
+    private List<SupplierEntity> suppliers;
 
-    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne
     private AgendaEntity agenda;
 
-    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne
+    @JoinColumn(name = "anniversary_id")
     private AnniversaryEntity anniversary;
 
-    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne
+    @JoinColumn(name = "wedding_id")
     private WeddingEntity wedding;
 
-    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne
+    @JoinColumn(name = "get_together_id")
     private GetTogetherEntity getTogether;
 
-    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne
+    @JoinColumn(name = "birthday_party_id")
     private BirthdayPartyEntity birthdayParty;
 }

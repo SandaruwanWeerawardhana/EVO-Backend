@@ -7,8 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AgendaTaskRepository extends JpaRepository<AgendaTaskEntity, Integer> {
+public interface AgendaTaskRepository extends JpaRepository<AgendaTaskEntity, Long> {
     @Query("SELECT t FROM AgendaTaskEntity t WHERE t.agenda.id = :agendaId AND t.taskId = :taskId")
-    AgendaTaskEntity findByAgendaIdAndTaskId(@Param("agendaId") Integer agendaId,
-                                             @Param("taskId") Integer taskId);
+    AgendaTaskEntity findByAgendaIdAndTaskId(@Param("agendaId") Long agendaId, @Param("taskId") Long taskId);
 }

@@ -24,10 +24,11 @@ public class VenueEntity {
     @JoinColumn(name = "supplier_id")
     private SupplierEntity supplier;
 
-    @Column(nullable = false)
-    private String location;
-    @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private LocationEntity location;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EventType eventType;
 

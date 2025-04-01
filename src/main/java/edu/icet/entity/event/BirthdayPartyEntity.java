@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,20 +12,9 @@ import java.util.Date;
 @Table(name = "birthday_party")
 public class BirthdayPartyEntity {
     @Id
-    @Column(name = "event_id", nullable = false)
-    private Long eventId;
-
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "event_id")
-    private EventEntity event;
+    @Column(nullable = false)
+    private Long id;
 
     @Column(name = "owner_name", nullable = false)
     private String ownerName;
-
-    @Column(name = "email", nullable = false)
-    private String email;
-
-    @Column(name = "birthday_date", nullable = false)
-    private Date birthday;
 }

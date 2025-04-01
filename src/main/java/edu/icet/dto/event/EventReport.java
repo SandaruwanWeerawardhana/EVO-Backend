@@ -14,11 +14,7 @@ import lombok.ToString;
 public class EventReport {
     @NotNull
     @NotEmpty(message = "ID should not be blank")
-    private Long eventId;
-    @NotNull
-    @NotEmpty(message = "ID should not be blank")
-    private Long reportId;
+    private Long id;
 
-
-
+    private Event event;
 }

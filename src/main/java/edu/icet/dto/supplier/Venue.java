@@ -1,5 +1,6 @@
 package edu.icet.dto.supplier;
 
+import edu.icet.dto.event.Event;
 import edu.icet.util.EventType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -10,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.util.List;
 
 
 @Data
@@ -23,9 +26,10 @@ public class Venue {
     @Positive
     private Supplier supplier;
     @NotEmpty(message = "location can not be null")
-    private String location;
+    private Location location;
     @NotEmpty(message = "venue type can not be null")
     @Enumerated(EnumType.STRING)
     private EventType eventType;
     private Long capacity;
+    private List<Event> events;
 }

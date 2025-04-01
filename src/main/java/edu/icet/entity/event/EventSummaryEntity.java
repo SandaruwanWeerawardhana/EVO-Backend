@@ -23,7 +23,7 @@ import java.util.List;
 public class EventSummaryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long eventSummaryId;
+    private Long id;
 
     @OneToOne
     @JoinColumn(name = "event_id", nullable = false)
@@ -45,13 +45,13 @@ public class EventSummaryEntity {
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
-    private CustomerEntity customerId;
+    private CustomerEntity customer;
 
     @Column(name = "head_count",nullable = false)
     private Integer headCount;
 
     @ManyToMany
-    private List<ProfilePackagesEntity> packagesList;
+    private List<ProfilePackagesEntity> packages;
 
     @OneToMany(mappedBy = "eventSummaryEntity", cascade = CascadeType.ALL)
     private List<SupplierRequestEntity> requests;

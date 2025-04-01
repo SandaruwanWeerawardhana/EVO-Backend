@@ -12,13 +12,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "get_together")
 public class GetTogetherEntity {
     @Id
-    @Column(name = "event_id", nullable = false)
-    private Long eventId;
-
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "event_id")
-    private EventEntity event;
+    @Column(name = "id", nullable = false)
+    private Long id;
 
     @Column(nullable = false)
     private String description;

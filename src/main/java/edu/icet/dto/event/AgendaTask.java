@@ -2,6 +2,8 @@ package edu.icet.dto.event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import edu.icet.util.SupplierType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +15,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AgendaTask {
-    private Integer taskId;
+    private Long taskId;
 
     @NotBlank(message = "Task name is required")
     private String taskName;
@@ -26,7 +28,8 @@ public class AgendaTask {
 
     private Long supplierId;
 
+    @Enumerated(EnumType.STRING)
     private SupplierType supplierType;
 
-
+    private Agenda agenda;
 }

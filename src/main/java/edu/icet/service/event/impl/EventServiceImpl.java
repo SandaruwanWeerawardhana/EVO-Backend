@@ -26,7 +26,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event updateEvent(Event event, Long id) {
-        event.setEventId(id);
+        event.setId(id);
         return modelMapper.map(eventDao.save(modelMapper.map(event, EventEntity.class)), Event.class);
     }
 

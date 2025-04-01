@@ -45,19 +45,10 @@ public class BirthdayPartyEventServiceImpl implements BirthdayPartyEventService 
     }
 
     @Override
-    public List<BirthdayParty> getAll(Date date) {
-        return birthdayPartyRepository.findAll().stream()
-                .filter(entity -> entity.getBirthday().equals(date))
-                .map(entity -> modelMapper.map(entity, BirthdayParty.class))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public List<BirthdayParty> getAll(String username) {
         return birthdayPartyRepository.findAll().stream()
                 .filter(entity -> entity.getOwnerName().equalsIgnoreCase(username))
-                .map(entity -> modelMapper.map(entity, BirthdayParty.class))
-                .collect(Collectors.toList());
+                .map(entity -> modelMapper.map(entity, BirthdayParty.class)).toList();
     }
 
     @Override
@@ -71,10 +62,10 @@ public class BirthdayPartyEventServiceImpl implements BirthdayPartyEventService 
 
     @Override
     public Boolean delete(BirthdayParty birthdayParty) {
-        if (birthdayParty == null || birthdayParty.getEventId() == null) {
+        if (birthdayParty == null || birthdayParty.getId() == null) {
             return false;
         }
-        birthdayPartyRepository.deleteById(birthdayParty.getEventId());
+        birthdayPartyRepository.deleteById(birthdayParty.getId());
         return true;
     }
 
@@ -89,10 +80,10 @@ public class BirthdayPartyEventServiceImpl implements BirthdayPartyEventService 
 
     @Override
     public Boolean update(BirthdayParty bdParty) {
-        if (bdParty == null || bdParty.getEventId() == null) {
+        if (bdParty == null || bdParty.getId() == null) {
             return false;
         }
         BirthdayPartyEntity updatedEntity = birthdayPartyRepository.save(modelMapper.map(bdParty, BirthdayPartyEntity.class));
-        return updatedEntity.getEventId().equals(bdParty.getEventId());
+        return updatedEntity.getId().equals(bdParty.getId());
     }
 }
