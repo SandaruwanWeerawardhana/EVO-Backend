@@ -24,7 +24,7 @@ public class MessageAdminSupplierServiceImpl implements MessageAdminSupplierServ
 
     @Override
     public MessageAdminSupplier sendMessage(MessageAdminSupplier dto) {
-        dto.setSendTime(LocalDateTime.from(Instant.now()));
+        dto.setSendTime((Instant.now()));
 
         MessageAdminSupplierEntity entity = mapper.map(dto, MessageAdminSupplierEntity.class);
         MessageAdminSupplierEntity savedEntity = messageAdminSupplierRepository.save(entity);
