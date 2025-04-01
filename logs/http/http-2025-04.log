@@ -1,0 +1,22 @@
+2025-04-01T09:51:03.057789600 - 
+=== Request/Response ===
+Time: 2025-04-01T09:51:03.0547812
+Method: POST
+URI: /customer/add
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.43.3; accept: */*; cache-control: no-cache; postman-token: dae012a5-805c-4ffe-8b49-a93ab5519985; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 183
+Response Status: 201
+Response Body: Customer added successfully.
+Processing Time: 441ms
+
+2025-04-01T10:38:40.489870100 - 
+=== Request/Response ===
+Time: 2025-04-01T10:38:40.4876431
+Method: POST
+URI: /customer/add
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.43.3; accept: */*; cache-control: no-cache; postman-token: f445cd5d-9283-4d7e-8819-30044c378441; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 183
+Response Status: 201
+Response Body: Customer added successfully.
+Processing Time: 419ms
+
