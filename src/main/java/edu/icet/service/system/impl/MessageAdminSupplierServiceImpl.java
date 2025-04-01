@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -19,30 +21,17 @@ public class MessageAdminSupplierServiceImpl implements MessageAdminSupplierServ
     private final ModelMapper mapper;
 
 
-    @Override
-    public MessageAdminSupplier sendMessage(MessageAdminSupplier message) {
-        MessageAdminSupplierEntity messageCustomerSupplierEntity = messageAdminSupplierRepository.save(mapper.map(message, MessageAdminSupplierEntity.class));
-        return mapper.map(messageCustomerSupplierEntity, MessageAdminSupplier.class);
-
-    }
 
     @Override
-    public boolean deleteMessage(Long mid) {
-        if (messageAdminSupplierRepository.existsById(mid)) {
-            messageAdminSupplierRepository.deleteById(mid);
-            return true;
-        }
-        return false;
+    public MessageAdminSupplier sendMessage(MessageAdminSupplier dto) {
+        dto.setSendTime(LocalDateTime.from(Instant.now()));
 
+        MessageAdminSupplierEntity entity = mapper.map(dto, MessageAdminSupplierEntity.class);
+        MessageAdminSupplierEntity savedEntity = messageAdminSupplierRepository.save(entity);
+        return mapper.map(savedEntity, MessageAdminSupplier.class);
     }
 
 
-
-    @Override
-    public MessageAdminSupplier getMessageById(Long mid) {
-        return mapper.map(messageAdminSupplierRepository.findById(mid).orElse(null), MessageAdminSupplier.class);
-
-    }
 
 
     @Override
@@ -66,21 +55,6 @@ public class MessageAdminSupplierServiceImpl implements MessageAdminSupplierServ
     public List<MessageAdminSupplier> getMessagesByAdminId(Long adminId) {
         ArrayList<MessageAdminSupplier> list = new ArrayList<>();
         messageAdminSupplierRepository.findByAdminId(adminId).forEach(messageAdminSupplierEntity -> list.add(mapper.map(messageAdminSupplierEntity, MessageAdminSupplier.class)));
-        return list;
-
-    }
-
-//No Usage
-    @Override
-    public MessageAdminSupplier searchMessage(Long mid) {
-        return mapper.map(messageAdminSupplierRepository.findById(mid).orElse(null), MessageAdminSupplier.class);
-
-    }
-
-    @Override
-    public List<MessageAdminSupplier> getAllMessages() {
-        ArrayList<MessageAdminSupplier> list = new ArrayList<>();
-        messageAdminSupplierRepository.findAll().forEach(messageAdminSupplierEntity -> list.add(mapper.map(messageAdminSupplierEntity, MessageAdminSupplier.class)));
         return list;
 
     }

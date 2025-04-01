@@ -4,10 +4,12 @@ import edu.icet.dto.system.MessageAdminSupplier;
 import edu.icet.service.system.MessageAdminSupplierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,66 +23,51 @@ public class MessageAdminSupplierController {
 
     private final MessageAdminSupplierService messageService;
 
-    @MessageMapping("/chat/admin-supplier")
-    @SendTo("/topic/messages")
-    public MessageAdminSupplier handleChatMessage(MessageAdminSupplier MessageAdminSupplier) {
+    @MessageMapping("/chat/admin-supplier/{supplierId}/{adminId}")
+    @SendTo("/topic/chat/{supplierId}/{adminId}")
+    public MessageAdminSupplier handleChatMessage(
+            MessageAdminSupplier message,
+            @DestinationVariable Long supplierId,
+            @DestinationVariable Long adminId) {
 
-        return messageService.sendMessage(MessageAdminSupplier);
-    }
-
-    @MessageMapping("/chat/admin-supplier/update")
-    @SendTo("/topic/messages")
-    public MessageAdminSupplier handleMessageUpdate(MessageAdminSupplier messageDTO) {
-        MessageAdminSupplier MessageAdminSupplier = messageService.getMessageById(messageDTO.getMid());
-
-        if (!MessageAdminSupplier.getAdminId().equals(messageDTO.getAdminId())) {
-            throw new SecurityException("Unauthorized message update");
+        if (!supplierId.equals(message.getSupplierId()) || !adminId.equals(message.getAdminId())) {
+            throw new IllegalArgumentException("Path variables don't match message content");
         }
 
-        MessageAdminSupplier.setContent(messageDTO.getContent());
-        MessageAdminSupplier.setSendTime(LocalDateTime.now());
-
-        return messageService.sendMessage(MessageAdminSupplier);
+        return messageService.sendMessage(message);
     }
+
 
     @GetMapping("/adminsBySupplierId")
-    public ResponseEntity<List<String>> getAllCustomerIds(Long supplierId) {
+    public ResponseEntity<List<String>> getAllAdminIds(Long supplierId) {
         List<MessageAdminSupplier> messages = messageService.getMessagesBySupplierId(supplierId);
-        List<String> customerIds = messages.stream()
+        List<String> adminIds = messages.stream()
                 .map(MessageAdminSupplier::getAdminId)
                 .map(String::valueOf)
                 .distinct()
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(customerIds);
+        return ResponseEntity.ok(adminIds);
     }
 
-    @GetMapping("/suppliersByCustomerId")
-    public ResponseEntity<List<String>> getAllSuppliersIds(Long customerId) {
-        List<MessageAdminSupplier> messages = messageService.getMessagesByAdminId(customerId);
-        List<String> customerIds = messages.stream()
+    @GetMapping("/suppliersByAdminId")
+    public ResponseEntity<List<String>> getAllSuppliersIds(Long adminId) {
+        List<MessageAdminSupplier> messages = messageService.getMessagesByAdminId(adminId);
+        List<String> supplierIds = messages.stream()
                 .map(MessageAdminSupplier::getAdminId)
                 .map(String::valueOf)
                 .distinct()
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(customerIds);
+        return ResponseEntity.ok(supplierIds);
+
     }
 
 
     @GetMapping("/chat/{AdminId}/{supplierId}")
-    public ResponseEntity<List<MessageAdminSupplier>> getCustomerChat(@PathVariable Long AdminId, @PathVariable Long supplierId) {
+    public ResponseEntity<List<MessageAdminSupplier>> getAdminChat(@PathVariable Long AdminId, @PathVariable Long supplierId) {
 
         List<MessageAdminSupplier> messages = messageService.getMessagesByIds(AdminId, supplierId);
 
         return ResponseEntity.ok(messages);
     }
 
-    @MessageMapping("/message/admin-supplier/delete")
-    @SendTo("/topic/messages")
-    public Long deleteMessage(Long id) {
-        if (messageService.deleteMessage(id)) {
-            return id;
-        }
-        return null;
-
-    }
 }
