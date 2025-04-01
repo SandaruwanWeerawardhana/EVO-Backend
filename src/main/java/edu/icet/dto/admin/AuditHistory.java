@@ -15,9 +15,6 @@ public class AuditHistory {
 
     private Long id;
 
-    @NotNull(message = "adminId cannot be null")
-    private Long adminId;
-
     @NotNull(message = "reason cannot be null")
     private String reasonForChange;
 
