@@ -8,5 +8,5 @@ public interface PropertyImageService {
     List<PropertyImage> getAll();
     PropertyImage save (PropertyImage propertyImage);
     Boolean delete(Long id);
-    Boolean update(PropertyImage propertyImage);
+    PropertyImage update(PropertyImage propertyImage);
 }

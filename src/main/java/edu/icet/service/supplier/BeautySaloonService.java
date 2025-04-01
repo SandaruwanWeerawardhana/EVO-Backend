@@ -8,7 +8,7 @@ public interface BeautySaloonService {
     List<BeautySaloon> getAll();
     BeautySaloon add(BeautySaloon beautySaloon);
     boolean delete(Long id);
-    boolean update(BeautySaloon beautySaloon);
+    BeautySaloon update(BeautySaloon beautySaloon);
     BeautySaloon get(Long id);
 
 }

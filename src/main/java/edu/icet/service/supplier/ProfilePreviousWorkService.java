@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface ProfilePreviousWorkService {
     List<ProfilePreviousWork> getAll();
-    boolean save(ProfilePreviousWork profilePreviousWork);
+    ProfilePreviousWork save(ProfilePreviousWork profilePreviousWork);
     Boolean delete(Long id);
-    ProfilePreviousWork search(ProfilePreviousWork profilePreviousWork);
-    boolean update(ProfilePreviousWork profilePreviousWork);
+    ProfilePreviousWork search(Long id);
+    ProfilePreviousWork update(ProfilePreviousWork profilePreviousWork);
 
 
 

@@ -1,11 +1,11 @@
 package edu.icet.entity.supplier;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -13,15 +13,30 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Properties")
 public class PropertyEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long propertyId;
 
-    @OneToOne
-    @JoinColumn(name = "supplier_id")
-    private SupplierEntity supplier;
-
-    @NotNull
-    @NotBlank(message = "Name may not be empty!")
     private String name;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "hall_id")
+    private HallEntity hall;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "room_id")
+    private RoomEntity room;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "pool_id")
+    private PoolEntity pool;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "outdoor_area_id")
+    private OutdoorAreaEntity outdoorArea;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "property_id")
+    private List<PropertyImageEntity> images;
 }

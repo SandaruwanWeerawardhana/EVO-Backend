@@ -10,7 +10,7 @@ public interface PropertyService {
 
     List<Property> getAll();
     Property save(Property property);
-    Property search(Property property);
+    Property search(Long propertyID);
     Boolean delete(Long id);
     Property update(Property property);
 }

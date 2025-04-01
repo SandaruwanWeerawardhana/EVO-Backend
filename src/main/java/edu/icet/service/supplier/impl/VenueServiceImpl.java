@@ -1,76 +1,64 @@
 package edu.icet.service.supplier.impl;
 
+import edu.icet.dto.supplier.Supplier;
 import edu.icet.dto.supplier.Venue;
 import edu.icet.entity.supplier.VenueEntity;
 import edu.icet.repository.supplier.VenueRepository;
 import edu.icet.service.supplier.VenueService;
+import edu.icet.util.VenueType;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+
 import java.util.List;
 
-@RequiredArgsConstructor
 @Service
-
+@RequiredArgsConstructor
 public class VenueServiceImpl implements VenueService {
     private final VenueRepository repository;
     private final ModelMapper mapper;
 
     @Override
-    public List<Venue> getAll() {
-        List<VenueEntity> all = repository.findAll();
-
-        List<Venue> venues = new ArrayList<>();
-
-        all.forEach(venueEntity ->
-            venues.add(mapper.map(venueEntity,Venue.class))
-        );
-        return venues;
+    public List<Venue> getAllVenues() {
+        return repository.findAll().stream().map(venue -> mapper.map(venue, Venue.class)).toList();
     }
 
     @Override
-    public Venue save(Venue venue) {
-        return mapper.map(repository.save(mapper.map(venue,VenueEntity.class)),Venue.class);
+    public Venue addVenueSupplier(Venue venue) {
+        return mapper.map(repository.save(mapper.map(venue, VenueEntity.class)), Venue.class);
     }
 
     @Override
-    public Boolean delete(Venue venue) {
-        if (repository.existsById(venue.getVenueId())){
-            repository.delete(mapper.map(venue,VenueEntity.class));
+    public Boolean deleteVenueSupplier(Long venueID) {
+        if (repository.existsById(venueID)) {
+            repository.deleteById(venueID);
             return true;
         }
-        return false;
+
+        throw new IllegalArgumentException("Venue does not exist!");
     }
 
     @Override
-    public Boolean delete(Long id) {
-        if (repository.existsById(id)){
-            repository.deleteById(id);
-            return true;
+    public Venue updateVenueSupplier(Venue venue) {
+        if (repository.existsById(venue.getVenueId())) {
+            return mapper.map(repository.save(mapper.map(venue, VenueEntity.class)), Venue.class);
         }
-        return false;
+
+        throw new IllegalArgumentException("Venue does not exist!");
     }
 
     @Override
-    public Venue update(Venue venue) {
-        return mapper.map(repository.save(mapper.map(venue,VenueEntity.class)),Venue.class);
+    public Venue searchVenueByID(Long venueID) {
+        VenueEntity venueEntity = repository.findById(venueID).orElse(null);
+
+        return venueEntity != null ? mapper.map(venueEntity, Venue.class) : null;
     }
 
     @Override
-    public Venue search(Long id){
-        return mapper.map(repository.findById(id),Venue.class);
+    public List<Venue> findByVenueType(VenueType venueType) {
+        return repository.findAllByVenueType(venueType)
+                .stream()
+                .map(venueEntity -> mapper.map(venueEntity, Venue.class))
+                .toList();
     }
-
-    @Override
-    public Venue findById(Long venueID) {
-        return null;
-    }
-
-    @Override
-    public Venue findByEventType(Long venueID) {
-        return null;
-    }
-
-
 }

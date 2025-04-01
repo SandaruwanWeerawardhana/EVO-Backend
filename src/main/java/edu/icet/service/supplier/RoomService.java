@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface RoomService {
     List<Room> getAll();
-    boolean save(Room room);
+    Room save(Room room);
     Room search(Long id);
     Boolean delete(Long id);
     Room update(Room room);

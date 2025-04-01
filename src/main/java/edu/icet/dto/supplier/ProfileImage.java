@@ -11,10 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProfileImage {
-    @NotNull(message = "User ID cannot be null")
-    @Min(value = 1, message = "User ID must be a positive number")
-    private Long userId;
+    private Long id;
 
     @NotNull(message = "Profile image file cannot be null")
-    private MultipartFile profileImage;
+    private String profileImage;
 }

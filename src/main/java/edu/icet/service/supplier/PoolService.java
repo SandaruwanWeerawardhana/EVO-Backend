@@ -8,5 +8,5 @@ public interface PoolService {
     List <Pool> getAll();
     Pool save (Pool pool);
     Boolean delete (Long id);
-    Boolean update (Pool pool);
+    Pool update (Pool pool);
 }

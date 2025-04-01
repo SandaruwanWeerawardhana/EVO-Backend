@@ -29,12 +29,12 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public boolean save(Room room) {
-        if (repository.existsById(room.getRoomId())){
-            repository.save(mapper.map(room, RoomEntity.class));
-            return true;
+    public Room save(Room room) {
+        if (!repository.existsById(room.getRoomId())){
+            return mapper.map(repository.save(mapper.map(room, RoomEntity.class)), Room.class);
         }
-        return false;
+
+        throw new IllegalArgumentException("Room already exists!");
     }
 
     @Override
