@@ -1,9 +1,18 @@
 package edu.icet.entity.supplier;
 
+import edu.icet.dto.supplier.Location;
+import edu.icet.dto.supplier.Property;
+import edu.icet.dto.supplier.VenueRequest;
+import edu.icet.entity.event.EventEntity;
+import edu.icet.util.EventType;
+import edu.icet.util.VenueType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -12,14 +21,26 @@ import lombok.NoArgsConstructor;
 @Table(name = "venue")
 
 public class VenueEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long venueId;
-    private Long supplierId;
-    @Column(nullable = false)
-    private String location;
-    @Column(nullable = false)
-    private String eventType;
-    @Column(nullable = false)
+
     private Long capacity;
+
+    @Enumerated(EnumType.STRING)
+    private VenueType venueType;
+
+    @OneToOne
+    @JoinColumn(name = "location_id")
+    private LocationEntity location;
+
+    @OneToMany
+    @JoinColumn(name = "venue_id")
+    private List<PropertyEntity> properties;
+
+    @OneToMany
+    @JoinColumn(name = "venue_id")
+    private List<VenueRequestEntity> requests;
+
 }

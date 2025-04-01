@@ -11,14 +11,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 public class VenueRequest {
-    @NotNull(message="Venue Request ID cannot be null")
     private Long venueRequestID;
 
     @NotNull(message="Supplier ID cannot be null")
-    private Long supplierId;
+    private Supplier supplier;
 
     @NotNull(message="Venue ID cannot be null")
-    private Long venueID;
+    private Venue venue;
 
     @NotNull(message="Created DateTime cannot be null")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
@@ -26,5 +25,5 @@ public class VenueRequest {
 
     @NotNull(message="Status cannot be null")
     @NotBlank(message="Status cannot be blank")
-    private String status;
+    private Boolean status;
 }

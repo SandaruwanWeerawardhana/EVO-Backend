@@ -10,11 +10,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserReport {
-
-    @NotNull
-    @NotEmpty(message = "ID should not be blank")
-    private Long userId;
-    @NotNull
-    @NotEmpty
     private Long reportId;
+
+    // UserReport is accessible through user.
 }

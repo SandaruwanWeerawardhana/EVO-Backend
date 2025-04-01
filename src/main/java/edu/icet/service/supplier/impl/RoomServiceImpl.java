@@ -1,6 +1,5 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.system.Profile;
 import edu.icet.dto.supplier.Room;
 import edu.icet.entity.supplier.RoomEntity;
 import edu.icet.repository.supplier.RoomRepository;
@@ -19,7 +18,7 @@ public class RoomServiceImpl implements RoomService {
     private final ModelMapper mapper;
 
     @Override
-    public List<Room> getAll(Profile profile) {
+    public List<Room> getAll() {
         List<Room> roomList = new ArrayList<>();
         List<RoomEntity> all = repository.findAll();
 
@@ -30,12 +29,12 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public boolean save(Room room) {
-        if (repository.existsById(room.getRoomId())){
-            repository.save(mapper.map(room, RoomEntity.class));
-            return true;
+    public Room save(Room room) {
+        if (!repository.existsById(room.getRoomId())){
+            return mapper.map(repository.save(mapper.map(room, RoomEntity.class)), Room.class);
         }
-        return false;
+
+        throw new IllegalArgumentException("Room already exists!");
     }
 
     @Override

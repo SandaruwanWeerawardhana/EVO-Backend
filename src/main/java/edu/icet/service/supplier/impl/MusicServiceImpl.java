@@ -20,7 +20,7 @@ public class MusicServiceImpl implements MusicService {
     private MusicRepository repository;
 
     @Override
-    public List<Music> getAll(Supplier supplier) {
+    public List<Music> getAll() {
 
         return repository.findAll()
                 .stream()
@@ -29,9 +29,8 @@ public class MusicServiceImpl implements MusicService {
     }
 
     @Override
-    public boolean addMusic(Music music) {
-        return !repository.existsById(music.getSupplierId()) &&
-                repository.save(mapper.map(music, MusicEntity.class)) != null;
+    public Music addMusic(Music music) {
+        return mapper.map(repository.save(mapper.map(music, MusicEntity.class)), Music.class);
     }
 
     @Override
@@ -44,9 +43,13 @@ public class MusicServiceImpl implements MusicService {
     }
 
     @Override
-    public boolean updateMusic(Music music) {
-        return repository.existsById(music.getSupplierId()) &&
-                repository.save(mapper.map(music, MusicEntity.class)) != null;
+    public Music updateMusic(Music music) {
+        if (repository.existsById(music.getMusicID())) {
+
+           return mapper.map(repository.save(mapper.map(music, MusicEntity.class)), Music.class);
+        }
+
+        throw new IllegalArgumentException("Music does not exist!");
     }
 
     @Override

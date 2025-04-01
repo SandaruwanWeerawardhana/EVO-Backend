@@ -1,5 +1,9 @@
 package edu.icet.dto.supplier;
 
+import edu.icet.util.EventType;
+import edu.icet.util.VenueType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -8,20 +12,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class Venue {
-    @NotNull(message ="Id Can't be null" )
     private Long venueId;
-    @NotEmpty(message = "supplier id can not be null")
-    @Positive
-    private Long supplierId;
-    @NotEmpty(message = "location can not be null")
-    private Location location;
-    @NotEmpty(message = "venue type can not be null")
-    private String eventType;
+
     private Long capacity;
+
+    private Location location;
+
+    @Enumerated(EnumType.STRING)
+    private VenueType venueType;
+
+    private List<Property> properties;
+
+    private List<VenueRequest> requests;
 }

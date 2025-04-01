@@ -1,6 +1,9 @@
 package edu.icet.dto.supplier;
 
 
+import edu.icet.util.MealType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 
@@ -9,8 +12,9 @@ import lombok.*;
 @Getter
 @Setter
 public class Meal {
-    @NonNull
+
     private Long id;
+
     @NonNull
     private String name;
 
@@ -18,7 +22,7 @@ public class Meal {
     @Positive
     private Double pricePerPerson;
 
-    @NonNull
-    private String mealType;
+    @Enumerated(EnumType.STRING)
+    private MealType mealType;
 
 }

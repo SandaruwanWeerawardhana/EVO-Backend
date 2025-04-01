@@ -14,9 +14,11 @@ import lombok.Setter;
 
 public class Pool {
     private Long id;
+
     @NotNull
     @NotBlank
     private String size;
+
     @NotNull
     @NotBlank
     private Double depth;

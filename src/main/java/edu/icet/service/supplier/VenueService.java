@@ -1,14 +1,17 @@
 package edu.icet.service.supplier;
 
+import edu.icet.dto.supplier.Supplier;
 import edu.icet.dto.supplier.Venue;
+import edu.icet.util.VenueType;
 
 import java.util.List;
 
 public interface VenueService {
-    List<Venue> getAll();
-    Venue save(Venue venue);
-    Boolean delete(Venue venue);
-    Boolean delete(Long id);
-    Venue update(Venue venue);
-    Venue search(Long id);
+    // Venue
+    List<Venue> getAllVenues();
+    Venue addVenueSupplier(Venue venue);
+    Boolean deleteVenueSupplier(Long venueID);
+    Venue updateVenueSupplier(Venue venue);
+    Venue searchVenueByID(Long venueID);
+    List<Venue> findByVenueType(VenueType venueType);
 }

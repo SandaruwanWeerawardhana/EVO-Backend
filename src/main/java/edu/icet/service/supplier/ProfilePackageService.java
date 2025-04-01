@@ -1,22 +1,24 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.supplier.ProfilePackages;
+import edu.icet.dto.supplier.PackageFeature;
+import edu.icet.dto.supplier.ProfilePackage;
 import java.util.List;
 
 public interface ProfilePackageService {
 
-void addPackage(ProfilePackages profilePackages);
+    ProfilePackage addPackage(ProfilePackage profilePackage);
 
-List<ProfilePackages>getAllPackages();
+    List<ProfilePackage> getAllPackages();
 
-List<ProfilePackages>getAllProfileById(Long profileId);
+    List<ProfilePackage> getAllProfileById(Long profileId);
 
-void updatePackage(ProfilePackages profilePackages);
+    ProfilePackage updatePackage(ProfilePackage profilePackage);
 
-void deletePackageById(Long packageId);
+    Boolean deletePackageById(Long packageId);
 
-ProfilePackages searchByPackageId(Long packageId);
+    ProfilePackage searchByPackageId(Long packageId);
 
-ProfilePackages searchByPackageName(String packageName);
+    ProfilePackage searchByPackageName(String packageName);
+    ProfilePackage searchByPackageFeature(PackageFeature features);
 
 }

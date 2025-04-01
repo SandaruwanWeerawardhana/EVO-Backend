@@ -13,12 +13,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class ProfilePreviousWorkImage {
-    @NotNull
-    @Size(min = 1, max = 15)
     private Long profilePreviousWorkImageId;
 
     @NotNull
-    private Long profilePreviousWorkId;
+    private ProfilePreviousWork profilePreviousWork;
 
     @NotBlank
     private String imageUrl;

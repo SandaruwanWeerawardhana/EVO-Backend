@@ -1,7 +1,9 @@
 package edu.icet.service.supplier.impl;
 
 import edu.icet.dto.supplier.BookingSlot;
+import edu.icet.dto.supplier.Property;
 import edu.icet.entity.supplier.BookingSlotEntity;
+import edu.icet.entity.supplier.PropertyEntity;
 import edu.icet.repository.supplier.BookingSlotRepository;
 import edu.icet.service.supplier.BookingSlotService;
 import lombok.RequiredArgsConstructor;
@@ -45,8 +47,8 @@ public class BookingSlotServiceImpl implements BookingSlotService {
         return null;
     }
     @Override
-    public List<BookingSlot> search(Long propertyId, LocalDateTime startTime, LocalDateTime endTime) {
-        return repository.findByPropertyIdAndStartTimeAndEndTime(propertyId, startTime, endTime)
+    public List<BookingSlot> search(Property property, LocalDateTime startTime, LocalDateTime endTime) {
+        return repository.findByPropertyAndStartTimeAndEndTime(mapper.map(property, PropertyEntity.class), startTime, endTime)
                 .stream()
                 .map(bookingSlotEntity -> mapper.map(bookingSlotEntity, BookingSlot.class))
                 .toList();

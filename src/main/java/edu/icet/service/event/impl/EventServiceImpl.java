@@ -1,7 +1,7 @@
 package edu.icet.service.event.impl;
 
 import edu.icet.dto.event.Event;
-import edu.icet.dto.supplier.Location;
+import edu.icet.dto.supplier.Venue;
 import edu.icet.entity.event.EventEntity;
 import edu.icet.repository.event.EventRepository;
 import edu.icet.service.event.EventService;
@@ -52,8 +52,8 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> getEventsByLocation(Location location) {
-        List<EventEntity> eventEntities = eventDao.findAllByLocationId(location.getLocationId());
+    public List<Event> getEventsByVenue(Venue venue) {
+        List<EventEntity> eventEntities = eventDao.findAllByVenueId(venue.getVenueId());
         List<Event> events = new ArrayList<>();
         for(EventEntity eventEntity : eventEntities){
             events.add(modelMapper.map(eventEntity,Event.class));

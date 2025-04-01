@@ -5,18 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Catering {
-    @NotNull(message = "Catering ID cannot be null")
-    @Min(value = 1, message = "Catering ID must be a positive number")
-    private Integer cateringId;
 
-    @NotNull(message = "Supplier ID cannot be null")
-    @Min(value = 1, message = "Supplier ID must be a positive number")
-    private Integer supplierId;
+    private Long cateringId;
 
-    @NotBlank(message = "Service availability is required")
-    private String availabilityStatus;
+    private Boolean isAvailable;
+
+    private List<Meal> meals;
 }

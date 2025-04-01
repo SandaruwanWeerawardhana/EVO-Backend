@@ -15,10 +15,6 @@ public class Hall {
     private Long hallId;
 
     @NotNull
-    @NotBlank(message = "PropertyId may not be empty")
-    private Long propertyId;
-
-    @NotNull
     @NotBlank
     private Integer count;
 

@@ -1,5 +1,6 @@
 package edu.icet.service.system.impl;
 
+import edu.icet.dto.supplier.Supplier;
 import edu.icet.dto.system.Terms;
 import edu.icet.service.system.TermsService;
 import org.springframework.stereotype.Service;
@@ -33,10 +34,12 @@ public class TermsServiceImpl implements TermsService {
     }
 
     @Override
-    public List<Terms> getTermsByProfileId(Integer profileId) {
-        return termsList.stream()
-                .filter(terms -> terms.getProfileId().equals(profileId.longValue()))
-                .collect(Collectors.toList());
+    public List<Terms> getTermsBySupplier(Supplier supplier) {
+//        return termsList.stream()
+//                .filter(terms -> terms.getCategory() == supplier.getCategory())
+//                .collect(Collectors.toList());
+
+        return null;
     }
 
     @Override
@@ -45,9 +48,12 @@ public class TermsServiceImpl implements TermsService {
     }
 
     @Override
-    public Optional<Terms> getActiveTerms(Integer profileId) {
-        return termsList.stream()
-                .filter(terms -> terms.getProfileId().equals(profileId.longValue()) && terms.getIsActive())
-                .findFirst();
+    public Optional<Terms> getActiveTerms(Supplier supplier) {
+//        return termsList.stream()
+//                .filter(terms -> terms.getCategory() == supplier.getCategory() && terms.getIsActive())
+//                .findFirst();
+
+        return null;
     }
 }
+

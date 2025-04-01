@@ -1,5 +1,6 @@
 package edu.icet.dto.admin;
 
+import edu.icet.dto.event.Event;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,10 +13,15 @@ import lombok.ToString;
 @ToString
 @Table(name = "audit_report")
 public class AuditReport {
+
     private Long reportId;
-    private Long eventId;
+
+//    private Event event; TODO: Unsure relationship
+
     private String timestamp;
+
     private String action;
+
     private String data;
 
 }

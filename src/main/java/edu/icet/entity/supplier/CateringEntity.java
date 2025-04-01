@@ -3,6 +3,8 @@ package edu.icet.entity.supplier;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @Getter
 @Setter
@@ -15,9 +17,12 @@ public class CateringEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Integer cateringId;
+    private Long cateringId;
+
     @Column(nullable = false)
-    private Integer supplierId;
-    @Column(nullable = false)
-    private String availabilityStatus;
+    private Boolean isAvailable;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "catering_id")
+    private List<MealEntity> meals;
 }

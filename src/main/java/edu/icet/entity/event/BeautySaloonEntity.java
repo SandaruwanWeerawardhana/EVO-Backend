@@ -1,6 +1,7 @@
 package edu.icet.entity.event;
 
 
+import edu.icet.entity.supplier.SupplierEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name = "Beauty_Saloons")
+@Table(name = "beauty_salon")
 public class BeautySaloonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

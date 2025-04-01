@@ -14,8 +14,8 @@ public class RoomEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roomId;
-    @Column(nullable = false)
-    private Long propertyId;
+
+
     @Column(nullable = false)
     private Integer beds;
 }

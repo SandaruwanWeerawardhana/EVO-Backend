@@ -1,6 +1,9 @@
 package edu.icet.dto.supplier;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import edu.icet.entity.supplier.PropertyEntity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -16,8 +19,7 @@ public class BookingSlot {
     private Long bookingSlotId;
 
     @NotNull
-    @NotBlank(message = "PropertyId may not be empty")
-    private Long propertyId;
+    private Property property;
 
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd  HH:mm:ss")

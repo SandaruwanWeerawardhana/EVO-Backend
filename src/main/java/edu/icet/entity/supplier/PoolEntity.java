@@ -17,8 +17,10 @@ public class PoolEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String size;
+
     @Column(nullable = false)
     private Double depth;
 }

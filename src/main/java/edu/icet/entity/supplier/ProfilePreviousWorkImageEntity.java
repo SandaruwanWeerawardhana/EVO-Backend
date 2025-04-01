@@ -16,16 +16,10 @@ import lombok.ToString;
 @Table(name="profile_previous_work_images")
 public class ProfilePreviousWorkImageEntity {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long profilePreviousWorkImageId;
 
-    @NotNull
-    @Column(nullable = false)
-    private Long profilePreviousWorkId;
-
-    @NotBlank
     @Column(nullable = false)
     private String imageUrl;
 

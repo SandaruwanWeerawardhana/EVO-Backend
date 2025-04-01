@@ -1,7 +1,7 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.system.Profile;
 import edu.icet.dto.supplier.ProfilePreviousWork;
+import edu.icet.dto.supplier.Supplier;
 import edu.icet.entity.supplier.ProfilePreviousWorkEntity;
 import edu.icet.repository.supplier.ProfilePreviousWorkRepository;
 import edu.icet.service.supplier.ProfilePreviousWorkService;
@@ -13,11 +13,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class ProfilePreviousWorkServiceImpl implements ProfilePreviousWorkService {
-
     private final ModelMapper mapper;
     private final ProfilePreviousWorkRepository repository;
+
     @Override
-    public List<ProfilePreviousWork> getAll(Profile profile) {
+    public List<ProfilePreviousWork> getAll() {
         return repository.findAll()
                 .stream()
                 .map(profilePreviousWorkEntity -> mapper.map(profilePreviousWorkEntity, ProfilePreviousWork.class))
@@ -25,8 +25,8 @@ public class ProfilePreviousWorkServiceImpl implements ProfilePreviousWorkServic
     }
 
     @Override
-    public boolean save(ProfilePreviousWork profilePreviousWork) {
-        return repository.save(mapper.map(profilePreviousWork, ProfilePreviousWorkEntity.class)) != null;
+    public ProfilePreviousWork save(ProfilePreviousWork profilePreviousWork) {
+        return mapper.map(repository.save(mapper.map(profilePreviousWork, ProfilePreviousWorkEntity.class)), ProfilePreviousWork.class );
     }
 
     @Override
@@ -40,37 +40,24 @@ public class ProfilePreviousWorkServiceImpl implements ProfilePreviousWorkServic
     }
 
     @Override
-    public ProfilePreviousWork search(ProfilePreviousWork profilePreviousWork) {
-        if (profilePreviousWork != null) {
-            if (profilePreviousWork.getPreviousWorkID() != null) {
-                return searchByPreviousWorkID(profilePreviousWork.getPreviousWorkID());
-            } else if (profilePreviousWork.getProfileID() != null) {
-                return searchByProfileID(profilePreviousWork.getProfileID());
-            }
-        }
-        return null;
-    }
+    public ProfilePreviousWork search(Long id) {
 
-    private ProfilePreviousWork searchByPreviousWorkID(Long previousWorkID) {
-        ProfilePreviousWorkEntity entity = repository.findByPreviousWorkID(previousWorkID);
+        ProfilePreviousWorkEntity profilePreviousWorkEntity = repository.findById(id).orElse(null);
 
-        return entity != null ? mapper.map(entity, ProfilePreviousWork.class) : null;
-    }
-
-    private ProfilePreviousWork searchByProfileID(Long profileID) {
-        ProfilePreviousWorkEntity entity = repository.findByProfileID(profileID);
-
-        return entity != null ? mapper.map(entity, ProfilePreviousWork.class) : null;
+        return profilePreviousWorkEntity != null
+                ? mapper.map(profilePreviousWorkEntity, ProfilePreviousWork.class)
+                : null;
     }
 
 
     @Override
-    public boolean update(ProfilePreviousWork profilePreviousWork) {
-       if (repository.existsById(profilePreviousWork.getProfileID())) {
-           repository.save(mapper.map(profilePreviousWork, ProfilePreviousWorkEntity.class));
-           return true;
+    public ProfilePreviousWork update(ProfilePreviousWork profilePreviousWork) {
+       if (repository.existsById(profilePreviousWork.getPreviousWorkID())) {
+           return mapper.map(
+                   repository.save(mapper.map(profilePreviousWork, ProfilePreviousWorkEntity.class)),
+                   ProfilePreviousWork.class);
        }
 
-       return false;
+       throw new IllegalArgumentException("Profile Previous Work does not exist!");
     }
 }

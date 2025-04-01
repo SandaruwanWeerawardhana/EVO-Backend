@@ -14,10 +14,6 @@ public class Room {
     private Long roomId;
 
     @NotNull
-    @NotBlank(message = "PropertyId may not be empty")
-    private Long propertyId;
-
-    @NotNull
     @NotBlank
     private Integer beds;
 }
