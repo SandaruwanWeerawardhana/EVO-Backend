@@ -1,4 +1,5 @@
 package edu.icet.entity.event;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,9 +12,13 @@ import lombok.NoArgsConstructor;
 @Table(name = "get_together")
 public class GetTogetherEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer eventID;
+    @Column(name = "event_id", nullable = false)
+    private Long eventId;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "event_id")
+    private EventEntity event;
 
     @Column(nullable = false)
     private String description;

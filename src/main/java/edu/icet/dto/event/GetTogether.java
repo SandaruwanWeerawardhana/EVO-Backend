@@ -12,7 +12,10 @@ import lombok.NoArgsConstructor;
 public class GetTogether {
     @NotNull(message = "eventID cannot be null")
     private Integer eventID;
+
+    private Event event;
     private String description;
+
     @NotNull(message = "title cannot be null")
     private String title;
 }

@@ -19,10 +19,6 @@ public class MealEntity {
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "catering_id")
-    private CateringEntity catering;
-
     @Column(nullable = false)
     private Double pricePerPerson;
 

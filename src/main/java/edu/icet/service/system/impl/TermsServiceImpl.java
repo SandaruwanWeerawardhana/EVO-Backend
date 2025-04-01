@@ -35,9 +35,11 @@ public class TermsServiceImpl implements TermsService {
 
     @Override
     public List<Terms> getTermsBySupplier(Supplier supplier) {
-        return termsList.stream()
-                .filter(terms -> terms.getSupplier().getUserId() != supplier.getUserId())
-                .collect(Collectors.toList());
+//        return termsList.stream()
+//                .filter(terms -> terms.getCategory() == supplier.getCategory())
+//                .collect(Collectors.toList());
+
+        return null;
     }
 
     @Override
@@ -47,8 +49,11 @@ public class TermsServiceImpl implements TermsService {
 
     @Override
     public Optional<Terms> getActiveTerms(Supplier supplier) {
-        return termsList.stream()
-                .filter(terms -> terms.getSupplier().getUserId() == supplier.getUserId() && terms.getIsActive())
-                .findFirst();
+//        return termsList.stream()
+//                .filter(terms -> terms.getCategory() == supplier.getCategory() && terms.getIsActive())
+//                .findFirst();
+
+        return null;
     }
 }
+

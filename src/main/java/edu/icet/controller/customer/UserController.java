@@ -30,7 +30,6 @@ public class UserController {
         return !allUsersList.isEmpty()
                 ? ResponseEntity.ok(allUsersList)
                 : ResponseEntity.noContent().build();
-
     }
 
     @PatchMapping("/userId/{id}")
@@ -38,7 +37,6 @@ public class UserController {
         return (userSerivce.updateUser(userId, user))
                 ? ResponseEntity.ok("user updated")
                 : ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
-
     }
 
     @DeleteMapping("/userId/{id}")

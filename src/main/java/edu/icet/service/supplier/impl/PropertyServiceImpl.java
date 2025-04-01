@@ -39,14 +39,13 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public Property search(Property property) {
-        if (property==null){
-            return null;
-        }
-        PropertyEntity search = repository.findById(property.getPropertyId()).orElse(null);
-        if (search == null) return  null;
+    public Property search(Long propertyID) {
 
-        return mapper.map(search, Property.class);    }
+        PropertyEntity search = repository.findById(propertyID).orElse(null);
+        if (search == null) throw new IllegalArgumentException("Property does not exist!");
+
+        return mapper.map(search, Property.class);
+    }
 
 
     @Override

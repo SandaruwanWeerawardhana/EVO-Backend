@@ -23,9 +23,11 @@ public class MessageAdminSupplier {
     @NotNull
     @NotBlank(message = "Content may not be empty")
     private String content;
+
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Instant sendTime;
+
     @Enumerated(EnumType.STRING)
     private UserType userType;
 }

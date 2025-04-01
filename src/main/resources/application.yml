@@ -7,6 +7,10 @@ spring:
     hibernate:
       ddl-auto: update
 
+  output:
+    ansi:
+      enabled: ALWAYS
+
 #  security:
 #    oauth2:
 #      client:

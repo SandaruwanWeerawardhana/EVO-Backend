@@ -8,5 +8,5 @@ public interface OutdoorAreaService {
     List<OutdoorArea> getAll();
     OutdoorArea save(OutdoorArea outdoorArea);
     Boolean delete(Long id);
-    Boolean update(OutdoorArea outdoorArea);
+    OutdoorArea update(OutdoorArea outdoorArea);
 }

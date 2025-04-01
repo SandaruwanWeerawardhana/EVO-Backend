@@ -14,7 +14,5 @@ import lombok.Setter;
 public class BeautySaloon {
     private Long id;
 
-    private Supplier supplier;
-
     private String specialty;
 }

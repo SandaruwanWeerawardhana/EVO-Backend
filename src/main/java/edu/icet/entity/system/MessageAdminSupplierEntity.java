@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Data
@@ -26,7 +27,7 @@ public class MessageAdminSupplierEntity {
     @Column(nullable = false)
     private String content;
     @Column(nullable = false)
-    private LocalDateTime sendTime;
+    private Instant sendTime;
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
