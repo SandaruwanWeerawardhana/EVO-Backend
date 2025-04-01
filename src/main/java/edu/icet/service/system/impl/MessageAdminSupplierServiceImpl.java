@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,7 +26,7 @@ public class MessageAdminSupplierServiceImpl implements MessageAdminSupplierServ
 
     @Override
     public MessageAdminSupplier sendMessage(MessageAdminSupplier dto) {
-        dto.setSendTime(LocalDateTime.from(Instant.now()));
+        dto.setSendTime((Instant.now()));
 
         MessageAdminSupplierEntity entity = mapper.map(dto, MessageAdminSupplierEntity.class);
         MessageAdminSupplierEntity savedEntity = messageAdminSupplierRepository.save(entity);
@@ -53,9 +55,11 @@ public class MessageAdminSupplierServiceImpl implements MessageAdminSupplierServ
 
     @Override
     public List<MessageAdminSupplier> getMessagesByAdminId(Long adminId) {
-        ArrayList<MessageAdminSupplier> list = new ArrayList<>();
-        messageAdminSupplierRepository.findByAdminId(adminId).forEach(messageAdminSupplierEntity -> list.add(mapper.map(messageAdminSupplierEntity, MessageAdminSupplier.class)));
-        return list;
-
+        return Optional.ofNullable(messageAdminSupplierRepository.findByAdminId(adminId))
+                .orElse(Collections.emptyList()) // Ensures no null value
+                .stream()
+                .map(entity -> mapper.map(entity, MessageAdminSupplier.class))
+                .collect(Collectors.toList());
     }
+
 }

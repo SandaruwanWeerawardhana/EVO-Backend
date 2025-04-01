@@ -3,6 +3,8 @@ package edu.icet.controller.system;
 import edu.icet.dto.system.MessageAdminSupplier;
 import edu.icet.service.system.MessageAdminSupplierService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,17 +52,20 @@ public class MessageAdminSupplierController {
         return ResponseEntity.ok(adminIds);
     }
 
-    @GetMapping("/suppliersByAdminId")
-    public ResponseEntity<List<String>> getAllSuppliersIds(Long adminId) {
+    @GetMapping(value = "/suppliersByAdminId/{adminId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<String>> getAllSuppliersIds(@PathVariable Long adminId) {
         List<MessageAdminSupplier> messages = messageService.getMessagesByAdminId(adminId);
+        if (messages.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.emptyList());
+        }
         List<String> supplierIds = messages.stream()
-                .map(MessageAdminSupplier::getAdminId)
+                .map(MessageAdminSupplier::getSupplierId)
                 .map(String::valueOf)
                 .distinct()
                 .collect(Collectors.toList());
         return ResponseEntity.ok(supplierIds);
-
     }
+
 
 
     @GetMapping("/chat/{AdminId}/{supplierId}")
