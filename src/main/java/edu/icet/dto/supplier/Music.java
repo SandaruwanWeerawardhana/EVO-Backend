@@ -12,8 +12,6 @@ import lombok.NoArgsConstructor;
 public class Music {
     private Long musicID;
 
-    private Supplier supplier;
-
     @NotBlank(message = "Team Size may not be empty")
     private Integer teamSize;
 

@@ -6,13 +6,13 @@ import edu.icet.dto.supplier.Supplier;
 import java.util.List;
 
 public interface MusicService {
-    List<Music> getAll(Supplier supplier);
+    List<Music> getAll();
 
-    boolean addMusic(Music music);
+    Music addMusic(Music music);
 
     Music searchMusic(Long id);
 
-    boolean updateMusic(Music music);
+    Music updateMusic(Music music);
 
     boolean deleteMusic(Long id);
 

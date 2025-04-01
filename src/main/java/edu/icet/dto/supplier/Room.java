@@ -14,9 +14,6 @@ public class Room {
     private Long roomId;
 
     @NotNull
-    private Property property;
-
-    @NotNull
     @NotBlank
     private Integer beds;
 }

@@ -1,5 +1,6 @@
 package edu.icet.entity.supplier;
 
+import edu.icet.util.SupplierCategoryType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -18,15 +19,10 @@ public class InventoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long inventoryId;
 
-    @NotBlank(message = "cannot be empty")
-    private Long supplierId;
-
-    @NotBlank(message = "cannot be empty")
     private String imageURL;
 
-    @NotBlank(message = "cannot be empty")
     private String description;
 
-    @NotBlank(message = "cannot be empty")
-    private String supplierCategory;
+    @Enumerated(EnumType.STRING)
+    private SupplierCategoryType supplierCategory;
 }

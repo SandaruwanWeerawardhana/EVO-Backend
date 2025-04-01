@@ -2,7 +2,7 @@
 package edu.icet.dto.system;
 
 import edu.icet.dto.supplier.Supplier;
-import edu.icet.util.CategoryType;
+import edu.icet.util.SupplierCategoryType;
 import jakarta.validation.constraints.*;
         import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,7 +28,7 @@ public class QuickReplies {
     private String content;
 
     @NotNull
-    private CategoryType category;
+    private SupplierCategoryType category;
 
 
 }

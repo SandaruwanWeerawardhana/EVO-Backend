@@ -7,14 +7,17 @@ import edu.icet.service.customer.AnniversaryEventService;
 import edu.icet.service.event.BirthdayPartyEventService;
 import edu.icet.service.event.EventService;
 import edu.icet.service.event.GetTogetherEventService;
-import edu.icet.service.event.WeddingEventService;
 import edu.icet.service.system.EventSummaryService;
 import edu.icet.util.EventType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.time.LocalDate;
+
+import java.util.Date;
+
 import java.util.List;
 
 @RestController
@@ -22,13 +25,20 @@ import java.util.List;
 @RequiredArgsConstructor
 @CrossOrigin
 public class EventController {
+
     private final EventService eventService;
+    //anniversary Event service
     private final AnniversaryEventService anniversaryEventService;
+
+    //event summary
     private final EventSummaryService eventSummaryService;
-    private final GetTogetherEventService getTogetherEventService;
+
+     //get together
+     private final GetTogetherEventService getTogetherEventService;
+
     private final AgendaService agendaService;
+
     private final BirthdayPartyEventService birthdayPartyEventService;
-    private final WeddingEventService weddingEventService;
 
     @PostMapping("/")
     public ResponseEntity<Event> addEvent(@RequestBody Event event) {
@@ -93,6 +103,7 @@ public class EventController {
     @PostMapping("/summary")
     public ResponseEntity<Boolean> add(@RequestBody EventSummary eventSummary){
         return ResponseEntity.ok(eventSummaryService.add(eventSummary));
+
     }
 
     @GetMapping("/summary/all")
@@ -114,6 +125,7 @@ public class EventController {
     public ResponseEntity<EventSummary> getById(@PathVariable("id") Long id){
         return ResponseEntity.ok(eventSummaryService.getById(id));
     }
+
 
     @PostMapping("/get-together")
     public ResponseEntity<Boolean> addGetTogether(@RequestBody GetTogether getTogether){
@@ -188,6 +200,7 @@ public class EventController {
     @PostMapping("/birthday-party")
     public ResponseEntity<Boolean> addBirthdayParty(@RequestBody BirthdayParty birthdayParty) {
         return ResponseEntity.ok(birthdayPartyEventService.add(birthdayParty));
+
     }
 
     @GetMapping("/birthday-party/all")
@@ -229,6 +242,7 @@ public class EventController {
     public ResponseEntity<List<Wedding>> getWeddingByDate(@PathVariable("date") LocalDate date){
         return ResponseEntity.ok(weddingEventService.getByDate(date));
     }
+
 
     @GetMapping("/wedding/all")
     public ResponseEntity<List<Wedding>> getAllWedding(){

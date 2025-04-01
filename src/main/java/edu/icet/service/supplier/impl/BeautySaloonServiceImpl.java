@@ -43,13 +43,12 @@ public class BeautySaloonServiceImpl implements BeautySaloonService {
     }
 
     @Override
-    public boolean update(BeautySaloon beautySaloon) {
+    public BeautySaloon update(BeautySaloon beautySaloon) {
         if (repository.existsById(beautySaloon.getId())) {
-            repository.save(mapper.map(beautySaloon, BeautySaloonEntity.class));
-            return true;
+            return mapper.map(repository.save(mapper.map(beautySaloon, BeautySaloonEntity.class)), BeautySaloon.class);
         }
 
-        return false;
+        throw new IllegalArgumentException("Beauty Salon does not exist!");
     }
 
     @Override

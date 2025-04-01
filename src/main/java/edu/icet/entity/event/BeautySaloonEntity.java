@@ -13,15 +13,11 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name = "Beauty_Saloons")
+@Table(name = "beauty_salon")
 public class BeautySaloonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToOne
-    @JoinColumn(name = "supplier_id")
-    private SupplierEntity supplier;
 
     private String specialty;
 }

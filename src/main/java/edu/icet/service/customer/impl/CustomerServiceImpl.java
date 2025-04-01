@@ -7,7 +7,6 @@ import edu.icet.service.customer.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class CustomerServiceImpl implements CustomerService {
             return false;
         }
         CustomerEntity savedEntity = customerRepository.save(modelMapper.map(customer, CustomerEntity.class));
-        return savedEntity.getContactNumber().equals(customer.getContactNumber()) && savedEntity.getName().equals(customer.getName());
+        return savedEntity.getContactNumber().equals(customer.getContactNumber());
     }
 
     @Override

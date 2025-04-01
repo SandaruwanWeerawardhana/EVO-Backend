@@ -1,5 +1,8 @@
 package edu.icet.dto.supplier;
 
+import edu.icet.util.SupplierCategoryType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,14 +18,11 @@ public class Inventory {
     private Long inventoryID;
 
     @NotBlank(message = "cannot be empty")
-    private Long supplierID;
-
-    @NotBlank(message = "cannot be empty")
     private String imageURL;
 
     @NotBlank(message = "cannot be empty")
     private String description;
 
-    @NotBlank(message = "cannot be empty")
-    private String supplierCategory;
+    @Enumerated(EnumType.STRING)
+    private SupplierCategoryType supplierCategory;
 }

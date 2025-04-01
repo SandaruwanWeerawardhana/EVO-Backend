@@ -2,8 +2,9 @@ package edu.icet.dto.event;
 
 
 import edu.icet.dto.customer.Customer;
-import edu.icet.dto.supplier.ProfilePackages;
+
 import edu.icet.dto.supplier.SupplierRequest;
+
 import edu.icet.dto.supplier.Venue;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -29,7 +30,7 @@ public class EventSummary {
     @NotNull(message = "Head count cannot be null")
     private Integer headCount;
 
-    private List<ProfilePackages> packages;
     private List<SupplierRequest> requests;
+
     private Double totalPrice;
 }
