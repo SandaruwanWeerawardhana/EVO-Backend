@@ -1,13 +1,10 @@
 package edu.icet.entity.supplier;
 
-
 import edu.icet.entity.event.BeautySaloonEntity;
 
 import edu.icet.entity.system.TermsEntity;
 import edu.icet.util.SupplierCategoryType;
 import jakarta.persistence.*;
-
-import jakarta.validation.constraints.Email;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -86,5 +83,4 @@ public class SupplierEntity {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "supplier_id")
     private List<InventoryEntity> inventories;
-
 }

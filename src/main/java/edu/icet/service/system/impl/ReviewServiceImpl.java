@@ -19,48 +19,47 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewService {
 
-    final ReviewRepository repository;
+    final ReviewRepository reviewRepository;
     final ModelMapper mapper;
     final QuickReplyService service;
 
     @Override
     public Review addReview(Review review) {
-        if (Boolean.FALSE.equals(service.filterProfanity(review.getReviewText()))){
-            return mapper.map(repository.save(mapper
-                    .map(review, ReviewEntity.class)),Review.class);
-        }else {
+        if (Boolean.FALSE.equals(service.filterProfanity(review.getReviewText()))) {
+            return mapper.map(reviewRepository.save(mapper
+                    .map(review, ReviewEntity.class)), Review.class);
+        } else {
             return null;
         }
 
     }
 
     @Override
-    public Review updateByReview(Review review) {
-        if (Boolean.FALSE.equals(service.filterProfanity(review.getReviewText()))){
-            return mapper.map(repository.save(mapper
-                    .map(review, ReviewEntity.class)),Review.class);
-        }else {
-            return null;
+    public Boolean updateReviewById(Long id, Review review) {
+        if (reviewRepository.existsById(id) && id.equals(review.getReviewId())) {
+            reviewRepository.save(mapper.map(review, ReviewEntity.class));
+            return true;
         }
+        return false;
     }
-    
+
     public List<Review> getAll() {
-        if (!repository.findAll().isEmpty()){
-            return repository.findAll().stream().map(reviewEntity ->
-                    mapper.map(reviewEntity,Review.class)
+        if (!reviewRepository.findAll().isEmpty()) {
+            return reviewRepository.findAll().stream().map(reviewEntity ->
+                    mapper.map(reviewEntity, Review.class)
             ).toList();
-        }else {
+        } else {
             return Collections.emptyList();
         }
     }
 
     @Override
     public boolean deleteByReview(Long id) {
-        boolean isExistId = repository.existsById(id);
-        if (isExistId){
-            repository.deleteById(id);
+        boolean isExistId = reviewRepository.existsById(id);
+        if (isExistId) {
+            reviewRepository.deleteById(id);
             return true;
-        }else {
+        } else {
             return false;
         }
 
@@ -68,24 +67,24 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<Review> getReviewsBySupplierId(Long supplierId) {
-        return repository.findBySupplierId(supplierId).stream().map(reviewEntity ->
-                mapper.map(reviewEntity,Review.class)).toList();
+        return reviewRepository.findBySupplierId(supplierId).stream().map(reviewEntity ->
+                mapper.map(reviewEntity, Review.class)).toList();
     }
 
     public List<Review> getReviewsByCustomerId(Long customerId) {
-        return repository.findByCustomerId(customerId).stream().map(reviewEntity ->
-                mapper.map(reviewEntity,Review.class)).toList();
+        return reviewRepository.findByCustomerId(customerId).stream().map(reviewEntity ->
+                mapper.map(reviewEntity, Review.class)).toList();
     }
 
     @Override
     public List<Review> getReviewsByDate(LocalDate date) {
-        return repository.findByDate(date).stream().map(reviewEntity -> mapper
-                .map(reviewEntity,Review.class)).toList();
+        return reviewRepository.findByDate(date).stream().map(reviewEntity -> mapper
+                .map(reviewEntity, Review.class)).toList();
     }
 
     @Override
     public List<Review> getReviewsByRateType(RatingType type) {
-        return repository.findAll().stream()
+        return reviewRepository.findAll().stream()
                 .filter(reviewEntity -> reviewEntity.getRating().equals(type))
                 .map(reviewEntity -> mapper.map(reviewEntity, Review.class))
                 .toList();
@@ -93,8 +92,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review SearchByReviewID(Long id) {
-        Optional<ReviewEntity> reviewEntity=repository.findById(id);
-        return reviewEntity.map(entity->mapper
-                .map(entity,Review.class)).orElse(null);
+        Optional<ReviewEntity> reviewEntity = reviewRepository.findById(id);
+        return reviewEntity.map(entity -> mapper
+                .map(entity, Review.class)).orElse(null);
     }
 }
