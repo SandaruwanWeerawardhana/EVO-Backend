@@ -7,9 +7,9 @@ import edu.icet.service.system.EventSummaryService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -47,6 +47,14 @@ public class EventSummaryServiceImpl implements EventSummaryService {
     @Override
     public EventSummary getById(Integer id) {
         return modelMapper.map(eventSummaryRepository.findById(id), EventSummary.class);
+    }
+
+    @Override
+    public List<EventSummary> getEventSummariesByCustomerId(Long customerId) {
+        return eventSummaryRepository.findAllByCustomerId(customerId)
+                .stream()
+                .map(eventSummaryEntity -> modelMapper.map(eventSummaryEntity, EventSummary.class))
+                .collect(Collectors.toList());
     }
 
 
