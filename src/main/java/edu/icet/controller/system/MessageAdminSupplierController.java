@@ -1,3 +1,5 @@
+
+
 package edu.icet.controller.system;
 
 import edu.icet.dto.system.MessageAdminSupplier;
@@ -72,8 +74,9 @@ public class MessageAdminSupplierController {
     public ResponseEntity<List<MessageAdminSupplier>> getAdminChat(@PathVariable Long AdminId, @PathVariable Long supplierId) {
 
         List<MessageAdminSupplier> messages = messageService.getMessagesByIds(AdminId, supplierId);
-
+        System.out.println(messages.toString());
         return ResponseEntity.ok(messages);
     }
 
 }
+
