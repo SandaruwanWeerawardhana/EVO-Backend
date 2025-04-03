@@ -4,6 +4,7 @@ import edu.icet.dto.system.MessageCustomerSupplier;
 import edu.icet.service.system.MessageCustomerSupplierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +21,14 @@ public class MessageCustomerSupplierController {
 
     private final MessageCustomerSupplierService messageService;
 
+    @MessageMapping("/chat/{customerId}/{supplierId}")
+    @SendTo("/topic/messages/{customerId}/{supplierId}")
+    public MessageCustomerSupplier handleChatMessage(
+            MessageCustomerSupplier messageCustomerSupplier,
+            @DestinationVariable Long customerId,
+            @DestinationVariable Long supplierId
 
-    @MessageMapping("/chat/customer-supplier")
-    @SendTo("/topic/messages")
-    public MessageCustomerSupplier handleChatMessage(MessageCustomerSupplier messageCustomerSupplier) {
+    ) {
 
         return messageService.sendMessage(messageCustomerSupplier);
     }
@@ -41,15 +46,15 @@ public class MessageCustomerSupplierController {
         return ResponseEntity.ok(customerIds);
     }
 
-    @GetMapping("/suppliersByCustomerId")
-    public ResponseEntity<List<String>> getAllSuppliersIds(Long customerId) {
+    @GetMapping("/suppliersByCustomerId/{customerId}")
+    public ResponseEntity<List<String>> getAllSuppliersIds(@PathVariable Long customerId) {
         List<MessageCustomerSupplier> messages = messageService.getMessagesByCustomerId(customerId);
-        List<String> customerIds = messages.stream()
-                .map(MessageCustomerSupplier::getCustomerId)
+        List<String> supplierIds = messages.stream()
+                .map(MessageCustomerSupplier::getSupplierId)
                 .map(String::valueOf)
                 .distinct()
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(customerIds);
+        return ResponseEntity.ok(supplierIds);
     }
 
 
