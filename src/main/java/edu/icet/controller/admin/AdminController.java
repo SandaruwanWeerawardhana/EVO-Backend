@@ -31,54 +31,52 @@ public class AdminController {
     final AuditLogService auditLogService;
     final AuditReportService reportService;
 
-
     @PostMapping("/add")
-    public ResponseEntity<String> addAdmin(@RequestBody Admin admin){
+    public ResponseEntity<String> addAdmin(@RequestBody Admin admin) {
         boolean addAdmin = adminService.addAdmin(admin);
-        if (addAdmin){
+        if (addAdmin) {
             return new ResponseEntity<>(HttpStatus.OK);
-        }else{
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/delete/{adminId}")
-    public ResponseEntity<String> deleteAdmin(@PathVariable Long adminId){
-       boolean deleteAdmin = adminService.deleteAdmin(adminId);
-       if (deleteAdmin) {
-           return new ResponseEntity<>(HttpStatus.OK);
-       }else{
-           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-       }
-           
-    }
-    
-    @PutMapping("/update/{adminId}")
-    public ResponseEntity<String> updateAdmin(@PathVariable Long adminId,@RequestBody Admin admin){
-        boolean updateAdmin = adminService.updateAdmin(adminId, admin);
-        if (updateAdmin){
+    public ResponseEntity<String> deleteAdmin(@PathVariable Long adminId) {
+        boolean deleteAdmin = adminService.deleteAdmin(adminId);
+        if (deleteAdmin) {
             return new ResponseEntity<>(HttpStatus.OK);
-        }else {
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/update/{adminId}")
+    public ResponseEntity<String> updateAdmin(@PathVariable Long adminId, @RequestBody Admin admin) {
+        boolean updateAdmin = adminService.updateAdmin(adminId, admin);
+        if (updateAdmin) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping("/get/{adminId}")
-    public ResponseEntity<Admin> getAdminById(@PathVariable Long adminId){
-       Admin admin = adminService.getAdminById(adminId);
-       if (admin!=null){
-           return new ResponseEntity<>(admin,HttpStatus.OK);
-       }else{
-           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-       }
+    public ResponseEntity<Admin> getAdminById(@PathVariable Long adminId) {
+        Admin admin = adminService.getAdminById(adminId);
+        if (admin != null) {
+            return new ResponseEntity<>(admin, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/exists/{adminId}")
-    public ResponseEntity<String> adminExits(@PathVariable Long adminId){
+    public ResponseEntity<String> adminExits(@PathVariable Long adminId) {
         boolean existsAdmin = adminService.adminExists(adminId);
         if (existsAdmin) {
             return new ResponseEntity<>(HttpStatus.OK);
-        }else{
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -86,21 +84,21 @@ public class AdminController {
     @GetMapping("/count")
     public ResponseEntity<Long> countAdmins() {
         Long adminCount = adminService.countAdmins();
-        if (adminCount>0) {
-            return new ResponseEntity<>(adminCount,HttpStatus.OK);
+        if (adminCount > 0) {
+            return new ResponseEntity<>(adminCount, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-     @GetMapping("/all")
-        public  ResponseEntity<List<Admin>> getAllAdmins(){
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Admin>> getAllAdmins() {
         List<Admin> allAdmins = adminService.getAllAdmins();
-        if (allAdmins !=null){
+        if (allAdmins != null) {
             return new ResponseEntity<>(allAdmins, HttpStatus.OK);
-        }else {
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     @GetMapping("/get-type/{type}")
@@ -112,6 +110,7 @@ public class AdminController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @PostMapping("/audit/history/add")
     @ResponseStatus(HttpStatus.CREATED)
     ResponseEntity<Boolean> saveAuditHistory(@RequestBody AuditHistory auditHistory) {
@@ -141,34 +140,35 @@ public class AdminController {
         Boolean result = service.deleteAuditHistory(id);
         return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
     }
+
     @PostMapping("/audit/log/save")
-    public ResponseEntity<String> saveAuditLog(@RequestBody AuditLog auditLog){
+    public ResponseEntity<String> saveAuditLog(@RequestBody AuditLog auditLog) {
         boolean isSaved = auditLogService.saveAuditLog(auditLog);
         if (isSaved) {
             return ResponseEntity.status(HttpStatus.CREATED).body("Audit log saved successfully.");
-        }else{
+        } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save the audit log.");
         }
     }
 
     @GetMapping("/audit/log/get-by-id/{logId}")
-    public ResponseEntity<AuditLog> getAuditLogById(@PathVariable Long logId){
-        AuditLog auditLog =auditLogService.getAuditLogById(logId);
-        return auditLog !=null?ResponseEntity.ok(auditLog):ResponseEntity.notFound().build();
+    public ResponseEntity<AuditLog> getAuditLogById(@PathVariable Long logId) {
+        AuditLog auditLog = auditLogService.getAuditLogById(logId);
+        return auditLog != null ? ResponseEntity.ok(auditLog) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/audit/log/get-all")
-    public ResponseEntity<List<AuditLog>> getAllAuditLogs(){
-        List<AuditLog> auditLogList =auditLogService.getAllAuditLogs();
-        return auditLogList.isEmpty()?ResponseEntity.noContent().build():ResponseEntity.ok(auditLogList);
+    public ResponseEntity<List<AuditLog>> getAllAuditLogs() {
+        List<AuditLog> auditLogList = auditLogService.getAllAuditLogs();
+        return auditLogList.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(auditLogList);
     }
 
     @DeleteMapping("/audit/log/delete/{logId}")
-    public ResponseEntity<String> deleteAuditLog(@PathVariable Long logId){
+    public ResponseEntity<String> deleteAuditLog(@PathVariable Long logId) {
         boolean isDeleted = auditLogService.deleteAuditLog(logId);
-        if(isDeleted){
+        if (isDeleted) {
             return ResponseEntity.status(HttpStatus.OK).body("Audit log deleted successfully.");
-        }else{
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Audit log not found.");
         }
     }
@@ -222,7 +222,4 @@ public class AdminController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-
-
 }

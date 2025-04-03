@@ -15,13 +15,8 @@ import java.time.LocalDate;
 @Table(name = "wedding")
 public class WeddingEntity {
     @Id
-    @Column(name = "event_id", nullable = false)
-    private Long eventId;
-
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "event_id")
-    private EventEntity event;
+    @Column(name = "id", nullable = false)
+    private Long id;
 
     @Column(name = "wedding_type", nullable = false)
     @Enumerated(EnumType.STRING)

@@ -9,10 +9,10 @@ public interface AgendaService {
     boolean create(Agenda agenda);
     List<Agenda> getAll();
     boolean update(Agenda agenda);
-    boolean delete(Integer id);
-    Agenda getById(Integer id);
-    boolean addTaskToAgenda(Integer agendaId, AgendaTask newTask);
-    boolean updateTask(Integer agendaId, Integer taskId, AgendaTask updatedTask);
-    boolean deleteTask(Integer agendaId, Integer taskId);
-    AgendaTask getTaskById(Integer agendaId, Integer taskId);
+    boolean delete(Long id);
+    Agenda getById(Long id);
+    boolean addTaskToAgenda(Long agendaId, AgendaTask newTask);
+    boolean updateTask(Long agendaId, Long taskId, AgendaTask updatedTask);
+    boolean deleteTask(Long agendaId, Long taskId);
+    AgendaTask getTaskById(Long agendaId, Long taskId);
 }

@@ -12,10 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Wedding {
-    @NotBlank(message = "Id can't be null")
-    private Long eventId;
-
-    private Event event;
+    private Long id;
     private WeddingType weddingType;
 
     @NotBlank(message = "Date can't be null")

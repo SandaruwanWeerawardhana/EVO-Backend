@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -18,11 +17,7 @@ import java.util.List;
 public class AgendaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @OneToOne
-    @JoinColumn(name = "event_id", nullable = false, unique = true)
-    private EventEntity event;
+    private Long id;
 
     @Column(nullable = false)
     private LocalDate date;
@@ -30,6 +25,7 @@ public class AgendaEntity {
     @Column(nullable = false)
     private LocalTime time;
 
-    @OneToMany(mappedBy = "agenda", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<AgendaTaskEntity> tasks = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "agenda_id")
+    private List<AgendaTaskEntity> tasks;
 }

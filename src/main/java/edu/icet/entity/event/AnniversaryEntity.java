@@ -12,13 +12,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "anniversary")
 public class AnniversaryEntity {
     @Id
-    @Column(name = "event_id", nullable = false)
-    private Long eventId;
-
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "event_id")
-    private EventEntity event;
+    @Column(nullable = false)
+    private Long id;
 
     @Column(name = "anniversary_year", nullable = false)
     private Integer anniversaryYear;
@@ -29,6 +24,5 @@ public class AnniversaryEntity {
     @Column(name = "husband_name", nullable = false)
     private String husbandName;
 
-    @Column(name = "description")
     private String description;
 }

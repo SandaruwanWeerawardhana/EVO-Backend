@@ -1,23 +1,28 @@
 package edu.icet.service.system;
 
 import edu.icet.dto.system.Review;
-import jakarta.validation.Valid;
+import edu.icet.util.RatingType;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 public interface ReviewService {
-    Review addReview(@Valid Review review);
+    Review addReview(Review review);
 
-    Review searchByIdReview(long id);
-
-    boolean updateByReview(long id, Review review);
+    Boolean updateReviewById(Long id, Review review);
 
     List<Review> getAll();
 
-    boolean deleteByReview(long id);
+    boolean deleteByReview(Long id);
 
-    Map<String, Long> getBySummaryFilterReview(long id);
+    List<Review> getReviewsBySupplierId(Long supplierId);
 
-    Review searchByIDSuplier(long id);
+    List<Review> getReviewsByCustomerId(Long customerId);
+
+    List<Review> getReviewsByDate(LocalDate date);
+
+    List<Review> getReviewsByRateType(RatingType type);
+
+    Review SearchByReviewID(Long id);
+
 }
