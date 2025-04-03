@@ -25,7 +25,7 @@ public class MessageAdminSupplier {
     private String content;
 
     @NotNull
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+//    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Instant sendTime;
 
     @Enumerated(EnumType.STRING)
