@@ -23,7 +23,10 @@ public class ReviewEntity {
     private Long reviewId;
 
     @Column(nullable = false)
-    private RatingType rating;
+    private Long supplierId;
+
+    @Column(nullable = false)
+    private Long customerId;
 
     @NotNull
     @PastOrPresent
@@ -31,5 +34,8 @@ public class ReviewEntity {
     private LocalDate date;
 
     @Column(length = 1000)
-    private String comment;
+    private String reviewText;
+
+    @Enumerated(EnumType.STRING)
+    private RatingType rating;
 }
