@@ -4,6 +4,8 @@ package edu.icet.entity.system;
 import edu.icet.util.UserType;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -22,7 +24,7 @@ public class MessageCustomerSupplierEntity {
     @Column(nullable = false)
     private String content;
     @Column(nullable = false)
-    private LocalDateTime sendTime;
+    private Instant sendTime;
     @Enumerated(EnumType.STRING)
     private UserType userType;
 }

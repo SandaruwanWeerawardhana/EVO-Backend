@@ -15,6 +15,7 @@ spring:
       enabled: ALWAYS
   jackson:
     default-property-inclusion: non_null
+
 #  security:
 #    oauth2:
 #      client:
