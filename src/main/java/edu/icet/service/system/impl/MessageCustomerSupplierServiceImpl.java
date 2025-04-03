@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +23,7 @@ public class MessageCustomerSupplierServiceImpl implements MessageCustomerSuppli
 
     @Override
     public MessageCustomerSupplier sendMessage(MessageCustomerSupplier message) {
+        message.setSendTime((Instant.now()));
         MessageCustomerSupplierEntity messageCustomerSupplierEntity = messageRepository.save(mapper.map(message, MessageCustomerSupplierEntity.class));
         return mapper.map(messageCustomerSupplierEntity, MessageCustomerSupplier.class);
     }
