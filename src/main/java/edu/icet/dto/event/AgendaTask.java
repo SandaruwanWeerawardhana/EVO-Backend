@@ -9,7 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
 
 @Data
 @AllArgsConstructor
@@ -20,11 +22,9 @@ public class AgendaTask {
     @NotBlank(message = "Task name is required")
     private String taskName;
 
-    @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime startTime;
+    private OffsetDateTime startTime;
 
-    @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime endTime;
+    private OffsetDateTime endTime;
 
     private Long supplierId;
 
