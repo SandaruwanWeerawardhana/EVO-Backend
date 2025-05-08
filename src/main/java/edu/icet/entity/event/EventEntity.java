@@ -22,35 +22,40 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Version
+    private Integer version;
+
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @Column(name = "event_date",nullable = false)
+    @Column(name = "event_date", nullable = false)
     private Date eventDate;
 
-    @Column(name = "start_time",nullable = false)
+    @Column(name = "start_time", nullable = false)
     private Time startTime;
 
-    @Column(name = "end_time",nullable = false)
+    @Column(name = "end_time", nullable = false)
     private Time endTime;
 
-    @ManyToOne
-    @JoinColumn(name = "venue_id")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "venue_id", nullable = true)
     private VenueEntity venue;
 
-    @ManyToOne
-    @JoinColumn(name = "location_id")
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id", nullable = false)
     private LocationEntity location;
 
-    @Column(name = "event_type",nullable = false)
+    @Column(name = "event_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private EventType eventType;
 
-    @Column(name = "capacity",nullable = false)
+    @Column(name = "capacity", nullable = false)
     private Integer capacity;
 
     @Column(name = "budget_type", nullable = false)
@@ -62,9 +67,10 @@ public class EventEntity {
     private EventStatusType eventStatus;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "event_id")
     private List<SupplierEntity> suppliers;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "agenda_id")
     private AgendaEntity agenda;
 
@@ -72,7 +78,7 @@ public class EventEntity {
     @JoinColumn(name = "anniversary_id")
     private AnniversaryEntity anniversary;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "wedding_id")
     private WeddingEntity wedding;
 
@@ -83,6 +89,4 @@ public class EventEntity {
     @OneToOne
     @JoinColumn(name = "birthday_party_id")
     private BirthdayPartyEntity birthdayParty;
-
-
 }

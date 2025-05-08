@@ -15,13 +15,16 @@ import java.time.LocalDate;
 @Table(name = "wedding")
 public class WeddingEntity {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Version
+    private Integer version;
 
-    @Column(name = "wedding_type", nullable = false)
+    @Column(name = "wedding_type", nullable = true)
     @Enumerated(EnumType.STRING)
-    private WeddingType weddingType;
+    private WeddingType weddingType = WeddingType.TRADITIONAL;
 
-    @Column(name = "date", nullable = false)
-    private LocalDate date;
+    @Column(name = "date", nullable = true)
+    private LocalDate date= LocalDate.now();
 }

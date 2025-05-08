@@ -43,7 +43,7 @@ public class EventController {
 
     private final WeddingEventService weddingEventService;
 
-    @PostMapping("/")
+    @PostMapping("/add")
     public ResponseEntity<Event> addEvent(@RequestBody Event event) {
         return ResponseEntity.ok(eventService.addEvent(event));
     }

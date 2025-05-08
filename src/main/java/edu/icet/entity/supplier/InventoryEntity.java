@@ -19,6 +19,9 @@ public class InventoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long inventoryId;
 
+    @Version
+    private Integer version;
+
     private String imageURL;
 
     private String description;

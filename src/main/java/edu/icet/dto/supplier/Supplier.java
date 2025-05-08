@@ -58,7 +58,6 @@ public class Supplier {
 
     private List<ProfilePreviousWork> previousWorks;
 
-    private List<ProfileImage> images;
 
     private List<Inventory> inventories;
 }

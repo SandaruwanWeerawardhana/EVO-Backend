@@ -19,13 +19,13 @@ public class AgendaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = true)  // Ensure date is not null
     private LocalDate date;
 
-    @Column(nullable = false)
+    @Column(nullable = true)  // Ensure time is not null
     private LocalTime time;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "agenda_id")
     private List<AgendaTaskEntity> tasks;
 }
