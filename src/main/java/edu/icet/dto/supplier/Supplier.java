@@ -6,6 +6,7 @@ import edu.icet.dto.system.Terms;
 import edu.icet.util.SupplierCategoryType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -32,6 +33,8 @@ public class Supplier {
 
     private Boolean availability;
 
+
+    private String category
     @NotNull(message = "Location is required")
     private Location location;
 

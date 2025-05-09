@@ -14,5 +14,8 @@ public interface EventSummaryService {
 
     List<EventSummary> getAll();
 
-    EventSummary getById(Long id);
+    EventSummary getById(Integer id);
+
+    List<EventSummary> getEventSummariesByCustomerId(Long customerId);
+
 }

@@ -1,8 +1,12 @@
 package edu.icet.entity.supplier;
 
-import edu.icet.entity.event.BeautySaloonEntity;
+
 import edu.icet.entity.system.TermsEntity;
+import edu.icet.util.CategoryType;
+
+import edu.icet.entity.event.BeautySaloonEntity;
 import edu.icet.util.SupplierCategoryType;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
@@ -29,12 +33,20 @@ public class SupplierEntity {
 
     private String businessEmail;
 
+
+    @Column(name = "contact_number")
+    @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be exactly 10 digits")
+    private String contactNumber;
+
     private String description;
 
     private Boolean availability;
 
     @Enumerated(EnumType.STRING)
+    private CategoryType category;
+
     private SupplierCategoryType category;
+
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "location_id")
@@ -44,8 +56,9 @@ public class SupplierEntity {
     @JoinColumn(name = "profile_image_id")
     private ProfileImageEntity profileImage;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "terms_id")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "termId", referencedColumnName = "termId")
+
     private TermsEntity terms;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
