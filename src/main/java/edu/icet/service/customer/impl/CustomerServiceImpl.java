@@ -6,59 +6,54 @@ import edu.icet.repository.customer.CustomerRepository;
 import edu.icet.service.customer.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
 
-    final CustomerRepository customerRepository;
-    final ModelMapper modelMapper;
+    private final CustomerRepository customerRepository;
+    private final ModelMapper modelMapper;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public boolean addCustomer(Customer customer) {
-        if (customer == null) {
-            return false;
-        }
+        if (customer == null) return false;
+
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+
         CustomerEntity savedEntity = customerRepository.save(modelMapper.map(customer, CustomerEntity.class));
-        return savedEntity.getContactNumber().equals(customer.getContactNumber());
+        return savedEntity.getEmail().equals(customer.getEmail());
     }
 
     @Override
     public boolean deleteCustomer(Long id) {
-        if (id == null) {
-            return false;
-        }
+        if (id == null) return false;
         customerRepository.deleteById(id);
         return true;
     }
 
     @Override
     public boolean updateCustomer(Long id, Customer customer) {
-        if (id == null || customer == null) {
-            return false;
-        }
-        if (!customerRepository.existsById(id)) {
-            return false;
-        }
-        if (!id.equals(customer.getId())) {
-            return false;
-        }
+        if (id == null || customer == null) return false;
+        if (!customerRepository.existsById(id)) return false;
+        if (!id.equals(customer.getId())) return false;
+
         CustomerEntity updatedEntity = customerRepository.save(modelMapper.map(customer, CustomerEntity.class));
         return updatedEntity.getId().equals(id);
     }
 
     @Override
     public Customer getCustomerById(Long id) {
-        if (id == null) {
-            return null;
-        }
-        if (!customerRepository.existsById(id)) {
-            return null;
-        }
-        return modelMapper.map(customerRepository.findById(id), Customer.class);
+        return customerRepository.findById(id)
+                .map(entity -> modelMapper.map(entity, Customer.class))
+                .orElse(null);
     }
 
     @Override
@@ -66,5 +61,22 @@ public class CustomerServiceImpl implements CustomerService {
         List<Customer> customers = new ArrayList<>();
         customerRepository.findAll().forEach(entity -> customers.add(modelMapper.map(entity, Customer.class)));
         return customers;
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return customerRepository.existsByEmail(email);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        CustomerEntity entity = customerRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        return new org.springframework.security.core.userdetails.User(
+                entity.getEmail(),
+                entity.getPassword(),
+                Collections.emptyList()
+        );
     }
 }

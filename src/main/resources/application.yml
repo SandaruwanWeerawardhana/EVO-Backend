@@ -3,18 +3,26 @@ spring:
     url: jdbc:mysql://localhost:3306/evo_db?createDatabaseIfNotExist=true
     username: root
     password: 1234
+
   jpa:
     hibernate:
       ddl-auto: update
     defer-datasource-initialization: true
+
   sql:
     init:
       mode: always
+
   output:
     ansi:
       enabled: ALWAYS
+
   jackson:
     default-property-inclusion: non_null
+
+jwt:
+  secret: 3Dlkc92nc73NSDkfj29fKsd83MSkcmxlsdfRklwJ2
+  expiration: 172800000 # 2 days
 
 #  security:
 #    oauth2:
