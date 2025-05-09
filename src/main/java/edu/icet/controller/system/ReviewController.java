@@ -21,9 +21,6 @@ import java.util.Map;
 public class ReviewController {
     private final ReviewService reviewService;
 
-    public ReviewController(ReviewService reviewService) {
-        this.reviewService = reviewService;
-    }
 
     @PostMapping("/addReview")
     public ResponseEntity<Review> addByReview(@Valid @RequestBody Review review) {

@@ -221,7 +221,7 @@ public class SystemController {
 
     @GetMapping("/review/searchByReviewId/{id}")
     public ResponseEntity<Review> searchByReview(@PathVariable long id) {
-        Review review = reviewService.searchByIdReview(id);
+        Review review = reviewService.SearchByReviewID(id);
         if (review != null) {
             return new ResponseEntity<>(review, HttpStatus.OK);
         } else {
@@ -233,7 +233,7 @@ public class SystemController {
     @PutMapping("/review/updateByReviewId/{id}")
     public ResponseEntity<String> updateByReviewId(@PathVariable long id, @RequestBody Review review) {
 
-        if (reviewService.updateByReview(id, review)) {
+        if (reviewService.updateByReview(review) != null) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -261,21 +261,6 @@ public class SystemController {
     }
 
 
-    @GetMapping("/review/get-review-summaryById/{id}")
-    public ResponseEntity<Map<String, Long>> getSummaryFilterReview(@PathVariable long id) {
-        Map<String, Long> summary = reviewService.getBySummaryFilterReview(id);
-
-        return (summary != null && !summary.isEmpty())
-                ? ResponseEntity.ok(summary)
-                : ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", 0L));
-    }
-
-
-    @GetMapping("/review/search-supplier-by-id/{id}")
-    public Review searchBySupplierId( @PathVariable long id) {
-        return   reviewService.searchByIDSuplier(id);
-
-    }
     @PostMapping("/search-history/save-search-history")
     public ResponseEntity<String> saveSearchHistory(@Valid @RequestBody SearchHistory searchHistory, HttpServletRequest request){
         if(searchHistoryService.saveSearchHistory(searchHistory)){
