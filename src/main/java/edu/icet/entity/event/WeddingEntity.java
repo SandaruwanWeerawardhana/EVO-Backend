@@ -15,18 +15,16 @@ import java.time.LocalDate;
 @Table(name = "wedding")
 public class WeddingEntity {
     @Id
-    @Column(name = "event_id", nullable = false)
-    private Long eventId;
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Version
+    private Integer version;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "event_id")
-    private EventEntity event;
-
-    @Column(name = "wedding_type", nullable = false)
+    @Column(name = "wedding_type", nullable = true)
     @Enumerated(EnumType.STRING)
-    private WeddingType weddingType;
+    private WeddingType weddingType = WeddingType.TRADITIONAL;
 
-    @Column(name = "date", nullable = false)
-    private LocalDate date;
+    @Column(name = "date", nullable = true)
+    private LocalDate date= LocalDate.now();
 }

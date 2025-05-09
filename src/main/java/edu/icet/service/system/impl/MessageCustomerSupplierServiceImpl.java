@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,25 +23,12 @@ public class MessageCustomerSupplierServiceImpl implements MessageCustomerSuppli
 
     @Override
     public MessageCustomerSupplier sendMessage(MessageCustomerSupplier message) {
+        message.setSendTime((Instant.now()));
         MessageCustomerSupplierEntity messageCustomerSupplierEntity = messageRepository.save(mapper.map(message, MessageCustomerSupplierEntity.class));
         return mapper.map(messageCustomerSupplierEntity, MessageCustomerSupplier.class);
     }
 
-    @Override
-    public boolean deleteMessage(Long mid) {
-        if (messageRepository.existsById(mid)) {
-            messageRepository.deleteById(mid);
-            return true;
-        }
-        return false;
-    }
 
-
-    @Override
-    public MessageCustomerSupplier getMessageById(Long mid) {
-        return mapper.map(messageRepository.findById(mid).orElse(null), MessageCustomerSupplier.class);
-
-    }
 
 
     @Override
@@ -65,16 +53,5 @@ public class MessageCustomerSupplierServiceImpl implements MessageCustomerSuppli
         return list;
     }
 
-    //NoUsages
-    @Override
-    public List<MessageCustomerSupplier> getAllMessages() {
-        ArrayList<MessageCustomerSupplier> list = new ArrayList<>();
-        messageRepository.findAll().forEach(messageCustomerSupplierEntity -> list.add(mapper.map(messageCustomerSupplierEntity, MessageCustomerSupplier.class)));
-        return list;
-    }
 
-    @Override
-    public MessageCustomerSupplier searchMessage(Long mid) {
-        return mapper.map(messageRepository.findById(mid).orElse(null), MessageCustomerSupplier.class);
-    }
 }

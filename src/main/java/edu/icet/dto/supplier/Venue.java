@@ -1,5 +1,6 @@
 package edu.icet.dto.supplier;
 
+import edu.icet.dto.event.Event;
 import edu.icet.util.EventType;
 import edu.icet.util.VenueType;
 import jakarta.persistence.EnumType;
@@ -32,4 +33,5 @@ public class Venue {
     private List<Property> properties;
 
     private List<VenueRequest> requests;
+
 }

@@ -44,26 +44,31 @@ public class SystemController {
         List<TransactionHistory> all = service.getAll();
         return ResponseEntity.ok(all);
     }
+
     @GetMapping("/transaction-history/get-transaction-byId/{id}")
     public ResponseEntity<TransactionHistory>getTransactionHistoryById(@PathVariable Long id){
         TransactionHistory transactionHistoryById = service.getTransactionHistoryById(id);
         return ResponseEntity.ok(transactionHistoryById);
     }
+
     @GetMapping("/transaction-history/get-transaction-history-byDate/{date}")
     public ResponseEntity<List<TransactionHistory>> getTransactionHistoryByDate(@PathVariable LocalDate date){
         List<TransactionHistory> transactionByDate = service.getTransactionByDate(date);
         return ResponseEntity.ok(transactionByDate);
     }
+
     @GetMapping("/transaction-history/get-transaction-history-byUserId/{id}")
     public ResponseEntity<List<TransactionHistory>> getTransactionHistoryByUserId(@PathVariable Long id){
         List<TransactionHistory> transactionByUserId = service.getTransactionByUserId(id);
         return ResponseEntity.ok(transactionByUserId);
     }
+
     @DeleteMapping("/transaction-history/delete-transaction-history-ById/{id}")
     public ResponseEntity<Boolean> deleteTransactionHistoryById(@PathVariable Long id){
         boolean b = service.deleteTransactionHistoryById(id);
         return ResponseEntity.ok(b);
     }
+
     @PostMapping("/notification/create-notification")
     public ResponseEntity<Notification> createNotification(@Valid @io.swagger.v3.oas.annotations.parameters.RequestBody Notification notification) {
         if(notificationService.createNotification(notification) !=null){
@@ -130,7 +135,6 @@ public class SystemController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     @GetMapping("/notification/search-by-delivery/{deliveryMethod}")
@@ -171,6 +175,7 @@ public class SystemController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @PostMapping("/category/add-category")
     public Boolean addCategory(@RequestBody Category category){
         return categoryService.save(category);
@@ -200,6 +205,7 @@ public class SystemController {
     public List<Category> getAllCategory(){
         return categoryService.getAll();
     }
+
     @PostMapping("/excel/upload-excel")
     public ResponseEntity<List<String>> uploadExcel() {
         try {
@@ -209,6 +215,7 @@ public class SystemController {
             return ResponseEntity.badRequest().build();
         }
     }
+
     @PostMapping("/review/addReview")
     public ResponseEntity<Review> addByReview(@Valid @RequestBody Review review) {
 
@@ -227,18 +234,25 @@ public class SystemController {
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
 
+    @GetMapping("/review/getReviewsBySupplierId/{id}")
+    public ResponseEntity<List<Review>> getReviewsBySupplierId(@PathVariable long id) {
+        List<Review> reviews = reviewService.getReviewsBySupplierId(id);
+        if (!reviews.isEmpty()) {
+            return new ResponseEntity<>(reviews, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("/review/updateByReviewId/{id}")
-    public ResponseEntity<String> updateByReviewId(@PathVariable long id, @RequestBody Review review) {
+    public ResponseEntity<String> updateByReviewId(@PathVariable Long id, @RequestBody Review review) {
 
-        if (reviewService.updateByReview(review) != null) {
+        if (reviewService.updateReviewById(id, review)) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
     }
 
     @GetMapping("/review/get-all-reviews")
@@ -250,7 +264,6 @@ public class SystemController {
                 : ResponseEntity.ok(reviews);
     }
 
-
     @DeleteMapping("/review/deleteByReviewId/{id}")
     public ResponseEntity<String> deleteByReview(@PathVariable long id) {
         boolean isDeleted = reviewService.deleteByReview(id);
@@ -259,7 +272,6 @@ public class SystemController {
                 ? ResponseEntity.ok("Review deleted successfully!")
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Review not found!");
     }
-
 
     @PostMapping("/search-history/save-search-history")
     public ResponseEntity<String> saveSearchHistory(@Valid @RequestBody SearchHistory searchHistory, HttpServletRequest request){
@@ -311,6 +323,7 @@ public class SystemController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @PostMapping("/terms/add-terms")
     public ResponseEntity<Terms> addTerms(@Valid @RequestBody Terms terms) {
         Terms createdTerms = termsService.addTerms(terms);

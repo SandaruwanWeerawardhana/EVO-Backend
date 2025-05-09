@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/review")
@@ -20,7 +19,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ReviewController {
     private final ReviewService reviewService;
-
 
     @PostMapping("/addReview")
     public ResponseEntity<Review> addByReview(@Valid @RequestBody Review review) {
@@ -40,14 +38,11 @@ public class ReviewController {
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
     }
 
-    @PutMapping("/updateByReview")
-    public Boolean updateReview(@RequestBody Review review){
-        Review result = reviewService.updateByReview(review);
-        return result != null;
-
+    @PutMapping("/updateByReview/{id}")
+    public Boolean updateReview(@PathVariable Long id, @RequestBody Review review){
+        return reviewService.updateReviewById(id, review);
     }
 
     @GetMapping("/getAll")

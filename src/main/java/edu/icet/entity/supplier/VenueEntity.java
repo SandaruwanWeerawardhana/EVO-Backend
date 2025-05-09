@@ -27,7 +27,10 @@ public class VenueEntity {
     private Long venueId;
 
     private Long capacity;
+    @Version
+    private Integer version;
 
+    @Column(nullable = true)
     @Enumerated(EnumType.STRING)
     private VenueType venueType;
 

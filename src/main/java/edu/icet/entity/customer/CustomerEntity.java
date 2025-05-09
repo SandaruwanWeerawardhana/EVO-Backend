@@ -31,4 +31,10 @@ public class CustomerEntity {
 
     @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be exactly 10 digits")
     private String contactNumber;
+
+    @NotBlank
+    private String profileImageUrl;
+
+    @NotBlank(message = "address cannot be null")
+    private String address;
 }

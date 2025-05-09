@@ -7,17 +7,22 @@ import edu.icet.service.customer.AnniversaryEventService;
 import edu.icet.service.event.BirthdayPartyEventService;
 import edu.icet.service.event.EventService;
 import edu.icet.service.event.GetTogetherEventService;
+import edu.icet.service.event.WeddingEventService;
 import edu.icet.service.system.EventSummaryService;
 import edu.icet.util.EventType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.time.LocalDate;
+
 import java.util.Date;
+
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/event")
+@RequestMapping("/event")
 @RequiredArgsConstructor
 @CrossOrigin
 public class EventController {
@@ -36,209 +41,229 @@ public class EventController {
 
     private final BirthdayPartyEventService birthdayPartyEventService;
 
+    private final WeddingEventService weddingEventService;
+
     @PostMapping("/add")
     public ResponseEntity<Event> addEvent(@RequestBody Event event) {
         return ResponseEntity.ok(eventService.addEvent(event));
     }
 
-    @GetMapping("/get-all")
-    public List<Event> getAll() {
-        return eventService.getAll();
+    @GetMapping("/all")
+    public ResponseEntity<List<Event>> getAll() {
+        return ResponseEntity.ok(eventService.getAll());
     }
 
-    @DeleteMapping("/delete/{id}")
-    public boolean deleteEvent(@PathVariable("id") Long id) {
-        return eventService.deleteEvent(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> deleteEvent(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(eventService.deleteEvent(id));
     }
 
-    @GetMapping("/search/{id}")
-    public void searchEvent(@PathVariable("id") Long id) {
-        eventService.searchEvent(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<Event> getEvent(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(eventService.searchEvent(id));
     }
 
-    @PutMapping("/update")
+    @PutMapping("/")
     public ResponseEntity<Event> updateEvent(@RequestBody Event event) {
-        return  ResponseEntity.ok(eventService.updateEvent(event,event.getEventId()));
+        return  ResponseEntity.ok(eventService.updateEvent(event,event.getId()));
     }
 
-    @GetMapping("/get-by-venue")
-    public List<Event> getEventByVenue(@RequestBody Venue venue) {
-        return eventService.getEventsByVenue(venue);
+    @GetMapping("/by-venue")
+    public ResponseEntity<List<Event>> getEventByVenue(@RequestBody Venue venue) {
+        return ResponseEntity.ok(eventService.getEventsByVenue(venue));
     }
 
-    @GetMapping("/get-event-type/{eventType}")
-    public List<Event> getEventsByEventType(@PathVariable("eventType") EventType eventType) {
-        return eventService.getEventsByEventType(eventType);
+    @GetMapping("/by-event-type/{eventType}")
+    public ResponseEntity<List<Event>> getEventsByEventType(@PathVariable("eventType") EventType eventType) {
+        return ResponseEntity.ok(eventService.getEventsByEventType(eventType));
     }
   
-    @PostMapping("/save-anniversary")
-    public boolean addAnniversary(@RequestBody Anniversary anniversary) {
-        return anniversaryEventService.add(anniversary);
+    @PostMapping("/anniversary/")
+    public ResponseEntity<Boolean> addAnniversary(@RequestBody Anniversary anniversary) {
+        return ResponseEntity.ok(anniversaryEventService.add(anniversary));
     }
 
-    @GetMapping("/get-all-anniversary")
-    public List<Anniversary> getAllAnniversaries() {
-        return anniversaryEventService.getAll();
+    @GetMapping("/anniversary/all")
+    public ResponseEntity<List<Anniversary>> getAllAnniversaries() {
+        return ResponseEntity.ok(anniversaryEventService.getAll());
     }
 
-    @GetMapping("/get-anniversary/{eventId}")
-    public Anniversary getAnniversary(@PathVariable("eventId") Long eventId) {
-        return anniversaryEventService.get(eventId);
+    @GetMapping("/anniversary/{eventId}")
+    public ResponseEntity<Anniversary> getAnniversary(@PathVariable("eventId") Long eventId) {
+        return ResponseEntity.ok(anniversaryEventService.get(eventId));
     }
 
-    @PutMapping("/update-anniversary")
-    public boolean updateAnniversary(@RequestBody Anniversary anniversary) {
-        return anniversaryEventService.update(anniversary);
+    @PutMapping("/anniversary")
+    public ResponseEntity<Boolean> updateAnniversary(@RequestBody Anniversary anniversary) {
+        return ResponseEntity.ok(anniversaryEventService.update(anniversary));
     }
 
-    @DeleteMapping("/delete-anniversary/{eventId}")
-    public boolean deleteAnniversary(@PathVariable("eventId") Long eventId) {
-        return anniversaryEventService.delete(eventId);
+    @DeleteMapping("/anniversary/{eventId}")
+    public ResponseEntity<Boolean> deleteAnniversary(@PathVariable("eventId") Long eventId) {
+        return ResponseEntity.ok(anniversaryEventService.delete(eventId));
     }
 
-    //event Summary Controller
+    @PostMapping("/summary")
+    public ResponseEntity<Boolean> add(@RequestBody EventSummary eventSummary){
+        return ResponseEntity.ok(eventSummaryService.add(eventSummary));
 
-    @PostMapping("/add-summary")
-    public boolean add(@RequestBody EventSummary eventSummary){
-        return eventSummaryService.add(eventSummary);
     }
 
-    @GetMapping("/get-all-summary")
-    public List<EventSummary> getAllSummary(){
-        return eventSummaryService.getAll();
+    @GetMapping("/summary/all")
+    public ResponseEntity<List<EventSummary>> getAllSummary(){
+        return ResponseEntity.ok(eventSummaryService.getAll());
     }
 
-    @DeleteMapping("/delete-summary/{id}")
-    public boolean deleteSummary(@PathVariable("id") Long id){
-        return eventSummaryService.delete(id);
+    @DeleteMapping("/summary/{id}")
+    public ResponseEntity<Boolean> deleteSummary(@PathVariable("id") Long id){
+        return ResponseEntity.ok(eventSummaryService.delete(id));
     }
 
-    @PutMapping("/update-summary")
-    public boolean updateSummary(@RequestBody EventSummary eventSummary){
-        return eventSummaryService.update(eventSummary);
+    @PutMapping("/summary")
+    public ResponseEntity<Boolean> updateSummary(@RequestBody EventSummary eventSummary){
+        return ResponseEntity.ok(eventSummaryService.update(eventSummary));
     }
 
-    @GetMapping("/get-summary/{id}")
-    public EventSummary getById(@PathVariable("id") Long id){
-        return eventSummaryService.getById(id);
+    @GetMapping("/summary/{id}")
+    public ResponseEntity<EventSummary> getById(@PathVariable("id") Long id){
+        return ResponseEntity.ok(eventSummaryService.getById(id));
     }
 
-    //getTogether
 
-    @PostMapping("/add-get-together")
-    public boolean addGetTogether(@RequestBody GetTogether getTogether){
-
-        return getTogetherEventService.add(getTogether);
+    @PostMapping("/get-together")
+    public ResponseEntity<Boolean> addGetTogether(@RequestBody GetTogether getTogether){
+        return ResponseEntity.ok(getTogetherEventService.add(getTogether));
     }
 
-    @GetMapping("/get-all-get-together")
-    public List<GetTogether> getAllGetTogethers(){
-        return getTogetherEventService.getAll();
+    @GetMapping("/get-together/all")
+    public ResponseEntity<List<GetTogether>> getAllGetTogethers(){
+        return ResponseEntity.ok(getTogetherEventService.getAll());
     }
 
-    @GetMapping("/search-getTogether/{id}")
-    public GetTogether getSearchGetTogether(@PathVariable("id") Integer id){
-        return getTogetherEventService.get(id);
+    @GetMapping("/getTogether/{id}")
+    public ResponseEntity<GetTogether> getSearchGetTogether(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(getTogetherEventService.get(id));
     }
 
-    @DeleteMapping("/delete-get-together/{id}")
-    public boolean deleteGetTogether(@PathVariable("id") Integer id){
-        return getTogetherEventService.delete(id);
+    @DeleteMapping("/get-together/{id}")
+    public ResponseEntity<Boolean> deleteGetTogether(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(getTogetherEventService.delete(id));
     }
 
-    @PutMapping("/update-getTogether")
-    public boolean updateGetTogether(@RequestBody GetTogether  getTogether){
-        return getTogetherEventService.update(getTogether);
+    @PutMapping("/getTogether")
+    public ResponseEntity<Boolean> updateGetTogether(@RequestBody GetTogether  getTogether){
+        return ResponseEntity.ok(getTogetherEventService.update(getTogether));
     }
 
-    @PostMapping("/agenda/add")
-    public boolean createAgenda(@RequestBody Agenda agenda) {
-        return agendaService.create(agenda);
+    @PostMapping("/agenda")
+    public ResponseEntity<Boolean> createAgenda(@RequestBody Agenda agenda) {
+        return ResponseEntity.ok(agendaService.create(agenda));
     }
 
-    @GetMapping("/agenda/get-all")
-    public List<Agenda> getAllAgenda() {
-        return agendaService.getAll();
+    @GetMapping("/agenda/all")
+    public ResponseEntity<List<Agenda>> getAllAgenda() {
+        return ResponseEntity.ok(agendaService.getAll());
     }
 
-    @PutMapping("/agenda/update")
-    public boolean updateAgenda(@RequestBody Agenda agenda) {
-        return agendaService.update(agenda);
+    @PutMapping("/agenda")
+    public ResponseEntity<Boolean> updateAgenda(@RequestBody Agenda agenda) {
+        return ResponseEntity.ok(agendaService.update(agenda));
     }
 
-    @DeleteMapping("/agenda/delete/{id}")
-    public boolean deleteAgenda(@PathVariable Integer id) {
-        return agendaService.delete(id);
+    @DeleteMapping("/agenda/{id}")
+    public ResponseEntity<Boolean> deleteAgenda(@PathVariable Long id) {
+        return ResponseEntity.ok(agendaService.delete(id));
     }
 
-    @GetMapping("/agenda/get/{id}")
-    public Agenda getAgendaById(@PathVariable Integer id) {
-        return agendaService.getById(id);
+    @GetMapping("/agenda/{id}")
+    public ResponseEntity<Agenda> getAgendaById(@PathVariable Long id) {
+        return ResponseEntity.ok(agendaService.getById(id));
     }
 
-    @PostMapping("/agenda/{agendaId}/add-task")
-    public boolean addAgendaTaskToAgenda(@PathVariable Integer agendaId, @RequestBody AgendaTask newTask) {
-        return agendaService.addTaskToAgenda(agendaId, newTask);
+    @PostMapping("/agenda-task/{agendaId}")
+    public ResponseEntity<Boolean> addAgendaTaskToAgenda(@PathVariable Long agendaId, @RequestBody AgendaTask newTask) {
+        return ResponseEntity.ok(agendaService.addTaskToAgenda(agendaId, newTask));
     }
 
-    @PutMapping("/agenda/{agendaId}/task/update/{taskId}")
-    public boolean updateAgendaTask(@PathVariable Integer agendaId, @PathVariable Integer taskId, @RequestBody AgendaTask updatedTask) {
-        return agendaService.updateTask(agendaId, taskId, updatedTask);
+    @PutMapping("/agenda-task")
+    public ResponseEntity<Boolean> updateAgendaTask(@RequestParam("agendaId") Long agendaId, @RequestParam("taskId") Long taskId, @RequestBody AgendaTask updatedTask) {
+        return ResponseEntity.ok(agendaService.updateTask(agendaId, taskId, updatedTask));
     }
 
-    @DeleteMapping("/agenda/{agendaId}/task/delete/{taskId}")
-    public boolean deleteAgendaTask(@PathVariable Integer agendaId, @PathVariable Integer taskId) {
-        return agendaService.deleteTask(agendaId, taskId);
+    @DeleteMapping("/agenda-task")
+    public ResponseEntity<Boolean> deleteAgendaTask(@RequestParam("agendaId") Long agendaId, @RequestParam("taskId") Long taskId) {
+        return ResponseEntity.ok(agendaService.deleteTask(agendaId, taskId));
     }
 
-    @GetMapping("/agenda/{agendaId}/task/{taskId}")
-    public AgendaTask getAgendaTaskById(@PathVariable("agendaId") Integer agendaId, @PathVariable("taskId") Integer taskId) {
-        return agendaService.getTaskById(agendaId, taskId);
+    @GetMapping("/agenda-task")
+    public ResponseEntity<AgendaTask> getAgendaTaskById(@RequestParam("agendaId") Long agendaId, @RequestParam("taskId") Long taskId) {
+        return ResponseEntity.ok(agendaService.getTaskById(agendaId, taskId));
     }
 
-    @PostMapping("/birthday-party/add")
-    public boolean addBirthdayParty(@RequestBody BirthdayParty birthdayParty) {
-        return birthdayPartyEventService.add(birthdayParty);
+    @PostMapping("/birthday-party")
+    public ResponseEntity<Boolean> addBirthdayParty(@RequestBody BirthdayParty birthdayParty) {
+        return ResponseEntity.ok(birthdayPartyEventService.add(birthdayParty));
+
     }
 
-    @GetMapping("/birthday-party/get-all")
-    public List<BirthdayParty> getAllBirthdayParties() {
-        return birthdayPartyEventService.getAll();
+    @GetMapping("/birthday-party/all")
+    public ResponseEntity<List<BirthdayParty>> getAllBirthdayParties() {
+        return ResponseEntity.ok(birthdayPartyEventService.getAll());
     }
 
-    @PutMapping("/birthday-party/update")
-    public boolean updateBirthdayParty(@RequestBody BirthdayParty birthdayParty) {
-        return birthdayPartyEventService.update(birthdayParty);
+    @PutMapping("/birthday-party")
+    public ResponseEntity<Boolean> updateBirthdayParty(@RequestBody BirthdayParty birthdayParty) {
+        return ResponseEntity.ok(birthdayPartyEventService.update(birthdayParty));
     }
 
-    @GetMapping("/birthday-party/get-all-by-date")
-    public List<BirthdayParty> getAllBirthdayPartiesByDate(Date date) {
-        return birthdayPartyEventService.getAll(date);
+    @GetMapping("/birthday-party/by-username")
+    public ResponseEntity<List<BirthdayParty>> getAllBirthdayPartiesByUsername(String username) {
+        return ResponseEntity.ok(birthdayPartyEventService.getAll(username));
     }
 
-    @GetMapping("/birthday-party/get-all-by-username")
-    public List<BirthdayParty> getAllBirthdayPartiesByUsername(String username) {
-        return birthdayPartyEventService.getAll(username);
+    @DeleteMapping("/birthday-party/{id}")
+    public ResponseEntity<Boolean> deleteBirthdayPartyById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(birthdayPartyEventService.delete(id));
     }
 
-    @DeleteMapping("/birthday-party/delete")
-    public boolean deleteBirthdayParty(@RequestBody BirthdayParty birthdayParty) {
-        return birthdayPartyEventService.delete(birthdayParty);
+    @GetMapping("/birthday-party/{id}")
+    public ResponseEntity<BirthdayParty> getBirthdayParty(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(birthdayPartyEventService.get(id));
     }
 
-    @DeleteMapping("/birthday-party/delete/{id}")
-    public boolean deleteBirthdayPartyById(@PathVariable("id") Long id) {
-        return birthdayPartyEventService.delete(id);
+    @GetMapping("/birthday-party/by-owner-name/{ownerName}")
+    public ResponseEntity<BirthdayParty> getBirthdayPartyByOwner(@PathVariable("ownerName") String ownerName) {
+        return ResponseEntity.ok(birthdayPartyEventService.get(ownerName));
     }
 
-    @GetMapping("/birthday-party/get-id/{id}")
-    public BirthdayParty getBirthdayParty(@PathVariable("id") Long id) {
-        return birthdayPartyEventService.get(id);
+    @GetMapping("/wedding/{id}")
+    public ResponseEntity<Wedding> getWedding(@PathVariable("id") Long id){
+        return ResponseEntity.ok(weddingEventService.get(id));
     }
 
-    @GetMapping("/birthday-party/get-name/{ownerName}")
-    public BirthdayParty getBirthdayPartyByOwner(@PathVariable("ownerName") String ownerName) {
-        return birthdayPartyEventService.get(ownerName);
+    @GetMapping("/wedding/by-date/{date}")
+    public ResponseEntity<List<Wedding>> getWeddingByDate(@PathVariable("date") LocalDate date){
+        return ResponseEntity.ok(weddingEventService.getByDate(date));
     }
 
+
+    @GetMapping("/wedding/all")
+    public ResponseEntity<List<Wedding>> getAllWedding(){
+        return ResponseEntity.ok(weddingEventService.getAll());
+    }
+
+    @PostMapping("/wedding")
+    public ResponseEntity<Boolean> addWedding(@RequestBody Wedding wedding){
+        return ResponseEntity.ok(weddingEventService.add(wedding));
+    }
+
+    @DeleteMapping("/wedding/{id}")
+    public ResponseEntity<Boolean> deleteWedding(@PathVariable("id") Long id){
+        return ResponseEntity.ok(weddingEventService.delete(id));
+    }
+
+    @PutMapping("/wedding")
+    public ResponseEntity<Boolean> updateWedding(@RequestBody Wedding wedding){
+        return ResponseEntity.ok(weddingEventService.update(wedding));
+    }
 }

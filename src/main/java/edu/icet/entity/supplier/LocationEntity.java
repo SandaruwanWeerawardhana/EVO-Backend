@@ -1,6 +1,5 @@
 package edu.icet.entity.supplier;
 
-import edu.icet.entity.event.EventEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +19,7 @@ import java.util.List;
 public class LocationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer locationId;
+    private Long locationId;
 
     @Column(name = "city", nullable = false)
     private String city;
@@ -28,6 +27,5 @@ public class LocationEntity {
     @Column(name = "village", nullable = false)
     private String village;
 
-    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
-    private List<EventEntity> events;
+
 }

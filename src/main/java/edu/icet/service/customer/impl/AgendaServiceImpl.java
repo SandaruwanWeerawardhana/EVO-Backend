@@ -10,7 +10,9 @@ import edu.icet.repository.event.AgendaTaskRepository;
 import edu.icet.repository.event.EventRepository;
 import edu.icet.service.customer.AgendaService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.ReactiveTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -25,15 +27,15 @@ public class AgendaServiceImpl implements AgendaService {
     private final AgendaTaskRepository agendaTaskRepository;
     private final EventRepository eventRepository;
 
+    private final ModelMapper mapper;
+
     @Override
     @Transactional
     public boolean create(Agenda agenda) {
         AgendaEntity entity = new AgendaEntity();
-        EventEntity event = eventRepository.findById(agenda.getEventId()).orElse(null);
+        EventEntity event = eventRepository.findById(agenda.getId()).orElse(null);
 
         if (event == null) return false;
-
-        entity.setEvent(event);
 
         entity.setDate(agenda.getDate());
         entity.setTime(agenda.getTime());
@@ -56,11 +58,10 @@ public class AgendaServiceImpl implements AgendaService {
         AgendaEntity existing = agendaRepository.findById(agenda.getId()).orElse(null);
         if (existing == null) return false;
 
-        EventEntity event = eventRepository.findById(agenda.getEventId()).orElse(null);
+        EventEntity event = eventRepository.findById(agenda.getId()).orElse(null);
 
         if (event == null) return false;
 
-        existing.setEvent(event);
         existing.setDate(agenda.getDate());
         existing.setTime(agenda.getTime());
         agendaRepository.save(existing);
@@ -69,7 +70,7 @@ public class AgendaServiceImpl implements AgendaService {
 
     @Override
     @Transactional
-    public boolean delete(Integer id) {
+    public boolean delete(Long id) {
         if (!agendaRepository.existsById(id)) return false;
         agendaRepository.deleteById(id);
         return true;
@@ -77,7 +78,7 @@ public class AgendaServiceImpl implements AgendaService {
 
     @Override
     @Transactional(readOnly = true)
-    public Agenda getById(Integer id) {
+    public Agenda getById(Long id) {
         return agendaRepository.findById(id)
                 .map(this::convertToDto)
                 .orElse(null);
@@ -85,7 +86,7 @@ public class AgendaServiceImpl implements AgendaService {
 
     @Override
     @Transactional
-    public boolean addTaskToAgenda(Integer agendaId, AgendaTask newTask) {
+    public boolean addTaskToAgenda(Long agendaId, AgendaTask newTask) {
         Optional<AgendaEntity> optionalAgenda = agendaRepository.findById(agendaId);
         if (optionalAgenda.isEmpty()) return false;
 
@@ -97,7 +98,6 @@ public class AgendaServiceImpl implements AgendaService {
         taskEntity.setSupplierId(newTask.getSupplierId());
         taskEntity.setSupplierType(newTask.getSupplierType());
 
-        taskEntity.setAgenda(agenda);
         agenda.getTasks().add(taskEntity);
 
         agendaRepository.save(agenda);
@@ -106,33 +106,24 @@ public class AgendaServiceImpl implements AgendaService {
 
     @Override
     @Transactional
-    public boolean updateTask(Integer agendaId, Integer taskId, AgendaTask updatedTask) {
-        AgendaTaskEntity task = agendaTaskRepository.findByAgendaIdAndTaskId(agendaId, taskId);
-        if (task == null) return false;
-
-        task.setTaskName(updatedTask.getTaskName());
-        task.setStartTime(updatedTask.getStartTime());
-        task.setEndTime(updatedTask.getEndTime());
-        task.setSupplierId(updatedTask.getSupplierId());
-        task.setSupplierType(updatedTask.getSupplierType());
-        agendaTaskRepository.save(task);
+    public boolean updateTask(Long agendaId, Long taskId, AgendaTask updatedTask) {
+        agendaTaskRepository.save(mapper.map(updatedTask, AgendaTaskEntity.class));
         return true;
     }
 
     @Override
     @Transactional
-    public boolean deleteTask(Integer agendaId, Integer taskId) {
-        AgendaTaskEntity task = agendaTaskRepository.findByAgendaIdAndTaskId(agendaId, taskId);
-        if (task == null) return false;
+    public boolean deleteTask(Long agendaId, Long taskId) {
+//        AgendaTaskEntity task = agendaTaskRepository.findByAgendaIdAndTaskId(agendaId, taskId);
 
-        agendaTaskRepository.delete(task);
+        agendaTaskRepository.deleteById(taskId);
         return true;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public AgendaTask getTaskById(Integer agendaId, Integer taskId) {
-        return Optional.ofNullable(agendaTaskRepository.findByAgendaIdAndTaskId(agendaId, taskId))
+    public AgendaTask getTaskById(Long agendaId, Long taskId) {
+        return agendaTaskRepository.findById(taskId)
                 .map(this::convertTaskToDto)
                 .orElse(null);
     }
@@ -140,12 +131,11 @@ public class AgendaServiceImpl implements AgendaService {
     private Agenda convertToDto(AgendaEntity entity) {
         Agenda dto = new Agenda();
         dto.setId(entity.getId());
-        dto.setEventId(entity.getEvent().getEventId());
         dto.setDate(entity.getDate());
         dto.setTime(entity.getTime());
         dto.setTasks(entity.getTasks().stream()
                 .map(this::convertTaskToDto)
-                .collect(Collectors.toList()));
+                .toList());
         return dto;
     }
 

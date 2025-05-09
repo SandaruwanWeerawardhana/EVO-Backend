@@ -15,8 +15,6 @@ import lombok.Setter;
 public class PackageFeature {
     private Long featureID;
 
-    private Supplier supplier;
-
     @NotBlank
     @NotNull(message="featureName cannot be null")
     private String featureName;

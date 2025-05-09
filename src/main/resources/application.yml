@@ -6,9 +6,16 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
   output:
     ansi:
       enabled: ALWAYS
+  jackson:
+    default-property-inclusion: non_null
+
 #  security:
 #    oauth2:
 #      client:

@@ -17,12 +17,9 @@ public class AdminEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long adminId;
-
     @OneToOne
     @JoinColumn(name = "audit_history_id")
     private AuditHistoryEntity auditHistory;
-
     @Enumerated(EnumType.STRING)
     private AdminType type;
-
 }
