@@ -1,0 +1,206 @@
+2025-05-09T13:30:22.887089400 - 
+=== Request/Response ===
+Time: 2025-05-09T13:30:22.8870894
+Method: GET
+URI: /swagger-ui/index.html
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; connection: keep-alive; cache-control: max-age=0; sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"; sec-ch-ua-mobile: ?0; sec-ch-ua-platform: "Windows"; upgrade-insecure-requests: 1; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36; accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7; sec-fetch-site: none; sec-fetch-mode: navigate; sec-fetch-user: ?1; sec-fetch-dest: document; accept-encoding: gzip, deflate, br, zstd; accept-language: en-US,en;q=0.9; if-modified-since: Mon, 24 Feb 2025 05:18:42 GMT
+Response Status: 304
+Response Body: 
+Processing Time: 80ms
+
+2025-05-09T13:30:22.918844500 - 
+=== Request/Response ===
+Time: 2025-05-09T13:30:22.9188445
+Method: GET
+URI: /swagger-ui/swagger-ui.css
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; connection: keep-alive; sec-ch-ua-platform: "Windows"; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36; sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"; sec-ch-ua-mobile: ?0; accept: text/css,*/*;q=0.1; sec-fetch-site: same-origin; sec-fetch-mode: no-cors; sec-fetch-dest: style; referer: http://localhost:8080/swagger-ui/index.html; accept-encoding: gzip, deflate, br, zstd; accept-language: en-US,en;q=0.9; if-modified-since: Mon, 24 Feb 2025 05:18:42 GMT
+Response Status: 304
+Response Body: 
+Processing Time: 0ms
+
+2025-05-09T13:30:22.918844500 - 
+=== Request/Response ===
+Time: 2025-05-09T13:30:22.9188445
+Method: GET
+URI: /swagger-ui/index.css
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; connection: keep-alive; sec-ch-ua-platform: "Windows"; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36; sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"; sec-ch-ua-mobile: ?0; accept: text/css,*/*;q=0.1; sec-fetch-site: same-origin; sec-fetch-mode: no-cors; sec-fetch-dest: style; referer: http://localhost:8080/swagger-ui/index.html; accept-encoding: gzip, deflate, br, zstd; accept-language: en-US,en;q=0.9; if-modified-since: Mon, 24 Feb 2025 05:18:42 GMT
+Response Status: 304
+Response Body: 
+Processing Time: 0ms
+
+2025-05-09T13:30:22.918844500 - 
+=== Request/Response ===
+Time: 2025-05-09T13:30:22.9188445
+Method: GET
+URI: /swagger-ui/swagger-ui-bundle.js
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; connection: keep-alive; sec-ch-ua-platform: "Windows"; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36; sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"; sec-ch-ua-mobile: ?0; accept: */*; sec-fetch-site: same-origin; sec-fetch-mode: no-cors; sec-fetch-dest: script; referer: http://localhost:8080/swagger-ui/index.html; accept-encoding: gzip, deflate, br, zstd; accept-language: en-US,en;q=0.9; if-modified-since: Mon, 24 Feb 2025 05:18:42 GMT
+Response Status: 304
+Response Body: 
+Processing Time: 0ms
+
+2025-05-09T13:30:22.954898900 - 
+=== Request/Response ===
+Time: 2025-05-09T13:30:22.9548989
+Method: GET
+URI: /swagger-ui/swagger-ui-standalone-preset.js
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; connection: keep-alive; sec-ch-ua-platform: "Windows"; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36; sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"; sec-ch-ua-mobile: ?0; accept: */*; sec-fetch-site: same-origin; sec-fetch-mode: no-cors; sec-fetch-dest: script; referer: http://localhost:8080/swagger-ui/index.html; accept-encoding: gzip, deflate, br, zstd; accept-language: en-US,en;q=0.9; if-modified-since: Mon, 24 Feb 2025 05:18:42 GMT
+Response Status: 304
+Response Body: 
+Processing Time: 0ms
+
+2025-05-09T13:30:22.982088 - 
+=== Request/Response ===
+Time: 2025-05-09T13:30:22.982088
+Method: GET
+URI: /swagger-ui/swagger-initializer.js
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; connection: keep-alive; sec-ch-ua-platform: "Windows"; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36; sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"; sec-ch-ua-mobile: ?0; accept: */*; sec-fetch-site: same-origin; sec-fetch-mode: no-cors; sec-fetch-dest: script; referer: http://localhost:8080/swagger-ui/index.html; accept-encoding: gzip, deflate, br, zstd; accept-language: en-US,en;q=0.9
+Response Status: 200
+Response Body: window.onload = function() {
+  //<editor-fold desc="Changeable Configuration Block">
+
+  // the following lines will be replaced by docker/configurator, when it runs in a docker-container
+  window.ui =...[truncated]
+Processing Time: 28ms
+
+2025-05-09T13:30:23.389291300 - 
+=== Request/Response ===
+Time: 2025-05-09T13:30:23.3892913
+Method: GET
+URI: /swagger-ui/favicon-32x32.png
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; connection: keep-alive; sec-ch-ua-platform: "Windows"; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36; sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"; sec-ch-ua-mobile: ?0; accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8; sec-fetch-site: same-origin; sec-fetch-mode: no-cors; sec-fetch-dest: image; referer: http://localhost:8080/swagger-ui/index.html; accept-encoding: gzip, deflate, br, zstd; accept-language: en-US,en;q=0.9; if-modified-since: Mon, 24 Feb 2025 05:18:42 GMT
+Response Status: 304
+Response Body: 
+Processing Time: 3ms
+
+2025-05-09T13:30:23.475294800 - 
+=== Request/Response ===
+Time: 2025-05-09T13:30:23.4752948
+Method: GET
+URI: /v3/api-docs/swagger-config
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; connection: keep-alive; sec-ch-ua-platform: "Windows"; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36; sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"; sec-ch-ua-mobile: ?0; accept: */*; sec-fetch-site: same-origin; sec-fetch-mode: cors; sec-fetch-dest: empty; referer: http://localhost:8080/swagger-ui/index.html; accept-encoding: gzip, deflate, br, zstd; accept-language: en-US,en;q=0.9
+Response Status: 200
+Response Body: {"configUrl":"/v3/api-docs/swagger-config","oauth2RedirectUrl":"http://localhost:8080/swagger-ui/oauth2-redirect.html","url":"/v3/api-docs","validatorUrl":""}
+Processing Time: 98ms
+
+2025-05-09T13:30:29.471499800 - 
+=== Request/Response ===
+Time: 2025-05-09T13:30:29.4714998
+Method: GET
+URI: /v3/api-docs
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; connection: keep-alive; sec-ch-ua-platform: "Windows"; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36; accept: application/json,*/*; sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"; sec-ch-ua-mobile: ?0; sec-fetch-site: same-origin; sec-fetch-mode: cors; sec-fetch-dest: empty; referer: http://localhost:8080/swagger-ui/index.html; accept-encoding: gzip, deflate, br, zstd; accept-language: en-US,en;q=0.9
+Response Status: 200
+Response Body: {"openapi":"3.1.0","info":{"title":"OpenAPI definition","version":"v0"},"servers":[{"url":"http://localhost:8080","description":"Generated server url"}],"paths":{"/user-report/update/{id}":{"put":{"ta...[truncated]
+Processing Time: 5982ms
+
+2025-05-09T13:31:14.742193800 - 
+=== Request/Response ===
+Time: 2025-05-09T13:31:14.741194
+Method: GET
+URI: /swagger-ui/index.html
+Client IP: 0:0:0:0:0:0:0:1
+Headers: host: localhost:8080; connection: keep-alive; cache-control: max-age=0; sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"; sec-ch-ua-mobile: ?0; sec-ch-ua-platform: "Windows"; upgrade-insecure-requests: 1; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36; accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7; sec-fetch-site: none; sec-fetch-mode: navigate; sec-fetch-user: ?1; sec-fetch-dest: document; accept-encoding: gzip, deflate, br, zstd; accept-language: en-US,en;q=0.9; if-modified-since: Mon, 24 Feb 2025 05:18:42 GMT
+Response Status: 304
+Response Body: 
+Processing Time: 27ms
+
+2025-05-09T13:31:14.812196500 - 
+=== Request/Response ===
+Time: 2025-05-09T13:31:14.8111952
+Method: GET
+URI: /swagger-ui/swagger-initializer.js
+Client IP: 0:0:0:0:0:0:0:1
+Headers: host: localhost:8080; connection: keep-alive; sec-ch-ua-platform: "Windows"; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36; sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"; sec-ch-ua-mobile: ?0; accept: */*; sec-fetch-site: same-origin; sec-fetch-mode: no-cors; sec-fetch-dest: script; referer: http://localhost:8080/swagger-ui/index.html; accept-encoding: gzip, deflate, br, zstd; accept-language: en-US,en;q=0.9
+Response Status: 200
+Response Body: window.onload = function() {
+  //<editor-fold desc="Changeable Configuration Block">
+
+  // the following lines will be replaced by docker/configurator, when it runs in a docker-container
+  window.ui =...[truncated]
+Processing Time: 35ms
+
+2025-05-09T13:31:15.219586300 - 
+=== Request/Response ===
+Time: 2025-05-09T13:31:15.218588
+Method: GET
+URI: /v3/api-docs/swagger-config
+Client IP: 0:0:0:0:0:0:0:1
+Headers: host: localhost:8080; connection: keep-alive; sec-ch-ua-platform: "Windows"; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36; sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"; sec-ch-ua-mobile: ?0; accept: */*; sec-fetch-site: same-origin; sec-fetch-mode: cors; sec-fetch-dest: empty; referer: http://localhost:8080/swagger-ui/index.html; accept-encoding: gzip, deflate, br, zstd; accept-language: en-US,en;q=0.9
+Response Status: 200
+Response Body: {"configUrl":"/v3/api-docs/swagger-config","oauth2RedirectUrl":"http://localhost:8080/swagger-ui/oauth2-redirect.html","url":"/v3/api-docs","validatorUrl":""}
+Processing Time: 53ms
+
+2025-05-09T13:31:18.608203900 - 
+=== Request/Response ===
+Time: 2025-05-09T13:31:18.6072042
+Method: GET
+URI: /v3/api-docs
+Client IP: 0:0:0:0:0:0:0:1
+Headers: host: localhost:8080; connection: keep-alive; sec-ch-ua-platform: "Windows"; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36; accept: application/json,*/*; sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"; sec-ch-ua-mobile: ?0; sec-fetch-site: same-origin; sec-fetch-mode: cors; sec-fetch-dest: empty; referer: http://localhost:8080/swagger-ui/index.html; accept-encoding: gzip, deflate, br, zstd; accept-language: en-US,en;q=0.9
+Response Status: 200
+Response Body: {"openapi":"3.1.0","info":{"title":"OpenAPI definition","version":"v0"},"servers":[{"url":"http://localhost:8080","description":"Generated server url"}],"paths":{"/user-report/update/{id}":{"put":{"ta...[truncated]
+Processing Time: 3381ms
+
+2025-05-09T13:32:33.690354800 - 
+=== Request/Response ===
+Time: 2025-05-09T13:32:33.6903548
+Method: POST
+URI: /api/auth/register
+Client IP: 0:0:0:0:0:0:0:1
+Headers: host: localhost:8080; connection: keep-alive; content-length: 186; sec-ch-ua-platform: "Windows"; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36; accept: */*; sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"; content-type: application/json; sec-ch-ua-mobile: ?0; origin: http://localhost:8080; sec-fetch-site: same-origin; sec-fetch-mode: cors; sec-fetch-dest: empty; referer: http://localhost:8080/swagger-ui/index.html; accept-encoding: gzip, deflate, br, zstd; accept-language: en-US,en;q=0.9
+Response Status: 200
+Response Body: Customer registered successfully
+Processing Time: 278ms
+
+2025-05-09T13:32:51.066505600 - 
+=== Request/Response ===
+Time: 2025-05-09T13:32:51.0665056
+Method: POST
+URI: /api/auth/login
+Client IP: 0:0:0:0:0:0:0:1
+Headers: host: localhost:8080; connection: keep-alive; content-length: 50; sec-ch-ua-platform: "Windows"; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36; accept: */*; sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"; content-type: application/json; sec-ch-ua-mobile: ?0; origin: http://localhost:8080; sec-fetch-site: same-origin; sec-fetch-mode: cors; sec-fetch-dest: empty; referer: http://localhost:8080/swagger-ui/index.html; accept-encoding: gzip, deflate, br, zstd; accept-language: en-US,en;q=0.9
+Response Status: 401
+Response Body: Invalid email or password
+Processing Time: 149ms
+
+2025-05-09T13:33:19.127130600 - 
+=== Request/Response ===
+Time: 2025-05-09T13:33:19.1271306
+Method: POST
+URI: /api/auth/register
+Client IP: 0:0:0:0:0:0:0:1
+Headers: host: localhost:8080; connection: keep-alive; content-length: 195; sec-ch-ua-platform: "Windows"; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36; accept: */*; sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"; content-type: application/json; sec-ch-ua-mobile: ?0; origin: http://localhost:8080; sec-fetch-site: same-origin; sec-fetch-mode: cors; sec-fetch-dest: empty; referer: http://localhost:8080/swagger-ui/index.html; accept-encoding: gzip, deflate, br, zstd; accept-language: en-US,en;q=0.9
+Response Status: 200
+Response Body: Customer registered successfully
+Processing Time: 74ms
+
+2025-05-09T13:33:29.802842800 - 
+=== Request/Response ===
+Time: 2025-05-09T13:33:29.8028428
+Method: POST
+URI: /api/auth/login
+Client IP: 0:0:0:0:0:0:0:1
+Headers: host: localhost:8080; connection: keep-alive; content-length: 60; sec-ch-ua-platform: "Windows"; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36; accept: */*; sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"; content-type: application/json; sec-ch-ua-mobile: ?0; origin: http://localhost:8080; sec-fetch-site: same-origin; sec-fetch-mode: cors; sec-fetch-dest: empty; referer: http://localhost:8080/swagger-ui/index.html; accept-encoding: gzip, deflate, br, zstd; accept-language: en-US,en;q=0.9
+Response Status: 200
+Response Body: 
+Processing Time: 81ms
+
+2025-05-09T13:41:10.147498700 - 
+=== Request/Response ===
+Time: 2025-05-09T13:41:10.1474987
+Method: POST
+URI: /api/auth/login
+Client IP: 0:0:0:0:0:0:0:1
+Headers: host: localhost:8080; connection: keep-alive; content-length: 60; sec-ch-ua-platform: "Windows"; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36; accept: */*; sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"; content-type: application/json; sec-ch-ua-mobile: ?0; origin: http://localhost:8080; sec-fetch-site: same-origin; sec-fetch-mode: cors; sec-fetch-dest: empty; referer: http://localhost:8080/swagger-ui/index.html; accept-encoding: gzip, deflate, br, zstd; accept-language: en-US,en;q=0.9; cookie: JSESSIONID=C8CA3DB373A1D243B8B93D6A886B659C
+Response Status: 200
+Response Body: {"email":"nipun@gmail.com","token":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuaXB1bkBnbWFpbC5jb20iLCJpYXQiOjE3NDY3NzgyNjksImV4cCI6MTc0Njk1MTA2OX0.wiGHqd1gL19b4r8_-FvmR3aBPvZYp5QQq7YnGZmgkII"}
+Processing Time: 679ms
+
