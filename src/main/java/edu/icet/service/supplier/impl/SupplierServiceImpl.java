@@ -6,6 +6,8 @@ import edu.icet.entity.supplier.SupplierEntity;
 import edu.icet.repository.customer.UserRepository;
 import edu.icet.repository.supplier.SupplierRepository;
 import edu.icet.service.supplier.SupplierService;
+import edu.icet.util.CategoryType;
+
 import edu.icet.util.SupplierCategoryType;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -13,6 +15,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Primary
@@ -33,14 +36,38 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public List<Supplier> getSupplierByCategory(SupplierCategoryType category) {
-        return getAllSuppliers().stream().filter(supplier -> supplier.getCategory() == category).toList();
+        return List.of();
+    }
+
+    @Override
+    public List<Supplier> getByCategory(String category) {
+        if (category == null || category.isBlank()) {
+            throw new IllegalArgumentException("Category name cannot be null or blank");
+        }
+        SupplierCategoryType supplierCategoryType = SupplierCategoryType.valueOf(category.toUpperCase());
+
+        return supplierRepository.findAllByCategory(supplierCategoryType)
+                .stream()
+                .map(supplierEntity -> mapper.map(supplierEntity, Supplier.class))
+                .toList();
     }
 
     @Override
     public Supplier searchSupplier(Long id) {
         SupplierEntity supplierEntity = supplierRepository.findById(id).orElse(null);
 
-        return supplierEntity != null ? mapper.map(supplierEntity, Supplier.class) : null;
+        assert supplierEntity != null;
+        if (supplierRepository.existsByContactNumber(supplierEntity.getContactNumber())) {
+            throw new IllegalArgumentException("phone number is already exists");
+        }
+
+        if (supplierRepository.existsByBusinessName(supplierEntity.getBusinessName())){
+            throw new IllegalArgumentException("Business name is already exists");
+        }
+
+        supplierRepository.save(mapper.map(supplierEntity, SupplierEntity.class));
+        return mapper.map(supplierEntity, Supplier.class);
+
     }
 
     @Override

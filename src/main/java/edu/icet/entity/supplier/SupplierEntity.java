@@ -1,12 +1,14 @@
 package edu.icet.entity.supplier;
 
-import edu.icet.entity.event.BeautySaloonEntity;
+
 import edu.icet.entity.system.TermsEntity;
+import edu.icet.entity.event.BeautySaloonEntity;
 import edu.icet.util.SupplierCategoryType;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.NotNull;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,6 +35,11 @@ public class SupplierEntity {
     @Email
     private String businessEmail;
 
+
+    @Column(name = "contact_number")
+    @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be exactly 10 digits")
+    private String contactNumber;
+
     private String description;
 
     @NotNull
@@ -52,6 +59,7 @@ public class SupplierEntity {
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "terms_id")
+
     private TermsEntity terms;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, orphanRemoval = true)
