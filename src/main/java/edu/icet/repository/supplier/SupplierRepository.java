@@ -13,7 +13,6 @@ import java.util.List;
 
 public interface SupplierRepository extends JpaRepository<SupplierEntity, Long> {
     List<SupplierEntity> findAllByCategory(CategoryType category);
-    boolean existsByEmail(String email);
     boolean existsByContactNumber(String contactNumber);
     boolean existsByBusinessName(String name);
     boolean existsByBusinessEmail(String email);

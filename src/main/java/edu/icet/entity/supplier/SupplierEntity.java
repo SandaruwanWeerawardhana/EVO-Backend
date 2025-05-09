@@ -2,13 +2,12 @@ package edu.icet.entity.supplier;
 
 
 import edu.icet.entity.system.TermsEntity;
-import edu.icet.util.CategoryType;
-
 import edu.icet.entity.event.BeautySaloonEntity;
 import edu.icet.util.SupplierCategoryType;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,9 +40,6 @@ public class SupplierEntity {
     private String description;
 
     private Boolean availability;
-
-    @Enumerated(EnumType.STRING)
-    private CategoryType category;
 
     private SupplierCategoryType category;
 

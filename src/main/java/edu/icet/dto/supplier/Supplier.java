@@ -34,7 +34,7 @@ public class Supplier {
     private Boolean availability;
 
 
-    private String category
+
     @NotNull(message = "Location is required")
     private Location location;
 
