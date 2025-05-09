@@ -44,18 +44,19 @@ public class SupplierServiceImpl implements SupplierService {
         if (category == null || category.isBlank()) {
             throw new IllegalArgumentException("Category name cannot be null or blank");
         }
-        CategoryType categoryEnum = CategoryType.valueOf(category.toUpperCase());
+        SupplierCategoryType supplierCategoryType = SupplierCategoryType.valueOf(category.toUpperCase());
 
-        return supplierRepository.findAllByCategory(categoryEnum)
+        return supplierRepository.findAllByCategory(supplierCategoryType)
                 .stream()
                 .map(supplierEntity -> mapper.map(supplierEntity, Supplier.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public Supplier searchSupplier(Long id) {
         SupplierEntity supplierEntity = supplierRepository.findById(id).orElse(null);
 
+        assert supplierEntity != null;
         if (supplierRepository.existsByContactNumber(supplierEntity.getContactNumber())) {
             throw new IllegalArgumentException("phone number is already exists");
         }
@@ -65,7 +66,7 @@ public class SupplierServiceImpl implements SupplierService {
         }
 
         supplierRepository.save(mapper.map(supplierEntity, SupplierEntity.class));
-        return supplierEntity != null ? mapper.map(supplierEntity, Supplier.class) : null;
+        return mapper.map(supplierEntity, Supplier.class);
 
     }
 
