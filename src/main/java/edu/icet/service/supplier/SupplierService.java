@@ -9,6 +9,9 @@ public interface SupplierService {
     // Supplier
     List<Supplier> getAllSuppliers();
     List<Supplier> getSupplierByCategory(SupplierCategoryType category);
+
+    List<Supplier> getByCategory(String category);
+
     Supplier searchSupplier(Long id);
     Supplier updateSupplier(Supplier supplier);
     Boolean deleteSupplier(Long supplerID);
