@@ -13,14 +13,16 @@ public class Config {
 	public ModelMapper getModelMapper () {
 		return new ModelMapper();
 	}
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http
-				.csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(auth -> auth
-						.anyRequest().permitAll()
-				)
-				.cors(Customizer.withDefaults());
-		return http.build();
-	}
+
+//	@Bean
+//	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//		http
+//				.csrf(csrf -> csrf.disable())
+//				.authorizeHttpRequests(auth -> auth
+//						.anyRequest().permitAll()
+//				)
+//				.cors(Customizer.withDefaults());
+//		return http.build();
+//	}
+
 }
