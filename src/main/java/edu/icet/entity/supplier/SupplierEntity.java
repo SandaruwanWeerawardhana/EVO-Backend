@@ -1,54 +1,99 @@
 package edu.icet.entity.supplier;
 
+
 import edu.icet.entity.system.TermsEntity;
 import edu.icet.util.CategoryType;
+
+import edu.icet.entity.event.BeautySaloonEntity;
+import edu.icet.util.SupplierCategoryType;
+
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "Suppliers")
+@Table(name = "supplier")
 public class SupplierEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long userId;
+    private Long id;
 
-    @NotBlank
-    private String firstName;
+    private String businessName;
 
-    @NotBlank
-    private String lastName;
+    private String businessContactNumber;
 
-    @Email
-    @NotBlank
-    private String email;
+    private String businessEmail;
 
-    @NotBlank
-    private String password;
 
     @Column(name = "contact_number")
     @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be exactly 10 digits")
     private String contactNumber;
 
-    @NotBlank
-    private String businessName;
+    private String description;
+
+    private Boolean availability;
 
     @Enumerated(EnumType.STRING)
     private CategoryType category;
 
-    @NotBlank
-    private String description;
+    private SupplierCategoryType category;
 
-    private String websiteURL;
-    private String profilePictureImageUrl;
-    private Boolean availability;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "location_id")
+    private LocationEntity location;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "profile_image_id")
+    private ProfileImageEntity profileImage;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "termId", referencedColumnName = "termId")
+
     private TermsEntity terms;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "beauty_salon_id")
+    private BeautySaloonEntity beautySaloon;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "catering_id")
+    private CateringEntity catering;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "venue_id")
+    private VenueEntity venue;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "music_id")
+    private MusicEntity music;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "supplier_id")
+    private List<SupplierRequestEntity> requests;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "supplier_id")
+    private List<ProfilePackageEntity> packages;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "supplier_id")
+    private List<ProfilePreviousWorkEntity> previousWorks;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "supplier_id")
+    private List<ProfileImageEntity> images;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "supplier_id")
+    private List<InventoryEntity> inventories;
 }

@@ -13,13 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ProfilePackages {
-    @NotNull
-    @Min(1)
-    private Long packageId;
+public class ProfilePackage {
 
-    @NotNull
-    private Supplier profile;
+    private Long packageId;
 
     @NotNull
     private String description;
@@ -29,12 +25,12 @@ public class ProfilePackages {
     private String packageName;
 
     @NotNull
-   @DecimalMax("10.0")@DecimalMin("0.0")
+    @DecimalMax("10.0")@DecimalMin("0.0")
     private Double price;
 
     @NotNull
     private String status;
 
-    private List<ProfileExtraFeature> featureList;
+    private List<PackageFeature> features;
 
 }

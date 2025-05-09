@@ -18,10 +18,6 @@ public class HallEntity {
     @Column(name = "id")
     private Long hallId;
 
-    @OneToOne
-    @JoinColumn(name = "property_id")
-    private PropertyEntity property;
-
     @Column(name = "count",nullable = false)
     @Min(1)
     private Integer count;

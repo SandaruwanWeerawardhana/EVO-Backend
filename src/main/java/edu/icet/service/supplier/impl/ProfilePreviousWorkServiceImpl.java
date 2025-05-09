@@ -25,8 +25,8 @@ public class ProfilePreviousWorkServiceImpl implements ProfilePreviousWorkServic
     }
 
     @Override
-    public boolean save(ProfilePreviousWork profilePreviousWork) {
-        return repository.save(mapper.map(profilePreviousWork, ProfilePreviousWorkEntity.class)) != null;
+    public ProfilePreviousWork save(ProfilePreviousWork profilePreviousWork) {
+        return mapper.map(repository.save(mapper.map(profilePreviousWork, ProfilePreviousWorkEntity.class)), ProfilePreviousWork.class );
     }
 
     @Override
@@ -40,37 +40,24 @@ public class ProfilePreviousWorkServiceImpl implements ProfilePreviousWorkServic
     }
 
     @Override
-    public ProfilePreviousWork search(ProfilePreviousWork profilePreviousWork) {
-        if (profilePreviousWork != null) {
-            if (profilePreviousWork.getPreviousWorkID() != null) {
-                return searchByPreviousWorkID(profilePreviousWork.getPreviousWorkID());
-            } else {
-                return searchBySupplier(profilePreviousWork.getSupplier());
-            }
-        }
-        return null;
-    }
+    public ProfilePreviousWork search(Long id) {
 
-    private ProfilePreviousWork searchByPreviousWorkID(Long previousWorkID) {
-        ProfilePreviousWorkEntity entity = repository.findByPreviousWorkID(previousWorkID);
+        ProfilePreviousWorkEntity profilePreviousWorkEntity = repository.findById(id).orElse(null);
 
-        return entity != null ? mapper.map(entity, ProfilePreviousWork.class) : null;
-    }
-
-    private ProfilePreviousWork searchBySupplier(Supplier supplier) {
-        ProfilePreviousWorkEntity entity = repository.findBySupplier(supplier);
-
-        return entity != null ? mapper.map(entity, ProfilePreviousWork.class) : null;
+        return profilePreviousWorkEntity != null
+                ? mapper.map(profilePreviousWorkEntity, ProfilePreviousWork.class)
+                : null;
     }
 
 
     @Override
-    public boolean update(ProfilePreviousWork profilePreviousWork) {
+    public ProfilePreviousWork update(ProfilePreviousWork profilePreviousWork) {
        if (repository.existsById(profilePreviousWork.getPreviousWorkID())) {
-           repository.save(mapper.map(profilePreviousWork, ProfilePreviousWorkEntity.class));
-           return true;
+           return mapper.map(
+                   repository.save(mapper.map(profilePreviousWork, ProfilePreviousWorkEntity.class)),
+                   ProfilePreviousWork.class);
        }
 
-       return false;
+       throw new IllegalArgumentException("Profile Previous Work does not exist!");
     }
 }

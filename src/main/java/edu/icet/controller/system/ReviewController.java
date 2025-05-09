@@ -3,12 +3,14 @@ package edu.icet.controller.system;
 import edu.icet.dto.system.Review;
 
 import edu.icet.service.system.ReviewService;
+import edu.icet.util.RatingType;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +18,12 @@ import java.util.Map;
 @RequestMapping("/review")
 @CrossOrigin
 @RequiredArgsConstructor
-
 public class ReviewController {
-    final ReviewService reviewService;
+    private final ReviewService reviewService;
+
+    public ReviewController(ReviewService reviewService) {
+        this.reviewService = reviewService;
+    }
 
     @PostMapping("/addReview")
     public ResponseEntity<Review> addByReview(@Valid @RequestBody Review review) {
@@ -30,9 +35,9 @@ public class ReviewController {
 
     }
 
-    @GetMapping("/searchByReviewId/{id}")
-    public ResponseEntity<Review> searchByReview(@PathVariable long id) {
-        Review review = reviewService.searchByIdReview(id);
+    @GetMapping("/searchByIdReview/{id}")
+    public ResponseEntity<Review> searchByReview(@PathVariable Long id) {
+        Review review = reviewService.SearchByReviewID(id);
         if (review != null) {
             return new ResponseEntity<>(review, HttpStatus.OK);
         } else {
@@ -41,14 +46,10 @@ public class ReviewController {
 
     }
 
-    @PutMapping("/updateByReviewId/{id}")
-    public ResponseEntity<String> updateByReview(@PathVariable long id, @RequestBody Review review) {
-
-        if (reviewService.updateByReview(id, review)) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    @PutMapping("/updateByReview")
+    public Boolean updateReview(@RequestBody Review review){
+        Review result = reviewService.updateByReview(review);
+        return result != null;
 
     }
 
@@ -62,8 +63,8 @@ public class ReviewController {
     }
 
 
-    @DeleteMapping("/deleteByReviewId/{id}")
-    public ResponseEntity<String> deleteByReview(@PathVariable long id) {
+    @DeleteMapping("/deleteByIdReview/{id}")
+    public ResponseEntity<String> deleteByReview(@PathVariable Long id) {
         boolean isDeleted = reviewService.deleteByReview(id);
 
         return isDeleted
@@ -71,20 +72,27 @@ public class ReviewController {
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Review not found!");
     }
 
+    @GetMapping("/SearchBySupplierId/{id}")
+     public List<Review>  searchBySupplierID(@PathVariable Long id){
+        return  reviewService.getReviewsBySupplierId(id);
 
-    @GetMapping("/getSummaryById/{id}")
-    public ResponseEntity<Map<String, Long>> getSummaryFilterReview(@PathVariable long id) {
-        Map<String, Long> summary = reviewService.getBySummaryFilterReview(id);
+    }
 
-        return (summary != null && !summary.isEmpty())
-                ? ResponseEntity.ok(summary)
-                : ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", 0L));
+    @GetMapping("/getByReviewDate/{date}")
+    public  List<Review> getReviewByDate(@PathVariable LocalDate date){
+        return  reviewService.getReviewsByDate(date);
+
+
+    }
+    @GetMapping("SearchByReviewType/{ratingType}")
+    public List<Review>searchByReviewType(@PathVariable RatingType ratingType ) {
+        List<Review> reviews = reviewService.getReviewsByRateType(ratingType);
+        if (reviews == null || reviews.isEmpty()) {
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).body("not found Review Type");
+        }
+        return reviews;
     }
 
 
-    @GetMapping("/SearchSupplier/{id}")
-    public Review searchBySupliierID( @PathVariable long id) {
-      return   reviewService.searchByIDSuplier(id);
 
-    }
 }

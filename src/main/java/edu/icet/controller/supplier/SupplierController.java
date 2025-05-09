@@ -1,315 +1,364 @@
 package edu.icet.controller.supplier;
 
+import edu.icet.dto.customer.User;
 import edu.icet.dto.supplier.*;
-
-import edu.icet.service.supplier.*;
+import edu.icet.service.supplier.SupplierManager;
 import edu.icet.util.MealType;
-import jakarta.validation.Valid;
+import edu.icet.util.SupplierCategoryType;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
-@RequestMapping("/supplier")
+@RequestMapping("/api/supplier")
 @RequiredArgsConstructor
-
 public class SupplierController {
+    private final SupplierManager service;
 
-    private final SupplierService supplierService;
-    private final BeautySaloonService service;
-    private final BookingSlotService bookingSlotService;
-    private final CateringService cateringService;
-    private final InventoryService inventoryService;
-    private final MealService mealService;
-    private final MusicService musicService;
-    private final MusicPackageService musicPackageService;
-    private final PhotographerPackageService photographerPackageService;
-    private final ProfileExtraFeatureService profileExtraFeatureService;
-    private final ProfilePackageService profilePackageService;
-    private final ProfilePreviousWorkService previousWorkService;
-    private final SalonImageService salonImageService;
+    // Supplier endpoints
 
-    @PostMapping("/add-supplier")
-    public void addSupplier(@RequestBody Supplier supplier){
-        supplierService.add(supplier);
+    @GetMapping("/users")
+    @Operation(summary = "Returns user objects of all the suppliers")
+//    @JsonView(JsonAPIViews.SupplierView.class)
+    public ResponseEntity<List<User>> getAllUserSuppliers() {
+
+        List<User> suppliers = service.getAllSupplierUsers();
+
+        return suppliers.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(suppliers);
     }
 
-    @GetMapping("/all-suppliers")
-    public List<Supplier> getAllSuppliers(){
-        return supplierService.getAll();
+    @GetMapping
+    @Operation(summary = "Returns supplier objects of all the suppliers")
+    public ResponseEntity<List<Supplier>> getAllSuppliers(@RequestParam(required = false) SupplierCategoryType category) {
+        List<Supplier> suppliers = category == null
+                ? service.getAllSuppliers()
+                : service.getSupplierByCategory(category);
+
+
+        return suppliers.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(suppliers);
     }
 
-    @GetMapping("/search-supplier/{category}")
-    public List<Supplier> getSupplierByCategory(@PathVariable String category){ return supplierService.getByCategory(category); }
-
-    @GetMapping("/search-supplier")
-    public void searchSupplier(@RequestBody Supplier query){ supplierService.search(query); }
-
-    @DeleteMapping("/delete-supplier")
-    public void deleteSupplier(@RequestParam Long id){
-        supplierService.delete(id);
+    @PostMapping
+    @Operation(summary = "Creates a supplier user")
+    public ResponseEntity<User> addSupplierUser(@RequestBody User user) {
+        return ResponseEntity.ok(service.addSupplierUser(user));
     }
 
-    @PutMapping("/update-supplier")
-    public void updateSupplier(@RequestBody Supplier supplier){
-        supplierService.update(supplier);
+    @GetMapping("/{supplierID}")
+    @Operation(summary = "Returns a supplier based on ID")
+    public ResponseEntity<Supplier> getSupplier(@PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.searchSupplier(supplierID));
     }
 
-    @PostMapping("/beauty-saloon/add-beautySaloon")
-    public void addBeautySaloon(@RequestBody BeautySaloon beautySaloon){
-        service.add(beautySaloon);
-    }
-    @GetMapping("/get-allBeautySaloon")
-    public List<BeautySaloon> getAllBeautySaloon(){
-        return service.getAll();
-    }
-    @DeleteMapping("/beauty-saloon/delete-beautySaloon/{id}")
-    public boolean deleteBeautySaloon(@PathVariable Long id){
-        return service.delete(id);
+    @PutMapping
+    public ResponseEntity<Supplier> updateSupplier(@RequestBody Supplier supplier) {
+        return ResponseEntity.ok(service.updateSupplier(supplier));
     }
 
-    @PutMapping("/beauty-saloon/update-beautySaloon")
-    public void updateBeautySaloon(@RequestBody BeautySaloon beautySaloon){
-        service.update(beautySaloon);
+    @DeleteMapping("/{supplierID}")
+    public ResponseEntity<Boolean> deleteSupplier(@PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.deleteSupplier(supplierID));
     }
 
-    @GetMapping("/beauty-saloon/get-id-beautySaloon/{id}")
-    public BeautySaloon getIdBeautySaloon(@PathVariable Long id){
-        return service.get(id);
+
+    // BeautySalon endpoints
+
+    @GetMapping("/beauty-salon")
+    public ResponseEntity<List<BeautySaloon>> getAllBeautySalon() {
+        return ResponseEntity.ok(service.getAllBeautySalon());
     }
 
-    @PostMapping("/addBookingSlot")
-    public BookingSlot addBookingSlot(@RequestBody BookingSlot bookingSlot) {
-        return bookingSlotService.save(bookingSlot);
+    @GetMapping("/beauty-salon/{beautySalonID}")
+    public ResponseEntity<BeautySaloon> getBeautySalon(@PathVariable Long beautySalonID) {
+        return ResponseEntity.ok(service.getBeautySalon(beautySalonID));
     }
 
-    @GetMapping("/getAllBookingSlot")
-    public List<BookingSlot> getAllBookingSlot() {
-        return bookingSlotService.getAll();
+    @PostMapping("/{supplierID}/beauty-salon")
+    public ResponseEntity<Supplier> addBeautySalonSupplier(@RequestBody BeautySaloon beautySaloon, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.addBeautySalonSupplier(beautySaloon, supplierID));
     }
 
-    @DeleteMapping("/deleteBookingSlot/{id}")
-    public boolean deleteBookingSlot(@PathVariable Long id) {
-        return bookingSlotService.delete(id);
+    @PutMapping("/{supplierID}/beauty-salon")
+    public ResponseEntity<Supplier> updateBeautySalonSupplier(@RequestBody BeautySaloon beautySaloon, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.updateBeautySalonSupplier(beautySaloon, supplierID));
     }
 
-    @PutMapping("/update-bookingSlot")
-    public BookingSlot updateBookingSlot(@RequestBody BookingSlot bookingSlot){
-        return bookingSlotService.update(bookingSlot);
+    @DeleteMapping("/{supplierID}/beauty-salon")
+    public ResponseEntity<Boolean> deleteBeautySalonSupplier(@PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.deleteBeautySalonSupplier(supplierID));
     }
 
-    @PostMapping("Catering/add-catering")
-    public ResponseEntity<Catering> addCatering(@Valid @RequestBody Catering catering) {
-        Catering createdCatering = cateringService.addCatering(catering);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdCatering);
-    }
 
-    @PutMapping("Catering/update-catering")
-    public ResponseEntity<Catering> updateCatering(@Valid @RequestBody Catering catering) {
-        Catering updatedCatering = cateringService.updateCatering(catering);
-        return ResponseEntity.ok(updatedCatering);
-    }
+    // Catering endpoints
 
-    @GetMapping("Catering/get-catering/{id}")
-    public ResponseEntity<Catering> getCateringById(@PathVariable Integer id) {
-        return cateringService.getCateringById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("Catering/get-all-catering")
+    @GetMapping("/catering")
     public ResponseEntity<List<Catering>> getAllCatering() {
-        List<Catering> cateringList = cateringService.getAllCatering();
+        return ResponseEntity.ok(service.getAllCatering());
+    }
+
+    @GetMapping("/catering/{cateringID}")
+    public ResponseEntity<Catering> getCateringByID(@PathVariable Long cateringID) {
+        return ResponseEntity.ok(service.getCateringById(cateringID));
+    }
+
+    @PostMapping("/{supplierID}/catering")
+    public ResponseEntity<Supplier> addCateringSupplier(@RequestBody Catering catering, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.addCateringSupplier(catering, supplierID));
+    }
+
+    @PutMapping("/{supplierID}/catering")
+    public ResponseEntity<Supplier> updateCateringSupplier(@RequestBody Catering catering, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.updateCateringSupplier(catering, supplierID));
+    }
+
+    @DeleteMapping("/{supplierID}/catering")
+    public ResponseEntity<Boolean> deleteCateringSupplier(@PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.deleteCateringSupplier(supplierID));
+    }
+
+
+    // Music endpoints
+
+    @GetMapping("/music")
+    public ResponseEntity<List<Music>> getAllMusic() {
+        return ResponseEntity.ok(service.getAllMusic());
+    }
+
+    @GetMapping("/music/{musicID}")
+    public ResponseEntity<Music> getMusicByID(@PathVariable Long musicID) {
+        return ResponseEntity.ok(service.getMusicByID(musicID));
+    }
+
+    @PostMapping("/{supplierID}/music")
+    public ResponseEntity<Supplier> addMusicSupplier(@RequestBody Music music, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.addMusicSupplier(music, supplierID));
+    }
+
+    @PutMapping("/{supplierID}/music")
+    public ResponseEntity<Supplier> updateMusicSupplier(@RequestBody Music music, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.updateMusicSupplier(music, supplierID));
+    }
+
+    @DeleteMapping("/{supplierID}/music")
+    public ResponseEntity<Boolean> deleteMusicSupplier(@PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.deleteMusicSupplier(supplierID));
+    }
+
+
+    // Meal
+
+    @GetMapping("/meal")
+    public ResponseEntity<List<Meal>> getAllMeals() {
+        return ResponseEntity.ok(service.getAllCateringMeals());
+    }
+
+    @GetMapping("/meal/{mealID}")
+    public ResponseEntity<Meal> getMealByID(@PathVariable Long mealID) {
+        return ResponseEntity.ok(service.searchMealByID(mealID));
+    }
+
+    @GetMapping("/meal/catering/search")
+    public ResponseEntity<List<Catering>> searchCateringByMeal(@RequestParam(required = false) MealType mealType, @RequestParam(required = false) String name) {
+        List<Catering> cateringList;
+        if (mealType != null) {
+            cateringList = service.searchCateringByMealType(mealType);
+
+        } else {
+            if (name != null) cateringList = service.searchCateringByMealName(name);
+            else cateringList = service.getAllCatering();
+        }
+
         return ResponseEntity.ok(cateringList);
+
     }
 
-    @DeleteMapping("Catering/delete-catering/{id}")
-    public ResponseEntity<String> deleteCatering(@PathVariable Integer id) {
-        cateringService.deleteCatering(id);
-        return ResponseEntity.ok("Catering service deleted successfully.");
+    @PostMapping("/{cateringID}/meal")
+    public ResponseEntity<Catering> addCateringMeal (@RequestBody Meal meal, @PathVariable Long cateringID) {
+        return ResponseEntity.ok(service.addCateringMeal(meal, cateringID));
     }
 
-    @GetMapping("Catering/Catering-supplier/")
-    public ResponseEntity<List<Catering>> getCateringBySupplierId(@RequestBody Supplier supplier) {
-        List<Catering> cateringList = cateringService.getCateringBySupplierId(supplier);
-        return ResponseEntity.ok(cateringList);
+    @PutMapping("/{cateringID}/meal")
+    public ResponseEntity<Catering> updateCateringMeal(@RequestBody Meal meal, @PathVariable Long cateringID) {
+        return ResponseEntity.ok(service.updateCateringMeal(meal, cateringID));
     }
 
-    @PostMapping("/inventory/add-inventory")
-    public boolean addInventory(@RequestBody Inventory inventory){
-        return inventoryService.add(inventory);
-    }
-
-    @GetMapping("/inventory/get-all-inventories")
-    public List<Inventory> getAllInventory(){
-        return inventoryService.getAll();
-    }
-
-    @GetMapping("/inventory/search-inventory/{id}")
-    public List<Inventory> searchInventoryByName(@PathVariable("id") Long id){
-        return inventoryService.search(id);
-    }
-
-    @DeleteMapping("/inventory/delete-inventory/{id}")
-    public boolean deleteInventory(@PathVariable("id") Long id){
-        return inventoryService.delete(id);
-    }
-
-    @PutMapping("/inventory/update-inventory")
-    public boolean updateInventory(@RequestBody Inventory inventory){
-        return inventoryService.update(inventory);
-    }
-
-    @GetMapping("/meal/get-all-meals")
-    public List<Meal> getAllMeals(){
-        return mealService.getAll();
-    }
-
-    @GetMapping("/meal/search-meal/{name}")
-    public List<Meal> searchMealByName(@PathVariable("name") String name){
-        return mealService.search(name);
-    }
-
-    @GetMapping("/meal/search-meal/{id}")
-    public Meal searchMealById(@PathVariable("id") Long id){
-        return mealService.search(id);
-    }
-
-    @GetMapping("/meal/search-meal/{type}")
-    public List<Meal> searchMealByType(@PathVariable("type") MealType type){
-        return mealService.search(type);
-    }
-
-    @PostMapping("/meal/save-meal")
-    public Meal saveMeal(@RequestBody Meal meal){
-        return mealService.save(meal);
-    }
-
-    @DeleteMapping("/meal/delete-meal")
-    public Boolean deleteMeal(@RequestBody Meal meal){
-        return mealService.delete(meal);
-    }
-
-    @DeleteMapping("/meal/delete-meal-by-id/{id}")
-    public Boolean deleteMealById(@PathVariable("id") Long id){
-        return mealService.delete(id);
-    }
-
-    @PutMapping("/meal/update-meal")
-    public Meal updateMeal(@RequestBody Meal meal){
-        return mealService.update(meal);
-    }
-
-    @PostMapping("/music/add-music")
-    public void addMusic(@RequestBody Music music){
-        musicService.addMusic(music);
-    }
-
-    @GetMapping("/music/get-all-music")
-    public List<Music> getAllMusic(){
-        return musicService.getAll(new Supplier());
-    }
-
-    @GetMapping("/music/search-music-by-id")
-    public Music searchMusicById(@RequestParam Long id){
-        return musicService.searchMusic(id);
-    }
-
-    @DeleteMapping("/music/delete-music")
-    public void deleteMusic(@RequestParam Long id){
-        musicService.deleteMusic(id);
-    }
-
-    @PutMapping("/music/update-music")
-    public void updateMusic(@RequestBody Music music){
-        musicService.updateMusic(music);
+    @DeleteMapping("/meal/{mealID}")
+    public ResponseEntity<Boolean> deleteCateringMeal(@PathVariable Long mealID) {
+        return ResponseEntity.ok(service.deleteCateringMeal(mealID));
     }
 
 
-    @PostMapping("/profile/profile-extra-feature/add-profileExtraFeature")
-    public Boolean saveProfileExtraFeature(@RequestBody ProfileExtraFeature profileExtraFeature) {
-        return profileExtraFeatureService.save(profileExtraFeature);
-    }
-    @DeleteMapping("/profile/profile-extra-feature/delete-profileExtraFeature/{id}")
-    public boolean deleteProfileExtraFeature(@PathVariable Long id) {
-        return profileExtraFeatureService.delete(id);
+    // Inventory Endpoints
+
+    @GetMapping("/inventory")
+    public ResponseEntity<List<Inventory>> getAllInventory() {
+        return ResponseEntity.ok(service.getAllInventory());
     }
 
-    @PutMapping("/profile/profile-extra-feature/update-profileExtraFeature")
-    public boolean updateProfileExtraFeature(@RequestBody Long id, ProfileExtraFeature profileExtraFeature) {
-        return profileExtraFeatureService.update(id, profileExtraFeature);
+    @GetMapping("/inventory/{id}")
+    public ResponseEntity<Inventory> getInventoryByID(@PathVariable Long id) {
+        return ResponseEntity.ok(service.searchInventoryByID(id));
     }
 
-    @GetMapping("/profile/profile-extra-feature/getAll-profileExtraFeatures")
-    public List<ProfileExtraFeature> getAllProfileExtraFeature() {
-        return profileExtraFeatureService.getAll();
+    @PostMapping("/{supplierID}/inventory")
+    public ResponseEntity<Supplier> addInventory(@RequestBody Inventory inventory, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.addInventory(inventory, supplierID));
     }
 
-    @GetMapping("/profile/profile-extra-feature/get-profileExtraFeature/{id}")
-    public ProfileExtraFeature searchProfileExtraFeatureById(@PathVariable Long id) {
-        return profileExtraFeatureService.searchById(id);
+    @PutMapping("/{supplierID}/inventory")
+    public ResponseEntity<Supplier> updateInventory(@RequestBody Inventory inventory, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.updateInventory(inventory, supplierID));
+    }
+
+    @DeleteMapping("/inventory/{id}")
+    public ResponseEntity<Boolean> deleteInventory(@PathVariable Long id) {
+        return ResponseEntity.ok(service.deleteInventory(id));
+    }
+
+    // ProfilePackage Endpoints
+    @GetMapping("/profile-package")
+    public ResponseEntity<List<ProfilePackage>> getAllProfilePackages() {
+        return ResponseEntity.ok(service.getAllProfilePackages());
+    }
+
+    @PostMapping("/{supplierID}/profile-package")
+    public ResponseEntity<Supplier> addProfilePackage(@RequestBody ProfilePackage profilePackage, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.addProfilePackage(profilePackage, supplierID));
+    }
+
+    @PutMapping("/{supplierID}/profile-package")
+    public ResponseEntity<Supplier> updateProfilePackage(@RequestBody ProfilePackage profilePackage, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.updateProfilePackage(profilePackage, supplierID));
+    }
+
+    @DeleteMapping("/profile-package/{packageId}")
+    public ResponseEntity<Boolean> deleteProfilePackage(@PathVariable Long packageId) {
+        return ResponseEntity.ok(service.deleteProfilePackage(packageId));
+    }
+
+    @GetMapping("/profile-package/{packageId}")
+    public ResponseEntity<Supplier> getProfilePackageSupplierByID(@PathVariable Long packageId) {
+        return ResponseEntity.ok(service.searchProfilePackageSupplierByID(packageId));
+    }
+
+    @GetMapping("/profile-package/search")
+    public ResponseEntity<Supplier> searchProfilePackageByName(@RequestParam String packageName) {
+        return ResponseEntity.ok(service.searchProfilePackageSupplierByName(packageName));
+    }
+
+    // PackageFeature Endpoints
+    @GetMapping("/package-feature")
+    public ResponseEntity<List<PackageFeature>> getAllPackageFeatures() {
+        return ResponseEntity.ok(service.getAllPackageFeatures());
+    }
+
+    @PostMapping("/{packageID}/package-feature")
+    public ResponseEntity<ProfilePackage> addPackageFeature(@RequestBody PackageFeature packageFeature, @PathVariable Long packageID) {
+        return ResponseEntity.ok(service.addPackageFeature(packageFeature, packageID));
+    }
+
+    @PutMapping("/{packageID}/package-feature")
+    public ResponseEntity<ProfilePackage> updatePackageFeature(@RequestBody PackageFeature packageFeature, @PathVariable Long packageID) {
+        return ResponseEntity.ok(service.updatePackageFeature(packageFeature, packageID));
+    }
+
+    @DeleteMapping("/package-feature/{id}")
+    public ResponseEntity<Boolean> deletePackageFeature(@PathVariable Long id) {
+        return ResponseEntity.ok(service.deletePackageFeature(id));
+    }
+
+    @GetMapping("/package-feature/{id}")
+    public ResponseEntity<ProfilePackage> searchPackageFeatureById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.searchPackageFeatureById(id));
+    }
+
+    // ProfilePreviousWork Endpoints
+    @GetMapping("/profile-previous-work")
+    public ResponseEntity<List<ProfilePreviousWork>> getAllProfilePreviousWork() {
+        return ResponseEntity.ok(service.getAllProfilePreviousWork());
+    }
+
+    @PostMapping("/{supplierID}/profile-previous-work")
+    public ResponseEntity<Supplier> addProfilePreviousWork(@RequestBody ProfilePreviousWork profilePreviousWork, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.addProfilePreviousWork(profilePreviousWork, supplierID));
+    }
+
+    @PutMapping("/{supplierID}/profile-previous-work")
+    public ResponseEntity<Supplier> updateProfilePreviousWork(@RequestBody ProfilePreviousWork profilePreviousWork, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.updateProfilePreviousWork(profilePreviousWork, supplierID));
+    }
+
+    @DeleteMapping("/profile-previous-work/{id}")
+    public ResponseEntity<Boolean> deleteProfilePreviousWork(@PathVariable Long id) {
+        return ResponseEntity.ok(service.deleteProfilePreviousWork(id));
+    }
+
+    @GetMapping("/profile-previous-work/{id}")
+    public ResponseEntity<ProfilePreviousWork> searchProfilePreviousWorkByID(@PathVariable Long id) {
+        return ResponseEntity.ok(service.searchProfilePreviousWorkByID(id));
+    }
+
+    // ProfileImage Endpoints
+    @PostMapping("/{supplierID}/profile-image")
+    public ResponseEntity<Supplier> addProfileImage(@RequestBody ProfileImage profileImage, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.addProfileImage(profileImage, supplierID));
+    }
+
+    @PutMapping("/{supplierID}/profile-image")
+    public ResponseEntity<Supplier> updateProfileImage(@RequestBody ProfileImage profileImage, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.updateProfileImage(profileImage, supplierID));
+    }
+
+    @PostMapping("/{supplierID}/profile-image/profile-picture")
+    public ResponseEntity<Supplier> changeProfilePicture(@RequestBody ProfileImage image, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.changeProfilePicture(image, supplierID));
+    }
+
+    @GetMapping("/profile-image/{id}")
+    public ResponseEntity<ProfileImage> getProfileImageByID(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getProfileImageByID(id));
+    }
+
+    @DeleteMapping("/profile-image/{id}")
+    public ResponseEntity<Boolean> deleteProfileImage(@PathVariable Long id) {
+        return ResponseEntity.ok(service.deleteProfileImage(id));
+    }
+
+    // Supplier Request
+
+    @GetMapping("/request")
+    public ResponseEntity<List<SupplierRequest>> getAllSupplierRequests() {
+        return ResponseEntity.ok(service.getAllSupplierRequests());
+    }
+
+    @GetMapping("/request/{supplierRequestID}")
+    public ResponseEntity<SupplierRequest> getSupplierRequestByID(@PathVariable Long supplierRequestID) {
+        return ResponseEntity.ok(service.getSupplierRequestByID(supplierRequestID));
+    }
+
+    @PostMapping("/{supplierID}/request")
+    public ResponseEntity<Supplier> addSupplierRequest(@RequestBody SupplierRequest supplierRequest, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.addSupplierRequest(supplierRequest, supplierID));
+    }
+
+    @PutMapping("/{supplierID}/request")
+    public ResponseEntity<Supplier> updateSupplierRequest(@RequestBody SupplierRequest supplierRequest, @PathVariable Long supplierID) {
+        return ResponseEntity.ok(service.updateSupplierRequest(supplierRequest, supplierID));
+    }
+
+    @DeleteMapping("/request/{supplierRequestID}")
+    public ResponseEntity<Boolean> deleteSupplierRequest(@PathVariable Long supplierRequestID) {
+        return ResponseEntity.ok(service.deleteSupplierRequest(supplierRequestID));
     }
 
 
-    @PostMapping("/profile/package/add-package")
-    public ProfilePackages addPackage(@RequestBody ProfilePackages profilePackage) {
-        profilePackageService.addPackage(profilePackage);
-        return profilePackage;
-    }
-
-    @GetMapping("/profile/package/getAll-packages")
-    public List<ProfilePackages> getAllPackages() {
-        return profilePackageService.getAllPackages();
-    }
-
-    @GetMapping("/profile/package/getAllPackagesByProfileId/{profileId}")
-    public List<ProfilePackages> getAllPackagesByProfileId(@PathVariable Long profileId) {
-        return profilePackageService.getAllProfileById(profileId);
-    }
-
-    @PutMapping("/profile/package/update-package")
-    public boolean updatePackage(@RequestBody ProfilePackages profilePackage) {
-        profilePackageService.updatePackage(profilePackage);
-        return true;
-    }
-
-    @DeleteMapping("/profile/package/delete-package-by-id/{packageId}")
-    public boolean deletePackage(@PathVariable Long packageId) {
-        profilePackageService.deletePackageById(packageId);
-        return true;
-    }
-
-    @GetMapping("/profile/package/get-package-by-id/{packageId}")
-    public ProfilePackages getPackageById(@PathVariable Long packageId) {
-        return profilePackageService.searchByPackageId(packageId);
-    }
-
-    @GetMapping("/profile/package/get-package-by-name/{packageName}")
-    public ProfilePackages getByName(@PathVariable String packageName) {
-        return profilePackageService.searchByPackageName(packageName);
-    }
-
-    @PostMapping("/profile/previous-work/save-previousWork")
-    public void saveWork(@RequestBody ProfilePreviousWork previousWork){
-        previousWorkService.save(previousWork);
-    }
-
-    @PutMapping("/profile/previous-work/update-previousWork")
-    public boolean updateProfile(@RequestBody ProfilePreviousWork previousWork){
-        return previousWorkService.update(previousWork);
-    }
-
-    @DeleteMapping("/profile/previous-work/delete-previousWork-by-id")
-    public boolean deleteProfileById(@RequestParam Long id){
-        return previousWorkService.delete(id);
-    }
-
-    @GetMapping("/profile/previous-work/get-previous-work-by-id")
-    public ProfilePreviousWork searchPreviousWork(@RequestParam ProfilePreviousWork profilePreviousWork){
-        return previousWorkService.search(profilePreviousWork);
-    }
 
 }

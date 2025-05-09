@@ -22,6 +22,4 @@ public class WhatsappMessageController {
     public Mono<String> sendNotification(@RequestParam(name = "id") Integer id){
         return whatsappMessageService.sendNotification(id);
     }
-
-
 }

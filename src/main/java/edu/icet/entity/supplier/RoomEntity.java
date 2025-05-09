@@ -15,9 +15,6 @@ public class RoomEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roomId;
 
-    @OneToOne
-    @JoinColumn(name = "property_id")
-    private PropertyEntity property;
 
     @Column(nullable = false)
     private Integer beds;

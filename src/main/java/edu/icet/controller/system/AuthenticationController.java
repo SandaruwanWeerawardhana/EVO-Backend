@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class SignUpController {
+public class AuthenticationController {
     private final SignUpService signUpService;
-
 
     @GetMapping("/google")
     public ResponseEntity<Boolean> google(OAuth2AuthenticationToken token, @RequestParam String userType) {
@@ -23,6 +22,4 @@ public class SignUpController {
     public ResponseEntity<Boolean> facebook(OAuth2AuthenticationToken token, @RequestParam String userType) {
         return   ResponseEntity.ok(signUpService.AuthenticateUser(token,userType)) ;
     }
-
-
 }

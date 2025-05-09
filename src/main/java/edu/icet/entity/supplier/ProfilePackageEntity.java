@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
 import java.util.List;
 
 @Data
@@ -15,14 +14,11 @@ import java.util.List;
 @ToString
 @Entity
 @Table(name="profile_packages")
-public class ProfilePackagesEntity {
+
+public class ProfilePackageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long packageId;
-
-    @ManyToOne
-    @JoinColumn(name = "supplier_id")
-    private SupplierEntity supplier;
 
     @NotNull
     @Column(nullable = false)
@@ -43,7 +39,8 @@ public class ProfilePackagesEntity {
     @Column(nullable = false)
     private String status;
 
-    @OneToMany
-    @JoinColumn(name = "profile_id")
-    private List<ProfileExtraFeatureEntity> featureList;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_package_id")
+    private List<PackageFeatureEntity> features;
+
 }

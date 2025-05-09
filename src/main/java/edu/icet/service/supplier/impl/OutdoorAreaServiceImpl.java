@@ -40,12 +40,13 @@ public class OutdoorAreaServiceImpl implements OutdoorAreaService {
     }
 
     @Override
-    public Boolean update(OutdoorArea outdoorArea) {
+    public OutdoorArea update(OutdoorArea outdoorArea) {
         if (outdoorAreaRepository.existsById(outdoorArea.getId())) {
             OutdoorAreaEntity entity = mapper.map(outdoorArea, OutdoorAreaEntity.class);
-            outdoorAreaRepository.save(entity);
-            return true;
+
+            return mapper.map(outdoorAreaRepository.save(entity), OutdoorArea.class);
         }
-        return false;
+
+        throw new IllegalArgumentException("Outdoor Area does not exist!");
     }
 }

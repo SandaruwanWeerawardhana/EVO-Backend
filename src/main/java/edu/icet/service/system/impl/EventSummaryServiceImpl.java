@@ -31,7 +31,7 @@ public class EventSummaryServiceImpl implements EventSummaryService {
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(Long id) {
         eventSummaryRepository.deleteById(id);
         return true;
     }
@@ -45,7 +45,7 @@ public class EventSummaryServiceImpl implements EventSummaryService {
     }
 
     @Override
-    public EventSummary getById(Integer id) {
+    public EventSummary getById(Long id) {
         return modelMapper.map(eventSummaryRepository.findById(id), EventSummary.class);
     }
 

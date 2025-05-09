@@ -1,31 +1,37 @@
 package edu.icet.service.supplier.impl;
 
 import edu.icet.dto.supplier.Supplier;
+import edu.icet.entity.customer.UserEntity;
 import edu.icet.entity.supplier.SupplierEntity;
+import edu.icet.repository.customer.UserRepository;
 import edu.icet.repository.supplier.SupplierRepository;
 import edu.icet.service.supplier.SupplierService;
 import edu.icet.service.system.CategoryService;
 import edu.icet.util.CategoryType;
+
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
+@Primary
 @RequiredArgsConstructor
 public class SupplierServiceImpl implements SupplierService {
-
-    final ModelMapper mapper;
-    final CategoryService categoryService;
-    final SupplierRepository repository;
+    private final SupplierRepository supplierRepository;
+    private final UserRepository userRepository;
+    private final ModelMapper mapper;
 
     @Override
-    public List<Supplier> getAll() {
-        return repository.findAll()
+    public List<Supplier> getAllSuppliers() {
+        return supplierRepository
+                .findAll()
                 .stream()
-                .map(supplierEntity -> mapper.map(supplierEntity, Supplier.class))
+                .map(supplier -> mapper.map(supplier, Supplier.class))
                 .toList();
     }
 
@@ -43,11 +49,8 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public void add(Supplier supplier) {
-
-        if (repository.existsByEmail(supplier.getEmail())){
-            throw new IllegalArgumentException("Email is already exits");
-        }
+    public Supplier searchSupplier(Long id) {
+        SupplierEntity supplierEntity = supplierRepository.findById(id).orElse(null);
 
         if (repository.existsByContactNumber(supplier.getContactNumber())) {
             throw new IllegalArgumentException("phone number is already exists");
@@ -58,36 +61,34 @@ public class SupplierServiceImpl implements SupplierService {
         }
 
         repository.save(mapper.map(supplier, SupplierEntity.class));
-    }
+        return supplierEntity != null ? mapper.map(supplierEntity, Supplier.class) : null;
 
-
-    @Override
-    public Supplier search(Supplier query) {
-        return getAll().stream()
-                .filter(s ->
-                        (query.getUserId() != 0 && Objects.equals(s.getUserId(), query.getUserId())) ||
-                                (query.getBusinessName() != null && s.getBusinessName().equalsIgnoreCase(query.getBusinessName())) ||
-                                (query.getEmail() != null && s.getEmail().equalsIgnoreCase(query.getEmail())) ||
-                                (query.getContactNumber() != null && s.getContactNumber().equals(query.getContactNumber()))
-                )
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Supplier not found"));
     }
 
     @Override
-    public void update(Supplier supplier) {
-        if (repository.existsById(supplier.getUserId())) {
-            repository.save(mapper.map(supplier, SupplierEntity.class));
-            return;
+    public Supplier updateSupplier(Supplier supplier) {
+        if (supplierRepository.existsById(supplier.getId())) {
+            return mapper.map(supplierRepository.save(mapper.map(supplier, SupplierEntity.class)), Supplier.class);
+
         }
+
         throw new IllegalArgumentException("Supplier does not exist!");
     }
 
     @Override
-    public void delete(Long id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
+    public Boolean deleteSupplier(Long supplierID) {
+        if (supplierRepository.existsById(supplierID)) {
+
+            UserEntity userEntity = userRepository.findBySupplier(supplierRepository.findById(supplierID).orElse(null));
+            userRepository.deleteById(userEntity.getUserId());
+
+            supplierRepository.deleteById(supplierID);
+
+            return true;
         }
+
         throw new IllegalArgumentException("Supplier does not exist!");
+
     }
+
 }

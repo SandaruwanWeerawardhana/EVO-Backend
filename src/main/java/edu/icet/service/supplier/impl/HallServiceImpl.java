@@ -32,18 +32,9 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    public Hall search(Hall hall) {
-        HallEntity entity = hallRepository.findById(hall.getHallId()).orElse(null);
+    public Hall search(Long hallID) {
+        HallEntity entity = hallRepository.findById(hallID).orElse(null);
         return entity != null ? modelMapper.map(entity, Hall.class) : null;
-    }
-
-    @Override
-    public Boolean delete(Hall hall) {
-        if (hallRepository.existsById(hall.getHallId())) {
-            hallRepository.deleteById(hall.getHallId());
-            return true;
-        }
-        return false;
     }
 
     @Override

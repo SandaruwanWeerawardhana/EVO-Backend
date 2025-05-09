@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "ProfileExtraFeature")
 
-public class ProfileExtraFeatureEntity {
+public class PackageFeatureEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long featureID;
@@ -22,6 +22,7 @@ public class ProfileExtraFeatureEntity {
 
     @Column(nullable = false)
     private String featureName;
+
     @Column(nullable = false)
     private Double featurePrice;
 }

@@ -14,11 +14,16 @@ import java.util.Date;
 @ToString
 public class BirthdayParty {
     @NotNull(message = "birthdayPartyID cannot be null")
-    private Long birthdayPartyId;
+    private Long eventId;
+
+    private Event event;
+
     @NotNull(message = "OwnerName cannot be null")
     private String ownerName;
+
     @Email
     private String email;
+
     @NotNull(message = "birthday cannot be null")
     private Date birthday;
 }
