@@ -3,6 +3,7 @@ package edu.icet.security;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +27,17 @@ public class JwtUtil {
     }
 
     public String generateToken(UserDetails userDetails) {
+
+        Map<String, Object> claims = new HashMap<>();
+
+        // You can get roles from the userDetails object
+        //Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+
+        // Add roles to claims (assuming single role)
+        claims.put("role","CUSTOMER");
+
         return Jwts.builder()
+                .setClaims(claims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))

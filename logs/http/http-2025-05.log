@@ -464,3 +464,146 @@ Response Status: 200
 Response Body: true
 Processing Time: 69ms
 
+2025-05-16T15:22:42.686807300 - 
+=== Request/Response ===
+Time: 2025-05-16T15:22:42.6815277
+Method: POST
+URI: /api/auth/register
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0; accept: application/json, text/plain, */*; accept-language: en-US,en;q=0.5; accept-encoding: gzip, deflate, br, zstd; content-type: application/json; content-length: 153; origin: http://localhost:4200; connection: keep-alive; referer: http://localhost:4200/; sec-fetch-dest: empty; sec-fetch-mode: cors; sec-fetch-site: same-site; priority: u=0
+Response Status: 200
+Response Body: Customer registered successfully
+Processing Time: 682ms
+
+2025-05-16T15:24:14.171891100 - 
+=== Request/Response ===
+Time: 2025-05-16T15:24:14.1618861
+Method: POST
+URI: /api/auth/register
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0; accept: application/json, text/plain, */*; accept-language: en-US,en;q=0.5; accept-encoding: gzip, deflate, br, zstd; content-type: application/json; content-length: 153; origin: http://localhost:4200; connection: keep-alive; referer: http://localhost:4200/; sec-fetch-dest: empty; sec-fetch-mode: cors; sec-fetch-site: same-site; priority: u=0
+Response Status: 200
+Response Body: Customer registered successfully
+Processing Time: 544ms
+
+2025-05-16T15:25:10.184011800 - 
+=== Request/Response ===
+Time: 2025-05-16T15:25:10.1840118
+Method: POST
+URI: /api/auth/login
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0; accept: application/json, text/plain, */*; accept-language: en-US,en;q=0.5; accept-encoding: gzip, deflate, br, zstd; content-type: application/json; content-length: 59; origin: http://localhost:4200; connection: keep-alive; referer: http://localhost:4200/; sec-fetch-dest: empty; sec-fetch-mode: cors; sec-fetch-site: same-site; priority: u=0
+Response Status: 200
+Response Body: {"email":"sahanchamara456@gmail.com","token":"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzYWhhbmNoYW1hcmE0NTZAZ21haWwuY29tIiwiaWF0IjoxNzQ3Mzg5MzEwLCJleHAiOjE3NDc1NjIxMTB9.3uj5AcFT1LzXDuKJi8yp...[truncated]
+Processing Time: 432ms
+
+2025-05-16T15:25:19.774834300 - 
+=== Request/Response ===
+Time: 2025-05-16T15:25:19.7748343
+Method: POST
+URI: /api/auth/login
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0; accept: application/json, text/plain, */*; accept-language: en-US,en;q=0.5; accept-encoding: gzip, deflate, br, zstd; content-type: application/json; content-length: 59; origin: http://localhost:4200; connection: keep-alive; referer: http://localhost:4200/; sec-fetch-dest: empty; sec-fetch-mode: cors; sec-fetch-site: same-site; priority: u=0
+Response Status: 200
+Response Body: {"email":"sahanchamara456@gmail.com","token":"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzYWhhbmNoYW1hcmE0NTZAZ21haWwuY29tIiwiaWF0IjoxNzQ3Mzg5MzE5LCJleHAiOjE3NDc1NjIxMTl9.Valii2VY-b5CDxuOp9j2...[truncated]
+Processing Time: 164ms
+
+2025-05-16T15:26:28.522662900 - 
+=== Request/Response ===
+Time: 2025-05-16T15:26:28.5226629
+Method: POST
+URI: /api/auth/login
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0; accept: application/json, text/plain, */*; accept-language: en-US,en;q=0.5; accept-encoding: gzip, deflate, br, zstd; content-type: application/json; content-length: 59; origin: http://localhost:4200; connection: keep-alive; referer: http://localhost:4200/; sec-fetch-dest: empty; sec-fetch-mode: cors; sec-fetch-site: same-site; priority: u=0
+Response Status: 200
+Response Body: {"email":"sahanchamara456@gmail.com","token":"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzYWhhbmNoYW1hcmE0NTZAZ21haWwuY29tIiwiaWF0IjoxNzQ3Mzg5Mzg4LCJleHAiOjE3NDc1NjIxODh9.9TedPgr5uk1rxhAsYipt...[truncated]
+Processing Time: 169ms
+
+2025-05-16T15:26:41.254540900 - 
+=== Request/Response ===
+Time: 2025-05-16T15:26:41.2525253
+Method: POST
+URI: /api/auth/login
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0; accept: application/json, text/plain, */*; accept-language: en-US,en;q=0.5; accept-encoding: gzip, deflate, br, zstd; content-type: application/json; content-length: 59; origin: http://localhost:4200; connection: keep-alive; referer: http://localhost:4200/; sec-fetch-dest: empty; sec-fetch-mode: cors; sec-fetch-site: same-site; priority: u=0
+Response Status: 200
+Response Body: {"email":"sahanchamara456@gmail.com","token":"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzYWhhbmNoYW1hcmE0NTZAZ21haWwuY29tIiwiaWF0IjoxNzQ3Mzg5NDAxLCJleHAiOjE3NDc1NjIyMDF9.9XfXQ6IVaQjz3KljCMf9...[truncated]
+Processing Time: 185ms
+
+2025-05-16T15:28:11.740365900 - 
+=== Request/Response ===
+Time: 2025-05-16T15:28:11.7403659
+Method: POST
+URI: /api/auth/login
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0; accept: application/json, text/plain, */*; accept-language: en-US,en;q=0.5; accept-encoding: gzip, deflate, br, zstd; content-type: application/json; content-length: 59; origin: http://localhost:4200; connection: keep-alive; referer: http://localhost:4200/; sec-fetch-dest: empty; sec-fetch-mode: cors; sec-fetch-site: same-site; priority: u=0
+Response Status: 200
+Response Body: {"email":"sahanchamara456@gmail.com","token":"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzYWhhbmNoYW1hcmE0NTZAZ21haWwuY29tIiwiaWF0IjoxNzQ3Mzg5NDkxLCJleHAiOjE3NDc1NjIyOTF9.LNj0M_dIHRTrLwsgUomQ...[truncated]
+Processing Time: 643ms
+
+2025-05-16T15:29:39.309959200 - 
+=== Request/Response ===
+Time: 2025-05-16T15:29:39.3099592
+Method: POST
+URI: /api/auth/login
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0; accept: application/json, text/plain, */*; accept-language: en-US,en;q=0.5; accept-encoding: gzip, deflate, br, zstd; content-type: application/json; content-length: 59; origin: http://localhost:4200; connection: keep-alive; referer: http://localhost:4200/; sec-fetch-dest: empty; sec-fetch-mode: cors; sec-fetch-site: same-site; priority: u=0
+Response Status: 200
+Response Body: {"email":"sahanchamara456@gmail.com","token":"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzYWhhbmNoYW1hcmE0NTZAZ21haWwuY29tIiwiaWF0IjoxNzQ3Mzg5NTc5LCJleHAiOjE3NDc1NjIzNzl9.AsznmADcSUiktBQ-ngdo...[truncated]
+Processing Time: 442ms
+
+2025-05-16T15:31:54.398247 - 
+=== Request/Response ===
+Time: 2025-05-16T15:31:54.398247
+Method: POST
+URI: /api/auth/login
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0; accept: application/json, text/plain, */*; accept-language: en-US,en;q=0.5; accept-encoding: gzip, deflate, br, zstd; content-type: application/json; content-length: 59; origin: http://localhost:4200; connection: keep-alive; referer: http://localhost:4200/; sec-fetch-dest: empty; sec-fetch-mode: cors; sec-fetch-site: same-site; priority: u=0
+Response Status: 200
+Response Body: {"email":"sahanchamara456@gmail.com","token":"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzYWhhbmNoYW1hcmE0NTZAZ21haWwuY29tIiwiaWF0IjoxNzQ3Mzg5NzE0LCJleHAiOjE3NDc1NjI1MTR9.KA6InPrVcC5d3XszT184...[truncated]
+Processing Time: 730ms
+
+2025-05-16T15:38:42.937172800 - 
+=== Request/Response ===
+Time: 2025-05-16T15:38:42.9371728
+Method: POST
+URI: /api/auth/register
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0; accept: application/json, text/plain, */*; accept-language: en-US,en;q=0.5; accept-encoding: gzip, deflate, br, zstd; content-type: application/json; content-length: 153; origin: http://localhost:4200; connection: keep-alive; referer: http://localhost:4200/; sec-fetch-dest: empty; sec-fetch-mode: cors; sec-fetch-site: same-site; priority: u=0
+Response Status: 200
+Response Body: Customer registered successfully
+Processing Time: 645ms
+
+2025-05-16T15:38:54.808851300 - 
+=== Request/Response ===
+Time: 2025-05-16T15:38:54.8088513
+Method: POST
+URI: /api/auth/login
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0; accept: application/json, text/plain, */*; accept-language: en-US,en;q=0.5; accept-encoding: gzip, deflate, br, zstd; content-type: application/json; content-length: 59; origin: http://localhost:4200; connection: keep-alive; referer: http://localhost:4200/; sec-fetch-dest: empty; sec-fetch-mode: cors; sec-fetch-site: same-site; priority: u=0
+Response Status: 200
+Response Body: {"email":"sahanchamara456@gmail.com","token":"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQ1VTVE9NRVIiLCJzdWIiOiJzYWhhbmNoYW1hcmE0NTZAZ21haWwuY29tIiwiaWF0IjoxNzQ3MzkwMTM0LCJleHAiOjE3NDc1NjI5MzR9.Mx4EusBl-Hr24-ct...[truncated]
+Processing Time: 300ms
+
+2025-05-16T15:44:11.599820100 - 
+=== Request/Response ===
+Time: 2025-05-16T15:44:11.5998201
+Method: POST
+URI: /api/auth/register
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0; accept: application/json, text/plain, */*; accept-language: en-US,en;q=0.5; accept-encoding: gzip, deflate, br, zstd; content-type: application/json; content-length: 142; origin: http://localhost:4200; connection: keep-alive; referer: http://localhost:4200/; sec-fetch-dest: empty; sec-fetch-mode: cors; sec-fetch-site: same-site; priority: u=0
+Response Status: 200
+Response Body: Customer registered successfully
+Processing Time: 554ms
+
+2025-05-16T15:44:32.891950500 - 
+=== Request/Response ===
+Time: 2025-05-16T15:44:32.8919505
+Method: POST
+URI: /api/auth/login
+Client IP: 127.0.0.1
+Headers: host: localhost:8080; user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0; accept: application/json, text/plain, */*; accept-language: en-US,en;q=0.5; accept-encoding: gzip, deflate, br, zstd; content-type: application/json; content-length: 49; origin: http://localhost:4200; connection: keep-alive; referer: http://localhost:4200/; sec-fetch-dest: empty; sec-fetch-mode: cors; sec-fetch-site: same-site; priority: u=0
+Response Status: 200
+Response Body: {"email":"kasun@gmail.com","token":"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQ1VTVE9NRVIiLCJzdWIiOiJrYXN1bkBnbWFpbC5jb20iLCJpYXQiOjE3NDczOTA0NzIsImV4cCI6MTc0NzU2MzI3Mn0.GN_ob5mzhAL56_oD1fD-_JAgEYIR3Owpp37QhZd...[truncated]
+Processing Time: 253ms
+
