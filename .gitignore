@@ -44,3 +44,7 @@ build/
 .qodo
 
 .qodo
+
+### log ###
+logs/
+http-*.log
