@@ -1,27 +1,30 @@
 package edu.icet.entity.event;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "anniversary")
 public class AnniversaryEntity {
-    @Id
-    @Column(nullable = false)
-    private Long id;
+    @Column(unique = true)
+    private Long eventId;
 
-    @Column(name = "anniversary_year", nullable = false)
+    @Id
+    @Column(nullable = false, unique = true)
+    private Long eventSummaryId;
+
+    @Column(nullable = false)
     private Integer anniversaryYear;
 
-    @Column(name = "wife_name", nullable = false)
+    @Column(nullable = false)
     private String wifeName;
 
-    @Column(name = "husband_name", nullable = false)
+    @Column(nullable = false)
     private String husbandName;
 
     private String description;

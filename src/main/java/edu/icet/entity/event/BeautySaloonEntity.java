@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -20,4 +22,11 @@ public class BeautySaloonEntity {
     private Long id;
 
     private String specialty;
+
+    // Add - New
+    @OneToOne
+    @JoinColumn(name = "supplier_id")
+    private SupplierEntity supplier;
+
+
 }

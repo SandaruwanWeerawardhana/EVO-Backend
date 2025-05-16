@@ -1,13 +1,7 @@
 package edu.icet.entity.supplier;
 
-import edu.icet.dto.supplier.Location;
-import edu.icet.dto.supplier.Property;
-import edu.icet.dto.supplier.VenueRequest;
-import edu.icet.entity.event.EventEntity;
-import edu.icet.util.EventType;
 import edu.icet.util.VenueType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,10 +21,8 @@ public class VenueEntity {
     private Long venueId;
 
     private Long capacity;
-    @Version
-    private Integer version;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private VenueType venueType;
 
@@ -45,5 +37,9 @@ public class VenueEntity {
     @OneToMany
     @JoinColumn(name = "venue_id")
     private List<VenueRequestEntity> requests;
+
+    @OneToOne
+    @JoinColumn(name = "supplier_id")
+    private SupplierEntity supplierId;
 
 }

@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.time.Instant;
-import java.time.LocalTime;
 import java.time.OffsetDateTime;
 
 @Data

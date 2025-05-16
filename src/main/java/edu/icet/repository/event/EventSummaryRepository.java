@@ -1,13 +1,19 @@
 package edu.icet.repository.event;
 
 import edu.icet.entity.event.EventSummaryEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import edu.icet.entity.event.EventSummaryFullEntity;
 
+import java.time.LocalDate;
 import java.util.List;
 
-public interface EventSummaryRepository extends JpaRepository<EventSummaryEntity, Long> {
-
-  @Query(value = "select  * from event_summary where customer_id = :customerId", nativeQuery = true)
-  List<EventSummaryEntity> findAllByCustomerId(Long customerId);
+public interface EventSummaryRepository {
+  EventSummaryFullEntity add (EventSummaryEntity eventSummary);
+  EventSummaryFullEntity update (EventSummaryEntity eventSummary);
+  EventSummaryFullEntity get (Long id);
+  List<EventSummaryFullEntity> getAll ();
+  List<EventSummaryFullEntity> getAllByDate (LocalDate date);
+  List<EventSummaryFullEntity> getAllByLocation (Long locationId);
+  List<EventSummaryFullEntity> getAllByUser (Long userId);
+  boolean delete (Long id);
+  boolean confirm (Long id);
 }

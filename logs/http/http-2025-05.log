@@ -387,3 +387,80 @@ Response Status: 200
 Response Body: {"id":1,"businessName":"Elite Catering","businessContactNumber":"0771234567","businessEmail":"catering@example.com","description":"Professional catering for events","availability":true,"location":{"lo...[truncated]
 Processing Time: 246ms
 
+2025-05-16T13:55:30.098062300 - 
+=== Request/Response ===
+Time: 2025-05-16T13:55:30.0949713
+Method: POST
+URI: /event/summary
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.43.4; accept: */*; postman-token: ce42922d-92d2-4f2b-a2fc-b38c39642123; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 303
+Response Status: 200
+Response Body: 
+Processing Time: 591ms
+
+2025-05-16T14:09:02.079826200 - 
+=== Request/Response ===
+Time: 2025-05-16T14:09:02.077825
+Method: POST
+URI: /event/summary
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.43.4; accept: */*; postman-token: 18d85a31-9ed5-45c0-ac3c-b38607c67ebf; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 303
+Response Status: 200
+Response Body: {"id":1,"user":{"userId":1,"firstName":"John","lastName":"Doe","password":"hashed_password_1","email":"john.doe@example.com","registeredDate":"2024-04-02","userType":"CUSTOMER","contactNumber":"123456...[truncated]
+Processing Time: 1070ms
+
+2025-05-16T14:09:21.239522 - 
+=== Request/Response ===
+Time: 2025-05-16T14:09:21.2385168
+Method: POST
+URI: /event/summary/confim/1
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.43.4; accept: */*; postman-token: 5eaf2218-2953-46d6-8590-489b98b28d5e; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 303
+Response Status: 404
+Response Body: 
+Processing Time: 11ms
+
+2025-05-16T14:09:34.908200800 - 
+=== Request/Response ===
+Time: 2025-05-16T14:09:34.9082008
+Method: POST
+URI: /event/summary/confirm/1
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.43.4; accept: */*; postman-token: e1be2644-9e2d-4386-98f2-079ac3ebf754; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 303
+Response Status: 200
+Response Body: true
+Processing Time: 73ms
+
+2025-05-16T14:09:42.311713800 - 
+=== Request/Response ===
+Time: 2025-05-16T14:09:42.3117138
+Method: GET
+URI: /event/all
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.43.4; accept: */*; postman-token: aeddac01-16c2-4852-a2a3-fabf49a62486; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive
+Response Status: 200
+Response Body: [{"id":1,"user":{"userId":1,"firstName":"John","lastName":"Doe","password":"hashed_password_1","email":"john.doe@example.com","registeredDate":"2024-04-02","userType":"CUSTOMER","contactNumber":"12345...[truncated]
+Processing Time: 113ms
+
+2025-05-16T14:09:54.526207 - 
+=== Request/Response ===
+Time: 2025-05-16T14:09:54.526207
+Method: POST
+URI: /event/agenda
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.43.4; accept: */*; postman-token: 1513e635-3b90-4685-9a7f-dda1408e536b; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 350
+Response Status: 200
+Response Body: false
+Processing Time: 61ms
+
+2025-05-16T14:10:08.338014400 - 
+=== Request/Response ===
+Time: 2025-05-16T14:10:08.3380144
+Method: POST
+URI: /event/agenda
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.43.4; accept: */*; postman-token: 6e2f978c-6001-40d9-9f30-e7acd7d8ab4b; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 348
+Response Status: 200
+Response Body: true
+Processing Time: 69ms
+

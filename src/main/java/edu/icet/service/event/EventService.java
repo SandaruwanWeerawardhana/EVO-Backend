@@ -1,14 +1,18 @@
 package edu.icet.service.event;
+
 import edu.icet.dto.event.Event;
-import edu.icet.dto.supplier.Venue;
-import edu.icet.util.EventType;
+import edu.icet.dto.event.EventFull;
+
+import java.time.LocalDate;
 import java.util.List;
+
 public interface EventService {
-    Event addEvent(Event event);
-    Event updateEvent(Event event, Long id);
-    Event searchEvent(Long id);
-    boolean deleteEvent(Long id);
-    List<Event> getAll();
-    List<Event> getEventsByVenue(Venue venue);
-    List<Event> getEventsByEventType(EventType eventType);
+    EventFull add (Event event);
+    EventFull update (Event event);
+    EventFull get (Long id);
+    List<EventFull> getAll ();
+    List<EventFull> getAllByDate (LocalDate date);
+    List<EventFull> getAllByLocation (Long locationId);
+    List<EventFull> getAllByUser (Long userId);
+    boolean delete (Long id);
 }

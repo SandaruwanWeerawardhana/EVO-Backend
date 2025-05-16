@@ -1,3 +1,4 @@
+
 package edu.icet.entity.event;
 
 import jakarta.persistence.*;
@@ -24,6 +25,10 @@ public class AgendaEntity {
 
     @Column(nullable = true)  // Ensure time is not null
     private LocalTime time;
+
+    @OneToOne
+    @JoinColumn(name = "event_id")
+    private EventEntity eventId;
 
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "agenda_id")

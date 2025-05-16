@@ -2,7 +2,8 @@ package edu.icet.dto.event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import edu.icet.util.LocalTimeDeserializer;
+
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +27,9 @@ public class Agenda {
     @JsonFormat(pattern = "HH:mm:ss")
     @JsonDeserialize(using = LocalTimeDeserializer.class)
     private LocalTime time;
+
+    @NotNull
+    private Event eventId;
 
     private List<AgendaTask> tasks;
 }

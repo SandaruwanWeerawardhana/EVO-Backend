@@ -1,6 +1,5 @@
 package edu.icet.dto.event;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import edu.icet.util.SupplierType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -9,8 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
-import java.time.LocalTime;
 import java.time.OffsetDateTime;
 
 @Data

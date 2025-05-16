@@ -1,18 +1,14 @@
 package edu.icet.dto.event;
 
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class BirthdayParty {
-    private Long id;
-
-    @NotNull(message = "OwnerName cannot be null")
+    private Long eventId;
+    private Long eventSummaryId;
     private String ownerName;
 }

@@ -1,6 +1,9 @@
 package edu.icet.dto.event;
 
+import edu.icet.dto.customer.User;
+import edu.icet.dto.supplier.Venue;
 import edu.icet.util.BudgetType;
+import edu.icet.util.EventStatusType;
 import edu.icet.util.EventType;
 import lombok.*;
 
@@ -12,10 +15,10 @@ import java.time.LocalTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EventSummary {
+public class EventFull {
     private Long id;
-    private Long userId;
-    private Long venueId;
+    private User user;
+    private Venue venue;
     private String location;
     private LocalDate eventDate;
     private LocalTime startTime;
@@ -24,6 +27,7 @@ public class EventSummary {
     private Integer headCount;
     private Double totalPrice;
     private BudgetType budgetType;
+    private EventStatusType eventStatus;
     private Anniversary anniversary;
     private BirthdayParty birthdayParty;
     private GetTogether getTogether;

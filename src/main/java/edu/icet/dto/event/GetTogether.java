@@ -1,18 +1,16 @@
+
 package edu.icet.dto.event;
 
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
-
+@AllArgsConstructor
 public class GetTogether {
-    private Long id;
+    private Long eventId;
+    private Long eventSummaryId;
     private String description;
-
-    @NotNull(message = "title cannot be null")
     private String title;
 }

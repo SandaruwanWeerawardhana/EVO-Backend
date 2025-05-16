@@ -1,20 +1,15 @@
 package edu.icet.dto.event;
 
 import edu.icet.util.WeddingType;
-import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.time.LocalDate;
-
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Wedding {
-    private Long id;
+    private Long eventId;
+    private Long eventSummaryId;
     private WeddingType weddingType;
-
-    @NotBlank(message = "Date can't be null")
-    private LocalDate date;
 }

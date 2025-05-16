@@ -5,6 +5,7 @@ import edu.icet.dto.event.AgendaTask;
 import edu.icet.entity.event.AgendaEntity;
 import edu.icet.entity.event.AgendaTaskEntity;
 import edu.icet.entity.event.EventEntity;
+import edu.icet.entity.event.EventFullEntity;
 import edu.icet.repository.event.AgendaRepository;
 import edu.icet.repository.event.AgendaTaskRepository;
 import edu.icet.repository.event.EventRepository;
@@ -12,7 +13,6 @@ import edu.icet.service.customer.AgendaService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.ReactiveTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public class AgendaServiceImpl implements AgendaService {
     @Transactional
     public boolean create(Agenda agenda) {
         AgendaEntity entity = new AgendaEntity();
-        EventEntity event = eventRepository.findById(agenda.getId()).orElse(null);
+        EventFullEntity event = eventRepository.get(agenda.getEventId().getId());
 
         if (event == null) return false;
 
@@ -58,7 +58,7 @@ public class AgendaServiceImpl implements AgendaService {
         AgendaEntity existing = agendaRepository.findById(agenda.getId()).orElse(null);
         if (existing == null) return false;
 
-        EventEntity event = eventRepository.findById(agenda.getId()).orElse(null);
+        EventFullEntity event = eventRepository.get(agenda.getEventId().getId());
 
         if (event == null) return false;
 

@@ -1,59 +1,70 @@
 package edu.icet.entity.event;
 
-import edu.icet.entity.customer.CustomerEntity;
-import edu.icet.entity.supplier.ProfilePackageEntity;
-import edu.icet.entity.supplier.SupplierRequestEntity;
-import edu.icet.entity.supplier.VenueEntity;
+import edu.icet.util.BudgetType;
+import edu.icet.util.EventType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Future;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
-import java.util.Date;
-import java.util.List;
-
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table (name = "EventSummary")
+@Table(name = "event_summary")
 public class EventSummaryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "event_id", nullable = false)
-    private EventEntity event;
+    @Column(nullable = false)
+    private Long userId;
 
-    @ManyToOne
-    @JoinColumn(name = "venue_id")
-    private VenueEntity venue;
+    private Long venueId;
+    private String location;
 
-    @Column(name = "event_date",nullable = false)
-    @Future
-    private Date eventDate;
+    @Column(nullable = false)
+    private LocalDate eventDate;
 
-    @Column(name = "start_time",nullable = false)
-    private Time startTime;
+    @Column(nullable = false)
+    private LocalTime startTime;
 
-    @Column(name = "end_time",nullable = false)
-    private Time endTime;
+    @Column(nullable = false)
+    private LocalTime endTime;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    private CustomerEntity customer;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private EventType eventType;
 
-    @Column(name = "head_count",nullable = false)
+    @Column(nullable = false)
     private Integer headCount;
 
-    @OneToMany( cascade = CascadeType.ALL)
+    @Column(nullable = false)
+    private Double totalPrice;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private BudgetType budgetType;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean isDeleted;
+
+    @Transient
+    private AnniversaryEntity anniversary;
+
+    @Transient
+    private BirthdayPartyEntity birthdayParty;
+
+    @Transient
+    private GetTogetherEntity getTogether;
+
+    @Transient
+    private WeddingEntity wedding;
+/*
     @JoinColumn(name = "request_id")
     private List<SupplierRequestEntity> requests;
-
-    @Column(name = "total_price")
-    private Double totalPrice;
+*/
 }

@@ -1,92 +1,71 @@
 package edu.icet.entity.event;
 
-import edu.icet.entity.supplier.LocationEntity;
-import edu.icet.entity.supplier.SupplierEntity;
-import edu.icet.entity.supplier.VenueEntity;
 import edu.icet.util.BudgetType;
 import edu.icet.util.EventStatusType;
 import edu.icet.util.EventType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.sql.Time;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
+@Getter
+@Setter
 @Entity
-@Table(name = "event")
-@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "event")
 public class EventEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Version
-    private Integer version;
-
-    @Column(name = "user_id", nullable = false)
+    @Column(nullable = false)
     private Long userId;
 
-    @Column(name = "event_date", nullable = false)
-    private Date eventDate;
+    private Long venueId;
+    private String location;
 
-    @Column(name = "start_time", nullable = false)
-    private Time startTime;
+    @Column(nullable = false)
+    private LocalDate eventDate;
 
-    @Column(name = "end_time", nullable = false)
-    private Time endTime;
+    @Column(nullable = false)
+    private LocalTime startTime;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "venue_id", nullable = true)
-    private VenueEntity venue;
+    @Column(nullable = false)
+    private LocalTime endTime;
 
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "location_id", nullable = false)
-    private LocationEntity location;
-
-    @Column(name = "event_type", nullable = false)
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EventType eventType;
 
-    @Column(name = "capacity", nullable = false)
-    private Integer capacity;
+    @Column(nullable = false)
+    private Integer headCount;
 
-    @Column(name = "budget_type", nullable = false)
+    @Column(nullable = false)
+    private Double totalPrice;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private BudgetType budgetType;
 
-    @Column(name = "event_status", nullable = false)
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EventStatusType eventStatus;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "event_id")
-    private List<SupplierEntity> suppliers;
+    @Column(columnDefinition = "boolean default false")
+    private boolean isDeleted;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "agenda_id")
-    private AgendaEntity agenda;
-
-    @OneToOne
-    @JoinColumn(name = "anniversary_id")
+    @Transient
     private AnniversaryEntity anniversary;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "wedding_id")
-    private WeddingEntity wedding;
+    @Transient
+    private BirthdayPartyEntity birthdayParty;
 
-    @OneToOne
-    @JoinColumn(name = "get_together_id")
+    @Transient
     private GetTogetherEntity getTogether;
 
-    @OneToOne
-    @JoinColumn(name = "birthday_party_id")
-    private BirthdayPartyEntity birthdayParty;
+    @Transient
+    private WeddingEntity wedding;
 }

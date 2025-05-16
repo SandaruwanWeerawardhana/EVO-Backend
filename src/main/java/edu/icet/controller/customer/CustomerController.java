@@ -2,8 +2,9 @@ package edu.icet.controller.customer;
 
 import edu.icet.dto.customer.Customer;
 import edu.icet.dto.event.EventSummary;
+import edu.icet.dto.event.EventSummaryFull;
 import edu.icet.service.customer.CustomerService;
-import edu.icet.service.system.EventSummaryService;
+import edu.icet.service.event.EventSummaryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -37,12 +38,6 @@ public class CustomerController {
     public ResponseEntity<List<Customer>> getAllCustomers() {
         List<Customer> customers = customerService.getAllCustomers();
         return customers.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.ok(customers);
-    }
-
-    @GetMapping("/get-all-event-summaries/{id}")
-    public ResponseEntity<List<EventSummary>> getAllEventSummaries(@PathVariable @Valid Long id) {
-        List<EventSummary> eventSummaryList = eventSummaryService.getEventSummariesByCustomerId(id);
-        return eventSummaryList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.ok(eventSummaryList);
     }
 
     @PutMapping("/update/{id}")

@@ -1,92 +1,66 @@
 package edu.icet.service.event.impl;
 
 import edu.icet.dto.event.Event;
-import edu.icet.dto.supplier.Venue;
+import edu.icet.dto.event.EventFull;
 import edu.icet.entity.event.EventEntity;
+import edu.icet.entity.event.EventFullEntity;
 import edu.icet.repository.event.EventRepository;
 import edu.icet.service.event.EventService;
-import edu.icet.util.EventType;
-import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@Primary
 @RequiredArgsConstructor
-@Slf4j
-@Transactional
 public class EventServiceImpl implements EventService {
-    private final EventRepository eventDao;
-    private final ModelMapper modelMapper;
-    private final EntityManager entityManager;
+    private final EventRepository eventRepository;
+    private final ModelMapper mapper;
 
     @Override
-    @Transactional
-    public Event addEvent(Event event) {
-
-        System.out.println(event);
-        // Check if the entity is detached and merge it
-        if (event.getId() != null && entityManager.contains(event)) {
-            // Entity is already managed (attached)
-            entityManager.persist(modelMapper.map(event,EventEntity.class));  // This is safe if the entity is managed
-        } else {
-            // Entity is detached, so we merge it
-            entityManager.merge(modelMapper.map(event,EventEntity.class));  // This reattaches the entity
-        }
-        return null;
-    }
-
-
-    @Override
-    public Event updateEvent(Event event, Long id) {
-        event.setId(id);
-        return modelMapper.map(eventDao.save(modelMapper.map(event, EventEntity.class)), Event.class);
+    public EventFull add (Event event) {
+        final EventFullEntity addedEvent = this.eventRepository.add(this.mapper.map(event, EventEntity.class));
+        return addedEvent == null ? null : this.mapper.map(addedEvent, EventFull.class);
     }
 
     @Override
-    public Event searchEvent(Long id) {
-        return modelMapper.map( eventDao.findById(id), Event.class);
+    public EventFull update (Event event) {
+        final EventFullEntity updatedEvent = this.eventRepository.update(this.mapper.map(event, EventEntity.class));
+        return updatedEvent == null ? null : this.mapper.map(updatedEvent, EventFull.class);
     }
 
     @Override
-    public boolean deleteEvent(Long id) {
-        eventDao.deleteById(id);
-        return eventDao.existsById(id) ;
+    public EventFull get (Long id) {
+        final EventFullEntity receivedEvent = this.eventRepository.get(id);
+        return receivedEvent == null ? null : this.mapper.map(receivedEvent, EventFull.class);
     }
 
     @Override
-    public List<Event> getAll() {
-        List<EventEntity> eventEntities = eventDao.findAll();
-        List<Event> events = new ArrayList<>();
-        for(EventEntity eventEntity : eventEntities){
-            events.add(modelMapper.map(eventEntity,Event.class));
-        }
-        return events;
+    public List<EventFull> getAll () {
+        return this.eventRepository.getAll().stream().map(eventFullEntity -> this.mapper.map(eventFullEntity, EventFull.class)).toList();
     }
 
     @Override
-    public List<Event> getEventsByVenue(Venue venue) {
-        List<EventEntity> eventEntities = eventDao.findAllByVenueId(venue.getVenueId());
-        List<Event> events = new ArrayList<>();
-        for(EventEntity eventEntity : eventEntities){
-            events.add(modelMapper.map(eventEntity,Event.class));
-        }
-        return events;
+    public List<EventFull> getAllByDate (LocalDate date) {
+        return this.eventRepository.getAllByDate(date).stream().map(eventFullEntity -> this.mapper.map(eventFullEntity, EventFull.class)).toList();
     }
 
     @Override
-    public List<Event> getEventsByEventType(EventType eventType) {
-        List<EventEntity> eventEntities = eventDao.findAllByEventType(eventType);
-        List<Event> events = new ArrayList<>();
-        for(EventEntity eventEntity : eventEntities){
-            events.add(modelMapper.map(eventEntity,Event.class));
-        }
-        return events;
+    public List<EventFull> getAllByLocation (Long locationId) {
+        return this.eventRepository.getAllByLocation(locationId).stream().map(eventFullEntity -> this.mapper.map(eventFullEntity, EventFull.class)).toList();
+    }
+
+    @Override
+    public List<EventFull> getAllByUser (Long userId) {
+        return this.eventRepository.getAllByUser(userId).stream().map(eventFullEntity -> this.mapper.map(eventFullEntity, EventFull.class)).toList();
+    }
+
+    @Override
+    public boolean delete (Long id) {
+        return this.eventRepository.delete(id);
     }
 }
-

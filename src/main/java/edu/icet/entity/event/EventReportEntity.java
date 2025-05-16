@@ -24,4 +24,3 @@ public class EventReportEntity {
     @JoinColumn(name = "event_id")
     private EventEntity event;
 }
-

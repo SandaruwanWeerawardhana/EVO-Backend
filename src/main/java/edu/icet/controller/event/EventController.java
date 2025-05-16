@@ -1,158 +1,176 @@
 package edu.icet.controller.event;
 
+import edu.icet.config.apidoc.event.EventAddApiDoc;
 import edu.icet.dto.event.*;
-import edu.icet.dto.supplier.Venue;
 import edu.icet.service.customer.AgendaService;
-import edu.icet.service.customer.AnniversaryEventService;
-import edu.icet.service.event.BirthdayPartyEventService;
 import edu.icet.service.event.EventService;
-import edu.icet.service.event.GetTogetherEventService;
-import edu.icet.service.event.WeddingEventService;
-import edu.icet.service.system.EventSummaryService;
-import edu.icet.util.EventType;
+import edu.icet.service.event.EventSummaryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.time.LocalDate;
-
-import java.util.Date;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-@RestController
-@RequestMapping("/event")
-@RequiredArgsConstructor
 @CrossOrigin
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/event")
 public class EventController {
-
     private final EventService eventService;
-    //anniversary Event service
-    private final AnniversaryEventService anniversaryEventService;
-
-    //event summary
     private final EventSummaryService eventSummaryService;
-
-     //get together
-     private final GetTogetherEventService getTogetherEventService;
-
     private final AgendaService agendaService;
 
-    private final BirthdayPartyEventService birthdayPartyEventService;
+    private Map<String, String> getValidationErrors (BindingResult result) {
+        final Map<String, String> errors = new HashMap<>();
 
-    private final WeddingEventService weddingEventService;
-
-    @PostMapping("/add")
-    public ResponseEntity<Event> addEvent(@RequestBody Event event) {
-        return ResponseEntity.ok(eventService.addEvent(event));
+        result.getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
+        return errors;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Event>> getAll() {
-        return ResponseEntity.ok(eventService.getAll());
+    private <T> ResponseEntity<T> getResponseEntityWithErrorsHeader (String errorMessage) {
+        return ResponseEntity.badRequest().header("errors", errorMessage).build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteEvent(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(eventService.deleteEvent(id));
+    private <T> ResponseEntity<T> getBothLocationAndVenueProvidedError () {
+        return this.getResponseEntityWithErrorsHeader("Only one of location or venueId is allowed");
+    }
+
+    private <T> ResponseEntity<T> getAnyLocationOrVenueNotProvidedError () {
+        return this.getResponseEntityWithErrorsHeader("one of location or venueId is required");
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Event> getEvent(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(eventService.searchEvent(id));
+    public ResponseEntity<EventFull> getEvent (@PathVariable("id") Long id) {
+        final EventFull receivedEvent = this.eventService.get(id);
+
+        return receivedEvent == null ?
+                ResponseEntity.notFound().build() :
+                ResponseEntity.ok(receivedEvent);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<EventFull>> getAllEvents () {
+        return ResponseEntity.ok(this.eventService.getAll());
+    }
+
+    @GetMapping("/by-date/{date}")
+    public ResponseEntity<List<EventFull>> getAllEventsByDate (@PathVariable("date") LocalDate date) {
+        return ResponseEntity.ok(this.eventService.getAllByDate(date));
+    }
+
+    @GetMapping("/by-location/{locationId}")
+    public ResponseEntity<List<EventFull>> getAllEventsByLocation (@PathVariable("locationId") Long locationId) {
+        return ResponseEntity.ok(this.eventService.getAllByLocation(locationId));
+    }
+
+    @GetMapping("/by-user/{userId}")
+    public ResponseEntity<List<EventFull>> getAllEventsByUser (@PathVariable("userId") Long userId) {
+        return ResponseEntity.ok(this.eventService.getAllByUser(userId));
+    }
+
+    @EventAddApiDoc
+    @PostMapping("/")
+    public ResponseEntity<EventFull> addEvent (@Valid @RequestBody Event event, BindingResult result) {
+        if (result.hasErrors()) return this.getResponseEntityWithErrorsHeader(this.getValidationErrors(result).toString());
+
+        if (event.getVenueId() != null && event.getLocation() != null) return this.getBothLocationAndVenueProvidedError();
+        if (event.getVenueId() == null && event.getLocation() == null) return this.getAnyLocationOrVenueNotProvidedError();
+
+        final EventFull addedEvent = this.eventService.add(event);
+
+        return addedEvent == null ?
+                ResponseEntity.status(304).build() :
+                ResponseEntity.ok(addedEvent);
     }
 
     @PutMapping("/")
-    public ResponseEntity<Event> updateEvent(@RequestBody Event event) {
-        return  ResponseEntity.ok(eventService.updateEvent(event,event.getId()));
+    public ResponseEntity<EventFull> updateEvent (@Valid @RequestBody Event event, BindingResult result) {
+        if (result.hasErrors()) return this.getResponseEntityWithErrorsHeader(this.getValidationErrors(result).toString());
+
+        if (event.getVenueId() != null && event.getLocation() != null) return this.getBothLocationAndVenueProvidedError();
+        if (event.getVenueId() == null && event.getLocation() == null) return this.getAnyLocationOrVenueNotProvidedError();
+
+        final EventFull updatedEvent = this.eventService.update(event);
+
+        return updatedEvent == null ?
+                ResponseEntity.status(304).build() :
+                ResponseEntity.ok(updatedEvent);
     }
 
-    @GetMapping("/by-venue")
-    public ResponseEntity<List<Event>> getEventByVenue(@RequestBody Venue venue) {
-        return ResponseEntity.ok(eventService.getEventsByVenue(venue));
-    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteEvent (@PathVariable("id") Long id) {
+        final boolean isDeleted = this.eventService.delete(id);
 
-    @GetMapping("/by-event-type/{eventType}")
-    public ResponseEntity<List<Event>> getEventsByEventType(@PathVariable("eventType") EventType eventType) {
-        return ResponseEntity.ok(eventService.getEventsByEventType(eventType));
-    }
-  
-    @PostMapping("/anniversary/")
-    public ResponseEntity<Boolean> addAnniversary(@RequestBody Anniversary anniversary) {
-        return ResponseEntity.ok(anniversaryEventService.add(anniversary));
-    }
-
-    @GetMapping("/anniversary/all")
-    public ResponseEntity<List<Anniversary>> getAllAnniversaries() {
-        return ResponseEntity.ok(anniversaryEventService.getAll());
-    }
-
-    @GetMapping("/anniversary/{eventId}")
-    public ResponseEntity<Anniversary> getAnniversary(@PathVariable("eventId") Long eventId) {
-        return ResponseEntity.ok(anniversaryEventService.get(eventId));
-    }
-
-    @PutMapping("/anniversary")
-    public ResponseEntity<Boolean> updateAnniversary(@RequestBody Anniversary anniversary) {
-        return ResponseEntity.ok(anniversaryEventService.update(anniversary));
-    }
-
-    @DeleteMapping("/anniversary/{eventId}")
-    public ResponseEntity<Boolean> deleteAnniversary(@PathVariable("eventId") Long eventId) {
-        return ResponseEntity.ok(anniversaryEventService.delete(eventId));
-    }
-
-    @PostMapping("/summary")
-    public ResponseEntity<Boolean> add(@RequestBody EventSummary eventSummary){
-        return ResponseEntity.ok(eventSummaryService.add(eventSummary));
-
-    }
-
-    @GetMapping("/summary/all")
-    public ResponseEntity<List<EventSummary>> getAllSummary(){
-        return ResponseEntity.ok(eventSummaryService.getAll());
-    }
-
-    @DeleteMapping("/summary/{id}")
-    public ResponseEntity<Boolean> deleteSummary(@PathVariable("id") Long id){
-        return ResponseEntity.ok(eventSummaryService.delete(id));
-    }
-
-    @PutMapping("/summary")
-    public ResponseEntity<Boolean> updateSummary(@RequestBody EventSummary eventSummary){
-        return ResponseEntity.ok(eventSummaryService.update(eventSummary));
+        return isDeleted ? ResponseEntity.ok().build() : ResponseEntity.status(304).build();
     }
 
     @GetMapping("/summary/{id}")
-    public ResponseEntity<EventSummary> getById(@PathVariable("id") Long id){
-        return ResponseEntity.ok(eventSummaryService.getById(id));
+    public ResponseEntity<EventSummaryFull> getEventSummary (@PathVariable("id") Long id) {
+        final EventSummaryFull receivedEvent = this.eventSummaryService.get(id);
+
+        return receivedEvent == null ?
+                ResponseEntity.notFound().build() :
+                ResponseEntity.ok(receivedEvent);
     }
 
-
-    @PostMapping("/get-together")
-    public ResponseEntity<Boolean> addGetTogether(@RequestBody GetTogether getTogether){
-        return ResponseEntity.ok(getTogetherEventService.add(getTogether));
+    @GetMapping("/summary/all")
+    public ResponseEntity<List<EventSummaryFull>> getAllEventSummaries () {
+        return ResponseEntity.ok(this.eventSummaryService.getAll());
     }
 
-    @GetMapping("/get-together/all")
-    public ResponseEntity<List<GetTogether>> getAllGetTogethers(){
-        return ResponseEntity.ok(getTogetherEventService.getAll());
+    @GetMapping("/summary/by-date/{date}")
+    public ResponseEntity<List<EventSummaryFull>> getAllEventSummariesByDate (@PathVariable("date") LocalDate date) {
+        return ResponseEntity.ok(this.eventSummaryService.getAllByDate(date));
     }
 
-    @GetMapping("/getTogether/{id}")
-    public ResponseEntity<GetTogether> getSearchGetTogether(@PathVariable("id") Integer id){
-        return ResponseEntity.ok(getTogetherEventService.get(id));
+    @GetMapping("/summary/by-location/{locationId}")
+    public ResponseEntity<List<EventSummaryFull>> getAllEventSummariesByLocation (@PathVariable("locationId") Long locationId) {
+        return ResponseEntity.ok(this.eventSummaryService.getAllByLocation(locationId));
     }
 
-    @DeleteMapping("/get-together/{id}")
-    public ResponseEntity<Boolean> deleteGetTogether(@PathVariable("id") Integer id){
-        return ResponseEntity.ok(getTogetherEventService.delete(id));
+    @GetMapping("/summary/by-user/{userId}")
+    public ResponseEntity<List<EventSummaryFull>> getAllEventSummariesByUser (@PathVariable("userId") Long userId) {
+        return ResponseEntity.ok(this.eventSummaryService.getAllByUser(userId));
     }
 
-    @PutMapping("/getTogether")
-    public ResponseEntity<Boolean> updateGetTogether(@RequestBody GetTogether  getTogether){
-        return ResponseEntity.ok(getTogetherEventService.update(getTogether));
+    @PostMapping("/summary")
+    public ResponseEntity<EventSummaryFull> addEventSummary (@Valid @RequestBody EventSummary eventSummary, BindingResult result) {
+        if (result.hasErrors()) return this.getResponseEntityWithErrorsHeader(this.getValidationErrors(result).toString());
+
+        if (eventSummary.getVenueId() != null && eventSummary.getLocation() != null) return this.getBothLocationAndVenueProvidedError();
+        if (eventSummary.getVenueId() == null && eventSummary.getLocation() == null) return this.getAnyLocationOrVenueNotProvidedError();
+
+        final EventSummaryFull addedEventSummary = this.eventSummaryService.add(eventSummary);
+
+        return addedEventSummary == null ?
+                ResponseEntity.status(304).build() :
+                ResponseEntity.ok(addedEventSummary);
+    }
+
+    @PutMapping("/summary")
+    public ResponseEntity<EventSummaryFull> updateEventSummary (@Valid @RequestBody EventSummary eventSummary, BindingResult result) {
+        if (result.hasErrors()) return this.getResponseEntityWithErrorsHeader(this.getValidationErrors(result).toString());
+
+        if (eventSummary.getVenueId() != null && eventSummary.getLocation() != null) return this.getBothLocationAndVenueProvidedError();
+        if (eventSummary.getVenueId() == null && eventSummary.getLocation() == null) return this.getAnyLocationOrVenueNotProvidedError();
+
+        final EventSummaryFull updatedEventSummary = this.eventSummaryService.update(eventSummary);
+
+        return updatedEventSummary == null ?
+                ResponseEntity.status(304).build() :
+                ResponseEntity.ok(updatedEventSummary);
+    }
+
+    @DeleteMapping("/summary/{id}")
+    public ResponseEntity<Object> deleteEventSummary (@PathVariable("id") Long id) {
+        final boolean isDeleted = this.eventSummaryService.delete(id);
+
+        return isDeleted ? ResponseEntity.ok().build() : ResponseEntity.status(304).build();
     }
 
     @PostMapping("/agenda")
@@ -200,70 +218,10 @@ public class EventController {
         return ResponseEntity.ok(agendaService.getTaskById(agendaId, taskId));
     }
 
-    @PostMapping("/birthday-party")
-    public ResponseEntity<Boolean> addBirthdayParty(@RequestBody BirthdayParty birthdayParty) {
-        return ResponseEntity.ok(birthdayPartyEventService.add(birthdayParty));
-
-    }
-
-    @GetMapping("/birthday-party/all")
-    public ResponseEntity<List<BirthdayParty>> getAllBirthdayParties() {
-        return ResponseEntity.ok(birthdayPartyEventService.getAll());
-    }
-
-    @PutMapping("/birthday-party")
-    public ResponseEntity<Boolean> updateBirthdayParty(@RequestBody BirthdayParty birthdayParty) {
-        return ResponseEntity.ok(birthdayPartyEventService.update(birthdayParty));
-    }
-
-    @GetMapping("/birthday-party/by-username")
-    public ResponseEntity<List<BirthdayParty>> getAllBirthdayPartiesByUsername(String username) {
-        return ResponseEntity.ok(birthdayPartyEventService.getAll(username));
-    }
-
-    @DeleteMapping("/birthday-party/{id}")
-    public ResponseEntity<Boolean> deleteBirthdayPartyById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(birthdayPartyEventService.delete(id));
-    }
-
-    @GetMapping("/birthday-party/{id}")
-    public ResponseEntity<BirthdayParty> getBirthdayParty(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(birthdayPartyEventService.get(id));
-    }
-
-    @GetMapping("/birthday-party/by-owner-name/{ownerName}")
-    public ResponseEntity<BirthdayParty> getBirthdayPartyByOwner(@PathVariable("ownerName") String ownerName) {
-        return ResponseEntity.ok(birthdayPartyEventService.get(ownerName));
-    }
-
-    @GetMapping("/wedding/{id}")
-    public ResponseEntity<Wedding> getWedding(@PathVariable("id") Long id){
-        return ResponseEntity.ok(weddingEventService.get(id));
-    }
-
-    @GetMapping("/wedding/by-date/{date}")
-    public ResponseEntity<List<Wedding>> getWeddingByDate(@PathVariable("date") LocalDate date){
-        return ResponseEntity.ok(weddingEventService.getByDate(date));
-    }
-
-
-    @GetMapping("/wedding/all")
-    public ResponseEntity<List<Wedding>> getAllWedding(){
-        return ResponseEntity.ok(weddingEventService.getAll());
-    }
-
-    @PostMapping("/wedding")
-    public ResponseEntity<Boolean> addWedding(@RequestBody Wedding wedding){
-        return ResponseEntity.ok(weddingEventService.add(wedding));
-    }
-
-    @DeleteMapping("/wedding/{id}")
-    public ResponseEntity<Boolean> deleteWedding(@PathVariable("id") Long id){
-        return ResponseEntity.ok(weddingEventService.delete(id));
-    }
-
-    @PutMapping("/wedding")
-    public ResponseEntity<Boolean> updateWedding(@RequestBody Wedding wedding){
-        return ResponseEntity.ok(weddingEventService.update(wedding));
+    @PostMapping("/summary/confirm/{id}")
+    public ResponseEntity<Boolean> confirmEventSummary (@PathVariable("id") Long id) {
+        return this.eventSummaryService.confirm(id) ?
+                ResponseEntity.ok(true) :
+                ResponseEntity.status(304).build();
     }
 }

@@ -1,21 +1,23 @@
 package edu.icet.entity.event;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "get_together")
 public class GetTogetherEntity {
-    @Id
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @Column(unique = true)
+    private Long eventId;
 
-    @Column(nullable = false)
+    @Id
+    @Column(nullable = false, unique = true)
+    private Long eventSummaryId;
+
     private String description;
 
     @Column(nullable = false)
