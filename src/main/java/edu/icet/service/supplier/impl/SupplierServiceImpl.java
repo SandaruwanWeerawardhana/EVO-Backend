@@ -6,8 +6,6 @@ import edu.icet.entity.supplier.SupplierEntity;
 import edu.icet.repository.customer.UserRepository;
 import edu.icet.repository.supplier.SupplierRepository;
 import edu.icet.service.supplier.SupplierService;
-
-
 import edu.icet.util.SupplierCategoryType;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -35,28 +33,16 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public List<Supplier> getSupplierByCategory(SupplierCategoryType category) {
-        return List.of();
-    }
-
-    @Override
-    public List<Supplier> getByCategory(String category) {
-        if (category == null || category.isBlank()) {
-            throw new IllegalArgumentException("Category name cannot be null or blank");
-        }
-        SupplierCategoryType supplierCategoryType = SupplierCategoryType.valueOf(category.toUpperCase());
-
-        return supplierRepository.findAllByCategory(supplierCategoryType)
+        return getAllSuppliers()
                 .stream()
-                .map(supplierEntity -> mapper.map(supplierEntity, Supplier.class))
-                .toList();
+                .filter(supplier -> supplier.getCategory() == category).toList();
     }
 
     @Override
     public Supplier searchSupplier(Long id) {
         SupplierEntity supplierEntity = supplierRepository.findById(id).orElse(null);
-        assert supplierEntity != null;
-        return mapper.map(supplierEntity, Supplier.class);
 
+        return supplierEntity != null ? mapper.map(supplierEntity, Supplier.class) : null;
     }
 
     @Override

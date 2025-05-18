@@ -17,4 +17,8 @@ public class MusicEntity {
 
     private Integer teamSize;
 
+    @OneToOne
+    @JoinColumn(name = "supplier_id")
+    private SupplierEntity supplierId;
+
 }

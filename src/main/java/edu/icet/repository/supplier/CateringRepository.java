@@ -1,13 +1,19 @@
 package edu.icet.repository.supplier;
 
+import edu.icet.dto.supplier.Catering;
 import edu.icet.entity.supplier.CateringEntity;
-import edu.icet.entity.supplier.MealEntity;
-import edu.icet.entity.supplier.SupplierEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import java.util.Collection;
-import java.util.List;
+
+import java.util.Optional;
 
 public interface CateringRepository extends JpaRepository <CateringEntity, Long>  {
-    List<CateringEntity> findByMealsIn(List<MealEntity> meals);
+
+
+    @Query(value = "SELECT c.* FROM Catering c WHERE c.supplier_id = :supplierId", nativeQuery = true)
+    Optional<CateringEntity> findBySupplierId(@Param("supplierId") Long supplierID);
+
+
 }

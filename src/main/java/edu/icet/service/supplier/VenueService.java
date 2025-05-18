@@ -1,6 +1,5 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.supplier.Supplier;
 import edu.icet.dto.supplier.Venue;
 import edu.icet.util.VenueType;
 

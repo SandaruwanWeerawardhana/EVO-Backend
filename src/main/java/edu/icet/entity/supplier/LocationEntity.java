@@ -27,5 +27,4 @@ public class LocationEntity {
     @Column(name = "village", nullable = false)
     private String village;
 
-
 }

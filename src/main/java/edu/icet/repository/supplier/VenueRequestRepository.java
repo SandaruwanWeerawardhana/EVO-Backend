@@ -7,9 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface VenueRequestRepository extends JpaRepository<VenueRequestEntity, Long> {
-
     List<VenueRequestEntity> findBySupplier(SupplierEntity supplier);
     List<VenueRequestEntity> findByVenue(VenueEntity venue);
     List<VenueRequestEntity> findByStatus(Boolean status);
-
 }

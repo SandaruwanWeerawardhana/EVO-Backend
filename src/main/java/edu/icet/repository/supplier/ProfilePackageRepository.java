@@ -1,6 +1,5 @@
 package edu.icet.repository.supplier;
 
-import edu.icet.entity.supplier.PackageFeatureEntity;
 import edu.icet.entity.supplier.ProfilePackageEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,5 +11,4 @@ public interface ProfilePackageRepository extends JpaRepository<ProfilePackageEn
     ProfilePackageEntity findByPackageName(String name);
     boolean existsByPackageName(String name);
 
-    ProfilePackageEntity findByFeaturesIn(List<PackageFeatureEntity> features);
 }
