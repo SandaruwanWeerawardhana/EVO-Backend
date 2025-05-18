@@ -15,7 +15,7 @@ import java.util.List;
 public class HallServiceImpl implements HallService {
     final ModelMapper modelMapper;
     final HallRepository hallRepository;
-  
+
     @Override
     public List<Hall> getAll() {
         return hallRepository.findAll()

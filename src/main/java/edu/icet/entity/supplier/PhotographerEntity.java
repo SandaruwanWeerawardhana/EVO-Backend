@@ -2,22 +2,23 @@ package edu.icet.entity.supplier;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
 @Entity
-@Table(name = "PropertyImages")
+@Table(name = "photographer")
+public class PhotographerEntity {
 
-public class PropertyImageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long photographerId;
 
-    @Column(nullable = false)
-    private String imageUrl;
+    private String award;
+
+    @OneToOne
+    @JoinColumn(name = "supplier_id")
+    private SupplierEntity supplierId;
 }

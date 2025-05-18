@@ -31,10 +31,10 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public Property save(Property property) {
-       if(property==null){
-           return null;
-       }
-       PropertyEntity save = repository.save(mapper.map(property,PropertyEntity.class));
+        if(property==null){
+            return null;
+        }
+        PropertyEntity save = repository.save(mapper.map(property,PropertyEntity.class));
         return mapper.map(save,Property.class);
     }
 
@@ -50,11 +50,11 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public Boolean delete(Long id) {
-       if (repository.existsById(id)){
-           repository.deleteById(id);
-           return true;
-       }
-       return false;
+        if (repository.existsById(id)){
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
     @Override

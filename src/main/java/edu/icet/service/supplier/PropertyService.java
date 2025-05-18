@@ -6,8 +6,6 @@ import java.util.List;
 
 
 public interface PropertyService {
-    ;
-
     List<Property> getAll();
     Property save(Property property);
     Property search(Long propertyID);

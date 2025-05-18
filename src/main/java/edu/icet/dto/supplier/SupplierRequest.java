@@ -1,10 +1,5 @@
 package edu.icet.dto.supplier;
 
-import edu.icet.dto.customer.Customer;
-import edu.icet.util.SupplerRequestStatusType;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,29 +9,21 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class SupplierRequest {
-    private Long id;
+    private Long supplierRequestId;
 
-    @NotNull(message = "RequestDate not be empty")
     private LocalDateTime requestDate;
 
-    @NotNull(message = "DueDate not be empty")
     private LocalDateTime dueDateTime;
 
-    @NotNull(message = "Approve not be empty")
-    @Enumerated(EnumType.STRING)
-    private SupplerRequestStatusType requestStatus;
+    private Long supplierId;
 
-    @NotNull(message = "Customer not be empty")
-    private Customer customer;
+    private String requestStatus;
 
-    @NotNull(message = "Profile Package not be empty")
-    private ProfilePackage selectedPackage;
+    private Long customerId;
 
-    private List<PackageFeature> extraFeatures;
+    private Long selectedPackageId;
 
-    @NotNull(message = "Location not be empty")
-    private Location location;
 
+    private Long locationId;
 }

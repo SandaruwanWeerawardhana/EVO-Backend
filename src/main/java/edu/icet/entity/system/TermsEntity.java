@@ -1,8 +1,5 @@
 package edu.icet.entity.system;
 
-import edu.icet.dto.supplier.Supplier;
-import edu.icet.entity.supplier.CategoryEntity;
-import edu.icet.entity.supplier.SupplierEntity;
 import edu.icet.util.SupplierCategoryType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

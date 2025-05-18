@@ -19,8 +19,9 @@ public class InventoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long inventoryId;
 
-    @Version
-    private Integer version;
+    @OneToOne
+    @JoinColumn(name = "supplier_id")
+    private SupplierEntity supplierId;
 
     private String imageURL;
 

@@ -19,18 +19,11 @@ import java.util.List;
 public class SupplierController {
     private final SupplierManager service;
 
-    // Supplier endpoints
-
-    @GetMapping("/users")
-    @Operation(summary = "Returns user objects of all the suppliers")
-//    @JsonView(JsonAPIViews.SupplierView.class)
-    public ResponseEntity<List<User>> getAllUserSuppliers() {
-
-        List<User> suppliers = service.getAllSupplierUsers();
-
-        return suppliers.isEmpty()
-                ? ResponseEntity.noContent().build()
-                : ResponseEntity.ok(suppliers);
+    // Supplier endpoint
+    @PostMapping("/add")
+    @Operation(summary = "Creates a supplier")
+    public ResponseEntity<Supplier> addSupplier(@RequestBody Supplier supplier) {
+        return ResponseEntity.ok(service.addSupplier(supplier));
     }
 
     @GetMapping
@@ -44,12 +37,6 @@ public class SupplierController {
         return suppliers.isEmpty()
                 ? ResponseEntity.noContent().build()
                 : ResponseEntity.ok(suppliers);
-    }
-
-    @PostMapping
-    @Operation(summary = "Creates a supplier user")
-    public ResponseEntity<User> addSupplierUser(@RequestBody User user) {
-        return ResponseEntity.ok(service.addSupplierUser(user));
     }
 
     @GetMapping("/{supplierID}")
@@ -110,12 +97,12 @@ public class SupplierController {
     }
 
     @PostMapping("/{supplierID}/catering")
-    public ResponseEntity<Supplier> addCateringSupplier(@RequestBody Catering catering, @PathVariable Long supplierID) {
+    public ResponseEntity<Catering> addCateringSupplier(@RequestBody Catering catering, @PathVariable Long supplierID) {
         return ResponseEntity.ok(service.addCateringSupplier(catering, supplierID));
     }
 
     @PutMapping("/{supplierID}/catering")
-    public ResponseEntity<Supplier> updateCateringSupplier(@RequestBody Catering catering, @PathVariable Long supplierID) {
+    public ResponseEntity<Boolean> updateCateringSupplier(@RequestBody Catering catering, @PathVariable Long supplierID) {
         return ResponseEntity.ok(service.updateCateringSupplier(catering, supplierID));
     }
 
@@ -143,7 +130,7 @@ public class SupplierController {
     }
 
     @PutMapping("/{supplierID}/music")
-    public ResponseEntity<Supplier> updateMusicSupplier(@RequestBody Music music, @PathVariable Long supplierID) {
+    public ResponseEntity<Boolean> updateMusicSupplier(@RequestBody Music music, @PathVariable Long supplierID) {
         return ResponseEntity.ok(service.updateMusicSupplier(music, supplierID));
     }
 
@@ -209,12 +196,12 @@ public class SupplierController {
     }
 
     @PostMapping("/{supplierID}/inventory")
-    public ResponseEntity<Supplier> addInventory(@RequestBody Inventory inventory, @PathVariable Long supplierID) {
+    public ResponseEntity<Boolean> addInventory(@RequestBody Inventory inventory, @PathVariable Long supplierID) {
         return ResponseEntity.ok(service.addInventory(inventory, supplierID));
     }
 
     @PutMapping("/{supplierID}/inventory")
-    public ResponseEntity<Supplier> updateInventory(@RequestBody Inventory inventory, @PathVariable Long supplierID) {
+    public ResponseEntity<Boolean> updateInventory(@RequestBody Inventory inventory, @PathVariable Long supplierID) {
         return ResponseEntity.ok(service.updateInventory(inventory, supplierID));
     }
 
@@ -230,12 +217,12 @@ public class SupplierController {
     }
 
     @PostMapping("/{supplierID}/profile-package")
-    public ResponseEntity<Supplier> addProfilePackage(@RequestBody ProfilePackage profilePackage, @PathVariable Long supplierID) {
+    public ResponseEntity<Boolean> addProfilePackage(@RequestBody ProfilePackage profilePackage, @PathVariable Long supplierID) {
         return ResponseEntity.ok(service.addProfilePackage(profilePackage, supplierID));
     }
 
     @PutMapping("/{supplierID}/profile-package")
-    public ResponseEntity<Supplier> updateProfilePackage(@RequestBody ProfilePackage profilePackage, @PathVariable Long supplierID) {
+    public ResponseEntity<Boolean> updateProfilePackage(@RequestBody ProfilePackage profilePackage, @PathVariable Long supplierID) {
         return ResponseEntity.ok(service.updateProfilePackage(profilePackage, supplierID));
     }
 
@@ -245,40 +232,40 @@ public class SupplierController {
     }
 
     @GetMapping("/profile-package/{packageId}")
-    public ResponseEntity<Supplier> getProfilePackageSupplierByID(@PathVariable Long packageId) {
+    public ResponseEntity<ProfilePackage> getProfilePackageSupplierByID(@PathVariable Long packageId) {
         return ResponseEntity.ok(service.searchProfilePackageSupplierByID(packageId));
     }
 
     @GetMapping("/profile-package/search")
-    public ResponseEntity<Supplier> searchProfilePackageByName(@RequestParam String packageName) {
+    public ResponseEntity<ProfilePackage> searchProfilePackageByName(@RequestParam String packageName) {
         return ResponseEntity.ok(service.searchProfilePackageSupplierByName(packageName));
     }
 
-    // PackageFeature Endpoints
-    @GetMapping("/package-feature")
-    public ResponseEntity<List<PackageFeature>> getAllPackageFeatures() {
-        return ResponseEntity.ok(service.getAllPackageFeatures());
-    }
-
-    @PostMapping("/{packageID}/package-feature")
-    public ResponseEntity<ProfilePackage> addPackageFeature(@RequestBody PackageFeature packageFeature, @PathVariable Long packageID) {
-        return ResponseEntity.ok(service.addPackageFeature(packageFeature, packageID));
-    }
-
-    @PutMapping("/{packageID}/package-feature")
-    public ResponseEntity<ProfilePackage> updatePackageFeature(@RequestBody PackageFeature packageFeature, @PathVariable Long packageID) {
-        return ResponseEntity.ok(service.updatePackageFeature(packageFeature, packageID));
-    }
-
-    @DeleteMapping("/package-feature/{id}")
-    public ResponseEntity<Boolean> deletePackageFeature(@PathVariable Long id) {
-        return ResponseEntity.ok(service.deletePackageFeature(id));
-    }
-
-    @GetMapping("/package-feature/{id}")
-    public ResponseEntity<ProfilePackage> searchPackageFeatureById(@PathVariable Long id) {
-        return ResponseEntity.ok(service.searchPackageFeatureById(id));
-    }
+//    // PackageFeature Endpoints
+//    @GetMapping("/package-feature")
+//    public ResponseEntity<List<PackageFeature>> getAllPackageFeatures() {
+//        return ResponseEntity.ok(service.getAllPackageFeatures());
+//    }
+//
+//    @PostMapping("/{packageID}/package-feature")
+//    public ResponseEntity<ProfilePackage> addPackageFeature(@RequestBody PackageFeature packageFeature, @PathVariable Long packageID) {
+//        return ResponseEntity.ok(service.addPackageFeature(packageFeature, packageID));
+//    }
+//
+//    @PutMapping("/{packageID}/package-feature")
+//    public ResponseEntity<ProfilePackage> updatePackageFeature(@RequestBody PackageFeature packageFeature, @PathVariable Long packageID) {
+//        return ResponseEntity.ok(service.updatePackageFeature(packageFeature, packageID));
+//    }
+//
+//    @DeleteMapping("/package-feature/{id}")
+//    public ResponseEntity<Boolean> deletePackageFeature(@PathVariable Long id) {
+//        return ResponseEntity.ok(service.deletePackageFeature(id));
+//    }
+//
+//    @GetMapping("/package-feature/{id}")
+//    public ResponseEntity<ProfilePackage> searchPackageFeatureById(@PathVariable Long id) {
+//        return ResponseEntity.ok(service.searchPackageFeatureById(id));
+//    }
 
     // ProfilePreviousWork Endpoints
     @GetMapping("/profile-previous-work")
@@ -287,12 +274,12 @@ public class SupplierController {
     }
 
     @PostMapping("/{supplierID}/profile-previous-work")
-    public ResponseEntity<Supplier> addProfilePreviousWork(@RequestBody ProfilePreviousWork profilePreviousWork, @PathVariable Long supplierID) {
+    public ResponseEntity<Boolean> addProfilePreviousWork(@RequestBody ProfilePreviousWork profilePreviousWork, @PathVariable Long supplierID) {
         return ResponseEntity.ok(service.addProfilePreviousWork(profilePreviousWork, supplierID));
     }
 
     @PutMapping("/{supplierID}/profile-previous-work")
-    public ResponseEntity<Supplier> updateProfilePreviousWork(@RequestBody ProfilePreviousWork profilePreviousWork, @PathVariable Long supplierID) {
+    public ResponseEntity<Boolean> updateProfilePreviousWork(@RequestBody ProfilePreviousWork profilePreviousWork, @PathVariable Long supplierID) {
         return ResponseEntity.ok(service.updateProfilePreviousWork(profilePreviousWork, supplierID));
     }
 
@@ -302,35 +289,10 @@ public class SupplierController {
     }
 
     @GetMapping("/profile-previous-work/{id}")
-    public ResponseEntity<ProfilePreviousWork> searchProfilePreviousWorkByID(@PathVariable Long id) {
+    public ResponseEntity<List<ProfilePreviousWork>> searchProfilePreviousWorkByID(@PathVariable Long id) {
         return ResponseEntity.ok(service.searchProfilePreviousWorkByID(id));
     }
 
-    // ProfileImage Endpoints
-    @PostMapping("/{supplierID}/profile-image")
-    public ResponseEntity<Supplier> addProfileImage(@RequestBody ProfileImage profileImage, @PathVariable Long supplierID) {
-        return ResponseEntity.ok(service.addProfileImage(profileImage, supplierID));
-    }
-
-    @PutMapping("/{supplierID}/profile-image")
-    public ResponseEntity<Supplier> updateProfileImage(@RequestBody ProfileImage profileImage, @PathVariable Long supplierID) {
-        return ResponseEntity.ok(service.updateProfileImage(profileImage, supplierID));
-    }
-
-    @PostMapping("/{supplierID}/profile-image/profile-picture")
-    public ResponseEntity<Supplier> changeProfilePicture(@RequestBody ProfileImage image, @PathVariable Long supplierID) {
-        return ResponseEntity.ok(service.changeProfilePicture(image, supplierID));
-    }
-
-    @GetMapping("/profile-image/{id}")
-    public ResponseEntity<ProfileImage> getProfileImageByID(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getProfileImageByID(id));
-    }
-
-    @DeleteMapping("/profile-image/{id}")
-    public ResponseEntity<Boolean> deleteProfileImage(@PathVariable Long id) {
-        return ResponseEntity.ok(service.deleteProfileImage(id));
-    }
 
     // Supplier Request
 
@@ -345,7 +307,7 @@ public class SupplierController {
     }
 
     @PostMapping("/{supplierID}/request")
-    public ResponseEntity<Supplier> addSupplierRequest(@RequestBody SupplierRequest supplierRequest, @PathVariable Long supplierID) {
+    public ResponseEntity<Boolean> addSupplierRequest(@RequestBody SupplierRequest supplierRequest, @PathVariable Long supplierID) {
         return ResponseEntity.ok(service.addSupplierRequest(supplierRequest, supplierID));
     }
 
