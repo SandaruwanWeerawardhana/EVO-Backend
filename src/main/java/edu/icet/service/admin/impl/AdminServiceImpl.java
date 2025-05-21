@@ -99,6 +99,11 @@ public class AdminServiceImpl implements AdminService {
     public boolean existsByEmail(String email) {
         return repo.existsByEmail(email);
     }
+
+    @Override
+    public Admin getCustomerByEmail (String email) {
+        return this.mapper.map(this.repo.findByEmail(email), Admin.class);
+    }
 }
 
 

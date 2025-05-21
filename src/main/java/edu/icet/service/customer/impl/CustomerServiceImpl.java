@@ -90,4 +90,9 @@ public class CustomerServiceImpl implements CustomerService {
     public boolean isCustomerExist (String email) {
         return this.customerRepository.existsByEmail(email);
     }
+
+    @Override
+    public Customer getCustomerByEmail(String email) {
+        return this.modelMapper.map(this.customerRepository.findByEmail(email), Customer.class);
+    }
 }

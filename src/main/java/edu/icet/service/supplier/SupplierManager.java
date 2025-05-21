@@ -87,5 +87,6 @@ public interface SupplierManager {
     Boolean deleteSupplierRequest(Long id);
 
     boolean existsByEmail(@NotBlank(message = "Email cannot be empty") @Email(message = "Invalid email format") String email);
+    Supplier getCustomerByEmail (String email);
 
 }

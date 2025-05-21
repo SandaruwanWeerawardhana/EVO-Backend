@@ -65,9 +65,29 @@ public class AuthController {
             return ResponseEntity.status(401).body("Invalid email or password");
         }
 
-        UserDetails userDetails = customerService.loadUserByUsername(loginRequest.getEmail());
-        String jwtToken = jwtUtil.generateToken(userDetails);
+        final String role;
+        final Object entity;
+        final String email = loginRequest.getEmail();
 
-        return ResponseEntity.ok(new JwtResponse(loginRequest.getEmail(), jwtToken));
+        if (this.customerService.isCustomerExist(email)) {
+            role = "CUSTOMER";
+            entity = this.customerService.getCustomerByEmail(email);
+        } else if (this.supplierService.existsByEmail(email)) {
+            role = "SUPPLIER";
+            entity = this.supplierService.getCustomerByEmail(email);
+        } else if (this.adminService.existsByEmail(email)) {
+            role = "ADMIN";
+            entity = this.adminService.getCustomerByEmail(email);
+        } else {
+            role = null;
+            entity = null;
+        }
+
+        if (role == null) return ResponseEntity.badRequest().build();
+
+        UserDetails userDetails = customerService.loadUserByUsername(loginRequest.getEmail());
+        String jwtToken = jwtUtil.generateToken(userDetails, role);
+
+        return ResponseEntity.ok(new JwtResponse(loginRequest.getEmail(), jwtToken, entity));
     }
 }

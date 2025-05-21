@@ -546,4 +546,9 @@ public class SupplierManagerImpl implements SupplierManager {
         return updateSupplier(mapper.map(supplierEntity, Supplier.class));
     }
 
+    @Override
+    public Supplier getCustomerByEmail (String email) {
+        return this.mapper.map(this.supplierRepository.findByEmail(email), Supplier.class);
+    }
+
 }

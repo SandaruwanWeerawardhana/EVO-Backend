@@ -18,4 +18,5 @@ public interface CustomerService {
 
     UserDetails loadUserByUsername(String email);
     boolean isCustomerExist (String email);
+    Customer getCustomerByEmail (String email);
 }

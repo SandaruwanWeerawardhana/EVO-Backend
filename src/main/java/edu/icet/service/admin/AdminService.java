@@ -16,4 +16,5 @@ public interface AdminService {
      List<Admin>getAllAdmins();
      List<Admin>getAdminByType(AdminType type);
      boolean existsByEmail(@NotBlank(message = "Email cannot be empty") @Email(message = "Invalid email format") String email);
+     Admin getCustomerByEmail (String email);
 }
