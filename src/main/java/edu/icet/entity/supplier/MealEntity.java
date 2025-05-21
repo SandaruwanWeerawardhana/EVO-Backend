@@ -16,6 +16,10 @@ public class MealEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "catering_Id")
+    private CateringEntity cateringId;
+
     @Column(nullable = false)
     private String name;
 

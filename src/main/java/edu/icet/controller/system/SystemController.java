@@ -26,7 +26,7 @@ import java.util.Map;
 public class SystemController {
     final TransactionHistoryService service;
     private final NotificationService notificationService;
-    final CategoryService categoryService;
+
     private ExcelReaderService excelReaderService;
     final ReviewService reviewService;
     final SearchHistoryService searchHistoryService;
@@ -176,35 +176,35 @@ public class SystemController {
         }
     }
 
-    @PostMapping("/category/add-category")
-    public Boolean addCategory(@RequestBody Category category){
-        return categoryService.save(category);
-    }
-
-    @DeleteMapping("/category/delete-category-by-id/{id}")
-    public Boolean deleteCategoryById(@PathVariable Long id){
-        return categoryService.delete(id);
-    }
-
-    @DeleteMapping("/category/delete-category")
-    public Boolean deleteCategory(@RequestBody Category category){
-        return categoryService.delete(category);
-    }
-
-    @PutMapping("/category/update-category")
-    public Boolean updateCategory(@RequestBody Category category){
-        return categoryService.update(category);
-    }
-
-    @GetMapping("/category/search-category")
-    public Category searchCategory(@RequestBody String query){
-        return categoryService.search(query);
-    }
-
-    @GetMapping("/category/get-all-categories")
-    public List<Category> getAllCategory(){
-        return categoryService.getAll();
-    }
+//    @PostMapping("/category/add-category")
+//    public Boolean addCategory(@RequestBody Category category){
+//        return categoryService.save(category);
+//    }
+//
+//    @DeleteMapping("/category/delete-category-by-id/{id}")
+//    public Boolean deleteCategoryById(@PathVariable Long id){
+//        return categoryService.delete(id);
+//    }
+//
+//    @DeleteMapping("/category/delete-category")
+//    public Boolean deleteCategory(@RequestBody Category category){
+//        return categoryService.delete(category);
+//    }
+//
+//    @PutMapping("/category/update-category")
+//    public Boolean updateCategory(@RequestBody Category category){
+//        return categoryService.update(category);
+//    }
+//
+//    @GetMapping("/category/search-category")
+//    public Category searchCategory(@RequestBody String query){
+//        return categoryService.search(query);
+//    }
+//
+//    @GetMapping("/category/get-all-categories")
+//    public List<Category> getAllCategory(){
+//        return categoryService.getAll();
+//    }
 
     @PostMapping("/excel/upload-excel")
     public ResponseEntity<List<String>> uploadExcel() {

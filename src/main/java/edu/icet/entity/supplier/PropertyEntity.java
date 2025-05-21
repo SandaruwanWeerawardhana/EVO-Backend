@@ -36,7 +36,6 @@ public class PropertyEntity {
     @JoinColumn(name = "outdoor_area_id")
     private OutdoorAreaEntity outdoorArea;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "property_id")
-    private List<PropertyImageEntity> images;
+    private List<String> imageUrl;
+
 }

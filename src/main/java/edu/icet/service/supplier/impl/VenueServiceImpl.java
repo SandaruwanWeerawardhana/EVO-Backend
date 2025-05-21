@@ -1,6 +1,5 @@
 package edu.icet.service.supplier.impl;
 
-import edu.icet.dto.supplier.Supplier;
 import edu.icet.dto.supplier.Venue;
 import edu.icet.entity.supplier.VenueEntity;
 import edu.icet.repository.supplier.VenueRepository;

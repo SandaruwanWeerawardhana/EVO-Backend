@@ -25,4 +25,8 @@ public class CateringEntity {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "catering_id")
     private List<MealEntity> meals;
+
+    @OneToOne
+    @JoinColumn(name = "supplier_id")
+    private SupplierEntity supplierId;
 }

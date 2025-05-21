@@ -25,7 +25,6 @@ public class VenueManagerImpl implements VenueManager {
     final PoolService poolService;
     final RoomService roomService;
     final OutdoorAreaService outdoorAreaService;
-    final PropertyImageService propertyImageService;
     final VenueRequestService venueRequestService;
 
     @Override
@@ -45,7 +44,7 @@ public class VenueManagerImpl implements VenueManager {
 
     @Override
     public Boolean deleteProperty(Long propertyID) {
-        return null;
+        return false;
     }
 
     @Override
@@ -65,7 +64,7 @@ public class VenueManagerImpl implements VenueManager {
 
     @Override
     public Boolean deleteVenueSupplier(Long supplierID) {
-        return null;
+        return false;
     }
 
     @Override
@@ -101,7 +100,7 @@ public class VenueManagerImpl implements VenueManager {
 
     @Override
     public Boolean deleteHallByID(Long propertyID) {
-        return null;
+        return false;
     }
 
     @Override
@@ -126,7 +125,7 @@ public class VenueManagerImpl implements VenueManager {
 
     @Override
     public Boolean deletePoolProperty(Long propertyID) {
-        return null;
+        return false;
     }
 
     @Override
@@ -146,7 +145,7 @@ public class VenueManagerImpl implements VenueManager {
 
     @Override
     public Boolean deleteRoomPropertyByID(Long propertyID) {
-        return null;
+        return false;
     }
 
     @Override
@@ -166,7 +165,7 @@ public class VenueManagerImpl implements VenueManager {
 
     @Override
     public Boolean deleteOutdoorAreaProperty(Long propertyID) {
-        return null;
+        return false;
     }
 
     @Override
@@ -175,22 +174,23 @@ public class VenueManagerImpl implements VenueManager {
     }
 
     @Override
-    public List<PropertyImage> getAllPropertyImage() {
-        return null;
+    public List<String> getAllPropertyImage() {
+        return List.of();
     }
 
     @Override
-    public Property addPropertyImage(PropertyImage propertyImage, Long propertyID) {
+    public Property addPropertyImage(String propertyImage, Long propertyID) {
         return null;
     }
+
 
     @Override
     public Boolean deletePropertyImage(Long propertyImageID) {
-        return null;
+        return false;
     }
 
     @Override
-    public Property updatePropertyImage(PropertyImage propertyImage, Long propertyID) {
+    public Property updatePropertyImage(String propertyImage, Long propertyID) {
         return null;
     }
 
@@ -211,7 +211,7 @@ public class VenueManagerImpl implements VenueManager {
 
     @Override
     public Boolean deleteVenueRequest(Long venueRequestID) {
-        return null;
+        return false;
     }
 
     @Override

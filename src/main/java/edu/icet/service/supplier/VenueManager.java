@@ -50,11 +50,11 @@ public interface VenueManager {
     Boolean deleteOutdoorAreaProperty(Long propertyID);
     OutdoorArea updateOutdoorAreaProperty(OutdoorArea outdoorArea, Long propertyID);
 
-    // Property image
-    List<PropertyImage> getAllPropertyImage();
-    Property addPropertyImage(PropertyImage propertyImage, Long propertyID);
+    //Property image
+    List<String> getAllPropertyImage();
+    Property addPropertyImage(String propertyImage, Long propertyID);
     Boolean deletePropertyImage(Long propertyImageID);
-    Property updatePropertyImage(PropertyImage propertyImage, Long propertyID);
+    Property updatePropertyImage(String propertyImage, Long propertyID);
 
     // VenueRequest
     Venue addVenueRequest(VenueRequest venueRequest, Long venueID);

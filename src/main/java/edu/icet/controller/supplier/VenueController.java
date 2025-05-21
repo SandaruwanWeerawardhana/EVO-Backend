@@ -199,33 +199,6 @@ public class VenueController {
         return ResponseEntity.ok(service.updateOutdoorAreaProperty(outdoorArea, propertyID));
     }
 
-    // Property Image endpoints
-
-    @GetMapping("/property-image")
-    @Operation(summary = "Returns all property images")
-    public ResponseEntity<List<PropertyImage>> getAllPropertyImage() {
-        List<PropertyImage> propertyImages = service.getAllPropertyImage();
-
-        return propertyImages.isEmpty()
-                ? ResponseEntity.noContent().build()
-                : ResponseEntity.ok(propertyImages);
-    }
-
-    @PostMapping("/property/{propertyID}/property-image")
-    public ResponseEntity<Property> addPropertyImage(@RequestBody PropertyImage propertyImage, @PathVariable Long propertyID) {
-        return ResponseEntity.ok(service.addPropertyImage(propertyImage, propertyID));
-    }
-
-    @DeleteMapping("/property-image/{propertyImageID}")
-    public ResponseEntity<Boolean> deletePropertyImage(@PathVariable Long propertyImageID) {
-        return ResponseEntity.ok(service.deletePropertyImage(propertyImageID));
-    }
-
-    @PutMapping("/property/{propertyID}/property-image")
-    public ResponseEntity<Property> updatePropertyImage(@RequestBody PropertyImage propertyImage, @PathVariable Long propertyID) {
-        return ResponseEntity.ok(service.updatePropertyImage(propertyImage, propertyID));
-    }
-
     // Venue Request endpoints
 
     @GetMapping("/request")

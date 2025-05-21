@@ -10,10 +10,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface SupplierRepository extends JpaRepository<SupplierEntity, Long> {
-    List<SupplierEntity> findAllByCategory(SupplierCategoryType category);
-    boolean existsByBusinessName(String name);
-    boolean existsByBusinessEmail(String email);
-    boolean existsByBusinessContactNumber(String phoneNumber);
-    boolean existsByContactNumber(String phoneNumber);
-    SupplierEntity findByPackagesIn(List<ProfilePackageEntity> packages);
 }

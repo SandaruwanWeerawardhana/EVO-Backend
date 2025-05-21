@@ -9,14 +9,11 @@ import java.util.List;
 
 public interface SupplierManager {
 
-    // Supplier-user
-    User addSupplierUser(User user);
-    List<User> getAllSupplierUsers();
-
     // Supplier
+    Supplier addSupplier(Supplier supplier);
     List<Supplier> getAllSuppliers();
-    List<Supplier> getSupplierByCategory(SupplierCategoryType category);
-    Supplier searchSupplier(Long id);
+    List<Supplier> getSupplierByCategory(SupplierCategoryType supplierCategoryType);
+    Supplier searchSupplier(Long supplerID);
     Supplier updateSupplier(Supplier supplier);
     Boolean deleteSupplier(Long supplerID);
 
@@ -28,8 +25,8 @@ public interface SupplierManager {
     BeautySaloon getBeautySalon(Long salonID);
 
     // Catering
-    Supplier addCateringSupplier(Catering catering, Long supplierID);
-    Supplier updateCateringSupplier(Catering catering, Long supplierID);
+    Catering addCateringSupplier(Catering catering, Long supplierID);
+    Boolean updateCateringSupplier(Catering catering, Long supplierID);
     Catering getCateringById(Long cateringID);
     List<Catering> getAllCatering();
     Boolean deleteCateringSupplier(Long supplierID);
@@ -38,7 +35,7 @@ public interface SupplierManager {
     List<Music> getAllMusic();
     Supplier addMusicSupplier(Music music, Long supplierID);
     Music getMusicByID(Long musicID);
-    Supplier updateMusicSupplier(Music music, Long supplierID);
+    Boolean updateMusicSupplier(Music music, Long supplierID);
     Boolean deleteMusicSupplier(Long supplierID);
 
     // Meal
@@ -52,42 +49,36 @@ public interface SupplierManager {
 
     // Inventory
     List<Inventory> getAllInventory();
-    Supplier addInventory(Inventory inventory, Long supplierID);
+    Boolean addInventory(Inventory inventory, Long supplierID);
     Inventory searchInventoryByID(Long id);
-    Supplier updateInventory(Inventory inventory, Long supplierID);
+    Boolean updateInventory(Inventory inventory, Long supplierID);
     Boolean deleteInventory(Long id);
 
     // ProfilePackage
-    Supplier addProfilePackage(ProfilePackage profilePackage, Long supplierID);
+    Boolean addProfilePackage(ProfilePackage profilePackage, Long supplierID);
     List<ProfilePackage> getAllProfilePackages();
-    Supplier updateProfilePackage(ProfilePackage profilePackage, Long supplierID);
+    Boolean updateProfilePackage(ProfilePackage profilePackage, Long supplierID);
     Boolean deleteProfilePackage(Long packageId);
-    Supplier searchProfilePackageSupplierByID(Long packageId);
-    Supplier searchProfilePackageSupplierByName(String packageName);
+    ProfilePackage searchProfilePackageSupplierByID(Long packageId);
+    ProfilePackage searchProfilePackageSupplierByName(String packageName);
 
-    // PackageFeature
-    List<PackageFeature> getAllPackageFeatures();
-    ProfilePackage addPackageFeature(PackageFeature packageFeature, Long packageID);
-    Boolean deletePackageFeature(Long id);
-    ProfilePackage updatePackageFeature(PackageFeature packageFeature, Long packageID);
-    ProfilePackage searchPackageFeatureById(Long id);
+//    // PackageFeature
+//    List<PackageFeature> getAllPackageFeatures();
+//    ProfilePackage addPackageFeature(PackageFeature packageFeature, Long packageID);
+//    Boolean deletePackageFeature(Long id);
+//    ProfilePackage updatePackageFeature(PackageFeature packageFeature, Long packageID);
+//    ProfilePackage searchPackageFeatureById(Long id);
 
     // ProfilePreviousWork
     List<ProfilePreviousWork> getAllProfilePreviousWork();
-    Supplier addProfilePreviousWork(ProfilePreviousWork profilePreviousWork, Long supplierID);
+    Boolean addProfilePreviousWork(ProfilePreviousWork profilePreviousWork, Long supplierID);
     Boolean deleteProfilePreviousWork(Long id);
-    ProfilePreviousWork searchProfilePreviousWorkByID(Long profilePreviousWorkID);
-    Supplier updateProfilePreviousWork(ProfilePreviousWork profilePreviousWork, Long supplierID);
+    List<ProfilePreviousWork> searchProfilePreviousWorkByID(Long profilePreviousWorkID);
+    Boolean updateProfilePreviousWork(ProfilePreviousWork profilePreviousWork, Long supplierID);
 
-    // ProfileImage
-    Supplier changeProfilePicture(ProfileImage image, Long supplierID);
-    Supplier addProfileImage(ProfileImage profileImage, Long supplierID);
-    Supplier updateProfileImage(ProfileImage profileImage, Long supplierID);
-    ProfileImage getProfileImageByID(Long profileImageID);
-    Boolean deleteProfileImage(Long profileImageID);
 
     // SupplierRequest
-    Supplier addSupplierRequest(SupplierRequest supplierRequest, Long supplierID);
+    Boolean addSupplierRequest(SupplierRequest supplierRequest, Long supplierID);
     List<SupplierRequest> getAllSupplierRequests();
     SupplierRequest getSupplierRequestByID(Long id);
     Supplier updateSupplierRequest(SupplierRequest supplierRequest, Long supplierID);
