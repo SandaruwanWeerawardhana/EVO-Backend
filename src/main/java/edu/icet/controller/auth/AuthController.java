@@ -30,8 +30,8 @@ public class AuthController {
         return ResponseEntity.ok("Customer registered successfully");
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+    @PostMapping("/login/customer")
+    public ResponseEntity<?> loginCustomer(@RequestBody LoginRequest loginRequest) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
@@ -41,7 +41,39 @@ public class AuthController {
         }
 
         UserDetails userDetails = customerService.loadUserByUsername(loginRequest.getEmail());
-        String jwtToken = jwtUtil.generateToken(userDetails);
+        String jwtToken = jwtUtil.generateTokenForCustomer(userDetails);
+
+        return ResponseEntity.ok(new JwtResponse(loginRequest.getEmail(), jwtToken));
+    }
+
+    @PostMapping("/login/supplier")
+    public ResponseEntity<?> loginSupplier(@RequestBody LoginRequest loginRequest) {
+        try {
+            authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
+            );
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(401).body("Invalid email or password");
+        }
+
+        UserDetails userDetails = customerService.loadUserByUsername(loginRequest.getEmail());
+        String jwtToken = jwtUtil.generateTokenForSupplier(userDetails);
+
+        return ResponseEntity.ok(new JwtResponse(loginRequest.getEmail(), jwtToken));
+    }
+
+    @PostMapping("/login/admin")
+    public ResponseEntity<?> loginAdmin(@RequestBody LoginRequest loginRequest) {
+        try {
+            authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
+            );
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(401).body("Invalid email or password");
+        }
+
+        UserDetails userDetails = customerService.loadUserByUsername(loginRequest.getEmail());
+        String jwtToken = jwtUtil.generateTokenForAdmin(userDetails);
 
         return ResponseEntity.ok(new JwtResponse(loginRequest.getEmail(), jwtToken));
     }
