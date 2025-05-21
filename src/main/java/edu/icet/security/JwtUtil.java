@@ -26,14 +26,14 @@ public class JwtUtil {
         this.expirationTime = expirationTime;
     }
 
-    private String generateToken (UserDetails userDetails, String role) {
+    public String generateToken (UserDetails userDetails, String role) {
         Map<String, Object> claims = new HashMap<>();
 
         // You can get roles from the userDetails object
         //Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
 
         // Add roles to claims (assuming single role)
-        claims.put("role","CUSTOMER");
+        claims.put("role", role);
 
         return Jwts.builder()
             .setClaims(claims)
@@ -42,18 +42,6 @@ public class JwtUtil {
             .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
             .signWith(signingKey, SignatureAlgorithm.HS256)
             .compact();
-    }
-
-    public String generateTokenForCustomer(UserDetails userDetails) {
-        return this.generateToken(userDetails, "CUSTOMER");
-    }
-
-    public String generateTokenForSupplier(UserDetails userDetails) {
-        return this.generateToken(userDetails, "SUPPLIER");
-    }
-
-    public String generateTokenForAdmin(UserDetails userDetails) {
-        return this.generateToken(userDetails, "ADMIN");
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {

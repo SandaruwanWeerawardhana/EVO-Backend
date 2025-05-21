@@ -17,4 +17,5 @@ public interface CustomerService {
     boolean existsByEmail(@NotBlank(message = "Email cannot be empty") @Email(message = "Invalid email format") String email);
 
     UserDetails loadUserByUsername(String email);
+    boolean isCustomerExist (String email);
 }

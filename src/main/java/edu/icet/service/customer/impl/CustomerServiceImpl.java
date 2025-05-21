@@ -85,4 +85,9 @@ public class CustomerServiceImpl implements CustomerService {
                 Collections.emptyList()
         );
     }
+
+    @Override
+    public boolean isCustomerExist (String email) {
+        return this.customerRepository.existsByEmail(email);
+    }
 }
