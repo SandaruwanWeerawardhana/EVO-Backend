@@ -2,6 +2,8 @@ package edu.icet.entity.admin;
 
 import edu.icet.util.AdminType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,9 +19,11 @@ public class AdminEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long adminId;
-    @OneToOne
-    @JoinColumn(name = "audit_history_id")
-    private AuditHistoryEntity auditHistory;
     @Enumerated(EnumType.STRING)
     private AdminType type;
+    @Email
+    @NotBlank
+    private String email;
+    @NotBlank
+    private String password;
 }

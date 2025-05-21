@@ -94,6 +94,11 @@ public class AdminServiceImpl implements AdminService {
         });
         return adminList;
     }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return repo.existsByEmail(email);
+    }
 }
 
 

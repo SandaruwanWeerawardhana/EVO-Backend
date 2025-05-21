@@ -519,6 +519,11 @@ public class SupplierManagerImpl implements SupplierManager {
         throw new IllegalArgumentException("Supplier does not exist!");
     }
 
+    @Override
+    public boolean existsByEmail(String email) {
+        return supplierRepository.existsByEmail(email);
+    }
+
 
     private SupplierEntity findSupplier(Long supplierID) {
         SupplierEntity supplierEntity = supplierRepository.findById(supplierID).orElse(null);

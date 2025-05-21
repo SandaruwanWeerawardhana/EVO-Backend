@@ -4,6 +4,8 @@ import edu.icet.dto.customer.User;
 import edu.icet.dto.supplier.*;
 import edu.icet.util.MealType;
 import edu.icet.util.SupplierCategoryType;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 
@@ -83,5 +85,7 @@ public interface SupplierManager {
     SupplierRequest getSupplierRequestByID(Long id);
     Supplier updateSupplierRequest(SupplierRequest supplierRequest, Long supplierID);
     Boolean deleteSupplierRequest(Long id);
+
+    boolean existsByEmail(@NotBlank(message = "Email cannot be empty") @Email(message = "Invalid email format") String email);
 
 }
