@@ -18,7 +18,7 @@ import lombok.ToString;
 public class AdminEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long adminId;
+    private Long id;
     @Enumerated(EnumType.STRING)
     private AdminType type;
     @Email

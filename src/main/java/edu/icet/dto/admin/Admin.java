@@ -17,7 +17,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Admin {
-    private Long adminId;
+    private Long id;
     @Enumerated(EnumType.STRING)
     private AdminType type;
     @NotBlank(message = "Email cannot be empty")
