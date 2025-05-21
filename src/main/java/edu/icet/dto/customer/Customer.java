@@ -41,4 +41,5 @@ public class Customer {
 
     @NotBlank(message = "address cannot be null")
     private String address;
+
 }

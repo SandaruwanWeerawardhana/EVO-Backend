@@ -1,6 +1,5 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.customer.User;
 import edu.icet.dto.supplier.*;
 import edu.icet.util.MealType;
 import edu.icet.util.SupplierCategoryType;
