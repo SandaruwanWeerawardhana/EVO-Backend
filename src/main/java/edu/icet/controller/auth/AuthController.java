@@ -28,7 +28,7 @@ public class AuthController {
     private final AdminService adminService;
     private final JwtUtil jwtUtil;
 
-    @PostMapping("/register/customer")
+    @PostMapping("/register-customer")
     public ResponseEntity<?> registerCustomer(@Valid @RequestBody Customer customer) {
         if (customerService.existsByEmail(customer.getEmail())) {
             return ResponseEntity.badRequest().body("Email already exists");
@@ -46,7 +46,7 @@ public class AuthController {
         return ResponseEntity.ok("Admin registered successfully");
     }
 
-    @PostMapping("/register/Supplier")
+    @PostMapping("/register-supplier")
     public ResponseEntity<?> registerSupplier(@Valid @RequestBody Supplier supplier) {
         if (supplierService.existsByEmail(supplier.getEmail())) {
             return ResponseEntity.badRequest().body("Email already exists");
