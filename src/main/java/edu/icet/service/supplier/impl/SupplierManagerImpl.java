@@ -32,6 +32,7 @@ public class SupplierManagerImpl implements SupplierManager {
     final BeautySaloonRepository beautySaloonRepository;
     final MusicRepository musicRepository;
     final MealRepository mealRepository;
+    private final ModelMapper modelMapper;
 
     // Add Supplier
     @Override
@@ -39,7 +40,6 @@ public class SupplierManagerImpl implements SupplierManager {
         if (supplier.getId() != null) {
             throw new IllegalArgumentException("Supplier doesn't exist");
         }
-
         SupplierEntity supplierEntity = supplierRepository.save(mapper.map(supplier, SupplierEntity.class));
 
         return mapper.map(supplierEntity, Supplier.class);
@@ -521,7 +521,16 @@ public class SupplierManagerImpl implements SupplierManager {
 
     @Override
     public boolean existsByEmail(String email) {
-        return supplierRepository.existsByEmail(email);
+        try{
+            return supplierRepository.existsByEmail(email);
+        } catch (Exception e){
+            return false;
+        }
+    }
+
+    @Override
+    public Supplier getSupplierByEmail(String email) {
+        return modelMapper.map(supplierRepository.findByEmail(email), Supplier.class);
     }
 
 
@@ -545,10 +554,4 @@ public class SupplierManagerImpl implements SupplierManager {
     public Supplier updateSupplier(SupplierEntity supplierEntity) {
         return updateSupplier(mapper.map(supplierEntity, Supplier.class));
     }
-
-    @Override
-    public Supplier getCustomerByEmail (String email) {
-        return this.mapper.map(this.supplierRepository.findByEmail(email), Supplier.class);
-    }
-
 }

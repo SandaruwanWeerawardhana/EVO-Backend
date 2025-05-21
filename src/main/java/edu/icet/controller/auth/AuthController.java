@@ -5,15 +5,18 @@ import edu.icet.dto.auth.JwtResponse;
 import edu.icet.dto.auth.LoginRequest;
 import edu.icet.dto.customer.Customer;
 import edu.icet.dto.supplier.Supplier;
+import edu.icet.security.CustomUserDetailsService;
 import edu.icet.security.JwtUtil;
 import edu.icet.service.admin.AdminService;
 import edu.icet.service.customer.CustomerService;
 import edu.icet.service.supplier.SupplierManager;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,13 +28,17 @@ public class AuthController {
     private final CustomerService customerService;
     private final SupplierManager supplierService;
     private final AdminService adminService;
+    private final CustomUserDetailsService userDetailsService;
     private final JwtUtil jwtUtil;
+    private final PasswordEncoder passwordEncoder;
+    private final ModelMapper modelMapper;
 
     @PostMapping("/register-customer")
     public ResponseEntity<?> registerCustomer(@Valid @RequestBody Customer customer) {
         if (customerService.existsByEmail(customer.getEmail())) {
             return ResponseEntity.badRequest().body("Email already exists");
         }
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         customerService.addCustomer(customer);
         return ResponseEntity.ok("Customer registered successfully");
     }
@@ -41,6 +48,7 @@ public class AuthController {
         if (adminService.existsByEmail(admin.getEmail())) {
             return ResponseEntity.badRequest().body("Email already exists");
         }
+        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         adminService.addAdmin(admin);
         return ResponseEntity.ok("Admin registered successfully");
     }
@@ -50,14 +58,13 @@ public class AuthController {
         if (supplierService.existsByEmail(supplier.getEmail())) {
             return ResponseEntity.badRequest().body("Email already exists");
         }
+        supplier.setPassword(passwordEncoder.encode(supplier.getPassword()));
         supplierService.addSupplier(supplier);
         return ResponseEntity.ok("Supplier registered successfully");
     }
 
-
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
@@ -70,25 +77,22 @@ public class AuthController {
         final Object entity;
         final String email = loginRequest.getEmail();
 
-        if (this.customerService.isCustomerExist(email)) {
+        if (customerService.existsByEmail(email)) {
             role = "CUSTOMER";
-            entity = this.customerService.getCustomerByEmail(email);
-        } else if (this.supplierService.existsByEmail(email)) {
+            entity = modelMapper.map(customerService.getCustomerByEmail(email), Customer.class);
+        } else if (supplierService.existsByEmail(email)) {
             role = "SUPPLIER";
-            entity = this.supplierService.getSupplierByEmail(email);
-        } else if (this.adminService.existsByEmail(email)) {
+            entity = modelMapper.map(supplierService.getSupplierByEmail(email), Supplier.class);
+        } else if (adminService.existsByEmail(email)) {
             role = "ADMIN";
-            entity = this.adminService.getCustomerByEmail(email);
+            entity = modelMapper.map(adminService.getAdminByEmail(email), Admin.class);
         } else {
-            role = null;
-            entity = null;
+            return ResponseEntity.badRequest().body("User not found");
         }
 
-        if (role == null) return ResponseEntity.badRequest().build();
-
-        UserDetails userDetails = customerService.loadUserByUsername(loginRequest.getEmail());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
         String jwtToken = jwtUtil.generateToken(userDetails, role);
 
-        return ResponseEntity.ok(new JwtResponse(loginRequest.getEmail(), jwtToken, entity));
+        return ResponseEntity.ok(new JwtResponse(email, jwtToken, entity));
     }
 }
