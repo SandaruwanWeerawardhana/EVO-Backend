@@ -38,7 +38,7 @@ public class AuthController {
 
     @PostMapping("/register-admin")
     public ResponseEntity<?> registerAdmin(@Valid @RequestBody Admin admin) {
-        if (customerService.existsByEmail(admin.getEmail())) {
+        if (adminService.existsByEmail(admin.getEmail())) {
             return ResponseEntity.badRequest().body("Email already exists");
         }
         adminService.addAdmin(admin);
@@ -57,6 +57,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
@@ -74,7 +75,7 @@ public class AuthController {
             entity = this.customerService.getCustomerByEmail(email);
         } else if (this.supplierService.existsByEmail(email)) {
             role = "SUPPLIER";
-            entity = this.supplierService.getCustomerByEmail(email);
+            entity = this.supplierService.getSupplierByEmail(email);
         } else if (this.adminService.existsByEmail(email)) {
             role = "ADMIN";
             entity = this.adminService.getCustomerByEmail(email);
