@@ -7,7 +7,6 @@ import edu.icet.repository.customer.UserRepository;
 import edu.icet.repository.event.*;
 import edu.icet.repository.supplier.VenueRepository;
 import edu.icet.util.BudgetType;
-import edu.icet.util.DBConnection;
 import edu.icet.util.EventStatusType;
 import edu.icet.util.EventType;
 import jakarta.persistence.EntityManager;
@@ -19,9 +18,7 @@ import org.slf4j.Logger;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +30,6 @@ import java.util.function.Consumer;
 @Repository
 @RequiredArgsConstructor
 public class EventRepositoryImpl implements EventRepository {
-    private final DBConnection dbConnection;
     private final Logger logger;
     private final UserRepository userRepository;
     private final VenueRepository venueRepository;
@@ -160,35 +156,30 @@ public class EventRepositoryImpl implements EventRepository {
     @Transactional
     public EventFullEntity update (EventEntity event) {
         try {
-            final Connection connection = this.dbConnection.getConnection();
+            final Query eventUpdateQuery = this.entityManager.createNativeQuery("""
+                UPDATE event
+                SET user_id = :user_id, venue_id = :venue_id, location = :location, event_date = :event_date, start_time = :start_time, end_time = :end_time, event_type = :event_type, head_count = :head_count, total_price = :total_price, budget_type = :budget_type, event_status = :event_status
+                WHERE id = :id AND is_deleted = FALSE
+                """);
 
-            connection.setAutoCommit(false);
+            eventUpdateQuery.setParameter("user_id", event.getUserId());
+            eventUpdateQuery.setParameter("venue_id", event.getVenueId());
+            eventUpdateQuery.setParameter("location", event.getLocation());
+            eventUpdateQuery.setParameter("event_date", event.getEventDate());
+            eventUpdateQuery.setParameter("start_time", event.getStartTime());
+            eventUpdateQuery.setParameter("end_time", event.getEndTime());
+            eventUpdateQuery.setParameter("event_type", event.getEventType().name());
+            eventUpdateQuery.setParameter("head_count", event.getHeadCount());
+            eventUpdateQuery.setParameter("total_price", event.getTotalPrice());
+            eventUpdateQuery.setParameter("budget_type", event.getBudgetType().name());
+            eventUpdateQuery.setParameter("event_status", event.getEventStatus());
 
-            if ((Integer) this.dbConnection.execute(
-                    "UPDATE event SET user_id = ?, venue_id = ?, location = ?, event_date = ?, start_time = ?, end_time = ?, event_type = ?, head_count = ?, total_price = ?, budget_type = ?, event_status = ? WHERE id = ? AND is_deleted = FALSE",
-                    event.getUserId(),
-                    event.getVenueId(),
-                    event.getLocation(),
-                    event.getEventDate(),
-                    event.getStartTime(),
-                    event.getEndTime(),
-                    event.getEventType().name(),
-                    event.getHeadCount(),
-                    event.getTotalPrice(),
-                    event.getBudgetType().name(),
-                    event.getEventStatus().name(),
-                    event.getId()
-            ) == 0) {
-                connection.rollback();
-                return null;
-            }
+            eventUpdateQuery.executeUpdate();
+
 
             final Map<String, Object> nestedObjects = this.getEventEntityNestedObjects(event);
 
-            if (nestedObjects.isEmpty()) {
-                connection.rollback();
-                return null;
-            }
+            if (nestedObjects.isEmpty()) throw new IllegalStateException("Nested objects missing. Cannot continue.");
 
             final EventFullEntity eventFullEntity = EventFullEntity.builder()
                     .id(event.getId())
@@ -202,65 +193,45 @@ public class EventRepositoryImpl implements EventRepository {
                     .location(event.getLocation())
                     .build();
 
-            if (!this.updateEventSubCategory(event, eventFullEntity)) {
-                connection.rollback();
-                return null;
-            }
+            if (!this.updateEventSubCategory(event, eventFullEntity)) throw new IllegalStateException("Failed to insert subcategories.");
 
             this.putNestedObjectsIntoEventFullEntity(nestedObjects, eventFullEntity);
 
-            connection.commit();
-
             return eventFullEntity;
-        } catch (SQLException exception) {
-            try {
-                this.dbConnection.getConnection().rollback();
-            } catch (SQLException rollbackException) {
-                this.logger.error(rollbackException.getMessage());
-            }
-
+        } catch (Exception exception) {
             this.logger.error(exception.getMessage());
             return null;
-        } finally {
-            try {
-                this.dbConnection.getConnection().setAutoCommit(true);
-            } catch (SQLException exception) {
-                this.logger.error(exception.getMessage());
-            }
-        }
-    }
-
-    private void getEventSubCategory (EventFullEntity eventFullEntity, Long eventId) {
-        switch (eventFullEntity.getEventType()) {
-            case ANNIVERSARIES -> eventFullEntity.setAnniversary(this.anniversaryRepository.getByEventId(eventId));
-            case BIRTHDAY_PARTIES -> eventFullEntity.setBirthdayParty(this.birthdayPartyRepository.getByEventId(eventId));
-            case GET_TOGETHER -> eventFullEntity.setGetTogether(this.getTogetherRepository.getByEventId(eventId));
-            case WEDDING -> eventFullEntity.setWedding(this.weddingRepository.getByEventId(eventId));
         }
     }
 
     @Override
     public EventFullEntity get (Long id) {
-        try (final ResultSet resultSet = this.dbConnection.execute("SELECT user_id, venue_id, location, event_date, start_time, end_time, event_type, head_count, total_price, budget_type, event_status FROM event WHERE id = ? AND is_deleted = FALSE", id)) {
-            if (!resultSet.next()) return null;
+        try {
+            final Query eventGetQuery = this.entityManager.createNativeQuery("""
+				SELECT user_id, venue_id, location, event_date, start_time, end_time, event_type, head_count, total_price, budget_type, event_status FROM event
+				WHERE id = :id AND is_deleted = FALSE
+				""");
+
+            eventGetQuery.setParameter("id", id);
+
+            final Object[] results = (Object[]) eventGetQuery.getSingleResult();
 
             final EventFullEntity eventFullEntity = EventFullEntity.builder()
-                    .id(id)
-                    .location(resultSet.getString(3))
-                    .eventDate(resultSet.getDate(4).toLocalDate())
-                    .startTime(resultSet.getTime(5).toLocalTime())
-                    .endTime(resultSet.getTime(6).toLocalTime())
-                    .eventType(EventType.fromName(resultSet.getString(7)))
-                    .headCount(resultSet.getInt(8))
-                    .totalPrice(resultSet.getDouble(9))
-                    .budgetType(BudgetType.fromName(resultSet.getString(10)))
-                    .eventStatus(EventStatusType.fromName(resultSet.getString(11)))
-                    .build();
+                .id(id)
+                .location((String) results[2])
+                .eventDate(((Date) results[3]).toLocalDate())
+                .startTime(((Time) results[4]).toLocalTime())
+                .endTime(((Time) results[5]).toLocalTime())
+                .eventType(EventType.fromName((String) results[6]))
+                .headCount((Integer) results[7])
+                .totalPrice((Double) results[8])
+                .budgetType(BudgetType.fromName((String) results[9]))
+                .eventStatus(EventStatusType.fromName((String) results[10]))
+                .build();
 
-            eventFullEntity.setUser(this.userRepository.findById(resultSet.getLong(1)).orElse(null));
-            eventFullEntity.setVenue(this.venueRepository.findById(resultSet.getLong(2)).orElse(null));
+            eventFullEntity.setUser(this.userRepository.findById((Long) results[0]).orElse(null));
 
-            this.getEventSubCategory(eventFullEntity, id);
+            if (results[1] != null) eventFullEntity.setVenue(this.venueRepository.findById(((Number) results[1]).longValue()).orElse(null));
 
             switch (eventFullEntity.getEventType()) {
                 case ANNIVERSARIES -> eventFullEntity.setAnniversary(this.anniversaryRepository.getByEventId(id));
@@ -270,7 +241,7 @@ public class EventRepositoryImpl implements EventRepository {
             }
 
             return eventFullEntity;
-        } catch (SQLException exception) {
+        } catch (Exception exception) {
             this.logger.error(exception.getMessage());
             return null;
         }
@@ -279,37 +250,47 @@ public class EventRepositoryImpl implements EventRepository {
     private List<EventFullEntity> getListOfEventFullEntitiesByMatchQuery (String condition, Object ...binds) {
         final List<EventFullEntity> eventFullEntities = new ArrayList<>();
 
-        try (final ResultSet resultSet = this.dbConnection.execute("SELECT id, user_id, venue_id, location, event_date, start_time, end_time, event_type, head_count, total_price, budget_type, event_status FROM event WHERE is_deleted = FALSE" + condition, binds)) {
-            while (resultSet.next()) {
-                final long id = resultSet.getLong(1);
-                final EventFullEntity eventFullEntity = EventFullEntity.builder()
-                        .id(id)
-                        .location(resultSet.getString(4))
-                        .eventDate(resultSet.getDate(5).toLocalDate())
-                        .startTime(resultSet.getTime(6).toLocalTime())
-                        .endTime(resultSet.getTime(7).toLocalTime())
-                        .eventType(EventType.fromName(resultSet.getString(8)))
-                        .headCount(resultSet.getInt(9))
-                        .totalPrice(resultSet.getDouble(10))
-                        .budgetType(BudgetType.fromName(resultSet.getString(11)))
-                        .eventStatus(EventStatusType.fromName(resultSet.getString(12)))
-                        .build();
+        try {
+            final Query getAllEventsQuery = this.entityManager.createNativeQuery(String.format("""
+                SELECT id, user_id, venue_id, location, event_date, start_time, end_time, event_type, head_count, total_price, budget_type, event_status
+                FROM event
+                WHERE is_deleted = FALSE%s
+                """, condition));
 
-                eventFullEntity.setUser(this.userRepository.findById(resultSet.getLong(2)).orElse(null));
-                eventFullEntity.setVenue(this.venueRepository.findById(resultSet.getLong(3)).orElse(null));
+            for (int a = 0; a < binds.length; a++)
+                getAllEventsQuery.setParameter(a + 1, binds[a]);
 
-                this.getEventSubCategory(eventFullEntity, id);
+            final List<Object[]> resultsList = getAllEventsQuery.getResultList();
 
-                switch (eventFullEntity.getEventType()) {
-                    case ANNIVERSARIES -> eventFullEntity.setAnniversary(this.anniversaryRepository.getByEventId(id));
-                    case BIRTHDAY_PARTIES -> eventFullEntity.setBirthdayParty(this.birthdayPartyRepository.getByEventId(id));
-                    case GET_TOGETHER -> eventFullEntity.setGetTogether(this.getTogetherRepository.getByEventId(id));
-                    case WEDDING -> eventFullEntity.setWedding(this.weddingRepository.getByEventId(id));
+            resultsList.forEach(results -> {
+                final Long id = ((Number) results[0]).longValue();
+                final EventFullEntity entity = EventFullEntity.builder()
+                    .id(id)
+                    .location((String) results[3])
+                    .eventDate(((Date) results[4]).toLocalDate())
+                    .startTime(((Time) results[5]).toLocalTime())
+                    .endTime(((Time) results[6]).toLocalTime())
+                    .eventType(EventType.fromName((String) results[7]))
+                    .headCount(((Number) results[8]).intValue())
+                    .totalPrice(((Number) results[9]).doubleValue())
+                    .budgetType(BudgetType.fromName((String) results[10]))
+                    .eventStatus(EventStatusType.fromName((String) results[11]))
+                    .build();
+
+                entity.setUser(this.userRepository.findById(((Number) results[1]).longValue()).orElse(null));
+
+                switch (entity.getEventType()) {
+                    case ANNIVERSARIES -> entity.setAnniversary(this.anniversaryRepository.getByEventSummaryId(id));
+                    case BIRTHDAY_PARTIES -> entity.setBirthdayParty(this.birthdayPartyRepository.getByEventSummaryId(id));
+                    case GET_TOGETHER -> entity.setGetTogether(this.getTogetherRepository.getByEventSummaryId(id));
+                    case WEDDING -> entity.setWedding(this.weddingRepository.getByEventSummaryId(id));
                 }
 
-                eventFullEntities.add(eventFullEntity);
-            }
-        } catch (SQLException exception) {
+                if (results[2] != null) entity.setVenue(this.venueRepository.findById(((Number) results[2]).longValue()).orElse(null));
+
+                eventFullEntities.add(entity);
+            });
+        } catch (Exception exception) {
             this.logger.error(exception.getMessage());
         }
 
@@ -340,8 +321,13 @@ public class EventRepositoryImpl implements EventRepository {
     @Transactional
     public boolean delete (Long id) {
         try {
-            return (Integer) this.dbConnection.execute("UPDATE event SET is_deleted = TRUE WHERE id = ?", id) != 0;
-        } catch (SQLException exception) {
+            final Query deleteQuery = this.entityManager.createNativeQuery("""
+                UPDATE event SET is_deleted = TRUE WHERE id = :id AND is_deleted = FALSE
+            """);
+            deleteQuery.setParameter("id", id);
+
+            return deleteQuery.executeUpdate() > 0;
+        } catch (Exception exception) {
             this.logger.error(exception.getMessage());
             return false;
         }
