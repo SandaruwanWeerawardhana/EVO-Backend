@@ -1079,3 +1079,201 @@ Response Status: 200
 Response Body: {"email":"miraclecreation1@gmail.com","token":"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiU1VQUExJRVIiLCJzdWIiOiJtaXJhY2xlY3JlYXRpb24xQGdtYWlsLmNvbSIsImlhdCI6MTc0Nzg1NjY3OSwiZXhwIjoxNzQ4MDI5NDc5fQ.JcDw8IAbiPNZA...[truncated]
 Processing Time: 93ms
 
+2025-05-22T01:27:06.004904100 - 
+=== Request/Response ===
+Time: 2025-05-22T01:27:05.9996897
+Method: POST
+URI: /api/auth/register-admin
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 17d7b7e2-1a66-49a0-9bd1-9b9f3ac42b19; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 95
+Response Status: 200
+Response Body: 
+Processing Time: 1542ms
+
+2025-05-22T01:29:14.923807200 - 
+=== Request/Response ===
+Time: 2025-05-22T01:29:14.9238072
+Method: POST
+URI: /api/auth/register-admin
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 073a76d4-9a47-448a-99a1-df19b4f3ecda; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 95
+Response Status: 200
+Response Body: Admin registered successfully
+Processing Time: 406ms
+
+2025-05-22T01:29:21.339231 - 
+=== Request/Response ===
+Time: 2025-05-22T01:29:21.339231
+Method: POST
+URI: /api/auth/login
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 6252ebf9-883d-4960-a63d-100f0228977e; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 71
+Response Status: 200
+Response Body: {"email":"admin@example.com","token":"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTc0Nzg1NzU2MSwiZXhwIjoxNzQ4MDMwMzYxfQ.ahhMeLxhrMRfzzoyZ26dxGmxdqaoH0daZ5R8R8...[truncated]
+Processing Time: 387ms
+
+2025-05-22T01:35:58.072386800 - 
+=== Request/Response ===
+Time: 2025-05-22T01:35:58.0713896
+Method: POST
+URI: /api/auth/register-supplier
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: d90e30b5-b4e3-4c6c-97ab-ad7ce818eeaf; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 376
+Response Status: 200
+Response Body: Supplier registered successfully
+Processing Time: 220ms
+
+2025-05-22T01:36:29.336067400 - 
+=== Request/Response ===
+Time: 2025-05-22T01:36:29.3360674
+Method: POST
+URI: /api/auth/login
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 802679cd-db23-4975-a00b-640c7de1e54f; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 78
+Response Status: 200
+Response Body: {"email":"contact@abcsuppliers.com","token":"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiU1VQUExJRVIiLCJzdWIiOiJjb250YWN0QGFiY3N1cHBsaWVycy5jb20iLCJpYXQiOjE3NDc4NTc5ODksImV4cCI6MTc0ODAzMDc4OX0.wczu7JtboBk17kqI64...[truncated]
+Processing Time: 186ms
+
+2025-05-22T10:49:21.995344600 - 
+=== Request/Response ===
+Time: 2025-05-22T10:49:21.9901221
+Method: POST
+URI: /api/auth/register-supplier
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 96f16e2c-5e09-42c8-a5e0-8f642b224e8d; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 376
+Response Status: 200
+Response Body: Supplier registered successfully
+Processing Time: 1123ms
+
+2025-05-22T10:49:28.914865700 - 
+=== Request/Response ===
+Time: 2025-05-22T10:49:28.9128563
+Method: POST
+URI: /api/auth/login
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 41103716-6c81-45ff-9641-42da2513b935; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 78
+Response Status: 200
+Response Body: {"email":"contact@abcsuppliers.com","token":"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiU1VQUExJRVIiLCJzdWIiOiJjb250YWN0QGFiY3N1cHBsaWVycy5jb20iLCJpYXQiOjE3NDc4OTExNjgsImV4cCI6MTc0ODA2Mzk2OH0.2h83wZWhBrqmIlEW1D...[truncated]
+Processing Time: 669ms
+
+2025-05-22T11:02:42.006180300 - 
+=== Request/Response ===
+Time: 2025-05-22T11:02:42.0031263
+Method: POST
+URI: /api/auth/register-admin
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: b8799a82-f2da-44ed-8db2-58fd7b2f0129; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 95
+Response Status: 400
+Response Body: 
+Processing Time: 304ms
+
+2025-05-22T11:03:37.235550400 - 
+=== Request/Response ===
+Time: 2025-05-22T11:03:37.2355504
+Method: POST
+URI: /api/auth/register-supplier
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: a527ddd3-323f-438d-abc5-7e7c0169e42d; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 376
+Response Status: 200
+Response Body: Supplier registered successfully
+Processing Time: 880ms
+
+2025-05-22T11:28:48.275848400 - 
+=== Request/Response ===
+Time: 2025-05-22T11:28:48.2758484
+Method: POST
+URI: /api/auth/register-supplier
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: bb28ffec-6b9f-4f33-b7e4-e22e51bb7501; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 376
+Response Status: 400
+Response Body: Email already exists
+Processing Time: 442ms
+
+2025-05-22T11:28:56.675620700 - 
+=== Request/Response ===
+Time: 2025-05-22T11:28:56.6756207
+Method: POST
+URI: /api/auth/login
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 2220a734-89de-43ca-88d1-d49fb5429d3d; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 78
+Response Status: 200
+Response Body: {"email":"contact@abcsuppliers.com","token":"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiU1VQUExJRVIiLCJzdWIiOiJjb250YWN0QGFiY3N1cHBsaWVycy5jb20iLCJpYXQiOjE3NDc4OTM1MzYsImV4cCI6MTc0ODA2NjMzNn0.xfZSEZ1sGmXCYr4qdY...[truncated]
+Processing Time: 3221ms
+
+2025-05-22T11:31:06.422425400 - 
+=== Request/Response ===
+Time: 2025-05-22T11:31:06.4224254
+Method: GET
+URI: /event/all
+Client IP: 0:0:0:0:0:0:0:1
+Headers: authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiU1VQUExJRVIiLCJzdWIiOiJjb250YWN0QGFiY3N1cHBsaWVycy5jb20iLCJpYXQiOjE3NDc4OTM1MzYsImV4cCI6MTc0ODA2NjMzNn0.xfZSEZ1sGmXCYr4qdYESjzANMFDsOe4XeOkUoaARWok; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 54a068ce-f706-45ad-8b0b-81d6a918be3b; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive
+Response Status: 200
+Response Body: []
+Processing Time: 181ms
+
+2025-05-22T11:34:58.450819800 - 
+=== Request/Response ===
+Time: 2025-05-22T11:34:58.4467707
+Method: POST
+URI: /api/auth/register-supplier
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: c7751d44-8b62-4e99-a02a-c6ce0469cdeb; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 376
+Response Status: 200
+Response Body: Supplier registered successfully
+Processing Time: 505ms
+
+2025-05-22T11:35:03.277245100 - 
+=== Request/Response ===
+Time: 2025-05-22T11:35:03.2772451
+Method: POST
+URI: /api/auth/login
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 32b61ea9-d249-4470-bece-27fc566d6678; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 78
+Response Status: 200
+Response Body: {"email":"contact@abcsuppliers.com","token":"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiU1VQUExJRVIiLCJzdWIiOiJjb250YWN0QGFiY3N1cHBsaWVycy5jb20iLCJpYXQiOjE3NDc4OTM5MDMsImV4cCI6MTc0ODA2NjcwM30.k3lccCpD1RoD01sA-u...[truncated]
+Processing Time: 244ms
+
+2025-05-22T11:35:31.225861600 - 
+=== Request/Response ===
+Time: 2025-05-22T11:35:31.2258616
+Method: GET
+URI: /event/all
+Client IP: 0:0:0:0:0:0:0:1
+Headers: authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiU1VQUExJRVIiLCJzdWIiOiJjb250YWN0QGFiY3N1cHBsaWVycy5jb20iLCJpYXQiOjE3NDc4OTM1MzYsImV4cCI6MTc0ODA2NjMzNn0.xfZSEZ1sGmXCYr4qdYESjzANMFDsOe4XeOkUoaARWok; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 17695d59-b311-498c-a3f7-88c150fc68d4; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive
+Response Status: 200
+Response Body: []
+Processing Time: 8ms
+
+2025-05-22T11:38:42.177090900 - 
+=== Request/Response ===
+Time: 2025-05-22T11:38:42.1738323
+Method: POST
+URI: /api/auth/register-supplier
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 4b4e7d5a-2bb3-4455-9ad9-6e492f2335df; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 376
+Response Status: 200
+Response Body: Supplier registered successfully
+Processing Time: 1265ms
+
+2025-05-22T11:38:47.925360200 - 
+=== Request/Response ===
+Time: 2025-05-22T11:38:47.9230296
+Method: POST
+URI: /api/auth/login
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 587068f6-39f5-464d-a560-968147d2f0de; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 78
+Response Status: 200
+Response Body: {"email":"contact@abcsuppliers.com","token":"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiU1VQUExJRVIiLCJzdWIiOiJjb250YWN0QGFiY3N1cHBsaWVycy5jb20iLCJpYXQiOjE3NDc4OTQxMjcsImV4cCI6MTc0ODA2NjkyN30.kzZ-3O3c1MWLzhNjmY...[truncated]
+Processing Time: 636ms
+
+2025-05-22T11:39:09.077808500 - 
+=== Request/Response ===
+Time: 2025-05-22T11:39:09.0757743
+Method: GET
+URI: /event/all
+Client IP: 0:0:0:0:0:0:0:1
+Headers: authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiU1VQUExJRVIiLCJzdWIiOiJjb250YWN0QGFiY3N1cHBsaWVycy5jb20iLCJpYXQiOjE3NDc4OTQxMjcsImV4cCI6MTc0ODA2NjkyN30.kzZ-3O3c1MWLzhNjmYZMeoF-nBqh5SqW2yhm0Mch8YA; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: d6e4eba6-e524-402a-a064-6243cdd5f155; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive
+Response Status: 400
+Response Body: 
+Processing Time: 22ms
+
