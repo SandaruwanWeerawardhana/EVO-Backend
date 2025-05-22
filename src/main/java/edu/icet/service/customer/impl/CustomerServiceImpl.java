@@ -8,15 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,14 +21,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final ModelMapper modelMapper;
-    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public boolean addCustomer(Customer customer) {
         if (customer == null) return false;
-
-        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
-
         CustomerEntity savedEntity = customerRepository.save(modelMapper.map(customer, CustomerEntity.class));
         return savedEntity.getEmail().equals(customer.getEmail());
     }
@@ -71,7 +63,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public boolean existsByEmail(String email) {
-        return customerRepository.existsByEmail(email);
+        try{
+            return customerRepository.existsByEmail(email);
+        }catch (Exception e){
+            return false;
+        }
     }
 
     @Override

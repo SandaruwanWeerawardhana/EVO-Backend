@@ -1,6 +1,5 @@
 package edu.icet.service.supplier;
 
-import edu.icet.dto.customer.User;
 import edu.icet.dto.supplier.*;
 import edu.icet.util.MealType;
 import edu.icet.util.SupplierCategoryType;
@@ -87,6 +86,6 @@ public interface SupplierManager {
     Boolean deleteSupplierRequest(Long id);
 
     boolean existsByEmail(@NotBlank(message = "Email cannot be empty") @Email(message = "Invalid email format") String email);
-    Supplier getCustomerByEmail (String email);
+    Supplier getSupplierByEmail (String email);
 
 }

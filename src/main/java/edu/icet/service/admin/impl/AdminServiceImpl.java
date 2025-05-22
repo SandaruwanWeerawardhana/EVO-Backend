@@ -8,6 +8,7 @@ import edu.icet.util.AdminType;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,33 +19,34 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService {
 
-    private final AdminRepository repo;
+    private final AdminRepository adminRepository;
     private final ModelMapper mapper;
+    private final ModelMapper modelMapper;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public boolean addAdmin(Admin admin) {
-        AdminEntity save = repo.save(mapper.map(admin, AdminEntity.class));
-        if (save != null) {
-            return true;
+        AdminEntity save = adminRepository.save(mapper.map(admin, AdminEntity.class));
+        try{
+            return adminRepository.existsById(save.getId());
+        } catch (Exception e) {
+            return false;
         }
-        return false;
     }
 
     @Override
     public boolean deleteAdmin(Long adminID) {
-        if (repo.existsById(adminID)){
-            repo.deleteById(adminID);
+        if (adminRepository.existsById(adminID)){
+            adminRepository.deleteById(adminID);
             return true;
         }
         return false;
-
-
     }
 
     @Override
     public boolean updateAdmin(Long adminID, Admin admin) {
-        if (repo.existsById(adminID)) {
-            AdminEntity save = repo.save(mapper.map(admin, AdminEntity.class));
+        if (adminRepository.existsById(adminID)) {
+            AdminEntity save = adminRepository.save(mapper.map(admin, AdminEntity.class));
             return true;
         }
         return false;
@@ -52,31 +54,31 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin getAdminById(Long adminID) {
-       return mapper.map(repo.findById(adminID), Admin.class);
+       return mapper.map(adminRepository.findById(adminID), Admin.class);
     }
 
 
     @Override
     public boolean adminExists(Long adminID) {
-       return repo.existsById(adminID);
+       return adminRepository.existsById(adminID);
     }
     @Override
     public Long countAdmins() {
-      return repo.count();
+      return adminRepository.count();
     }
 
 
     public boolean changeAdminType(Long adminID, AdminType type) {
-        return repo.findById(adminID).map(adminEntity -> {
+        return adminRepository.findById(adminID).map(adminEntity -> {
              adminEntity.setType(type);
-             repo.save(adminEntity);
+             adminRepository.save(adminEntity);
              return true;
          }).orElse (false);
     }
 
     @Override
     public List<Admin> getAllAdmins() {
-        List<AdminEntity> all = repo.findAll();
+        List<AdminEntity> all = adminRepository.findAll();
 
         List<Admin> adminList=new ArrayList<>();
         all.forEach(admin ->{
@@ -89,7 +91,7 @@ public class AdminServiceImpl implements AdminService {
     public List<Admin> getAdminByType(AdminType type) {
         List<Admin> adminList=new ArrayList<>();
 
-       repo.findAllByType(type).forEach(admin -> {
+       adminRepository.findAllByType(type).forEach(admin -> {
            adminList.add(mapper.map(admin,Admin.class));
         });
         return adminList;
@@ -97,12 +99,21 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public boolean existsByEmail(String email) {
-        return repo.existsByEmail(email);
+        try{
+            return adminRepository.existsByEmail(email);
+        } catch (Exception e){
+            return false;
+        }
     }
 
     @Override
     public Admin getCustomerByEmail (String email) {
-        return this.mapper.map(this.repo.findByEmail(email), Admin.class);
+        return this.mapper.map(this.adminRepository.findByEmail(email), Admin.class);
+    }
+
+    @Override
+    public Admin getAdminByEmail(String email) {
+        return modelMapper.map(adminRepository.findByEmail(email), Admin.class);
     }
 }
 
