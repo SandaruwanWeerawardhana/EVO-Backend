@@ -239,7 +239,7 @@ public class EventSummaryRepositoryImpl implements EventSummaryRepository {
     public EventSummaryFullEntity get (Long id) {
         try {
             final Query eventSummaryGetQuery = this.entityManager.createNativeQuery("""
-				SELECT user_id, venue_id, location, event_date, start_time, end_time, event_type, head_count, total_price, budget_type, location FROM event_summary
+				SELECT user_id, venue_id, location, event_date, start_time, end_time, event_type, head_count, total_price, budget_type FROM event_summary
 				WHERE id = :id AND is_deleted = FALSE
 				""");
 
