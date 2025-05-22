@@ -5,4 +5,5 @@ public interface SuperEventRepository<T> {
     T update (T entity);
     T getByEventId (Long eventId);
     T getByEventSummaryId (Long eventSummaryId);
+    boolean setEventId (Long eventSummaryId, Long eventId);
 }

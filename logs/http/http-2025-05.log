@@ -673,3 +673,135 @@ Response Status: 200
 Response Body: [{"id":1,"user":{"userId":2,"firstName":"Jane","lastName":"Smith","password":"hashed_password_2","email":"jane.smith@example.com","registeredDate":"2024-04-02","userType":"SUPPLIER","contactNumber":"2...[truncated]
 Processing Time: 20ms
 
+2025-05-22T07:15:10.772230600 - 
+=== Request/Response ===
+Time: 2025-05-22T07:15:10.7702174
+Method: POST
+URI: /event/summary
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: c6a65ef9-e549-4834-851b-6e6cc1b07d68; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 278; cookie: JSESSIONID=D23451E55249BC4CD68ED79C85483C0B
+Response Status: 200
+Response Body: {"id":1,"user":{"userId":2,"firstName":"Jane","lastName":"Smith","password":"hashed_password_2","email":"jane.smith@example.com","registeredDate":"2024-04-02","userType":"SUPPLIER","contactNumber":"23...[truncated]
+Processing Time: 415ms
+
+2025-05-22T07:15:14.647841900 - 
+=== Request/Response ===
+Time: 2025-05-22T07:15:14.6469226
+Method: GET
+URI: /event/summary/all
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 8747e91e-9f70-47b3-8317-6ec3520830ba; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; cookie: JSESSIONID=D23451E55249BC4CD68ED79C85483C0B
+Response Status: 200
+Response Body: [{"id":1,"user":{"userId":2,"firstName":"Jane","lastName":"Smith","password":"hashed_password_2","email":"jane.smith@example.com","registeredDate":"2024-04-02","userType":"SUPPLIER","contactNumber":"2...[truncated]
+Processing Time: 25ms
+
+2025-05-22T07:15:19.840508500 - 
+=== Request/Response ===
+Time: 2025-05-22T07:15:19.8394987
+Method: GET
+URI: /event/all
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: c0686987-d719-4633-9a94-8aa3657cf74b; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; cookie: JSESSIONID=D23451E55249BC4CD68ED79C85483C0B
+Response Status: 200
+Response Body: []
+Processing Time: 4ms
+
+2025-05-22T07:15:23.367731600 - 
+=== Request/Response ===
+Time: 2025-05-22T07:15:23.3677316
+Method: POST
+URI: /event/summary/confirm/1
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 24c8f6cb-c991-44bf-97d3-69e0ec20e2a5; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; cookie: JSESSIONID=D23451E55249BC4CD68ED79C85483C0B; content-length: 0
+Response Status: 200
+Response Body: true
+Processing Time: 19ms
+
+2025-05-22T07:15:25.619153700 - 
+=== Request/Response ===
+Time: 2025-05-22T07:15:25.6191537
+Method: GET
+URI: /event/all
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: cf0b7b8b-cc8b-44de-83c9-acaa5ff4915b; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; cookie: JSESSIONID=D23451E55249BC4CD68ED79C85483C0B
+Response Status: 200
+Response Body: [{"id":1,"user":{"userId":2,"firstName":"Jane","lastName":"Smith","password":"hashed_password_2","email":"jane.smith@example.com","registeredDate":"2024-04-02","userType":"SUPPLIER","contactNumber":"2...[truncated]
+Processing Time: 32ms
+
+2025-05-22T07:15:41.667761100 - 
+=== Request/Response ===
+Time: 2025-05-22T07:15:41.6677611
+Method: POST
+URI: /event/summary/confirm/1
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 0c03df33-b27e-4214-af4a-88f56ec70ff4; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; cookie: JSESSIONID=D23451E55249BC4CD68ED79C85483C0B; content-length: 0
+Response Status: 200
+Response Body: true
+Processing Time: 18ms
+
+2025-05-22T07:15:43.502618200 - 
+=== Request/Response ===
+Time: 2025-05-22T07:15:43.5026182
+Method: GET
+URI: /event/all
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 4423d6dd-2c33-42c8-952a-426246e5b8b2; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; cookie: JSESSIONID=D23451E55249BC4CD68ED79C85483C0B
+Response Status: 200
+Response Body: [{"id":1,"user":{"userId":2,"firstName":"Jane","lastName":"Smith","password":"hashed_password_2","email":"jane.smith@example.com","registeredDate":"2024-04-02","userType":"SUPPLIER","contactNumber":"2...[truncated]
+Processing Time: 24ms
+
+2025-05-22T07:19:04.184124400 - 
+=== Request/Response ===
+Time: 2025-05-22T07:19:04.1821227
+Method: POST
+URI: /event/summary
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 278f0b30-8f6f-4885-b4fd-48bc2dd44d1b; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 278; cookie: JSESSIONID=D23451E55249BC4CD68ED79C85483C0B
+Response Status: 200
+Response Body: {"id":1,"user":{"userId":2,"firstName":"Jane","lastName":"Smith","password":"hashed_password_2","email":"jane.smith@example.com","registeredDate":"2024-04-02","userType":"SUPPLIER","contactNumber":"23...[truncated]
+Processing Time: 425ms
+
+2025-05-22T07:19:11.273423100 - 
+=== Request/Response ===
+Time: 2025-05-22T07:19:11.2731168
+Method: POST
+URI: /event/summary/confirm/1
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 2782cbb2-8ac2-4297-b220-2508e6423bd1; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; cookie: JSESSIONID=D23451E55249BC4CD68ED79C85483C0B; content-length: 0
+Response Status: 200
+Response Body: true
+Processing Time: 22ms
+
+2025-05-22T07:19:13.590613900 - 
+=== Request/Response ===
+Time: 2025-05-22T07:19:13.5906139
+Method: GET
+URI: /event/all
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: b754c054-4248-48f3-8aa2-c18a90821d2b; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; cookie: JSESSIONID=D23451E55249BC4CD68ED79C85483C0B
+Response Status: 200
+Response Body: [{"id":1,"user":{"userId":2,"firstName":"Jane","lastName":"Smith","password":"hashed_password_2","email":"jane.smith@example.com","registeredDate":"2024-04-02","userType":"SUPPLIER","contactNumber":"2...[truncated]
+Processing Time: 39ms
+
+2025-05-22T07:19:18.113194900 - 
+=== Request/Response ===
+Time: 2025-05-22T07:19:18.1131949
+Method: POST
+URI: /event/summary/confirm/1
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 8c2ceff7-ec68-4a34-a4d1-d84790fed0d5; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; cookie: JSESSIONID=D23451E55249BC4CD68ED79C85483C0B; content-length: 0
+Response Status: 304
+Response Body: 
+Processing Time: 7ms
+
+2025-05-22T07:19:20.465475400 - 
+=== Request/Response ===
+Time: 2025-05-22T07:19:20.4644725
+Method: GET
+URI: /event/all
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: d0d850a5-2e7d-4468-91ea-73302d77620f; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; cookie: JSESSIONID=D23451E55249BC4CD68ED79C85483C0B
+Response Status: 200
+Response Body: [{"id":1,"user":{"userId":2,"firstName":"Jane","lastName":"Smith","password":"hashed_password_2","email":"jane.smith@example.com","registeredDate":"2024-04-02","userType":"SUPPLIER","contactNumber":"2...[truncated]
+Processing Time: 17ms
+

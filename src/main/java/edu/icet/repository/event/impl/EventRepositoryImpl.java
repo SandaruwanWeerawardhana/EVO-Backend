@@ -165,7 +165,7 @@ public class EventRepositoryImpl implements EventRepository {
             connection.setAutoCommit(false);
 
             if ((Integer) this.dbConnection.execute(
-                    "UPDATE event SET user_id = ?, venue_id = ?, location = ?, event_date = ?, start_time = ?, end_time = ?, event_type = ?, head_count = ?, total_price = ?, budget_type = ?, event_status = ? WHERE id = ?",
+                    "UPDATE event SET user_id = ?, venue_id = ?, location = ?, event_date = ?, start_time = ?, end_time = ?, event_type = ?, head_count = ?, total_price = ?, budget_type = ?, event_status = ? WHERE id = ? AND is_deleted = FALSE",
                     event.getUserId(),
                     event.getVenueId(),
                     event.getLocation(),
@@ -318,8 +318,7 @@ public class EventRepositoryImpl implements EventRepository {
 
     @Override
     public List<EventFullEntity> getAll () {
-        final  List<EventFullEntity> eventFullEntities = this.getListOfEventFullEntitiesByMatchQuery("");
-        return eventFullEntities;
+        return this.getListOfEventFullEntitiesByMatchQuery("");
     }
 
     @Override

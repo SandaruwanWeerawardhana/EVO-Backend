@@ -82,4 +82,18 @@ public class WeddingRepositoryImpl implements WeddingRepository {
             return null;
         }
     }
+
+    @Override
+    public boolean setEventId (Long eventSummaryId, Long eventId) {
+        try {
+            return (Integer) this.dbConnection.execute(
+                "UPDATE wedding SET event_id = ? WHERE event_summary_id = ?",
+                eventId,
+                eventSummaryId
+            ) == 0;
+        } catch (SQLException exception) {
+            this.logger.error(exception.getMessage());
+            return false;
+        }
+    }
 }
