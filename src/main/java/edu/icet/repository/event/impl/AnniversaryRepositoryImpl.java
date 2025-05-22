@@ -41,7 +41,7 @@ public class AnniversaryRepositoryImpl implements AnniversaryRepository {
     public AnniversaryEntity update (AnniversaryEntity entity) {
         try {
             return (Integer) this.dbConnection.execute(
-                    "UPDATE SET anniversary event_id = ?, event_summary_id = ?, anniversary_year = ?, wife_name = ?, husband_name = ?, description = ? WHERE event_id = ? OR event_summary_id = ?",
+                    "UPDATE anniversary SET event_id = ?, event_summary_id = ?, anniversary_year = ?, wife_name = ?, husband_name = ?, description = ? WHERE event_id = ? OR event_summary_id = ?",
                     entity.getEventId(),
                     entity.getEventSummaryId(),
                     entity.getAnniversaryYear(),
@@ -73,6 +73,39 @@ public class AnniversaryRepositoryImpl implements AnniversaryRepository {
         } catch (SQLException exception) {
             this.logger.error(exception.getMessage());
             return null;
+        }
+    }
+
+    @Override
+    public AnniversaryEntity getByEventSummaryId (Long eventSummaryId) {
+        try (final ResultSet resultSet = this.dbConnection.execute("SELECT event_id, anniversary_year, wife_name, husband_name, description FROM get_together WHERE event_summary_id = ?", eventSummaryId)) {
+            return resultSet.next() ?
+                AnniversaryEntity.builder()
+                    .eventSummaryId(eventSummaryId)
+                    .eventId(resultSet.getLong(1))
+                    .anniversaryYear(resultSet.getInt(2))
+                    .wifeName(resultSet.getString(3))
+                    .husbandName(resultSet.getString(4))
+                    .description(resultSet.getString(5))
+                    .build() :
+                null;
+        } catch (SQLException exception) {
+            this.logger.error(exception.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public boolean setEventId (Long eventSummaryId, Long eventId) {
+        try {
+            return (Integer) this.dbConnection.execute(
+                "UPDATE anniversary SET event_id = ? WHERE event_summary_id = ?",
+                eventId,
+                eventSummaryId
+            ) == 0;
+        } catch (SQLException exception) {
+            this.logger.error(exception.getMessage());
+            return false;
         }
     }
 }

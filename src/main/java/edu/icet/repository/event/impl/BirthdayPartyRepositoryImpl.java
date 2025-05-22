@@ -53,7 +53,7 @@ public class BirthdayPartyRepositoryImpl implements BirthdayPartyRepository {
 
     @Override
     public BirthdayPartyEntity getByEventId (Long eventId) {
-        try (final ResultSet resultSet = this.dbConnection.execute("SELECT event_summary_id, owner_name FROM get_together WHERE event_id = ?", eventId)) {
+        try (final ResultSet resultSet = this.dbConnection.execute("SELECT event_summary_id, owner_name FROM birthday_party WHERE event_id = ?", eventId)) {
             return resultSet.next() ?
                     BirthdayPartyEntity.builder()
                             .eventId(eventId)
@@ -64,6 +64,36 @@ public class BirthdayPartyRepositoryImpl implements BirthdayPartyRepository {
         } catch (SQLException exception) {
             this.logger.error(exception.getMessage());
             return null;
+        }
+    }
+
+    @Override
+    public BirthdayPartyEntity getByEventSummaryId (Long eventSummaryId) {
+        try (final ResultSet resultSet = this.dbConnection.execute("SELECT event_id, owner_name FROM birthday_party WHERE event_summary_id = ?", eventSummaryId)) {
+            return resultSet.next() ?
+                BirthdayPartyEntity.builder()
+                    .eventSummaryId(eventSummaryId)
+                    .eventId(resultSet.getLong(1))
+                    .ownerName(resultSet.getString(2))
+                    .build() :
+                null;
+        } catch (SQLException exception) {
+            this.logger.error(exception.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public boolean setEventId (Long eventSummaryId, Long eventId) {
+        try {
+            return (Integer) this.dbConnection.execute(
+                "UPDATE birthday_party SET event_id = ? WHERE event_summary_id = ?",
+                eventId,
+                eventSummaryId
+            ) == 0;
+        } catch (SQLException exception) {
+            this.logger.error(exception.getMessage());
+            return false;
         }
     }
 }
