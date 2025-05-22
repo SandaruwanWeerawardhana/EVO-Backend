@@ -26,7 +26,7 @@ public class SupplierController {
         return ResponseEntity.ok(service.addSupplier(supplier));
     }
 
-    @GetMapping
+    @GetMapping("/get-all")
     @Operation(summary = "Returns supplier objects of all the suppliers")
     public ResponseEntity<List<Supplier>> getAllSuppliers(@RequestParam(required = false) SupplierCategoryType category) {
         List<Supplier> suppliers = category == null

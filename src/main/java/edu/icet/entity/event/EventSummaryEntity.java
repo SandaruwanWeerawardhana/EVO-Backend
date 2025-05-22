@@ -4,6 +4,7 @@ import edu.icet.util.BudgetType;
 import edu.icet.util.EventType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "event_summary")
+@Builder
 public class EventSummaryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

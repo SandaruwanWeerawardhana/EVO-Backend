@@ -2,7 +2,6 @@ package edu.icet.repository.event.impl;
 
 import edu.icet.entity.customer.UserEntity;
 import edu.icet.entity.event.EventEntity;
-import edu.icet.entity.event.EventFullEntity;
 import edu.icet.entity.event.EventSummaryEntity;
 import edu.icet.entity.event.EventSummaryFullEntity;
 import edu.icet.entity.supplier.VenueEntity;
@@ -10,6 +9,7 @@ import edu.icet.repository.customer.UserRepository;
 import edu.icet.repository.event.*;
 import edu.icet.repository.supplier.VenueRepository;
 import edu.icet.util.BudgetType;
+import edu.icet.util.EventStatusType;
 import edu.icet.util.EventType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -39,7 +39,6 @@ public class EventSummaryRepositoryImpl implements EventSummaryRepository {
     private final BirthdayPartyRepository birthdayPartyRepository;
     private final GetTogetherRepository getTogetherRepository;
     private final WeddingRepository weddingRepository;
-    private final EventRepository eventRepository;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -241,7 +240,7 @@ public class EventSummaryRepositoryImpl implements EventSummaryRepository {
         try {
             final Query eventSummaryGetQuery = this.entityManager.createNativeQuery("""
 				SELECT user_id, venue_id, location, event_date, start_time, end_time, event_type, head_count, total_price, budget_type, location FROM event_summary
-				WHERE id = :id
+				WHERE id = :id AND is_deleted = FALSE
 				""");
 
             eventSummaryGetQuery.setParameter("id", id);
@@ -262,7 +261,14 @@ public class EventSummaryRepositoryImpl implements EventSummaryRepository {
 
             eventSummaryFullEntity.setUser(this.userRepository.findById((Long) results[0]).orElse(null));
 
-            if (results[2] != null) eventSummaryFullEntity.setVenue(this.venueRepository.findById(((Number) results[2]).longValue()).orElse(null));
+            if (results[1] != null) eventSummaryFullEntity.setVenue(this.venueRepository.findById(((Number) results[1]).longValue()).orElse(null));
+
+            switch (eventSummaryFullEntity.getEventType()) {
+                case ANNIVERSARIES -> eventSummaryFullEntity.setAnniversary(this.anniversaryRepository.getByEventSummaryId(id));
+                case BIRTHDAY_PARTIES -> eventSummaryFullEntity.setBirthdayParty(this.birthdayPartyRepository.getByEventSummaryId(id));
+                case GET_TOGETHER -> eventSummaryFullEntity.setGetTogether(this.getTogetherRepository.getByEventSummaryId(id));
+                case WEDDING -> eventSummaryFullEntity.setWedding(this.weddingRepository.getByEventSummaryId(id));
+            }
 
             return eventSummaryFullEntity;
         } catch (Exception exception) {
@@ -283,8 +289,9 @@ public class EventSummaryRepositoryImpl implements EventSummaryRepository {
             final List<Object[]> resultsList = getALlEventSummariesQuery.getResultList();
 
             resultsList.forEach(results -> {
+                final Long id = ((Number) results[0]).longValue();
                 final EventSummaryFullEntity entity = EventSummaryFullEntity.builder()
-                        .id(((Number) results[0]).longValue())
+                        .id(id)
                         .location((String) results[3])
                         .eventDate(((Date) results[4]).toLocalDate())
                         .startTime(((Time) results[5]).toLocalTime())
@@ -296,6 +303,13 @@ public class EventSummaryRepositoryImpl implements EventSummaryRepository {
                         .build();
 
                 entity.setUser(this.userRepository.findById(((Number) results[1]).longValue()).orElse(null));
+
+                switch (entity.getEventType()) {
+                    case ANNIVERSARIES -> entity.setAnniversary(this.anniversaryRepository.getByEventSummaryId(id));
+                    case BIRTHDAY_PARTIES -> entity.setBirthdayParty(this.birthdayPartyRepository.getByEventSummaryId(id));
+                    case GET_TOGETHER -> entity.setGetTogether(this.getTogetherRepository.getByEventSummaryId(id));
+                    case WEDDING -> entity.setWedding(this.weddingRepository.getByEventSummaryId(id));
+                }
 
                 if (results[2] != null) entity.setVenue(this.venueRepository.findById(((Number) results[2]).longValue()).orElse(null));
 
@@ -347,41 +361,105 @@ public class EventSummaryRepositoryImpl implements EventSummaryRepository {
         }
     }
 
+    private EventSummaryEntity getEventSummaryForConfirm (Long eventSummaryId) {
+        try {
+            final Query eventSummaryGetQuery = this.entityManager.createNativeQuery("""
+				SELECT user_id, venue_id, location, event_date, start_time, end_time, event_type, head_count, total_price, budget_type, location FROM event_summary
+				WHERE id = :id AND is_deleted = FALSE
+				""");
+
+            eventSummaryGetQuery.setParameter("id", eventSummaryId);
+
+            final Object[] results = (Object[]) eventSummaryGetQuery.getSingleResult();
+
+            final EventSummaryEntity eventSummaryEntity = EventSummaryEntity.builder()
+                .id(eventSummaryId)
+                .userId((Long) results[0])
+                .venueId((Long) results[1])
+                .location((String) results[2])
+                .eventDate(((Date) results[3]).toLocalDate())
+                .startTime(((Time) results[4]).toLocalTime())
+                .endTime(((Time) results[5]).toLocalTime())
+                .eventType(EventType.fromName((String) results[6]))
+                .headCount((Integer) results[7])
+                .totalPrice((Double) results[8])
+                .budgetType(BudgetType.fromName((String) results[9]))
+                .build();
+
+            switch (eventSummaryEntity.getEventType()) {
+                case ANNIVERSARIES -> eventSummaryEntity.setAnniversary(this.anniversaryRepository.getByEventSummaryId(eventSummaryId));
+                case BIRTHDAY_PARTIES -> eventSummaryEntity.setBirthdayParty(this.birthdayPartyRepository.getByEventSummaryId(eventSummaryId));
+                case GET_TOGETHER -> eventSummaryEntity.setGetTogether(this.getTogetherRepository.getByEventSummaryId(eventSummaryId));
+                case WEDDING -> eventSummaryEntity.setWedding(this.weddingRepository.getByEventSummaryId(eventSummaryId));
+            }
+
+            return eventSummaryEntity;
+        } catch (Exception exception) {
+            this.logger.error(exception.getMessage());
+            return null;
+        }
+    }
+
+    private boolean insertEventForEventConfirm (EventEntity event, Long eventSummaryId) {
+        final Query eventInsertQuery = this.entityManager.createNativeQuery("""
+				INSERT INTO event
+				(user_id, venue_id, location, event_date, start_time, end_time, event_type, head_count, total_price, budget_type, event_status)
+				VALUES (:user_id, :venue_id, :location, :event_date, :start_time, :end_time, :event_type, :head_count, :total_price, :budget_type, :event_status)
+				""", EventEntity.class);
+
+        eventInsertQuery.setParameter("user_id", event.getUserId());
+        eventInsertQuery.setParameter("venue_id", event.getVenueId());
+        eventInsertQuery.setParameter("location", event.getLocation());
+        eventInsertQuery.setParameter("event_date", event.getEventDate());
+        eventInsertQuery.setParameter("start_time", event.getStartTime());
+        eventInsertQuery.setParameter("end_time", event.getEndTime());
+        eventInsertQuery.setParameter("event_type", event.getEventType().name());
+        eventInsertQuery.setParameter("head_count", event.getHeadCount());
+        eventInsertQuery.setParameter("total_price", event.getTotalPrice());
+        eventInsertQuery.setParameter("budget_type", event.getBudgetType().name());
+        eventInsertQuery.setParameter("event_status", EventStatusType.ON_HOLD.name());
+
+        eventInsertQuery.executeUpdate();
+
+        final Long insertedId = ((Number) this.entityManager.createNativeQuery("SELECT LAST_INSERT_ID()").getSingleResult()).longValue();
+
+        switch (event.getEventType()) {
+            case ANNIVERSARIES -> this.anniversaryRepository.setEventId(eventSummaryId, insertedId);
+            case BIRTHDAY_PARTIES -> this.birthdayPartyRepository.setEventId(eventSummaryId, insertedId);
+            case GET_TOGETHER -> this.getTogetherRepository.setEventId(eventSummaryId, insertedId);
+            case WEDDING -> this.weddingRepository.setEventId(eventSummaryId, insertedId);
+        }
+
+        return true;
+    }
+
     @Override
+    @Transactional
     public boolean confirm (Long id) {
         try {
-            final EventSummaryFullEntity eventFull = this.get(id);
+            final EventSummaryEntity eventSummaryEntity = this.getEventSummaryForConfirm(id);
 
-            if (eventFull == null) return false;
+            if (eventSummaryEntity == null) return false;
 
             final EventEntity event = EventEntity.builder()
                     .id(id)
-                    .userId(eventFull.getUser().getUserId())
-                    .eventDate(eventFull.getEventDate())
-                    .startTime(eventFull.getStartTime())
-                    .endTime(eventFull.getEndTime())
-                    .eventType(eventFull.getEventType())
-                    .headCount(eventFull.getHeadCount())
-                    .totalPrice(eventFull.getTotalPrice())
-                    .budgetType(eventFull.getBudgetType())
-                    .anniversary(eventFull.getAnniversary())
-                    .birthdayParty(eventFull.getBirthdayParty())
-                    .getTogether(eventFull.getGetTogether())
-                    .wedding(eventFull.getWedding())
+                    .userId(eventSummaryEntity.getUserId())
+                    .venueId(eventSummaryEntity.getVenueId())
+                    .location(eventSummaryEntity.getLocation())
+                    .eventDate(eventSummaryEntity.getEventDate())
+                    .startTime(eventSummaryEntity.getStartTime())
+                    .endTime(eventSummaryEntity.getEndTime())
+                    .eventType(eventSummaryEntity.getEventType())
+                    .headCount(eventSummaryEntity.getHeadCount())
+                    .totalPrice(eventSummaryEntity.getTotalPrice())
+                    .budgetType(eventSummaryEntity.getBudgetType())
+                    .anniversary(eventSummaryEntity.getAnniversary())
+                    .birthdayParty(eventSummaryEntity.getBirthdayParty())
+                    .getTogether(eventSummaryEntity.getGetTogether())
+                    .wedding(eventSummaryEntity.getWedding())
                     .build();
 
-			/*if (eventFull.getVenue() == null) {
-				event.setLocation(eventFull.getLocation());
-			} else {
-				event.setVenueId(eventFull.getVenue().getVenueId());
-			}*/
-            if (eventFull.getLocation() == null) {
-                event.setVenueId(1L);
-            } else {
-                event.setLocation(eventFull.getLocation());
-            }
-
-            return this.eventRepository.add(event) != null;
+            return this.delete(id) && this.insertEventForEventConfirm(event, id);
         } catch (Exception exception) {
             this.logger.error(exception.getMessage());
             return false;

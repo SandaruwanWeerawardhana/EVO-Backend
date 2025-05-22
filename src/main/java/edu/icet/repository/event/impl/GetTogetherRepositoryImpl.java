@@ -1,37 +1,32 @@
 package edu.icet.repository.event.impl;
 
 import edu.icet.entity.event.GetTogetherEntity;
-import edu.icet.entity.event.WeddingEntity;
 import edu.icet.repository.event.GetTogetherRepository;
-import edu.icet.util.DBConnection;
-import edu.icet.util.WeddingType;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 @Primary
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class GetTogetherRepositoryImpl implements GetTogetherRepository {
-    private final DBConnection dbConnection;
     private final Logger logger;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public GetTogetherEntity add (GetTogetherEntity entity) {
         try {
-            return (Integer) this.dbConnection.execute(
-                    "INSERT INTO get_together (event_id, event_summary_id, description, title) VALUES (?, ?, ?)",
-                    entity.getEventId(),
-                    entity.getEventSummaryId(),
-                    entity.getDescription(),
-                    entity.getTitle()
-            ) == 0 ? null : entity;
-        } catch (SQLException exception) {
-            this.logger.error(exception.getMessage());
+            entityManager.persist(entity);
+            return entity;
+        } catch (Exception e) {
+            logger.error("Error adding GetTogetherEntity: {}", e.getMessage(), e);
             return null;
         }
     }
@@ -39,35 +34,55 @@ public class GetTogetherRepositoryImpl implements GetTogetherRepository {
     @Override
     public GetTogetherEntity update (GetTogetherEntity entity) {
         try {
-            return (Integer) this.dbConnection.execute(
-                    "UPDATE get_together SET event_id = ?, event_summary_id = ?, description = ?, title = ? WHERE event_id = ? OR event_summary_id = ?",
-                    entity.getEventId(),
-                    entity.getEventSummaryId(),
-                    entity.getDescription(),
-                    entity.getTitle(),
-                    entity.getEventId(),
-                    entity.getEventSummaryId()
-            ) == 0 ? null : entity;
-        } catch (SQLException exception) {
-            this.logger.error(exception.getMessage());
+            return entityManager.merge(entity);
+        } catch (Exception e) {
+            logger.error("Error updating GetTogetherEntity: {}", e.getMessage(), e);
             return null;
         }
     }
 
     @Override
     public GetTogetherEntity getByEventId (Long eventId) {
-        try (final ResultSet resultSet = this.dbConnection.execute("SELECT event_summary_id, description, title FROM get_together WHERE event_id = ?", eventId)) {
-            return resultSet.next() ?
-                    GetTogetherEntity.builder()
-                            .eventId(eventId)
-                            .eventSummaryId(resultSet.getLong(1))
-                            .description(resultSet.getString(2))
-                            .title(resultSet.getString(3))
-                            .build() :
-                    null;
-        } catch (SQLException exception) {
-            this.logger.error(exception.getMessage());
+        try {
+            return entityManager.createQuery(
+                    "SELECT g FROM GetTogetherEntity g WHERE g.eventId = :eventId", GetTogetherEntity.class)
+                .setParameter("eventId", eventId)
+                .getResultStream()
+                .findFirst()
+                .orElse(null);
+        } catch (Exception e) {
+            logger.error("Error getting GetTogetherEntity by eventId: {}", e.getMessage(), e);
             return null;
+        }
+    }
+
+    @Override
+    public GetTogetherEntity getByEventSummaryId (Long eventSummaryId) {
+        try {
+            return entityManager.createQuery(
+                    "SELECT g FROM GetTogetherEntity g WHERE g.eventSummaryId = :eventSummaryId", GetTogetherEntity.class)
+                .setParameter("eventSummaryId", eventSummaryId)
+                .getResultStream()
+                .findFirst()
+                .orElse(null);
+        } catch (Exception e) {
+            logger.error("Error getting GetTogetherEntity by eventSummaryId: {}", e.getMessage(), e);
+            return null;
+        }
+    }
+
+    @Override
+    public boolean setEventId (Long eventSummaryId, Long eventId) {
+        try {
+            int updated = entityManager.createQuery(
+                    "UPDATE GetTogetherEntity g SET g.eventId = :eventId WHERE g.eventSummaryId = :eventSummaryId")
+                .setParameter("eventId", eventId)
+                .setParameter("eventSummaryId", eventSummaryId)
+                .executeUpdate();
+            return updated > 0;
+        } catch (Exception e) {
+            logger.error("Error setting eventId for GetTogetherEntity: {}", e.getMessage(), e);
+            return false;
         }
     }
 }
