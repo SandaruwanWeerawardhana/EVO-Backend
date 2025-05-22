@@ -2,7 +2,6 @@ package edu.icet.repository.event.impl;
 
 import edu.icet.entity.customer.UserEntity;
 import edu.icet.entity.event.EventEntity;
-import edu.icet.entity.event.EventFullEntity;
 import edu.icet.entity.event.EventSummaryEntity;
 import edu.icet.entity.event.EventSummaryFullEntity;
 import edu.icet.entity.supplier.VenueEntity;
@@ -40,7 +39,6 @@ public class EventSummaryRepositoryImpl implements EventSummaryRepository {
     private final BirthdayPartyRepository birthdayPartyRepository;
     private final GetTogetherRepository getTogetherRepository;
     private final WeddingRepository weddingRepository;
-    private final EventRepository eventRepository;
 
     @PersistenceContext
     private EntityManager entityManager;

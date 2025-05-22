@@ -2,97 +2,89 @@ package edu.icet.repository.event.impl;
 
 import edu.icet.entity.event.WeddingEntity;
 import edu.icet.repository.event.WeddingRepository;
-import edu.icet.util.DBConnection;
-import edu.icet.util.WeddingType;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import org.springframework.transaction.annotation.Transactional;
 
 @Primary
 @Repository
 @RequiredArgsConstructor
 public class WeddingRepositoryImpl implements WeddingRepository {
-    private final DBConnection dbConnection;
     private final Logger logger;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Override
+    @Transactional
     public WeddingEntity add (WeddingEntity entity) {
         try {
-            return (Integer) this.dbConnection.execute(
-                    "INSERT INTO wedding (event_id, event_summary_id, wedding_type) VALUES (?, ?, ?)",
-                    entity.getEventId(),
-                    entity.getEventSummaryId(),
-                    entity.getWeddingType().name()
-            ) == 0 ? null : entity;
-        } catch (SQLException exception) {
-            this.logger.error(exception.getMessage());
+            entityManager.persist(entity);
+            return entity;
+        } catch (Exception e) {
+            logger.error("Failed to persist WeddingEntity: {}", e.getMessage(), e);
             return null;
         }
     }
 
     @Override
+    @Transactional
     public WeddingEntity update (WeddingEntity entity) {
         try {
-            return (Integer) this.dbConnection.execute(
-                    "UPDATE wedding SET event_id = ?, event_summary_id = ?, wedding_type = ? WHERE event_id = ? OR event_summary_id = ?",
-                    entity.getEventId(),
-                    entity.getEventSummaryId(),
-                    entity.getWeddingType().name(),
-                    entity.getEventId(),
-                    entity.getEventSummaryId()
-            ) == 0 ? null : entity;
-        } catch (SQLException exception) {
-            this.logger.error(exception.getMessage());
+            return entityManager.merge(entity);
+        } catch (Exception e) {
+            logger.error("Failed to update WeddingEntity: {}", e.getMessage(), e);
             return null;
         }
     }
 
     @Override
     public WeddingEntity getByEventId (Long eventId) {
-        try (final ResultSet resultSet = this.dbConnection.execute("SELECT event_summary_id, wedding_type FROM wedding WHERE event_id = ?", eventId)) {
-            return resultSet.next() ?
-                    WeddingEntity.builder()
-                            .eventId(eventId)
-                            .eventSummaryId(resultSet.getLong(1))
-                            .weddingType(WeddingType.fromName(resultSet.getString(2)))
-                            .build() :
-                    null;
-        } catch (SQLException exception) {
-            this.logger.error(exception.getMessage());
+        try {
+            return entityManager
+                .createQuery("SELECT w FROM WeddingEntity w WHERE w.eventId = :eventId", WeddingEntity.class)
+                .setParameter("eventId", eventId)
+                .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
+            logger.error("Error fetching by eventId: {}", e.getMessage(), e);
             return null;
         }
     }
 
     @Override
     public WeddingEntity getByEventSummaryId (Long eventSummaryId) {
-        try (final ResultSet resultSet = this.dbConnection.execute("SELECT event_id, wedding_type FROM wedding WHERE event_summary_id = ?", eventSummaryId)) {
-            return resultSet.next() ?
-                WeddingEntity.builder()
-                    .eventSummaryId(eventSummaryId)
-                    .eventId(resultSet.getLong(1))
-                    .weddingType(WeddingType.fromName(resultSet.getString(2)))
-                    .build() :
-                null;
-        } catch (SQLException exception) {
-            this.logger.error(exception.getMessage());
+        try {
+            return entityManager
+                .createQuery("SELECT w FROM WeddingEntity w WHERE w.eventSummaryId = :eventSummaryId", WeddingEntity.class)
+                .setParameter("eventSummaryId", eventSummaryId)
+                .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
+            logger.error("Error fetching by eventSummaryId: {}", e.getMessage(), e);
             return null;
         }
     }
 
     @Override
+    @Transactional
     public boolean setEventId (Long eventSummaryId, Long eventId) {
         try {
-            return (Integer) this.dbConnection.execute(
-                "UPDATE wedding SET event_id = ? WHERE event_summary_id = ?",
-                eventId,
-                eventSummaryId
-            ) == 0;
-        } catch (SQLException exception) {
-            this.logger.error(exception.getMessage());
+            int updated = entityManager.createQuery(
+                    "UPDATE WeddingEntity w SET w.eventId = :eventId WHERE w.eventSummaryId = :eventSummaryId")
+                .setParameter("eventId", eventId)
+                .setParameter("eventSummaryId", eventSummaryId)
+                .executeUpdate();
+            return updated > 0;
+        } catch (Exception e) {
+            logger.error("Error updating eventId: {}", e.getMessage(), e);
             return false;
         }
     }
