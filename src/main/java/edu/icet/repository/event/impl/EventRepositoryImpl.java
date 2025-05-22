@@ -262,6 +262,13 @@ public class EventRepositoryImpl implements EventRepository {
 
             this.getEventSubCategory(eventFullEntity, id);
 
+            switch (eventFullEntity.getEventType()) {
+                case ANNIVERSARIES -> eventFullEntity.setAnniversary(this.anniversaryRepository.getByEventId(id));
+                case BIRTHDAY_PARTIES -> eventFullEntity.setBirthdayParty(this.birthdayPartyRepository.getByEventId(id));
+                case GET_TOGETHER -> eventFullEntity.setGetTogether(this.getTogetherRepository.getByEventId(id));
+                case WEDDING -> eventFullEntity.setWedding(this.weddingRepository.getByEventId(id));
+            }
+
             return eventFullEntity;
         } catch (SQLException exception) {
             this.logger.error(exception.getMessage());
@@ -292,6 +299,13 @@ public class EventRepositoryImpl implements EventRepository {
                 eventFullEntity.setVenue(this.venueRepository.findById(resultSet.getLong(3)).orElse(null));
 
                 this.getEventSubCategory(eventFullEntity, id);
+
+                switch (eventFullEntity.getEventType()) {
+                    case ANNIVERSARIES -> eventFullEntity.setAnniversary(this.anniversaryRepository.getByEventId(id));
+                    case BIRTHDAY_PARTIES -> eventFullEntity.setBirthdayParty(this.birthdayPartyRepository.getByEventId(id));
+                    case GET_TOGETHER -> eventFullEntity.setGetTogether(this.getTogetherRepository.getByEventId(id));
+                    case WEDDING -> eventFullEntity.setWedding(this.weddingRepository.getByEventId(id));
+                }
 
                 eventFullEntities.add(eventFullEntity);
             }

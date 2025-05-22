@@ -363,6 +363,7 @@ public class EventSummaryRepositoryImpl implements EventSummaryRepository {
     }
 
     @Override
+    @Transactional
     public boolean confirm (Long id) {
         try {
             final EventSummaryFullEntity eventFull = this.get(id);
