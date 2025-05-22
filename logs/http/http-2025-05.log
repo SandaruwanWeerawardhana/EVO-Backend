@@ -805,3 +805,124 @@ Response Status: 200
 Response Body: [{"id":1,"user":{"userId":2,"firstName":"Jane","lastName":"Smith","password":"hashed_password_2","email":"jane.smith@example.com","registeredDate":"2024-04-02","userType":"SUPPLIER","contactNumber":"2...[truncated]
 Processing Time: 17ms
 
+2025-05-22T10:25:18.029380900 - 
+=== Request/Response ===
+Time: 2025-05-22T10:25:18.0278344
+Method: POST
+URI: /event/summary
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 545f734a-7e23-4560-8189-68f78c136c57; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 278
+Response Status: 200
+Response Body: {"id":1,"user":{"userId":2,"firstName":"Jane","lastName":"Smith","password":"hashed_password_2","email":"jane.smith@example.com","registeredDate":"2024-04-02","userType":"SUPPLIER","contactNumber":"23...[truncated]
+Processing Time: 440ms
+
+2025-05-22T10:25:37.594625600 - 
+=== Request/Response ===
+Time: 2025-05-22T10:25:37.5946256
+Method: POST
+URI: /event/summary/confirm/1
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: f95082c8-40b4-4217-bebf-25116c37ffba; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 0
+Response Status: 200
+Response Body: true
+Processing Time: 29ms
+
+2025-05-22T10:25:41.136290600 - 
+=== Request/Response ===
+Time: 2025-05-22T10:25:41.1362906
+Method: POST
+URI: /event/summary/confirm/1
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: c32d56f9-0dc1-4a38-888e-a9c71f032430; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 0
+Response Status: 304
+Response Body: 
+Processing Time: 6ms
+
+2025-05-22T10:25:44.696715200 - 
+=== Request/Response ===
+Time: 2025-05-22T10:25:44.6967152
+Method: GET
+URI: /event/all
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 2098edf2-7282-4bd8-af9e-a118d23b58d8; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive
+Response Status: 200
+Response Body: [{"id":1,"user":{"userId":2,"firstName":"Jane","lastName":"Smith","password":"hashed_password_2","email":"jane.smith@example.com","registeredDate":"2024-04-02","userType":"SUPPLIER","contactNumber":"2...[truncated]
+Processing Time: 46ms
+
+2025-05-22T10:25:55.193933500 - 
+=== Request/Response ===
+Time: 2025-05-22T10:25:55.1939335
+Method: POST
+URI: /event/summary
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: ffa2ffc4-6712-43f3-9362-fb373d67185c; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 278
+Response Status: 200
+Response Body: {"id":2,"user":{"userId":2,"firstName":"Jane","lastName":"Smith","password":"hashed_password_2","email":"jane.smith@example.com","registeredDate":"2024-04-02","userType":"SUPPLIER","contactNumber":"23...[truncated]
+Processing Time: 28ms
+
+2025-05-22T10:25:58.423099100 - 
+=== Request/Response ===
+Time: 2025-05-22T10:25:58.4230991
+Method: POST
+URI: /event/summary/confirm/1
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 5daddf3b-4f0a-4767-9c4d-403c857ab0cb; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 0
+Response Status: 304
+Response Body: 
+Processing Time: 5ms
+
+2025-05-22T10:26:01.999596800 - 
+=== Request/Response ===
+Time: 2025-05-22T10:26:01.9995968
+Method: POST
+URI: /event/summary/confirm/2
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: adf9ba72-bd17-4b06-a74a-fccbea867d16; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 0
+Response Status: 200
+Response Body: true
+Processing Time: 19ms
+
+2025-05-22T10:26:07.564649200 - 
+=== Request/Response ===
+Time: 2025-05-22T10:26:07.5646492
+Method: GET
+URI: /event/all
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 48e33ae8-06cb-4978-b96d-a7640994b0b1; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive
+Response Status: 200
+Response Body: [{"id":1,"user":{"userId":2,"firstName":"Jane","lastName":"Smith","password":"hashed_password_2","email":"jane.smith@example.com","registeredDate":"2024-04-02","userType":"SUPPLIER","contactNumber":"2...[truncated]
+Processing Time: 25ms
+
+2025-05-22T11:26:05.264086300 - 
+=== Request/Response ===
+Time: 2025-05-22T11:26:05.2630756
+Method: POST
+URI: /event/summary
+Client IP: 0:0:0:0:0:0:0:1
+Headers: content-type: application/json; user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: ff490648-8332-4988-b2ae-00e9931392f2; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 278
+Response Status: 200
+Response Body: {"id":1,"user":{"userId":2,"firstName":"Jane","lastName":"Smith","password":"hashed_password_2","email":"jane.smith@example.com","registeredDate":"2024-04-02","userType":"SUPPLIER","contactNumber":"23...[truncated]
+Processing Time: 453ms
+
+2025-05-22T11:26:21.058286500 - 
+=== Request/Response ===
+Time: 2025-05-22T11:26:21.0571792
+Method: POST
+URI: /event/summary/confirm/1
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 044d0238-a4cb-4ea7-af4e-e9e41445293f; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive; content-length: 0
+Response Status: 200
+Response Body: true
+Processing Time: 93ms
+
+2025-05-22T11:26:25.700296 - 
+=== Request/Response ===
+Time: 2025-05-22T11:26:25.700296
+Method: GET
+URI: /event/all
+Client IP: 0:0:0:0:0:0:0:1
+Headers: user-agent: PostmanRuntime/7.44.0; accept: */*; postman-token: 0babe02b-e317-44aa-9f30-f653110a7a59; host: localhost:8080; accept-encoding: gzip, deflate, br; connection: keep-alive
+Response Status: 200
+Response Body: [{"id":1,"user":{"userId":2,"firstName":"Jane","lastName":"Smith","password":"hashed_password_2","email":"jane.smith@example.com","registeredDate":"2024-04-02","userType":"SUPPLIER","contactNumber":"2...[truncated]
+Processing Time: 46ms
+
