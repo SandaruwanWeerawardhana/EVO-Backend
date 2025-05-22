@@ -66,4 +66,20 @@ public class BirthdayPartyRepositoryImpl implements BirthdayPartyRepository {
             return null;
         }
     }
+
+    @Override
+    public BirthdayPartyEntity getByEventSummaryId (Long eventSummaryId) {
+        try (final ResultSet resultSet = this.dbConnection.execute("SELECT event_id, owner_name FROM get_together WHERE event_summary_id = ?", eventSummaryId)) {
+            return resultSet.next() ?
+                BirthdayPartyEntity.builder()
+                    .eventSummaryId(eventSummaryId)
+                    .eventId(resultSet.getLong(1))
+                    .ownerName(resultSet.getString(2))
+                    .build() :
+                null;
+        } catch (SQLException exception) {
+            this.logger.error(exception.getMessage());
+            return null;
+        }
+    }
 }

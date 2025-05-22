@@ -262,7 +262,14 @@ public class EventSummaryRepositoryImpl implements EventSummaryRepository {
 
             eventSummaryFullEntity.setUser(this.userRepository.findById((Long) results[0]).orElse(null));
 
-            if (results[2] != null) eventSummaryFullEntity.setVenue(this.venueRepository.findById(((Number) results[2]).longValue()).orElse(null));
+            if (results[1] != null) eventSummaryFullEntity.setVenue(this.venueRepository.findById(((Number) results[1]).longValue()).orElse(null));
+
+            switch (eventSummaryFullEntity.getEventType()) {
+                case ANNIVERSARIES -> eventSummaryFullEntity.setAnniversary(this.anniversaryRepository.getByEventSummaryId(id));
+                case BIRTHDAY_PARTIES -> eventSummaryFullEntity.setBirthdayParty(this.birthdayPartyRepository.getByEventSummaryId(id));
+                case GET_TOGETHER -> eventSummaryFullEntity.setGetTogether(this.getTogetherRepository.getByEventSummaryId(id));
+                case WEDDING -> eventSummaryFullEntity.setWedding(this.weddingRepository.getByEventSummaryId(id));
+            }
 
             return eventSummaryFullEntity;
         } catch (Exception exception) {
@@ -283,8 +290,9 @@ public class EventSummaryRepositoryImpl implements EventSummaryRepository {
             final List<Object[]> resultsList = getALlEventSummariesQuery.getResultList();
 
             resultsList.forEach(results -> {
+                final Long id = ((Number) results[0]).longValue();
                 final EventSummaryFullEntity entity = EventSummaryFullEntity.builder()
-                        .id(((Number) results[0]).longValue())
+                        .id(id)
                         .location((String) results[3])
                         .eventDate(((Date) results[4]).toLocalDate())
                         .startTime(((Time) results[5]).toLocalTime())
@@ -296,6 +304,13 @@ public class EventSummaryRepositoryImpl implements EventSummaryRepository {
                         .build();
 
                 entity.setUser(this.userRepository.findById(((Number) results[1]).longValue()).orElse(null));
+
+                switch (entity.getEventType()) {
+                    case ANNIVERSARIES -> entity.setAnniversary(this.anniversaryRepository.getByEventSummaryId(id));
+                    case BIRTHDAY_PARTIES -> entity.setBirthdayParty(this.birthdayPartyRepository.getByEventSummaryId(id));
+                    case GET_TOGETHER -> entity.setGetTogether(this.getTogetherRepository.getByEventSummaryId(id));
+                    case WEDDING -> entity.setWedding(this.weddingRepository.getByEventSummaryId(id));
+                }
 
                 if (results[2] != null) entity.setVenue(this.venueRepository.findById(((Number) results[2]).longValue()).orElse(null));
 

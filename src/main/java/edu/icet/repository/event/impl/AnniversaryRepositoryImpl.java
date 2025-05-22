@@ -75,4 +75,23 @@ public class AnniversaryRepositoryImpl implements AnniversaryRepository {
             return null;
         }
     }
+
+    @Override
+    public AnniversaryEntity getByEventSummaryId (Long eventSummaryId) {
+        try (final ResultSet resultSet = this.dbConnection.execute("SELECT event_id, anniversary_year, wife_name, husband_name, description FROM get_together WHERE event_summary_id = ?", eventSummaryId)) {
+            return resultSet.next() ?
+                AnniversaryEntity.builder()
+                    .eventSummaryId(eventSummaryId)
+                    .eventId(resultSet.getLong(1))
+                    .anniversaryYear(resultSet.getInt(2))
+                    .wifeName(resultSet.getString(3))
+                    .husbandName(resultSet.getString(4))
+                    .description(resultSet.getString(5))
+                    .build() :
+                null;
+        } catch (SQLException exception) {
+            this.logger.error(exception.getMessage());
+            return null;
+        }
+    }
 }

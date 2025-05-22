@@ -70,4 +70,21 @@ public class GetTogetherRepositoryImpl implements GetTogetherRepository {
             return null;
         }
     }
+
+    @Override
+    public GetTogetherEntity getByEventSummaryId (Long eventSummaryId) {
+        try (final ResultSet resultSet = this.dbConnection.execute("SELECT event_id, description, title FROM get_together WHERE event_summary_id = ?", eventSummaryId)) {
+            return resultSet.next() ?
+                GetTogetherEntity.builder()
+                    .eventSummaryId(eventSummaryId)
+                    .eventId(resultSet.getLong(1))
+                    .description(resultSet.getString(2))
+                    .title(resultSet.getString(3))
+                    .build() :
+                null;
+        } catch (SQLException exception) {
+            this.logger.error(exception.getMessage());
+            return null;
+        }
+    }
 }
