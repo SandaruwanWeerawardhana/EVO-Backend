@@ -13,6 +13,7 @@ import edu.icet.util.SupplierCategoryType;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -33,13 +34,13 @@ public class SupplierManagerImpl implements SupplierManager {
     final MusicRepository musicRepository;
     final MealRepository mealRepository;
     private final ModelMapper modelMapper;
+    final BCryptPasswordEncoder passwordEncoder;
 
     // Add Supplier
     @Override
     public Supplier addSupplier(Supplier supplier) {
-        if (supplier.getId() != null) {
-            throw new IllegalArgumentException("Supplier doesn't exist");
-        }
+
+        supplier.setPassword(passwordEncoder.encode(supplier.getPassword()));
         SupplierEntity supplierEntity = supplierRepository.save(mapper.map(supplier, SupplierEntity.class));
 
         return mapper.map(supplierEntity, Supplier.class);
