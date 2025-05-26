@@ -1,5 +1,8 @@
 package edu.icet.security;
 
+import edu.icet.dto.admin.Admin;
+import edu.icet.dto.customer.Customer;
+import edu.icet.dto.supplier.Supplier;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,9 +28,34 @@ public class JwtUtil {
         this.expirationTime = expirationTime;
     }
 
-    public String generateToken (UserDetails userDetails, String role) {
+    public String generateToken (UserDetails userDetails, String role, Object entity) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
+
+        String username;
+        String profileImage;
+
+        if (role.equals("CUSTOMER")) {
+            Customer customer = (Customer) entity;
+
+            username = customer.getFirstName() + " " + customer.getLastName();
+            profileImage = customer.getProfileImageUrl();
+
+        } else if (role.equals("SUPPLIER")) {
+            Supplier supplier = (Supplier) entity;
+
+            username = supplier.getBusinessName();
+            profileImage = supplier.getImageUrl();
+
+        } else {
+            Admin admin = (Admin) entity;
+
+            username = admin.getEmail();
+            profileImage = null;
+        }
+
+        claims.put("username", username);
+        claims.put("profile_image", profileImage);
 
         return Jwts.builder()
             .setClaims(claims)
