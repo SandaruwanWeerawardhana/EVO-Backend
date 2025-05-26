@@ -32,6 +32,7 @@ public class JwtUtil {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
 
+        Long userID;
         String username;
         String profileImage;
 
@@ -40,20 +41,24 @@ public class JwtUtil {
 
             username = customer.getFirstName() + " " + customer.getLastName();
             profileImage = customer.getProfileImageUrl();
+            userID = customer.getId();
 
         } else if (role.equals("SUPPLIER")) {
             Supplier supplier = (Supplier) entity;
 
             username = supplier.getBusinessName();
             profileImage = supplier.getImageUrl();
+            userID = supplier.getId();
 
         } else {
             Admin admin = (Admin) entity;
 
             username = admin.getEmail();
             profileImage = null;
+            userID = admin.getId();
         }
 
+        claims.put("user_id", userID);
         claims.put("username", username);
         claims.put("profile_image", profileImage);
 
