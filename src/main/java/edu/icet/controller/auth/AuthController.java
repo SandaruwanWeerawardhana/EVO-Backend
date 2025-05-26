@@ -91,7 +91,7 @@ public class AuthController {
         }
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-        String jwtToken = jwtUtil.generateToken(userDetails, role);
+        String jwtToken = jwtUtil.generateToken(userDetails, role, entity);
 
         return ResponseEntity.ok(new JwtResponse(email, jwtToken, entity));
     }
