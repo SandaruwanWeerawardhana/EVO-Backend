@@ -2,6 +2,7 @@ package edu.icet.controller.event;
 
 import edu.icet.config.apidoc.event.EventAddApiDoc;
 import edu.icet.dto.event.*;
+import edu.icet.dto.supplier.Supplier;
 import edu.icet.service.customer.AgendaService;
 import edu.icet.service.event.EventService;
 import edu.icet.service.event.EventSummaryService;
@@ -248,5 +249,17 @@ public class EventController {
         return this.eventSummaryService.confirm(id) ?
                 ResponseEntity.ok(true) :
                 ResponseEntity.status(304).build();
+    }
+
+    @PreAuthorize("hasRole('ADMIN', 'CUSTOMER')")
+    @PostMapping("/summary/supplier/{eventSummaryID}")
+    public ResponseEntity<Long> addSuppliersToSummary(@RequestBody List<Supplier> suppliers, @PathVariable Long eventSummaryID) {
+        return ResponseEntity.ok(this.eventSummaryService.addSuppliersToSummary(eventSummaryID, suppliers) ? eventSummaryID : null);
+    }
+
+    @PreAuthorize("hasRole('ADMIN', 'CUSTOMER')")
+    @GetMapping("/summary/supplier/{eventSummaryID}")
+    public ResponseEntity<List<Supplier>> getSuppliersOfSummary(@PathVariable Long eventSummaryID) {
+        return ResponseEntity.ok(this.eventSummaryService.getSuppliersOfSummary(eventSummaryID));
     }
 }
