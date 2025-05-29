@@ -253,8 +253,8 @@ public class EventController {
 
     @PreAuthorize("hasRole('ADMIN', 'CUSTOMER')")
     @PostMapping("/summary/supplier/{eventSummaryID}")
-    public ResponseEntity<Boolean> addSuppliersToSummary(@RequestBody List<Supplier> suppliers, @PathVariable Long eventSummaryID) {
-        return ResponseEntity.ok(this.eventSummaryService.addSuppliersToSummary(eventSummaryID, suppliers));
+    public ResponseEntity<Long> addSuppliersToSummary(@RequestBody List<Supplier> suppliers, @PathVariable Long eventSummaryID) {
+        return ResponseEntity.ok(this.eventSummaryService.addSuppliersToSummary(eventSummaryID, suppliers) ? eventSummaryID : null);
     }
 
     @PreAuthorize("hasRole('ADMIN', 'CUSTOMER')")

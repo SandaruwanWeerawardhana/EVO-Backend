@@ -79,18 +79,14 @@ public class EventSummaryServiceImpl implements EventSummaryService {
         EventSummaryFullEntity eventSummaryFullEntity = eventSummaryRepository.get(eventSummaryID);
 
         if (eventSummaryFullEntity != null) {
-            suppliers.forEach(supplier -> {
                 eventSummarySuppliersRepository.save(
                         EventSummarySuppliersEntity.builder()
                                 .eventSummary(EventSummaryEntity.builder()
                                         .id(eventSummaryFullEntity.getId())
                                         .build())
-                                .supplier(mapper.map(supplier, SupplierEntity.class))
+                                .suppliers(suppliers.stream().map(supplier -> mapper.map(supplier, SupplierEntity.class)).toList())
                                 .build()
                 );
-            });
-
-
 
             return true;
         }
@@ -103,17 +99,17 @@ public class EventSummaryServiceImpl implements EventSummaryService {
         EventSummaryFullEntity eventSummaryFullEntity = eventSummaryRepository.get(eventSummaryID);
 
         if (eventSummaryFullEntity != null) {
-            return eventSummarySuppliersRepository.findAllByEventSummary(EventSummaryEntity.builder()
-                            .id(eventSummaryFullEntity.getId())
+            return eventSummarySuppliersRepository.findByEventSummary(EventSummaryEntity.builder()
+                    .id(eventSummaryID)
                     .build())
+                    .getSuppliers()
                     .stream()
-                    .map(
-                            eventSummarySuppliersEntity ->mapper.map(
-                                    eventSummarySuppliersEntity.getSupplier(), Supplier.class)
-                    )
+                    .map(supplierEntity -> mapper.map(supplierEntity, Supplier.class))
                     .toList();
+
         }
 
         return List.of();
+
     }
 }

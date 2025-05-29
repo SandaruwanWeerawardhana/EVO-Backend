@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface EventSummarySuppliersRepository extends JpaRepository<EventSummarySuppliersEntity, Long> {
-    List<EventSummarySuppliersEntity> findAllByEventSummary(EventSummaryEntity eventSummary);
+    EventSummarySuppliersEntity findByEventSummary(EventSummaryEntity eventSummary);
 
 }
