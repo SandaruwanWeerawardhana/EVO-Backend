@@ -3,9 +3,11 @@ package edu.icet.controller.event;
 import edu.icet.config.apidoc.event.EventAddApiDoc;
 import edu.icet.dto.event.*;
 import edu.icet.dto.supplier.Supplier;
+import edu.icet.entity.event.EventEntity;
 import edu.icet.service.customer.AgendaService;
 import edu.icet.service.event.EventService;
 import edu.icet.service.event.EventSummaryService;
+import edu.icet.util.SupplierCategoryType;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -260,5 +262,12 @@ public class EventController {
     @GetMapping("/summary/supplier/{eventSummaryID}")
     public ResponseEntity<List<Supplier>> getSuppliersOfSummary(@PathVariable Long eventSummaryID) {
         return ResponseEntity.ok(this.eventSummaryService.getSuppliersOfSummary(eventSummaryID));
+    }
+
+    @PreAuthorize("hasRole('ADMIN', 'CUSTOMER')")
+    @GetMapping("/event/suppliers/{eventId}")
+    ResponseEntity<List<EventSupplierResponse>>getEventSupllier(@PathVariable Long eventId, @RequestParam(required = false)String searchSteam, @RequestParam(required = false)SupplierCategoryType categoryType,@RequestParam(required = false)boolean avaliblity){
+        List<EventSupplierResponse> eventSupplierResponses=eventService.eventSupplierResponses(eventId,searchSteam,categoryType,avaliblity);
+        return ResponseEntity.ok(eventSupplierResponses);
     }
 }

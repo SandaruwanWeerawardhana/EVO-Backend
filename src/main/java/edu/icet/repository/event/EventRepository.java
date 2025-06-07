@@ -2,11 +2,13 @@ package edu.icet.repository.event;
 
 import edu.icet.entity.event.EventEntity;
 import edu.icet.entity.event.EventFullEntity;
+import edu.icet.entity.event.EventSummarySuppliersEntity;
+import edu.icet.entity.event.EventSupplierEntity;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public interface EventRepository {
+public interface EventRepository  {
     EventFullEntity add (EventEntity event);
     EventFullEntity update (EventEntity event);
     EventFullEntity get (Long id);
@@ -15,4 +17,6 @@ public interface EventRepository {
     List<EventFullEntity> getAllByLocation (Long locationId);
     List<EventFullEntity> getAllByUser (Long userId);
     boolean delete (Long id);
+
+
 }

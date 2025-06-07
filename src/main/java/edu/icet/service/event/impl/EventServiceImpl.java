@@ -2,22 +2,31 @@ package edu.icet.service.event.impl;
 
 import edu.icet.dto.event.Event;
 import edu.icet.dto.event.EventFull;
+import edu.icet.dto.event.EventSupplierResponse;
 import edu.icet.entity.event.EventEntity;
 import edu.icet.entity.event.EventFullEntity;
+import edu.icet.entity.event.EventSummarySuppliersEntity;
+import edu.icet.entity.event.EventSupplierEntity;
+import edu.icet.entity.supplier.SupplierEntity;
 import edu.icet.repository.event.EventRepository;
+import edu.icet.repository.event.EventSummarySuppliersRepository;
 import edu.icet.service.event.EventService;
+import edu.icet.util.SupplierCategoryType;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Primary
 @RequiredArgsConstructor
 public class EventServiceImpl implements EventService {
+    private  final EventSummarySuppliersRepository eventSummarySuppliersRepository;
     private final EventRepository eventRepository;
     private final ModelMapper mapper;
 
@@ -62,5 +71,50 @@ public class EventServiceImpl implements EventService {
     @Override
     public boolean delete (Long id) {
         return this.eventRepository.delete(id);
+    }
+
+    @Override
+    public List<EventSupplierResponse> eventSupplierResponses(Long eventId, String searchSteam, SupplierCategoryType categoryType, Boolean availability) {
+        try {
+            EventSummarySuppliersEntity event = eventSummarySuppliersRepository.findById(eventId)
+                    .orElseThrow(() -> new RuntimeException("Event Not found " + eventId));
+
+            List<EventSupplierEntity> eventSupplierEntities = eventSummarySuppliersRepository.findByEventSummary(event);
+
+            return eventSupplierEntities.stream()
+                    .map(EventSupplierEntity::getSupplier)
+                    .filter(supplier -> matchesSearchTerm(supplier, searchSteam))
+                    .filter(supplier -> matchesCategory(supplier, categoryType))
+                    .filter(supplier -> matchesAvailability(supplier, availability))
+                    .map(this::convertToResponse)
+                    .collect(Collectors.toList());
+
+        } catch (Exception e) {
+            System.err.println("Error occurred while fetching event suppliers: " + e.getMessage());
+
+
+            return new ArrayList<>();
+        }
+    }
+
+    private boolean matchesSearchTerm(SupplierEntity supplier, String searchTerm) {
+        if (searchTerm == null || searchTerm.isEmpty()) {
+            return true;
+        }
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        return supplier.getBusinessName().toLowerCase().contains(lowerSearchTerm) ||
+                supplier.getBusinessEmail().toLowerCase().contains(lowerSearchTerm);
+    }
+
+    private boolean matchesCategory(SupplierEntity supplier, SupplierCategoryType category) {
+        return category == null || supplier.getCategory() == category;
+    }
+
+    private boolean matchesAvailability(SupplierEntity supplier, Boolean availability) {
+        return availability == null || supplier.getAvailability().equals(availability);
+    }
+
+    private EventSupplierResponse convertToResponse(SupplierEntity supplier) {
+        return  mapper.map(supplier,EventSupplierResponse.class);
     }
 }
