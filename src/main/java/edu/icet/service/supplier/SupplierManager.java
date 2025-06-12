@@ -18,6 +18,12 @@ public interface SupplierManager {
     Supplier updateSupplier(Supplier supplier);
     Boolean deleteSupplier(Long supplerID);
 
+    AllSupplierDetails addSupplierWithDetails(AllSupplierDetails allSupplierDetails);
+    List<AllSupplierDetails> getAllSuppliersWithDetails();
+    List<AllSupplierDetails> getAllSuppliersWithDetailsByCategory(SupplierCategoryType categoryType);
+    AllSupplierDetails getSupplierWithDetailsByID(Long supplierID);
+    AllSupplierDetails updateSupplierWithDetails(AllSupplierDetails allSupplierDetails);
+
     // BeautySalon
     List<BeautySaloon> getAllBeautySalon();
     Supplier addBeautySalonSupplier(BeautySaloon beautySaloon, Long supplierID);

@@ -39,10 +39,11 @@ public class ProfilePackageEntity {
     @Column(nullable = false)
     private String status;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "supplier_id")
-    private SupplierEntity supplierId;
+    private SupplierEntity supplier;
 
-    private List<String> imgUrl;
-
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_package_id")
+    private List<PackageFeatureEntity> features;
 }

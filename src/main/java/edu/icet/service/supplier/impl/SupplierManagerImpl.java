@@ -33,6 +33,7 @@ public class SupplierManagerImpl implements SupplierManager {
     final BeautySaloonRepository beautySaloonRepository;
     final MusicRepository musicRepository;
     final MealRepository mealRepository;
+    final SupplierExtraFeatureRepository supplierExtraFeatureRepository;
     private final ModelMapper modelMapper;
     final BCryptPasswordEncoder passwordEncoder;
 
@@ -97,6 +98,90 @@ public class SupplierManagerImpl implements SupplierManager {
         }
 
         throw new IllegalArgumentException("Supplier does not exist!");
+    }
+
+    @Override
+    public AllSupplierDetails addSupplierWithDetails(AllSupplierDetails allSupplierDetails) {
+        SupplierEntity supplierEntity = supplierRepository.save(mapper.map(allSupplierDetails, SupplierEntity.class));
+
+        allSupplierDetails.setSupplier(mapper.map(supplierEntity, Supplier.class));
+
+        allSupplierDetails.setPackages(allSupplierDetails
+                .getPackages()
+                .stream()
+                .map(profilePackage -> {
+                    profilePackage.setSupplier(Supplier.builder().id(supplierEntity.getId()).build());
+                    return profilePackageRepository.save(mapper.map(profilePackage, ProfilePackageEntity.class));
+                })
+                .map(profilePackageEntity -> mapper.map(profilePackageEntity, ProfilePackage.class))
+                .toList());
+
+        allSupplierDetails.setExtraFeatures(
+            supplierExtraFeatureRepository.save(SupplierExtraFeatureEntity.builder()
+                            .supplier(supplierEntity)
+                            .extraFeatures(allSupplierDetails.getExtraFeatures()
+                                    .stream()
+                                    .map(packageFeature -> mapper.map(packageFeature, PackageFeatureEntity.class))
+                                    .toList())
+                    .build())
+                    .getExtraFeatures()
+                    .stream()
+                    .map(packageFeatureEntity -> mapper.map(packageFeatureEntity, PackageFeature.class))
+                    .toList()
+        );
+
+        return allSupplierDetails;
+    }
+
+    @Override
+    public List<AllSupplierDetails> getAllSuppliersWithDetails() {
+
+        return getAllSuppliers().stream().map(supplier -> {
+
+            return AllSupplierDetails.builder()
+                    .supplier(supplier)
+                    .packages(
+                        profilePackageRepository.findAll()
+                                .stream()
+                                .filter(profilePackageEntity -> profilePackageEntity.getSupplier().getId().equals(supplier.getId()))
+                                .map(profilePackageEntity -> mapper.map(profilePackageEntity, ProfilePackage.class))
+                                .toList()
+                    )
+                    .extraFeatures(
+                        supplierExtraFeatureRepository.findAll()
+                                .stream()
+                                .filter(supplierExtraFeatureEntity -> supplierExtraFeatureEntity.getSupplier().getId().equals(supplier.getId()))
+                                .map(supplierExtraFeatureEntity -> mapper.map(supplierExtraFeatureEntity.getExtraFeatures(), PackageFeature.class))
+                                .toList()
+                    )
+                    .build();
+        }).toList();
+
+    }
+
+    @Override
+    public List<AllSupplierDetails> getAllSuppliersWithDetailsByCategory(SupplierCategoryType categoryType) {
+        return getAllSuppliersWithDetails()
+                .stream()
+                .filter(allSupplierDetails -> allSupplierDetails.getSupplier().getCategory().equals(categoryType))
+                .toList();
+    }
+
+    @Override
+    public AllSupplierDetails getSupplierWithDetailsByID(Long supplierID) {
+        return getAllSuppliersWithDetails()
+                .stream()
+                .filter(allSupplierDetails -> allSupplierDetails.getSupplier().getId().equals(supplierID))
+                .toList()
+                .get(0);
+    }
+
+    @Override
+    public AllSupplierDetails updateSupplierWithDetails(AllSupplierDetails allSupplierDetails) {
+        if (supplierRepository.findById(allSupplierDetails.getSupplier().getId()).isEmpty())
+            throw new IllegalArgumentException("Supplier with that ID does not exist!");
+
+        return addSupplierWithDetails(allSupplierDetails);
     }
 
     @Override

@@ -3,7 +3,6 @@ package edu.icet.dto.supplier;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import java.util.List;
 
 @Data
@@ -18,10 +17,8 @@ public class ProfilePackage {
 
     private Double price;
 
-    private String status;
+    private Supplier supplier;
 
-    private Long supplierId;
-
-    private List<String> imageUrl;
+    private List<PackageFeature> features;
 
 }

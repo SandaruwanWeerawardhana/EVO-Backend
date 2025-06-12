@@ -1,6 +1,5 @@
 package edu.icet.controller.supplier;
 
-import edu.icet.dto.customer.User;
 import edu.icet.dto.supplier.*;
 import edu.icet.service.supplier.SupplierManager;
 import edu.icet.util.MealType;
@@ -61,6 +60,41 @@ public class SupplierController {
         return ResponseEntity.ok(service.deleteSupplier(supplierID));
     }
 
+    @PreAuthorize("hasRole('SUPPLIER')")
+    @PostMapping("/all-details")
+    public ResponseEntity<AllSupplierDetails> addSupplierWithDetails(@RequestBody AllSupplierDetails allSupplierDetails) {
+        AllSupplierDetails savedDetails = service.addSupplierWithDetails(allSupplierDetails);
+        return ResponseEntity.ok(savedDetails);
+    }
+
+    @PreAuthorize("hasRole('SUPPLIER')")
+    @GetMapping("/all-details")
+    public ResponseEntity<List<AllSupplierDetails>> getAllSuppliersWithDetails() {
+        List<AllSupplierDetails> allSuppliers = service.getAllSuppliersWithDetails();
+        return ResponseEntity.ok(allSuppliers);
+    }
+
+    @PreAuthorize("hasRole('SUPPLIER')")
+    @GetMapping("/all-details/{categoryType}")
+    public ResponseEntity<List<AllSupplierDetails>> getAllSuppliersWithDetailsByCategory(
+            @PathVariable SupplierCategoryType categoryType) {
+        List<AllSupplierDetails> filteredSuppliers = service.getAllSuppliersWithDetailsByCategory(categoryType);
+        return ResponseEntity.ok(filteredSuppliers);
+    }
+
+    @PreAuthorize("hasRole('SUPPLIER')")
+    @GetMapping("/all-details/{id}")
+    public ResponseEntity<AllSupplierDetails> getSupplierWithDetailsByID(@PathVariable Long id) {
+        AllSupplierDetails supplierDetails = service.getSupplierWithDetailsByID(id);
+        return ResponseEntity.ok(supplierDetails);
+    }
+
+    @PreAuthorize("hasRole('SUPPLIER')")
+    @PutMapping("/all-details")
+    public ResponseEntity<AllSupplierDetails> updateSupplierWithDetails(@RequestBody AllSupplierDetails allSupplierDetails) {
+        AllSupplierDetails updatedDetails = service.updateSupplierWithDetails(allSupplierDetails);
+        return ResponseEntity.ok(updatedDetails);
+    }
 
     // BeautySalon endpoints
 
