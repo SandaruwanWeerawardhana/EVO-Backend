@@ -1,5 +1,6 @@
 package edu.icet.dto.supplier;
 
+import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;

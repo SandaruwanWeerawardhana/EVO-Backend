@@ -16,9 +16,14 @@ public class PackageFeatureEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long featureID;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 500)
     private String featureName;
 
     @Column(nullable = false)
     private Double featurePrice;
+
+    @ManyToOne
+    @JoinColumn(name = "profile_package_id")
+    private ProfilePackageEntity profilePackage;
 }
+

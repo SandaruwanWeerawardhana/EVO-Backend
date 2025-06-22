@@ -19,8 +19,11 @@ public interface SupplierManager {
     Boolean deleteSupplier(Long supplerID);
 
     AllSupplierDetails addSupplierWithDetails(AllSupplierDetails allSupplierDetails);
+
+    List<AllSupplierDetails> getAllSuppliersWithDetailsUnfiltered();
+
     List<AllSupplierDetails> getAllSuppliersWithDetails();
-    List<AllSupplierDetails> getAllSuppliersWithDetailsByCategory(SupplierCategoryType categoryType);
+    List<AllSupplierDetails> getAllSuppliersWithDetailsByCategory(String categoryType);
     AllSupplierDetails getSupplierWithDetailsByID(Long supplierID);
     AllSupplierDetails updateSupplierWithDetails(AllSupplierDetails allSupplierDetails);
 

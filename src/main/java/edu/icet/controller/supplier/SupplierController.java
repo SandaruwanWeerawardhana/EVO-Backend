@@ -75,15 +75,15 @@ public class SupplierController {
     }
 
     @PreAuthorize("hasRole('SUPPLIER')")
-    @GetMapping("/all-details/{categoryType}")
+    @GetMapping("/all-details/category/{categoryType}")
     public ResponseEntity<List<AllSupplierDetails>> getAllSuppliersWithDetailsByCategory(
-            @PathVariable SupplierCategoryType categoryType) {
+            @PathVariable String categoryType) {
         List<AllSupplierDetails> filteredSuppliers = service.getAllSuppliersWithDetailsByCategory(categoryType);
         return ResponseEntity.ok(filteredSuppliers);
     }
 
     @PreAuthorize("hasRole('SUPPLIER')")
-    @GetMapping("/all-details/{id}")
+    @GetMapping("/all-details/id/{id}")
     public ResponseEntity<AllSupplierDetails> getSupplierWithDetailsByID(@PathVariable Long id) {
         AllSupplierDetails supplierDetails = service.getSupplierWithDetailsByID(id);
         return ResponseEntity.ok(supplierDetails);

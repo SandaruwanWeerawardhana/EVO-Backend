@@ -22,12 +22,16 @@ public class SupplierEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Version
+    private Long version;
+
     private String businessName;
 
     private String businessContactNumber;
 
     private String businessEmail;
 
+    @Column(length = 500)
     private String description;
 
     @Email

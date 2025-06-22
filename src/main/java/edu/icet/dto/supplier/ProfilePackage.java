@@ -17,8 +17,6 @@ public class ProfilePackage {
 
     private Double price;
 
-    private Supplier supplier;
-
     private List<PackageFeature> features;
 
 }

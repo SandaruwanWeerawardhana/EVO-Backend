@@ -2,6 +2,8 @@ package edu.icet.repository.supplier;
 
 import edu.icet.entity.supplier.ProfilePackageEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.Collection;
 import java.util.List;
@@ -11,4 +13,5 @@ public interface ProfilePackageRepository extends JpaRepository<ProfilePackageEn
     ProfilePackageEntity findByPackageName(String name);
     boolean existsByPackageName(String name);
 
+    List<ProfilePackageEntity> findBySupplierId(Long supplierId);
 }

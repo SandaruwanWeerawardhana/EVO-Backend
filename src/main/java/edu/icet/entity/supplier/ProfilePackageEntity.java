@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,11 +19,11 @@ import java.util.List;
 
 public class ProfilePackageEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long packageId;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, length = 500)
     private String description;
 
     @NotNull
@@ -35,15 +37,10 @@ public class ProfilePackageEntity {
     @Column(nullable = false)
     private Double price;
 
-    @NotNull
-    @Column(nullable = false)
-    private String status;
-
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "supplier_id")
     private SupplierEntity supplier;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "profile_package_id")
-    private List<PackageFeatureEntity> features;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "profilePackage")
+    private List<PackageFeatureEntity> features = new ArrayList<>();
 }

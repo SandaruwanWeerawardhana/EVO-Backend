@@ -11,6 +11,7 @@ import edu.icet.service.supplier.SupplierManager;
 import edu.icet.util.MealType;
 import edu.icet.util.SupplierCategoryType;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,6 +30,7 @@ public class SupplierManagerImpl implements SupplierManager {
     final CateringRepository cateringRepository;
     final SupplierRequestReporsitory requestReporsitory;
     final ProfilePreviousWorkRepository profilePreviousWorkRepository;
+    final ImageGalleryRepository imageGalleryRepository;
     final InventoryRepository inventoryRepository;
     final BeautySaloonRepository beautySaloonRepository;
     final MusicRepository musicRepository;
@@ -100,76 +102,209 @@ public class SupplierManagerImpl implements SupplierManager {
         throw new IllegalArgumentException("Supplier does not exist!");
     }
 
+
     @Override
-    public AllSupplierDetails addSupplierWithDetails(AllSupplierDetails allSupplierDetails) {
-        SupplierEntity supplierEntity = supplierRepository.save(mapper.map(allSupplierDetails, SupplierEntity.class));
+    @Transactional
+    public AllSupplierDetails addSupplierWithDetails(AllSupplierDetails details) {
+        SupplierEntity supplier = handleSupplier(details.getSupplier());
 
-        allSupplierDetails.setSupplier(mapper.map(supplierEntity, Supplier.class));
+        if (supplier.getId() != null) {
+            // Delete existing packages and image gallery
+            List<ProfilePackageEntity> packages = profilePackageRepository.findBySupplierId(supplier.getId());
+            profilePackageRepository.deleteAll(packages);
 
-        allSupplierDetails.setPackages(allSupplierDetails
-                .getPackages()
-                .stream()
-                .map(profilePackage -> {
-                    profilePackage.setSupplier(Supplier.builder().id(supplierEntity.getId()).build());
-                    return profilePackageRepository.save(mapper.map(profilePackage, ProfilePackageEntity.class));
-                })
-                .map(profilePackageEntity -> mapper.map(profilePackageEntity, ProfilePackage.class))
-                .toList());
+            // Delete existing image gallery
+            imageGalleryRepository.findBySupplierID(supplier.getId())
+                    .ifPresent(imageGalleryRepository::delete);
+        }
 
-        allSupplierDetails.setExtraFeatures(
-            supplierExtraFeatureRepository.save(SupplierExtraFeatureEntity.builder()
-                            .supplier(supplierEntity)
-                            .extraFeatures(allSupplierDetails.getExtraFeatures()
-                                    .stream()
-                                    .map(packageFeature -> mapper.map(packageFeature, PackageFeatureEntity.class))
-                                    .toList())
-                    .build())
-                    .getExtraFeatures()
-                    .stream()
-                    .map(packageFeatureEntity -> mapper.map(packageFeatureEntity, PackageFeature.class))
-                    .toList()
-        );
+        // Save packages and features
+        List<ProfilePackage> savedPackages = savePackages(details.getPackages(), supplier);
+        List<PackageFeature> savedFeatures = saveExtraFeatures(details.getExtraFeatures(), supplier);
 
-        return allSupplierDetails;
+        // Save image gallery
+        ImageGallery savedImageGallery = saveImageGallery(details.getImageGallery(), supplier.getId());
+
+        return AllSupplierDetails.builder()
+                .supplier(mapper.map(supplier, Supplier.class))
+                .packages(savedPackages)
+                .extraFeatures(savedFeatures)
+                .imageGallery(savedImageGallery)
+                .build();
     }
 
-    @Override
-    public List<AllSupplierDetails> getAllSuppliersWithDetails() {
+    private ImageGallery saveImageGallery(ImageGallery gallery, Long supplierId) {
+        if (gallery == null || gallery.getImages() == null || gallery.getImages().isEmpty()) {
+            return null;
+        }
 
+        // Create new entity (existing gallery was deleted earlier)
+        ImageGalleryEntity entity = new ImageGalleryEntity();
+        entity.setSupplierID(supplierId);
+        entity.setImages(new ArrayList<>(gallery.getImages())); // Defensive copy
+
+        ImageGalleryEntity saved = imageGalleryRepository.save(entity);
+        return new ImageGallery(saved.getId(), saved.getSupplierID(), saved.getImages());
+    }
+
+    private SupplierEntity handleSupplier(Supplier supplierDto) {
+        // New supplier (no ID)
+        if (supplierDto.getId() == null) {
+            return supplierRepository.save(mapper.map(supplierDto, SupplierEntity.class));
+        }
+
+        // Existing supplier
+        return supplierRepository.findById(supplierDto.getId())
+                .map(existing -> {
+                    // Update fields except ID
+                    mapper.map(supplierDto, existing);
+                    return existing;
+                })
+                .orElseGet(() -> {
+                    // ID provided but not found - create new
+                    SupplierEntity newEntity = mapper.map(supplierDto, SupplierEntity.class);
+                    newEntity.setId(null); // Reset ID for new creation
+                    return supplierRepository.save(newEntity);
+                });
+    }
+
+    private List<ProfilePackage> savePackages(List<ProfilePackage> packages, SupplierEntity supplier) {
+        return packages.stream()
+                .map(pkgDto -> {
+                    ProfilePackageEntity entity = mapper.map(pkgDto, ProfilePackageEntity.class);
+                    entity.setSupplier(supplier);
+
+                    // Handle package features
+                    if (pkgDto.getFeatures() != null) {
+                        List<PackageFeatureEntity> featureEntities = pkgDto.getFeatures().stream()
+                                .map(featureDto -> {
+                                    PackageFeatureEntity featureEntity = mapper.map(featureDto, PackageFeatureEntity.class);
+                                    featureEntity.setProfilePackage(entity);
+                                    return featureEntity;
+                                })
+                                .toList();
+                        entity.setFeatures(featureEntities);
+                    }
+
+                    return profilePackageRepository.save(entity);
+                })
+                .map(entity -> mapper.map(entity, ProfilePackage.class))
+                .toList();
+    }
+
+    private List<PackageFeature> saveExtraFeatures(List<PackageFeature> features, SupplierEntity supplier) {
+        // Find or create extra feature entity
+        Optional<SupplierExtraFeatureEntity> existing = supplierExtraFeatureRepository.findBySupplierId(supplier.getId());
+        SupplierExtraFeatureEntity entity = existing.orElseGet(() ->
+                SupplierExtraFeatureEntity.builder()
+                        .supplier(supplier)
+                        .extraFeatures(new ArrayList<>())
+                        .build()
+        );
+
+        // Clear and update features
+        entity.getExtraFeatures().clear();
+        features.forEach(featureDto -> {
+            PackageFeatureEntity featureEntity = mapper.map(featureDto, PackageFeatureEntity.class);
+            // Set back-reference if needed
+            entity.getExtraFeatures().add(featureEntity);
+        });
+
+        SupplierExtraFeatureEntity saved = supplierExtraFeatureRepository.save(entity);
+        return saved.getExtraFeatures().stream()
+                .map(fe -> mapper.map(fe, PackageFeature.class))
+                .toList();
+    }
+
+
+
+
+    @Override
+    public List<AllSupplierDetails> getAllSuppliersWithDetailsUnfiltered() {
         return getAllSuppliers().stream().map(supplier -> {
+            // Fetch image gallery
+            ImageGallery imageGallery = imageGalleryRepository.findBySupplierID(supplier.getId())
+                    .map(entity -> mapper.map(entity, ImageGallery.class))
+                    .orElse(null);
 
             return AllSupplierDetails.builder()
                     .supplier(supplier)
                     .packages(
-                        profilePackageRepository.findAll()
-                                .stream()
-                                .filter(profilePackageEntity -> profilePackageEntity.getSupplier().getId().equals(supplier.getId()))
-                                .map(profilePackageEntity -> mapper.map(profilePackageEntity, ProfilePackage.class))
-                                .toList()
+                            profilePackageRepository.findAll()
+                                    .stream()
+                                    .filter(pkg -> pkg.getSupplier().getId().equals(supplier.getId()))
+                                    .map(pkg -> mapper.map(pkg, ProfilePackage.class))
+                                    .toList()
                     )
                     .extraFeatures(
-                        supplierExtraFeatureRepository.findAll()
-                                .stream()
-                                .filter(supplierExtraFeatureEntity -> supplierExtraFeatureEntity.getSupplier().getId().equals(supplier.getId()))
-                                .map(supplierExtraFeatureEntity -> mapper.map(supplierExtraFeatureEntity.getExtraFeatures(), PackageFeature.class))
-                                .toList()
+                            supplierExtraFeatureRepository.findAll()
+                                    .stream()
+                                    .filter(feature -> feature.getSupplier().getId().equals(supplier.getId()))
+                                    .flatMap(feature -> feature.getExtraFeatures().stream())
+                                    .map(fe -> mapper.map(fe, PackageFeature.class))
+                                    .toList()
                     )
+                    .imageGallery(imageGallery)  // Add image gallery
                     .build();
         }).toList();
-
     }
 
     @Override
-    public List<AllSupplierDetails> getAllSuppliersWithDetailsByCategory(SupplierCategoryType categoryType) {
+    public List<AllSupplierDetails> getAllSuppliersWithDetails() {
+        return getAllSuppliers().stream().map(supplier -> {
+            // Create filtered supplier
+            Supplier filteredSupplier = mapper.map(supplier, Supplier.class);
+            filteredSupplier.setBusinessContactNumber(null);
+            filteredSupplier.setBusinessEmail(null);
+            filteredSupplier.setEmail(null);
+            filteredSupplier.setPassword(null);
+
+            // Fetch image gallery
+            ImageGallery imageGallery = imageGalleryRepository.findBySupplierID(supplier.getId())
+                    .map(entity -> {
+                        ImageGallery gallery = mapper.map(entity, ImageGallery.class);
+                        gallery.setSupplierID(null);  // Optionally obfuscate supplier ID
+                        return gallery;
+                    })
+                    .orElse(null);
+
+            List<ProfilePackage> packages = profilePackageRepository.findAll()
+                    .stream()
+                    .filter(pkg -> pkg.getSupplier().getId().equals(supplier.getId()))
+                    .map(pkg -> mapper.map(pkg, ProfilePackage.class))
+                    .toList();
+
+            List<PackageFeature> extraFeatures = supplierExtraFeatureRepository.findAll()
+                    .stream()
+                    .filter(feature -> feature.getSupplier().getId().equals(supplier.getId()))
+                    .flatMap(feature -> feature.getExtraFeatures().stream())
+                    .map(fe -> mapper.map(fe, PackageFeature.class))
+                    .toList();
+
+            return AllSupplierDetails.builder()
+                    .supplier(filteredSupplier)
+                    .packages(packages)
+                    .extraFeatures(extraFeatures)
+                    .imageGallery(imageGallery)  // Add image gallery
+                    .build();
+        }).toList();
+    }
+
+    @Override
+    public List<AllSupplierDetails> getAllSuppliersWithDetailsByCategory(String categoryType) {
         return getAllSuppliersWithDetails()
                 .stream()
-                .filter(allSupplierDetails -> allSupplierDetails.getSupplier().getCategory().equals(categoryType))
+                .filter(allSupplierDetails -> {
+                    Supplier supplier = allSupplierDetails.getSupplier();
+                    return supplier != null && supplier.getCategory() != null
+                            && supplier.getCategory().name().equals(categoryType);
+                })
                 .toList();
     }
 
     @Override
     public AllSupplierDetails getSupplierWithDetailsByID(Long supplierID) {
-        return getAllSuppliersWithDetails()
+        return getAllSuppliersWithDetailsUnfiltered()
                 .stream()
                 .filter(allSupplierDetails -> allSupplierDetails.getSupplier().getId().equals(supplierID))
                 .toList()
@@ -177,10 +312,10 @@ public class SupplierManagerImpl implements SupplierManager {
     }
 
     @Override
+    @Transactional
     public AllSupplierDetails updateSupplierWithDetails(AllSupplierDetails allSupplierDetails) {
         if (supplierRepository.findById(allSupplierDetails.getSupplier().getId()).isEmpty())
             throw new IllegalArgumentException("Supplier with that ID does not exist!");
-
         return addSupplierWithDetails(allSupplierDetails);
     }
 
@@ -198,7 +333,7 @@ public class SupplierManagerImpl implements SupplierManager {
         SupplierEntity supplier = findSupplier(supplierID);
 
         if (supplier.getId() == null) {
-            supplier = supplierRepository.save(supplier);  // Ensure the supplier is saved if not already
+            supplier = supplierRepository.save(supplier);
         }
 
         BeautySaloonEntity saloonEntity = mapper.map(beautySaloon, BeautySaloonEntity.class);
