@@ -1,6 +1,8 @@
-# EVO-Backend
+<h1 align="center">EVO-Backend</h1>
 
-A Spring Boot backend for an event planning/marketplace platform that connects customers, suppliers, and admins. It provides REST APIs, WebSocket-based messaging, JWT authentication, and MySQL persistence with sample seed data.
+## Backend and Frontend Links
+- **Frontend GitHub Repository:** [Evo Frontend](https://github.com/SandaruwanWeerawardhana/EVO-Frontend.git)
+- **Backend GitHub Repository:**   [Evo Backend](https://github.com/SandaruwanWeerawardhana/EVO-Backend.git)
 
 ## Tech Stack
 
